@@ -25,13 +25,15 @@ class App extends Component {
                                 <LinkContainer to="/knowledgebase"><Nav.Link>Knowledge Base</Nav.Link></LinkContainer>
                                 <LinkContainer to="/journey"><Nav.Link>Journey</Nav.Link></LinkContainer>
                             </Nav>
+                            <Nav right>
+                                <NavDropdown title={<span><Icon name="fas fa-user" /> Riccardo</span>}
+                                             id="user-dropdown">
+                                    <NavDropdown.Item href="">Settings</NavDropdown.Item>
+                                    <NavDropdown.Item href="">Logout</NavDropdown.Item>
+                                </NavDropdown>
+                            </Nav>
                         </Navbar.Collapse>
-                        <Nav pullRight>
-                            <NavDropdown title={<Icon name="fas fa-user" />} id="user-dropdown">
-                                <NavDropdown.Item href="">Settings</NavDropdown.Item>
-                                <NavDropdown.Item href="">Logout</NavDropdown.Item>
-                            </NavDropdown>
-                        </Nav>
+
 
                     </Navbar>
                 </header>
