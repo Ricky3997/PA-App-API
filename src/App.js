@@ -4,6 +4,7 @@ import {Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {LinkContainer} from 'react-router-bootstrap'
 import {Redirect, Route, Switch} from "react-router-dom";
 import Journey from "./journey/Journey";
+import Settings from './settings/Settings'
 import Mentoring from "./mentoring/Mentoring";
 import KnowledgeBase from "./knowledgebase/KnowledgeBase";
 import Logo from './pa_key_white.png'
@@ -42,8 +43,14 @@ class App extends Component {
                             <Nav>
                                 <NavDropdown title={<span><Icon name="fas fa-user"/> {this.state.user.firstName}</span>}
                                              id="user-dropdown">
-                                    <NavDropdown.Item href="">Settings</NavDropdown.Item>
-                                    <NavDropdown.Item href="">Logout</NavDropdown.Item>
+                                    <LinkContainer to="/settings">
+                                        <NavDropdown.Item>
+                                            <span> <Icon name="fas fa-gear"/> Settings</span>
+                                        </NavDropdown.Item>
+                                    </LinkContainer>
+                                    <NavDropdown.Item href="">
+                                        <span> <Icon name="fas fa-sign-out"/> Sign Out</span>
+                                    </NavDropdown.Item>
                                 </NavDropdown>
                             </Nav>
                         </Navbar.Collapse>
@@ -55,6 +62,7 @@ class App extends Component {
                     <Route path='/mentor' component={Mentoring}/>
                     <Route path='/journey/:id?' render={(props) => <Journey {...props} user={this.state.user}/>}/>
                     <Route path='/knowledgebase' component={KnowledgeBase}/>
+                    <Route path='/settings' component={Settings}/>
                     <Redirect to="mentor"/>
                 </Switch>
             </div>

@@ -18,7 +18,7 @@ const JourneyHome = (props) => {
                     </h5>
                 </Row>
                 <Row>
-                    {props.modules.filter(module => !module.completed).map(module => <ModuleBox module={module}/> )}
+                    {props.modules.filter(module => !module.completed).map(module => <ModuleBox key={module.id} module={module}/> )}
                 </Row>
 
                 <Row>
@@ -27,7 +27,7 @@ const JourneyHome = (props) => {
                     </h5>
                 </Row>
                 <Row>
-                    {props.modules.filter(module => module.completed).map(module => <ModuleBox module={module}/> )}
+                    {props.modules.filter(module => module.completed).map(module => <ModuleBox key={module.id} module={module}/> )}
                 </Row>
             </Col>
             <Col md={{ size: '2', offset: 1 }}>
