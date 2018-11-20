@@ -16,35 +16,8 @@ class App extends Component {
         super(props);
         this.state = {
             user: {
-                firstName: "Riccardo Luca"
-            },
-            journey: {
-                modules: [
-                    {
-                        id: 1,
-                        title: "Getting Started with your Mentor",
-                        description: "In this module, you'll learn how to get started",
-                        completed: true
-                    },
-                    {
-                        id: 2,
-                        title: "Subject Choice: How to orient yourself",
-                        description: "Choosing your subject can be daunting, here we'll give you a couple tips",
-                        completed: true
-                    },
-                    {
-                        id: 3,
-                        title: "Writing your Personal Statetement",
-                        description: "The Personal Statement is an essay you write to describe yourself and your achievements.",
-                        completed: false
-                    },
-                    {
-                        id: 4,
-                        title: "Preparing for the Interview",
-                        description: "We'll give you a couple of tips on how to prepare the Interview",
-                        completed: true
-                    }
-                ]
+                firstName: "Riccardo Luca",
+                emailAddress: "riccardo@broggi.co.uk"
             }
         };
     }
@@ -80,7 +53,7 @@ class App extends Component {
                 </header>
                 <Switch>
                     <Route path='/mentor' component={Mentoring}/>
-                    <Route path='/journey/:id?' render={(props) => <Journey {...props} user={this.state.user} journey={this.state.journey}/>}/>
+                    <Route path='/journey/:id?' render={(props) => <Journey {...props} user={this.state.user}/>}/>
                     <Route path='/knowledgebase' component={KnowledgeBase}/>
                     <Redirect to="mentor"/>
                 </Switch>
