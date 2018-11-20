@@ -1,62 +1,30 @@
 import React, {Component} from 'react';
-import {Button, Col, Container, Row} from "react-bootstrap";
+import {Breadcrumb, Col, Container, Row} from "react-bootstrap";
 import {LinkContainer} from "react-router-bootstrap";
 import JourneyModule from "./JourneyModule";
-import {Doughnut} from 'react-chartjs'
+import JourneyHome from "./JourneyHome";
 
 class Journey extends Component {
     render() {
-
-        return this.props.match.params.id === undefined ? (
-            <Container fluid>
+          return  <Container fluid>
                 <Row>
                     <Col>
-                        <h3>Welcome to your Journey, Riccardo!
-                        </h3>
-                        <br />
-                        Take the next step:
+                        <Breadcrumb>
+                            <LinkContainer to="/journey">
+                                <Breadcrumb.Item>Your Journey</Breadcrumb.Item>
+                            </LinkContainer>
+                            {this.props.match.params.id === undefined ? null :
+                                <Breadcrumb.Item active>Module {this.props.match.params.id}</Breadcrumb.Item>
+                            }
+                        </Breadcrumb>
                     </Col>
                 </Row>
-               <Row>
-                   <Col md={8}>
-                       <LinkContainer to={"/journey/1"} style={{"backgroundColor": "#eb9d26","borderColor": "#eb9d26"}} >
-                           <Button block style={{"backgroundColor": "#eb9d26"}}>
-                               Module 1 | Getting started
-                           </Button>
-                       </LinkContainer>
-                   </Col>
-                   <Col md={4}>
-                       <Doughnut data={[{
-                           value: 22,
-                           color:"#F7464A",
-                           highlight: "#FF5A5E",
-                           label: "Completed"
-                       },
-                       {
-                           value: 88,
-                           color: "#46BFBD",
-                           highlight: "#5AD3D1",
-                           label: "Missing"
-                       }]} options={{}}/>
-                   </Col>
-               </Row>
-                <Row>
-                    <Col md={8}>
-                        Completed
-                        <LinkContainer to={"/journey/1"} style={{"backgroundColor": "#eb9d26","borderColor": "#eb9d26"}} >
-                            <Button block style={{"backgroundColor": "#eb9d26"}}>
-                                Module 1 | Getting started
-                            </Button>
-                        </LinkContainer>
-                    </Col>
-                    <Col md={4}>
-
-                    </Col>
-                </Row>
+              {this.props.match.params.id === undefined ?
+                  <JourneyHome {...this.props} />:
+                  <JourneyModule {...this.props} />
+              }
             </Container>
-        ): (
-            <JourneyModule {...this.props}/>
-        );
+
     }
 }
 
