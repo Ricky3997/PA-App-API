@@ -2,13 +2,10 @@ import React, {Component} from 'react';
 import {Icon} from 'react-fa'
 import {Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {LinkContainer} from 'react-router-bootstrap'
-import {Redirect, Route, Switch} from "react-router-dom";
-import Journey from "./journey/Journey";
-import Settings from './settings/Settings'
-import Mentoring from "./mentoring/Mentoring";
-import KnowledgeBase from "./knowledgebase/KnowledgeBase";
+import {Route} from "react-router-dom";
 import Logo from './pa_key_white.png'
 import './App.css'
+import Home from "./Home";
 
 
 class App extends Component {
@@ -35,18 +32,13 @@ class App extends Component {
             <div>
                 <header>
                     <Navbar style={{"backgroundColor": "#eb9d26"}} variant="dark" expand="lg">
-                        <LinkContainer to="/mentor">
+                        <LinkContainer to="/">
                             <Navbar.Brand><span><img src={Logo} width={30}
                                                      alt="logo"/>  Project Access</span></Navbar.Brand>
                         </LinkContainer>
-
                         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                         <Navbar.Collapse id="basic-navbar-nav">
-                            <Nav className="mr-auto">
-                                <LinkContainer to="/mentor"><Nav.Link>Mentor</Nav.Link></LinkContainer>
-                                <LinkContainer to="/knowledgebase"><Nav.Link>Knowledge Base</Nav.Link></LinkContainer>
-                                <LinkContainer to="/journey"><Nav.Link>Journey</Nav.Link></LinkContainer>
-                            </Nav>
+                            <Nav className="mr-auto"/>
                             <Nav>
                                 <NavDropdown title={<span><Icon name="fas fa-user"/> {this.state.user.firstName}</span>}
                                              id="user-dropdown">
@@ -65,13 +57,7 @@ class App extends Component {
 
                     </Navbar>
                 </header>
-                <Switch>
-                    <Route path='/mentor' render={(props) => <Mentoring {...props} {...this.state}/>}/>
-                    <Route path='/journey/:id?' render={(props) => <Journey {...props} {...this.state}/>}/>
-                    <Route path='/knowledgebase' component={KnowledgeBase}/>
-                    <Route path='/settings' component={Settings}/>
-                    <Redirect to="mentor"/>
-                </Switch>
+                <Route path="/" render={(props) => <Home {...props} {...this.state}/>}/>
             </div>
         );
     }

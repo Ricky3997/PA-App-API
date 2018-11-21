@@ -13,7 +13,7 @@ const Milestone = (props) => {
             <h5>Description</h5>
             <p>{props.milestone.description}</p>
             <h5>Journey Module</h5>
-            <ModuleBox module={props.milestone.module}/>
+            <ModuleBox milestone={props.milestone}/>
         </Container>
     );
 };

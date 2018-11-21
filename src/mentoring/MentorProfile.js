@@ -8,13 +8,13 @@ const MentorProfile = (props) => {
             <Row>
                 <Col>
                     <h4>
-                        Your Mentor 🙌
+                        Your Mentor <span role="img" aria-label="hands raised in celebration">🙌</span>
                     </h4>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <img width="150px" src={props.mentor.pictureUrl} />
+                    <img alt="mentor profile pic" width="150px" src={props.mentor.pictureUrl} />
                 </Col>
                 <Col>
                     <Row>
@@ -30,12 +30,12 @@ const MentorProfile = (props) => {
             </Row>
             <Row>
                 <Col style={{marginTop: "10px"}}>
-                    <Button outline bsStyle="success" block><Icon name="fas fa-commenting"/> Chat</Button>
+                    <Button block><Icon name="fas fa-commenting"/> Chat</Button>
                 </Col>
             </Row>
             <Row>
                 <Col style={{marginTop: "10px"}}>
-                    <Button color="primary" block><Icon name="fas fa-phone"/> Call</Button>
+                    <Button block><Icon name="fas fa-phone"/> Call</Button>
                 </Col>
             </Row>
         </Container>

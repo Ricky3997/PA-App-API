@@ -3,27 +3,27 @@ import {LinkContainer} from "react-router-bootstrap";
 import {Button, Col, Container, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import {Icon} from "react-fa";
 
-const ModuleBox = (props) => {
+const milestoneBox = (props) => {
         return (
-            <Container className="journey-module-box" style={{backgroundColor: props.module.completed ? "#4f84bc" : "#d64f29"}}>
+            <Container className="journey-module-box" style={{backgroundColor: props.milestone.completed ? "#4f84bc" : "#d64f29"}}>
                 <Row>
                     <Col>
-                        <h5> Module {props.module.id} | {props.module.title}
+                        <h5> Module {props.milestone.id} | {props.milestone.title}
                         </h5>
                     </Col>
                 </Row>
                 <Row>
                     <Col md={9}>
                         <p>
-                            {props.module.description}
+                            {props.milestone.description}
                         </p>
                     </Col>
                     <Col md={3}>
-                        {props.module.ready ?
-                            <LinkContainer to={`/journey/${props.module.id}`} disabled={!props.module.ready}
+                        {props.milestone.ready ?
+                            <LinkContainer to={`/journey/${props.milestone.id}`} disabled={!props.milestone.ready}
                                            className="pa_orange_link">
                                 <Button style={{"backgroundColor": "#eb9d26"}}>
-                                    {props.module.completed ? "Take again!" : "Start now!"}
+                                    {props.milestone.completed ? "Take again!" : "Start now!"}
                                 </Button>
                             </LinkContainer> :
                             <OverlayTrigger placement="bottom" overlay={
@@ -42,4 +42,4 @@ const ModuleBox = (props) => {
         );
 };
 
-export default ModuleBox;
+export default milestoneBox;

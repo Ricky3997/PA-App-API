@@ -4,7 +4,7 @@ import 'react-vertical-timeline/style.css'
 
 const ProgressionTimeline = (props) => {
     return (
-        <Timeline height={600} progress={props.progress} onSelect={props.changeSection}>
+        <Timeline height={550} progress={props.milestones.filter(m => m.id === props.active)[0].progress} onSelect={props.changeSection}>
             {props.milestones.map(m =>
                 <Bookmark key={m.id} progress={m.progress} onSelect={() => props.changeSection(m)}>
                     <div style={{cursor: 'pointer'}}>
