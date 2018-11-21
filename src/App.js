@@ -18,7 +18,8 @@ class App extends Component {
         this.state = {
             user: {
                 firstName: "Riccardo Luca",
-                emailAddress: "riccardo@broggi.co.uk"
+                emailAddress: "riccardo@broggi.co.uk",
+                role: "mentee"
             }
         };
     }
@@ -59,7 +60,7 @@ class App extends Component {
                     </Navbar>
                 </header>
                 <Switch>
-                    <Route path='/mentor' component={Mentoring}/>
+                    <Route path='/mentor' render={(props) => <Mentoring {...props} user={this.state.user}/>}/>
                     <Route path='/journey/:id?' render={(props) => <Journey {...props} user={this.state.user}/>}/>
                     <Route path='/knowledgebase' component={KnowledgeBase}/>
                     <Route path='/settings' component={Settings}/>

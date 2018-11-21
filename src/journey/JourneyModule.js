@@ -8,7 +8,7 @@ const JourneyModule = (props) => {
         <Row>
             <Col>
                 {props.module ? <ReactTypeformEmbed
-                    url={`https://projectaccess.typeform.com/to/${props.module.typeformID}`+ `?` +
+                    url={`https://projectaccess.typeform.com/to/${props.module.typeformID}?` +
                     `mentorfirstname=${props.user.firstName}` +
                     `&uniqueid=${1532907125}&` +
                     `mentoremail=${props.user.emailAddress}&`+
