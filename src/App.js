@@ -17,9 +17,15 @@ class App extends Component {
         super(props);
         this.state = {
             user: {
-                firstName: "Riccardo Luca",
+                firstName: "Riccardo",
                 emailAddress: "riccardo@broggi.co.uk",
                 role: "mentee"
+            },
+            mentor: {
+                firstName: "Emil",
+                course: "Philosophy",
+                university: "Oxford",
+                pictureUrl: "https://media.licdn.com/dms/image/C4E03AQGlbrCAUfvWlQ/profile-displayphoto-shrink_800_800/0?e=1548288000&v=beta&t=vdnVA5UEjlo7WWmNHxXFCWNgvEUsK1sTEPysG3GHOtw"
             }
         };
     }
@@ -60,8 +66,8 @@ class App extends Component {
                     </Navbar>
                 </header>
                 <Switch>
-                    <Route path='/mentor' render={(props) => <Mentoring {...props} user={this.state.user}/>}/>
-                    <Route path='/journey/:id?' render={(props) => <Journey {...props} user={this.state.user}/>}/>
+                    <Route path='/mentor' render={(props) => <Mentoring {...props} {...this.state}/>}/>
+                    <Route path='/journey/:id?' render={(props) => <Journey {...props} {...this.state}/>}/>
                     <Route path='/knowledgebase' component={KnowledgeBase}/>
                     <Route path='/settings' component={Settings}/>
                     <Redirect to="mentor"/>
