@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import {LinkContainer} from "react-router-bootstrap";
 import {Breadcrumb, Col, Container, Row} from "react-bootstrap";
-import {Route, Switch} from "react-router-dom";
+import {Route} from "react-router-dom";
 import Settings from './settings/Settings'
 import Mentoring from "./mentoring/Mentoring";
 import JourneyModule from "./journey/JourneyModule";
 import './App.css'
+import Chat from "./chat/Chat";
+import Call from "./call/Call";
 
 class Home extends Component {
     constructor(props){
@@ -70,32 +72,54 @@ class Home extends Component {
                 typeformID: "MDHUre"
             }]
         }
+        this.routes = [
+            {
+                exact: true,
+                path: "/",
+                breadcrumb: () =>
+                    <LinkContainer to="/">
+                        <Breadcrumb.Item>Home</Breadcrumb.Item>
+                    </LinkContainer>,
+                render: (props) => <Mentoring user={this.props.user} mentor={this.props.mentor} {...props} {...this.state} changeSection={(m) => this.setState({active: m.id})} />
+            },
+            {
+                exact: false,
+                path: "/journey/:id",
+                breadcrumb: () => <Breadcrumb.Item disabled>Journey</Breadcrumb.Item>,
+                render: (props) => <JourneyModule {...this.state} user={this.props.user} mentor={this.props.mentor} {...props} />
+            },
+            {
+                exact: false,
+                path: "/settings",
+                breadcrumb: () => <Breadcrumb.Item>Settings</Breadcrumb.Item>,
+                render: () => <Settings />
+            },
+            {
+                exact: false,
+                path: "/chat",
+                breadcrumb: () => <Breadcrumb.Item>Chat</Breadcrumb.Item>,
+                render: () => <Chat />
+            },
+            {
+                exact: false,
+                path: "/call",
+                breadcrumb: () => <Breadcrumb.Item>Call</Breadcrumb.Item>,
+                render: () => <Call />
+            }
+        ];
+
     }
-
-     createBreadcrumbs() {
-        //TODO
-        return this.props.match.params.id === undefined ? null :
-            <Breadcrumb.Item active>Module {this.props.match.params.id}</Breadcrumb.Item>
-
-    };
 
     render() {
          return (<Container fluid>
                  <Row>
                      <Col>
                          <Breadcrumb>
-                             <LinkContainer to="/">
-                                 <Breadcrumb.Item>Home</Breadcrumb.Item>
-                             </LinkContainer>
-                             {this.createBreadcrumbs()}
+                             {this.routes.map((route,index) => <Route key={index} path={route.path} render={route.breadcrumb}/>)}
                          </Breadcrumb>
                      </Col>
                  </Row>
-                     <Switch>
-                         <Route path='/journey/:id' render={(props) => <JourneyModule {...this.state} user={this.props.user} mentor={this.props.mentor} {...props} />}/>
-                         <Route path='/settings' component={Settings}/>
-                         <Route render={(props) => <Mentoring user={this.props.user} mentor={this.props.mentor} {...props} {...this.state} changeSection={(m) => this.setState({active: m.id})} />}/>
-                     </Switch>
+                     {this.routes.map((route,index) => <Route exact={route.exact} key={index} path={route.path} render={route.render}/>)}
              </Container>
          );
      }

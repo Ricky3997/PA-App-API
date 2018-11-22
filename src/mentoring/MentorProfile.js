@@ -1,5 +1,6 @@
 import React from 'react';
 import {Button, Col, Container, Row} from "react-bootstrap";
+import {LinkContainer} from 'react-router-bootstrap'
 import {Icon} from "react-fa";
 
 const MentorProfile = (props) => {
@@ -30,12 +31,16 @@ const MentorProfile = (props) => {
             </Row>
             <Row>
                 <Col style={{marginTop: "10px"}}>
-                    <Button block><Icon name="fas fa-commenting"/> Chat</Button>
+                    <LinkContainer to="/chat">
+                        <Button block><Icon name="fas fa-commenting"/> Chat</Button>
+                    </LinkContainer>
                 </Col>
             </Row>
             <Row>
                 <Col style={{marginTop: "10px"}}>
-                    <Button block><Icon name="fas fa-phone"/> Call</Button>
+                    <LinkContainer to="/call">
+                        <Button block><Icon name="fas fa-phone"/> Call</Button>
+                    </LinkContainer>
                 </Col>
             </Row>
         </Container>

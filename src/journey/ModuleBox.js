@@ -3,7 +3,7 @@ import {LinkContainer} from "react-router-bootstrap";
 import {Button, Col, Container, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import {Icon} from "react-fa";
 
-const milestoneBox = (props) => {
+const ModuleBox = (props) => {
         return (
             <Container className="journey-module-box" style={{backgroundColor: props.milestone.completed ? "#4f84bc" : "#d64f29"}}>
                 <Row>
@@ -42,4 +42,4 @@ const milestoneBox = (props) => {
         );
 };
 
-export default milestoneBox;
+export default ModuleBox;

@@ -4,7 +4,7 @@ import {ReactTypeformEmbed} from 'react-typeform-embed'
 
 
 const JourneyModule = (props) => {
-    const module = props.milestones.filter(m => m.id === parseInt(props.match.params.id)[0]);
+    const module = props.milestones.filter(m => m.id === parseInt(props.match.params.id))[0];
     return (
         <Row>
             <Col>
@@ -16,7 +16,7 @@ const JourneyModule = (props) => {
                     `menteefirstname=${"Emil"}`}
                     style={{"minHeight": "600px"}}/> :
                 <div>
-                    What you are looking for eitherr doesn't exist or you're not allowed to get to, yet!
+                    What you are looking for either doesn't exist or you're not allowed to get to, yet!
                 </div>
                 }
             </Col>
