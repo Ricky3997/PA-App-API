@@ -31,8 +31,8 @@ const MentorProfile = (props) => {
             </Row>
             <Row>
                 <Col style={{marginTop: "10px"}}>
-                    <LinkContainer to="/chat">
-                        <Button block><Icon name="fas fa-commenting"/> Chat</Button>
+                    <LinkContainer to="/message">
+                        <Button block><Icon name="fas fa-commenting"/> Message</Button>
                     </LinkContainer>
                 </Col>
             </Row>

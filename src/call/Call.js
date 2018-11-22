@@ -1,12 +1,9 @@
 import React from 'react';
-import {LinkContainer} from "react-router-bootstrap";
-import {Button, Col, Container, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
-import {Icon} from "react-fa";
 
 const Call = (props) => {
         return (
             <div>
-                Call
+                🏋This feature is not ready yet, but I'm working hard on it! 😊
             </div>
         );
 };

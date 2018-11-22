@@ -6,7 +6,7 @@ import Settings from './settings/Settings'
 import Mentoring from "./mentoring/Mentoring";
 import JourneyModule from "./journey/JourneyModule";
 import './App.css'
-import Chat from "./chat/Chat";
+import Message from "./message/Message";
 import Call from "./call/Call";
 
 class Home extends Component {
@@ -20,7 +20,7 @@ class Home extends Component {
                 description: "The choice of a subject bla bla bla",
                 progress: 10,
                 date: "June/July",
-                completed: true,
+                completed: "12 June '18",
                 ready: true,
                 typeformID: "MDHUre"
             },{
@@ -96,9 +96,9 @@ class Home extends Component {
             },
             {
                 exact: false,
-                path: "/chat",
-                breadcrumb: () => <Breadcrumb.Item>Chat</Breadcrumb.Item>,
-                render: () => <Chat />
+                path: "/message",
+                breadcrumb: () => <Breadcrumb.Item>Message</Breadcrumb.Item>,
+                render: (props) => <Message {...this.props} {...props}/>
             },
             {
                 exact: false,
@@ -119,7 +119,7 @@ class Home extends Component {
                          </Breadcrumb>
                      </Col>
                  </Row>
-                     {this.routes.map((route,index) => <Route exact={route.exact} key={index} path={route.path} render={route.render}/>)}
+                 {this.routes.map((route,index) => <Route exact={route.exact} key={index} path={route.path} render={route.render}/>)}
              </Container>
          );
      }
