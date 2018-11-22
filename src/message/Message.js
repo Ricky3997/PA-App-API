@@ -34,7 +34,7 @@ const Message = (props) => {
         <ThemeProvider theme={theme}>
 
             <BRow>
-                <Col md={4}>
+                <Col md={3}>
                     <ChatList>
                         <ChatListItem>
                             <Avatar imgUrl={props.mentor.pictureUrl}/>
@@ -44,7 +44,8 @@ const Message = (props) => {
                                     <Subtitle nowrap>{'14:31 PM'}</Subtitle>
                                 </Row>
                                 <Subtitle ellipsis>
-                                    {"Ok, thanks for the details, I'll get back to you tomorrow."}
+                                    {"Emil: Great, I suggest we do an introductory call to start with, when would you\n" +
+                                    " be available?"}
                                 </Subtitle>
                             </Column>
                         </ChatListItem>
@@ -56,12 +57,24 @@ const Message = (props) => {
                                     <Subtitle nowrap>{'10:53 PM'}</Subtitle>
                                 </Row>
                                 <Subtitle
-                                    ellipsis>{'Hey Alex, I\'m struggling with the journey module number 7'}</Subtitle>
+                                    ellipsis>{'You: Hey Alex, I\'m struggling with the journey module number 7'}</Subtitle>
+                            </Column>
+                        </ChatListItem>
+                        <ChatListItem>
+                            <Avatar imgUrl="https://images.alphacoders.com/755/thumb-1920-75533.jpg"/>
+                            <Column fill>
+                                <Row justify>
+                                    <Title ellipsis>PA Italy Class of 2018 </Title>
+                                    <Subtitle nowrap>{'14:31 PM'}</Subtitle>
+                                </Row>
+                                <Subtitle ellipsis>
+                                    {"Nicolo: Hello to everyone! A reminder tonight we have the Pizza"}
+                                </Subtitle>
                             </Column>
                         </ChatListItem>
                     </ChatList>
                 </Col>
-                <Col md={8}>
+                <Col md={9}>
                     <MessageList active>
                         <MessageGroup avatar={props.mentor.pictureUrl} onlyFirstWithMeta>
                             <UIKitMessage date="20:35" authorName={props.mentor.firstName}>
