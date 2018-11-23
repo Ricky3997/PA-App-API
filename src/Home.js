@@ -8,6 +8,7 @@ import JourneyModule from "./journey/JourneyModule";
 import './App.css'
 import Message from "./message/Message";
 import Call from "./call/Call";
+import MentorProfile from "./people/MentorProfile";
 
 class Home extends Component {
     constructor(props){
@@ -92,7 +93,7 @@ class Home extends Component {
                 exact: false,
                 path: "/settings",
                 breadcrumb: () => <Breadcrumb.Item>Settings</Breadcrumb.Item>,
-                render: () => <Settings />
+                render: () => <Settings user={this.props.user} />
             },
             {
                 exact: false,
@@ -105,6 +106,12 @@ class Home extends Component {
                 path: "/call",
                 breadcrumb: () => <Breadcrumb.Item>Call</Breadcrumb.Item>,
                 render: () => <Call />
+            },
+            {
+                exact: true,
+                path: "/mentor/:id",
+                breadcrumb: () => <Breadcrumb.Item>Mentor Profile</Breadcrumb.Item>,
+                render: (props) => <MentorProfile {...this.props} {...props}/>
             }
         ];
 

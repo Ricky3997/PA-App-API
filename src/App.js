@@ -6,6 +6,7 @@ import {Route} from "react-router-dom";
 import Logo from './pa_key_white.png'
 import './App.css'
 import Home from "./Home";
+import UserCircle from "./settings/UserCircle";
 
 
 class App extends Component {
@@ -20,6 +21,7 @@ class App extends Component {
                 role: "mentee"
             },
             mentor: {
+                id: 1,
                 firstName: "Emil",
                 course: "Philosophy",
                 university: "Oxford",
@@ -41,7 +43,7 @@ class App extends Component {
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="mr-auto"/>
                             <Nav>
-                                <NavDropdown title={<span><Icon name="fas fa-user"/> {this.state.user.firstName}</span>}
+                                <NavDropdown title={<span> <UserCircle pictureUrl={this.state.user.pictureUrl}/> {this.state.user.firstName}</span>}
                                              id="user-dropdown">
                                     <LinkContainer to="/settings">
                                         <NavDropdown.Item>
