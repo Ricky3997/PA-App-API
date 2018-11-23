@@ -9,6 +9,7 @@ import './App.css'
 import Message from "./message/Message";
 import Call from "./call/Call";
 import MentorProfile from "./people/MentorProfile";
+import Admin from "./admin/Admin";
 
 class Home extends Component {
     constructor(props){
@@ -94,6 +95,12 @@ class Home extends Component {
                 path: "/settings",
                 breadcrumb: () => <Breadcrumb.Item>Settings</Breadcrumb.Item>,
                 render: () => <Settings user={this.props.user} />
+            },
+            {
+                exact: false,
+                path: "/admin",
+                breadcrumb: () => <Breadcrumb.Item>Admin</Breadcrumb.Item>,
+                render: () => <Admin user={this.props.user} />
             },
             {
                 exact: false,

@@ -18,7 +18,7 @@ class App extends Component {
                 firstName: "Riccardo",
                 emailAddress: "riccardo@broggi.co.uk",
                 pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/t/5bb721a4e2c48357967f52fa/1538728361542/Riccardo.jpg?format=300w",
-                role: "mentee"
+                role: "admin"
             },
             mentor: {
                 id: 1,
@@ -41,7 +41,14 @@ class App extends Component {
                         </LinkContainer>
                         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                         <Navbar.Collapse id="basic-navbar-nav">
-                            <Nav className="mr-auto"/>
+                            <Nav className="mr-auto">
+                                {this.state.user.role === "admin" ?
+                                    <LinkContainer to="/admin">
+                                        <Nav.Link>Admin</Nav.Link>
+                                    </LinkContainer>
+                                    : null
+                                }
+                            </Nav>
                             <Nav>
                                 <NavDropdown title={<span> <UserCircle pictureUrl={this.state.user.pictureUrl}/> {this.state.user.firstName}</span>}
                                              id="user-dropdown">
