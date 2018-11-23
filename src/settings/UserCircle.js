@@ -2,7 +2,7 @@ import React from 'react';
 
 const UserCircle = (props) => {
         return (
-            <img src={props.pictureUrl} className="user-circle"/>
+            <img alt="User avatar" src={props.pictureUrl} className="user-circle"/>
         );
 };
 

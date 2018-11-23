@@ -5,19 +5,13 @@ import {Icon} from "react-fa";
 class Settings extends Component {
     constructor(props) {
         super(props);
-        this.successfullyUpdated = this.successfullyUpdated.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             emailAddress: props.user.emailAddress,
             outcome: null,
-            validated: false
+            validated: false,
+            isLoading: false
         };
-    }
-
-    successfullyUpdated(){
-        this.setState({outcome: <Alert variant={'success'}>
-                Settings updated successfully
-            </Alert>})
     }
 
     handleSubmit(event) {
@@ -25,9 +19,20 @@ class Settings extends Component {
         event.preventDefault();
         event.stopPropagation();
         if (form.checkValidity() === true) {
-            this.successfullyUpdated();
+            this.setState({ isLoading: true }, () => {
+                this.simulateNetworkRequest().then(() => {
+                    this.setState({
+                        isLoading: false,
+                        outcome: <Alert variant={'success'}>Settings would have been updated successfully</Alert>
+                    });
+                });
+            });
         }
 
+    }
+
+    simulateNetworkRequest() {
+        return new Promise(resolve => setTimeout(resolve, 1000));
     }
 
     render() {
@@ -48,7 +53,7 @@ class Settings extends Component {
                         <Col md={3}>
                             <h5>Profile picture </h5>
                             <div className="settings-user-image-container" onClick={() => alert("Will do soon!")}>
-                                <img src={this.props.user.pictureUrl} className="settings-user-image" />
+                                <img alt="User avatar" src={this.props.user.pictureUrl} className="settings-user-image" />
                                     <div className="hover-user-image-overlay">
                                         <div className="hover-user-image-text">
                                             <Icon name="fas fa-camera"/>
@@ -82,15 +87,18 @@ class Settings extends Component {
                             </Button>
                         </Col>
                         <Col md={{size: 2}}>
-                            <Button variant="success" block type="submit">
-                                Save
+                            <Button variant="success" block type="submit" disabled={this.state.isLoading}>
+                                {this.state.isLoading ? 'Loading…' : 'Save'}
                             </Button>
                         </Col>
                     </Form.Row>
-                    <Form.Row>
-                    {this.state.outcome}
-                    </Form.Row>
                 </Form>
+                <br />
+                <Row>
+                    <Col>
+                        {this.state.outcome}
+                    </Col>
+                </Row>
             </Container>
         );
     }
