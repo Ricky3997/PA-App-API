@@ -98,9 +98,9 @@ class Home extends Component {
             },
             {
                 exact: false,
-                path: "/admin",
+                path: "/admin/:section?",
                 breadcrumb: () => <Breadcrumb.Item>Admin</Breadcrumb.Item>,
-                render: () => <Admin user={this.props.user} />
+                render: (props) => <Admin user={this.props.user} {...props} />
             },
             {
                 exact: false,

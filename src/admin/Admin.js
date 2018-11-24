@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import {Col, Container, Form, Row, Button, Alert, Tabs, Tab, Nav} from "react-bootstrap";
-import {Icon} from "react-fa";
-import ProgressChart from "../journey/ProgressChart";
-import RelationshipTile from "./RelationshipTile";
-
+import {Container, Tabs, Tab} from "react-bootstrap";
+import Dashboard from "./dashboard/Dashboard";
+import Mentees from "./mentees/Mentees";
+import Mentors from "./mentors/Mentors";
 class Admin extends Component {
     constructor(props) {
         super(props);
@@ -23,7 +22,8 @@ class Admin extends Component {
                         university: "Oxford",
                         pictureUrl: "https://media.licdn.com/dms/image/C4E03AQGlbrCAUfvWlQ/profile-displayphoto-shrink_800_800/0?e=1548288000&v=beta&t=vdnVA5UEjlo7WWmNHxXFCWNgvEUsK1sTEPysG3GHOtw"
                     },
-                    progress: 50
+                    progress: 50,
+                    id: 2
                 }, {
                     mentee: {
                         id: 3,
@@ -33,12 +33,13 @@ class Admin extends Component {
                     },
                     mentor: {
                         id: 1,
-                        firstName: "Emil",
-                        course: "Alex",
-                        university: "Oxford",
+                        firstName: "Alex",
+                        course: "PPE",
+                        university: "KCL",
                         pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb257eeec212d94bfb1ec35/1538415414370/27747541_865005767039622_4075308886654729626_o.jpg?format=500w"
                     },
-                    progress: 64
+                    progress: 64,
+                    id: 3
                 }, {
                     mentee: {
                         id: 3,
@@ -53,7 +54,8 @@ class Admin extends Component {
                         university: "Oxford",
                         pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb24ac19140b713a2fe714c/1538411224076/Raphael.jpeg?format=500w"
                     },
-                    progress: 29
+                    progress: 29,
+                    id: 4
                 }, {
                     mentee: {
                         id: 3,
@@ -68,7 +70,8 @@ class Admin extends Component {
                         university: "Oxford",
                         pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb24fc6e4966bf3c9d5df59/1538412681321/33038092_1063433287139499_9178229761615331328_n.jpg?format=500w"
                     },
-                    progress: 75
+                    progress: 75,
+                    id: 5
                 }, {
                     mentee: {
                         id: 3,
@@ -83,63 +86,34 @@ class Admin extends Component {
                         university: "Oxford",
                         pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb257a29140b75265e2b89e/1538667677946/0+%289%29.jpeg?format=500w"
                     },
-                    progress: 21
+                    progress: 21,
+                    id: 6
                 }
             ]
         };
     }
 
+    validateTab(tabKey){
+        return ["dashboard","mentors", "mentees"].indexOf(tabKey) > -1 ? tabKey : "dashboard"
+    }
+
+
     render() {
         return (
             <Container fluid>
-                <Tabs defaultActiveKey="dashboard" id="uncontrolled-tab-example">
+                <Tabs style={{marginBottom: "10px"}} activeKey={this.validateTab(this.props.match.params.section)} onSelect={(key, event) => this.props.history.push(`/admin/${key}`)}>
                     <Tab eventKey="dashboard" title="Dashboard">
-                        <Row>
-                            {
-                                this.state.relationships.map(r => {
-                                    return (
-                                        <Col md={2}>
-                                            <RelationshipTile {...r} />
-                                        </Col>
-                                    );
-                                })
-                            }
-                        </Row>
-                    </Tab>
-                    <Tab eventKey="mentees" title="Mentees">
-                        <Tab.Container id="left-tabs-example" defaultActiveKey="database">
-                            <Row>
-                                <Col md={2}>
-                                    <Nav variant="pills" className="flex-column">
-                                        <Nav.Item>
-                                            <Nav.Link eventKey="database">Database</Nav.Link>
-                                        </Nav.Item>
-                                        <Nav.Item>
-                                            <Nav.Link eventKey="approvals">Approvals</Nav.Link>
-                                        </Nav.Item>
-                                        <Nav.Item>
-                                            <Nav.Link eventKey="statistics">Statistics</Nav.Link>
-                                        </Nav.Item>
-                                    </Nav>
-                                </Col>
-                                <Col md={10}>
-                                    <Tab.Content>
-                                        <Tab.Pane eventKey="database">
-                                            Database
-                                        </Tab.Pane>
-                                        <Tab.Pane eventKey="approvals">
-                                            Approvals
-                                        </Tab.Pane>
-                                        <Tab.Pane eventKey="statistics">
-                                            Statistics
-                                        </Tab.Pane>
-                                    </Tab.Content>
-                                </Col>
-                            </Row>
-                        </Tab.Container>
+                        <Dashboard relationships={this.state.relationships}/>
                     </Tab>
                     <Tab eventKey="mentors" title="Mentors">
-                        Mentors
+                        <Tab.Container defaultActiveKey="database">
+                            <Mentors {...this.props}/>
+                        </Tab.Container>
+                    </Tab>
+                    <Tab eventKey="mentees" title="Mentees">
+                        <Tab.Container defaultActiveKey="database">
+                            <Mentees {...this.props}/>
+                        </Tab.Container>
                     </Tab>
                 </Tabs>
 
