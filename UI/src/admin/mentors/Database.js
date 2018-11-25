@@ -134,7 +134,7 @@ class Database extends Component {
                     <Col md={9}>
                         <CardColumns>
                             {mentorsToRender.map(m => {
-                                return <Card className="text-center">
+                                return <Card className="text-center" key={m.id}>
                                         <Card.Header>
                                             <Image roundedCircle alt="Mentor avatar" src={m.pictureUrl}
                                                    style={{width: "70px"}}/>

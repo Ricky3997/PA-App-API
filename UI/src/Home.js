@@ -124,6 +124,14 @@ class Home extends Component {
 
     }
 
+    componentDidMount() {
+        fetch('/api/getList')
+            .then(res => res.json())
+            .then(list => console.log(list));
+    }
+
+
+
     render() {
          return (<Container fluid>
                  <Row>

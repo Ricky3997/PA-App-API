@@ -4,7 +4,7 @@ import {Card, Row, Image, ProgressBar} from "react-bootstrap";
 const Dashboard = (props) => {
     return (
         <Row>
-            {props.relationships.map(r => <Card className="text-center" style={{margin: "10px"}}>
+            {props.relationships.map(r => <Card key={r.id} className="text-center" style={{margin: "10px"}}>
                     <Card.Header>
                         <Image roundedCircle alt="Mentor avatar" src={r.mentor.pictureUrl}
                                style={{width: "50px", height: "50px"}}/>

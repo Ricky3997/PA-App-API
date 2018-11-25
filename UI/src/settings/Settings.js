@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Col, Container, Form, Row, Button, Alert} from "react-bootstrap";
+import {Col, Container, Form, Row, Button, Alert, Image} from "react-bootstrap";
 import {Icon} from "react-fa";
 
 class Settings extends Component {
@@ -53,7 +53,7 @@ class Settings extends Component {
                         <Col md={3}>
                             <h5>Profile picture </h5>
                             <div className="settings-user-image-container" onClick={() => alert("Will do soon!")}>
-                                <img alt="User avatar" src={this.props.user.pictureUrl} className="settings-user-image" />
+                                <Image rounded alt="User avatar" src={this.props.user.pictureUrl} className="settings-user-image" />
                                     <div className="hover-user-image-overlay">
                                         <div className="hover-user-image-text">
                                             <Icon name="fas fa-camera"/>
