@@ -1,12 +1,18 @@
 import React, {Component} from 'react';
 import {Icon} from 'react-fa'
-import {Nav, Navbar, NavDropdown} from "react-bootstrap";
+import {Breadcrumb, Col, Container, Nav, Navbar, NavDropdown, Row} from "react-bootstrap";
 import {LinkContainer} from 'react-router-bootstrap'
 import {Route} from "react-router-dom";
 import Logo from './pa_key_white.png'
 import './App.css'
-import Home from "./Home";
 import UserCircle from "./settings/UserCircle";
+import Mentoring from "./mentoring/Mentoring";
+import JourneyModule from "./journey/JourneyModule";
+import Settings from "./settings/Settings";
+import Admin from "./admin/Admin";
+import Message from "./message/Message";
+import Call from "./call/Call";
+import MentorProfile from "./people/MentorProfile";
 
 
 class App extends Component {
@@ -28,6 +34,50 @@ class App extends Component {
                 pictureUrl: "https://media.licdn.com/dms/image/C4E03AQGlbrCAUfvWlQ/profile-displayphoto-shrink_800_800/0?e=1548288000&v=beta&t=vdnVA5UEjlo7WWmNHxXFCWNgvEUsK1sTEPysG3GHOtw"
             }
         };
+        this.routes = [
+            {
+                exact: true,
+                path: "/",
+                breadcrumb: () => <LinkContainer to="/"><Breadcrumb.Item>Home</Breadcrumb.Item></LinkContainer>,
+                render: (props) => <Mentoring {...props} {...this.state} />
+            },
+            {
+                exact: false,
+                path: "/journey/:id",
+                breadcrumb: () => <Breadcrumb.Item disabled>Journey</Breadcrumb.Item>,
+                render: (props) => <JourneyModule {...this.state} user={this.props.user} mentor={this.props.mentor} {...props} />
+            },
+            {
+                exact: false,
+                path: "/settings",
+                breadcrumb: () => <Breadcrumb.Item>Settings</Breadcrumb.Item>,
+                render: () => <Settings user={this.props.user} />
+            },
+            {
+                exact: false,
+                path: "/admin/:section?",
+                breadcrumb: () => <Breadcrumb.Item>Admin</Breadcrumb.Item>,
+                render: (props) => <Admin user={this.props.user} {...props} />
+            },
+            {
+                exact: false,
+                path: "/message",
+                breadcrumb: () => <Breadcrumb.Item>Message</Breadcrumb.Item>,
+                render: (props) => <Message {...this.props} {...props}/>
+            },
+            {
+                exact: false,
+                path: "/call",
+                breadcrumb: () => <Breadcrumb.Item>Call</Breadcrumb.Item>,
+                render: () => <Call />
+            },
+            {
+                exact: true,
+                path: "/mentor/:id",
+                breadcrumb: () => <Breadcrumb.Item>Mentor Profile</Breadcrumb.Item>,
+                render: (props) => <MentorProfile {...this.props} {...props}/>
+            }
+        ];
     }
 
     render() {
@@ -67,7 +117,16 @@ class App extends Component {
 
                     </Navbar>
                 </header>
-                <Route path="/" render={(props) => <Home {...props} {...this.state}/>}/>
+                <Container fluid>
+                    <Row>
+                        <Col>
+                            <Breadcrumb>
+                                {this.routes.map((route,index) => <Route key={index} path={route.path} render={route.breadcrumb}/>)}
+                            </Breadcrumb>
+                        </Col>
+                    </Row>
+                    {this.routes.map((route,index) => <Route exact={route.exact} key={index} path={route.path} render={route.render}/>)}
+                </Container>
             </div>
         );
     }
