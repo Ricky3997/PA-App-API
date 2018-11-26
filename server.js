@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname, '/UI/build')));
 app.use('/api', routes);
 
 // Handles any requests that don't match the ones above
-app.get('/', (req,res) =>{
+app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname+'/UI/build/index.html'));
 });
 
