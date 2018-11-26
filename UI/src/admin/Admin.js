@@ -3,6 +3,7 @@ import {Container, Tabs, Tab} from "react-bootstrap";
 import Dashboard from "./dashboard/Dashboard";
 import Mentees from "./mentees/Mentees";
 import Mentors from "./mentors/Mentors";
+import {Route} from "react-router-dom";
 class Admin extends Component {
     constructor(props) {
         super(props);
@@ -101,19 +102,17 @@ class Admin extends Component {
     render() {
         return (
             <Container fluid>
-                <Tabs style={{marginBottom: "10px"}} activeKey={this.validateTab(this.props.match.params.section)} onSelect={(key, event) => this.props.history.push(`/admin/${key}`)}>
+                <Tabs style={{marginBottom: "10px"}}
+                      activeKey={this.validateTab(this.props.match.params.section)}
+                      onSelect={(key, event) => this.props.history.push(`/admin/${key}`)}>
                     <Tab eventKey="dashboard" title="Dashboard">
                         <Dashboard relationships={this.state.relationships}/>
                     </Tab>
                     <Tab eventKey="mentors" title="Mentors">
-                        <Tab.Container defaultActiveKey="database">
-                            <Mentors {...this.props}/>
-                        </Tab.Container>
+                        <Route path={"/admin/mentors/:section?"} render={(props) => <Mentors {...this.props} {...props}/>} />
                     </Tab>
                     <Tab eventKey="mentees" title="Mentees">
-                        <Tab.Container defaultActiveKey="database">
-                            <Mentees {...this.props}/>
-                        </Tab.Container>
+                        <Route path={"/admin/mentees/:section?"} render={(props) => <Mentees {...this.props} {...props}/>} />
                     </Tab>
                 </Tabs>
 
