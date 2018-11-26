@@ -23,4 +23,9 @@ router.get('/logout', (req,res) => {
     res.json({});
 });
 
+router.post('/onboard', (req,res) => {
+    console.log(req.body.emailAddress);
+    res.json({});
+});
+
 module.exports = router;

@@ -3,6 +3,10 @@ const routes = require('./routes');
 const app = express();
 const path = require('path');
 const port = process.env.PORT || 5000;
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, '/UI/build')));

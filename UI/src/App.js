@@ -1,18 +1,5 @@
 import React, {Component} from 'react';
-import {Icon} from 'react-fa'
-import {Breadcrumb, Col, Container, Nav, Navbar, NavDropdown, Row} from "react-bootstrap";
-import {LinkContainer} from 'react-router-bootstrap'
-import {Route} from "react-router-dom";
-import Logo from './pa_key_white.png'
 import './App.css'
-import UserCircle from "./various/UserCircle";
-import Mentoring from "./mentoring/Mentoring";
-import JourneyModule from "./journey/JourneyModule";
-import Settings from "./various/Settings";
-import Admin from "./admin/Admin";
-import Message from "./message/Message";
-import Call from "./call/Call";
-import MentorProfile from "./people/MentorProfile";
 import HeaderNavbar from "./various/HeaderNavbar";
 import LoggedInApp from "./various/LoggedInApp";
 import Onboarding from "./various/Onboarding";
@@ -30,7 +17,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.login();
+        //this.login();
     }
 
     login(){
