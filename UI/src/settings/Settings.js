@@ -7,11 +7,15 @@ class Settings extends Component {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
-            emailAddress: props.user.emailAddress,
+            emailAddress: '',
             outcome: null,
             validated: false,
             isLoading: false
         };
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        if(nextProps.status === "logged-in") this.setState({emailAddress: nextProps.user.emailAddress})
     }
 
     handleSubmit(event) {
@@ -36,6 +40,7 @@ class Settings extends Component {
     }
 
     render() {
+        if(this.props.status === "logged-out") return <div>Not logged in</div>
         return (
             <Container>
                 <Row>

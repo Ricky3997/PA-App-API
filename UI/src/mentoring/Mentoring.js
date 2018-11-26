@@ -4,6 +4,7 @@ import ProgressionTimeline from "./ProgressionTimeline";
 import Milestone from "./Milestone";
 import MentorTile from "./MentorTile";
 import ProgressChart from "../journey/ProgressChart";
+import NoMentorYet from "./NoMentorYet";
 
 class Mentoring extends Component {
     constructor(props){
@@ -81,7 +82,8 @@ class Mentoring extends Component {
                     <Milestone milestone={this.state.milestones.filter(m => m.id === this.state.active)[0]}/>
                 </Col>
                 <Col md={3}>
-                    <MentorTile mentor={this.props.mentor}/>
+                    {this.props.mentor ? <MentorTile mentor={this.props.mentor}/> : <NoMentorYet/>}
+
                     <Row style={{marginTop: "50px"}}>
                         <ProgressChart completed={this.state.milestones.filter(m => m.completed).length}
                                        missing={this.state.milestones.filter(m => !m.completed).length}/>

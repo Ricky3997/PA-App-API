@@ -20,19 +20,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: {
-                firstName: "Riccardo Luca",
-                emailAddress: "riccardo@broggi.co.uk",
-                pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/t/5bb721a4e2c48357967f52fa/1538728361542/Riccardo.jpg?format=300w",
-                role: "admin"
-            },
-            mentor: {
-                id: 1,
-                firstName: "Emil",
-                course: "Philosophy",
-                university: "Oxford",
-                pictureUrl: "https://media.licdn.com/dms/image/C4E03AQGlbrCAUfvWlQ/profile-displayphoto-shrink_800_800/0?e=1548288000&v=beta&t=vdnVA5UEjlo7WWmNHxXFCWNgvEUsK1sTEPysG3GHOtw"
-            }
+            status: "logged-out"
         };
         this.routes = [
             {
@@ -45,25 +33,25 @@ class App extends Component {
                 exact: false,
                 path: "/journey/:id",
                 breadcrumb: () => <Breadcrumb.Item disabled>Journey</Breadcrumb.Item>,
-                render: (props) => <JourneyModule {...this.state} user={this.props.user} mentor={this.props.mentor} {...props} />
+                render: (props) => <JourneyModule {...this.state} {...props} />
             },
             {
                 exact: false,
                 path: "/settings",
                 breadcrumb: () => <Breadcrumb.Item>Settings</Breadcrumb.Item>,
-                render: () => <Settings user={this.props.user} />
+                render: () => <Settings user={this.state.user} status={this.state.status} />
             },
             {
                 exact: false,
                 path: "/admin/:section?",
                 breadcrumb: () => <Breadcrumb.Item>Admin</Breadcrumb.Item>,
-                render: (props) => <Admin user={this.props.user} {...props} />
+                render: (props) => <Admin user={this.state.user} {...props} />
             },
             {
                 exact: false,
                 path: "/message",
                 breadcrumb: () => <Breadcrumb.Item>Message</Breadcrumb.Item>,
-                render: (props) => <Message {...this.props} {...props}/>
+                render: (props) => <Message {...this.state} {...props}/>
             },
             {
                 exact: false,
@@ -78,6 +66,24 @@ class App extends Component {
                 render: (props) => <MentorProfile {...this.props} {...props}/>
             }
         ];
+        this.login = this.login.bind(this);
+        this.logout = this.logout.bind(this);
+    }
+
+    componentDidMount() {
+        this.login();
+    }
+
+    login(){
+        fetch("/api/auth/login")
+            .then(res => res.json())
+            .then(r => this.setState({status: "logged-in", user: r.user, mentor: r.mentor}))
+    }
+
+    logout(){
+        fetch("/api/auth/logout")
+            .then(res => res.json())
+            .then(r => this.setState({status: "logged-out", mentor: null, user: null}))
     }
 
     render() {
@@ -92,7 +98,7 @@ class App extends Component {
                         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="mr-auto">
-                                {this.state.user.role === "admin" ?
+                                {this.state.status === "logged-in" && this.state.user.role === "admin" ?
                                     <LinkContainer to="/admin">
                                         <Nav.Link>Admin</Nav.Link>
                                     </LinkContainer>
@@ -100,17 +106,18 @@ class App extends Component {
                                 }
                             </Nav>
                             <Nav>
-                                <NavDropdown title={<span> <UserCircle pictureUrl={this.state.user.pictureUrl}/> {this.state.user.firstName}</span>}
-                                             id="user-dropdown">
+                                {this.state.status === "logged-out" ? <Nav.Link onClick={this.login}><span><Icon name={"fas fa-user"}/> Login</span></Nav.Link> :
+                                <NavDropdown title={<span><UserCircle pictureUrl={this.state.user.pictureUrl}/> {this.state.user.firstName}</span>} id="user-dropdown">
                                     <LinkContainer to="/settings">
                                         <NavDropdown.Item>
                                             <span> <Icon name="fas fa-gear"/> Settings</span>
                                         </NavDropdown.Item>
                                     </LinkContainer>
                                     <NavDropdown.Item href="">
-                                        <span> <Icon name="fas fa-sign-out"/> Sign Out</span>
+                                        <span onClick={this.logout}> <Icon name="fas fa-sign-out"/> Sign Out</span>
                                     </NavDropdown.Item>
                                 </NavDropdown>
+                                }
                             </Nav>
                         </Navbar.Collapse>
 
