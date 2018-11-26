@@ -1,5 +1,5 @@
 import React from 'react';
-import NotReadyYet from "../settings/NotReadyYet";
+import NotReadyYet from "../various/NotReadyYet";
 
 const Call = (props) => {
     return (
