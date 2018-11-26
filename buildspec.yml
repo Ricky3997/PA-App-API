@@ -16,7 +16,6 @@ phases:
     commands:
     - echo Build completed on `date`
     - rm -rf UI/node_modules
-    - zip -r toupload .
 artifacts:
   files:
-  - toupload.zip
+  - /*
