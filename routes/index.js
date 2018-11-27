@@ -5,7 +5,7 @@ const auth = require('./auth');
 
 
 routes.use('/mentors', mentors);
-routes.use('/auth', auth);
+routes.use("/auth", auth);
 
 
 module.exports = routes;
