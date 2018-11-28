@@ -92,7 +92,7 @@ const dummyData = [
     }
 ];
 
-router.get('/all', (req,res) => {
+router.get('/', (req,res) => {
     res.json(dummyData);
 });
 

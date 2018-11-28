@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const controller = require("../controller/auth")
+const service = require("../service/auth")
 
 
 router.get('/login', controller.login);
 
 router.get('/logout', controller.logout);
 
-router.get('/validate', controller.validate);
+router.post('/generateToken', service.generateToken);
 
 module.exports = router;

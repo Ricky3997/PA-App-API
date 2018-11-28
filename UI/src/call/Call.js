@@ -7,7 +7,7 @@ const Call = (props) => {
     return (
         <Row>
             <Col md={8}>
-                <iframe title="AppearIn Call" allow="microphone; camera" src={"http://appear.in/riccardolucabroggi" } width={"900px"} height={"600px"}/>
+                <iframe title="AppearIn Call" allow="microphone; camera" src={"https://appear.in/riccardolucabroggi" } width={"900px"} height={"600px"}/>
             </Col>
             <Col md={4} style={{backdropColor: "red"}}>
                 <Row>
