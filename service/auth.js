@@ -6,16 +6,17 @@ AWS.config.update({region: 'eu-west-2'});
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 const jwt = require('jsonwebtoken');
 const config = require('../config.js');
+const mailService = require("./mail");
 
 const register = async (email, firstName, type) => {
-    const uniqueness = await dynamodb.get(checkUniqueDDBObj(email)).promise();
+    const uniqueness = await dynamodb.get(getEmailFromUniqueness(email)).promise();
     if (_.isEmpty(uniqueness)) { //Email address is unique
-        const output = await dynamodb.batchWrite(registerNewUserDDBObj(uuid.new(), email, firstName, type)).promise();
+        await dynamodb.batchWrite(registerNewUserDDBObj(uuid.new(), email, firstName, type)).promise();
         return {result: "success"};
     } else return {result: "failure"}
 };
 
-const checkUniqueDDBObj = (email) => {
+const getEmailFromUniqueness = (email) => {
     return {TableName: 'unique-email', Key: {'email': email}};
 };
 const registerNewUserDDBObj = (userId, email, firstName, type) => {
@@ -27,51 +28,27 @@ const registerNewUserDDBObj = (userId, email, firstName, type) => {
 };
 
 const checkToken = (req, res, next) => {
-    let token = req.headers['x-access-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
+    let token = req.headers['x-access-token'] || req.headers['authorization'];
     if (token && token.startsWith('Bearer ')) token = token.slice(7, token.length);
     if (token) {
         jwt.verify(token, config.JWT_SECRET, (err, decoded) => {
-            if (err) {
-                return res.json({
-                    success: false,
-                    message: 'Token is not valid'
-                });
-            } else {
+            if (err) res.json({success: false, message: 'Token is not valid'});
+            else {
                 req.decoded = decoded;
                 next();
             }
         });
-    } else {
-        return res.json({
-            success: false,
-            message: 'Auth token is not supplied'
-        });
-    }
-};
-const generateToken = (req, res) =>{
-    let username = req.body.username || "temp";
-    let password = req.body.password || "temp";
+    } else return res.json({success: false, message: 'Auth token is not supplied'});
 
-    if (username && password) {
-        if (username === "temp" && password === "temp") {
-            let token = jwt.sign({username: username}, config.JWT_SECRET, { expiresIn: '24h'});
-            res.json({
-                success: true,
-                message: 'Authentication successful!',
-                token: token
-            });
-        } else {
-            res.send(403).json({
-                success: false,
-                message: 'Incorrect username or password'
-            });
-        }
-    } else {
-        res.send(400).json({
-            success: false,
-            message: 'Authentication failed! Please check the request'
-        });
-    }
+};
+const generateToken = async (req, res) =>{
+    let email = req.query.email ;
+    const uniqueness = await dynamodb.get(getEmailFromUniqueness(email)).promise();
+    if(!_.isEmpty(uniqueness)){
+        const token = jwt.sign({email: email}, config.JWT_SECRET, { expiresIn: '24h'});
+        mailService.sendAuthToken(email, token);
+        res.json({success: true})
+    } else res.json({success: false, error: "email address does not exist"})
 };
 
 module.exports = {register, checkToken, generateToken};

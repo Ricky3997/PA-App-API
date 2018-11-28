@@ -18,7 +18,7 @@ class Database extends Component {
     }
 
     componentDidMount() {
-        fetch("/api/mentors/all").then(res => res.json()).then(mentors => {
+        fetch("/api/mentors").then(res => res.json()).then(mentors => {
             this.setState({mentors: mentors})
             this.search.addDocuments(mentors);
         });

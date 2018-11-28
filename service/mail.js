@@ -17,8 +17,8 @@ const sendAuthToken = (to, token) => {
         to: to,
         from: "auth@projectaccess.org",
         subject: "Your login link",
-        text: `http://localhost:5000/api/auth/validate?token=${encodeURIComponent(token)}`
+        text: `http://localhost:5000/?token=${encodeURIComponent(token)}`
     })
 };
 
-module.exports = { };
+module.exports = {sendAuthToken};

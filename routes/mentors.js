@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-
 const dummyData = [
     {
         id: 1,

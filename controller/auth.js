@@ -1,4 +1,3 @@
-const asyncHandler = require('express-async-handler');
 const authService = require("../service/auth");
 const mailService = require("../service/mail");
 
@@ -21,9 +20,6 @@ const login = (req,res,next) => {
     res.json(dummy);
 };
 
-const logout = (req,res,next) => {
-    res.json(dummy);
-};
 
 const validate = (req,res,next) => {
     res.json(dummy);
@@ -37,5 +33,5 @@ const register = async (req,res,next) => {
 
 
 module.exports = {
-    login, logout, validate, register
+    login, validate, register
 };

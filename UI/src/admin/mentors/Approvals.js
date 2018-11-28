@@ -12,7 +12,7 @@ class Approvals extends Component {
 
 
     componentDidMount() {
-        fetch("/api/mentors/all").then(res => res.json()).then(mentorsToApprove => {
+        fetch("/api/mentors").then(res => res.json()).then(mentorsToApprove => {
             this.setState({mentorsToApprove: mentorsToApprove, active: mentorsToApprove.length > 0 ? mentorsToApprove[0].id : null})
         });
     }
