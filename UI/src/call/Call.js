@@ -1,11 +1,28 @@
 import React from 'react';
-import NotReadyYet from "../various/NotReadyYet";
+import {Col, Row} from "react-bootstrap";
+import {ReactTypeformEmbed} from "react-typeform-embed";
 
 const Call = (props) => {
+    const typeformID = "MDHUre";
     return (
-        <div>
-            <NotReadyYet />
-        </div>
+        <Row>
+            <Col md={8}>
+                <iframe title="AppearIn Call" allow="microphone; camera" src={"http://appear.in/riccardolucabroggi" } width={"900px"} height={"600px"}/>
+            </Col>
+            <Col md={4} style={{backdropColor: "red"}}>
+                <Row>
+                <ReactTypeformEmbed
+                    url={`https://projectaccess.typeform.com/to/${typeformID}?` +
+                    `mentorfirstname=${props.user.firstName}` +
+                    `&uniqueid=${1532907125}&` +
+                    `mentoremail=${props.user.emailAddress}&`+
+                    `menteefirstname=${"Emil"}`}
+                    style={{"minHeight": "600px"}}/>
+                </Row>
+            </Col>
+
+
+        </Row>
     );
 };
 
