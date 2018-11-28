@@ -3,7 +3,7 @@ import {Button, Col, Container, Form, Image, Row} from "react-bootstrap";
 import PALogo from '../pa_key.png'
 
 class Onboarding extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             firstName: "",
@@ -13,18 +13,17 @@ class Onboarding extends Component {
     }
 
 
-    onboardNewUser(event){
+    onboardNewUser(event) {
         event.preventDefault();
         event.stopPropagation();
-        fetch("/api/auth/onboard",{
+        fetch("/api/auth/register", {
             headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
             method: "POST",
-            body: JSON.stringify({emailAddress: this.state.emailAddress, firstName: this.state.firstName, type: this.state.type})
+            body: JSON.stringify(
+                {email: this.state.emailAddress, firstName: this.state.firstName, type: this.state.type === "High School Student" ? "mentee" : "mentor"})
         })
-            .then(res => res.json)
-            .then( r => {
-                console.log(r);
-            })
+            .then(res => res.json())
+            .then(r => alert(r.result))
     }
 
     render() {
@@ -33,7 +32,7 @@ class Onboarding extends Component {
                 <Container className="onboarding">
                     <Row>
                         <Col md={7} style={{paddingTop: "160px"}}>
-                            <Image width="100px" src={PALogo} />
+                            <Image width="100px" src={PALogo}/>
                             <h1>
                                 Where passion and potential define your future.
                             </h1>
@@ -55,11 +54,13 @@ class Onboarding extends Component {
 
                                 <Form.Label>
                                     <span>Your <b>{this.state.type === "High School Student" ? "" : "University"}</b> Email Address</span>
-                                    </Form.Label>
-                                <Form.Control placeholder={this.state.type === "High School Student" ? "you@example.com" : "you@university.edu"} value={this.state.emailAddress}
-                                              onChange={e => this.setState({emailAddress: e.target.value})}/>
+                                </Form.Label>
+                                <Form.Control
+                                    placeholder={this.state.type === "High School Student" ? "you@example.com" : "you@university.edu"}
+                                    value={this.state.emailAddress}
+                                    onChange={e => this.setState({emailAddress: e.target.value})}/>
 
-                                <br />
+                                <br/>
                                 <Button type="submit" variant="success" block>
                                     {this.state.type === "High School Student" ? "Find your mentor!" : "Help a mentee!"}
                                 </Button>
