@@ -41,14 +41,13 @@ const checkToken = (req, res, next) => {
     } else return res.json({success: false, message: 'Auth token is not supplied'});
 
 };
-const generateToken = async (req, res) =>{
-    let email = req.query.email ;
+const generateToken = async (email) =>{
     const uniqueness = await dynamodb.get(getEmailFromUniqueness(email)).promise();
     if(!_.isEmpty(uniqueness)){
         const token = jwt.sign({email: email}, config.JWT_SECRET, { expiresIn: '24h'});
         mailService.sendAuthToken(email, token);
-        res.json({success: true})
-    } else res.json({success: false, error: "email address does not exist"})
+        return {success: true}
+    } else return {success: false, error: "Email address does not exist"}
 };
 
 module.exports = {register, checkToken, generateToken};

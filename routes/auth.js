@@ -6,6 +6,6 @@ const service = require("../service/auth")
 
 router.get('/login', controller.login);
 
-router.get('/generateToken', service.generateToken);
+router.post('/register', controller.register);
 
 module.exports = router;

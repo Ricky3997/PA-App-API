@@ -3,6 +3,7 @@ import './App.css'
 import HeaderNavbar from "./various/HeaderNavbar";
 import LoggedInApp from "./various/LoggedInApp";
 import Onboarding from "./various/Onboarding";
+import Login from "./various/Login";
 
 
 class App extends Component {
@@ -10,38 +11,44 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            status: "logged-out"
+            status: "onboarding"
         };
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
-    }
-
-    componentDidMount() {
-        this.login();
+        this.onboard = this.onboard.bind(this);
     }
 
     login(){
-        fetch("/api/auth/login")
-            .then(res => res.json())
-            .then(r => this.setState({status: "logged-in", user: r.user, mentor: r.mentor}))
+        this.setState({status: "login"});
+    }
+
+    onboard(){
+        this.setState({status: "onboarding"});
     }
 
     logout(){
-        fetch("/api/auth/logout")
-            .then(res => res.json())
-            .then(r => this.setState({status: "logged-out", mentor: null, user: null}))
+        this.setState({status: "onboarding", mentor: null, user: null});
     }
 
     render() {
+        let toRender;
+        switch (this.state.status) {
+            case "logged-in":
+                toRender = <LoggedInApp {...this.state} />;
+                break;
+            case "login":
+                toRender = <Login />;
+                break;
+            case "onboarding":
+            default:
+                toRender = <Onboarding />;
+        }
         return (
             <div>
                 <header>
-                    <HeaderNavbar {...this.state} login={this.login} logout={this.logout}/>
+                    <HeaderNavbar {...this.state} login={this.login} logout={this.logout} onboard={this.onboard}/>
                 </header>
-                {this.state.status === "logged-in"
-                    ? <LoggedInApp {...this.state} />
-                    : <Onboarding/>
-                }
+                {toRender}
             </div>
         );
     }

@@ -16,8 +16,10 @@ const dummy = {
         pictureUrl: "https://media.licdn.com/dms/image/C4E03AQGlbrCAUfvWlQ/profile-displayphoto-shrink_800_800/0?e=1548288000&v=beta&t=vdnVA5UEjlo7WWmNHxXFCWNgvEUsK1sTEPysG3GHOtw"
     }};
 
-const login = (req,res,next) => {
-    res.json(dummy);
+const login = async (req,res,next) => {
+    const email = req.query.email ;
+    const result = await authService.generateToken(email);
+    res.json(result);
 };
 
 
