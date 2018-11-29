@@ -7,8 +7,8 @@ import UserCircle from "./UserCircle";
 
 const HeaderNavbar = (props) => {
     let userDropdown;
-    switch (props.status) {
-        case "logged-in":
+    switch (props.location.pathname) {
+        case "/home":
             userDropdown = <NavDropdown title={<span><UserCircle pictureUrl={props.user.pictureUrl}/> {props.user.firstName}</span>} id="user-dropdown">
                 <LinkContainer to="/settings">
                     <NavDropdown.Item>
@@ -20,12 +20,12 @@ const HeaderNavbar = (props) => {
                 </NavDropdown.Item>
             </NavDropdown>;
             break;
-        case "login":
-            userDropdown = <Nav.Link onClick={props.onboard}><span><Icon name={"fas fa-user"}/> Sign Up</span></Nav.Link>;
+        case "/login":
+            userDropdown = <Nav.Link onClick={() => props.history.push("/onboard")}><span><Icon name={"fas fa-user"}/> Sign Up</span></Nav.Link>;
             break;
-        case "onboarding":
+        case "/onboard":
         default:
-            userDropdown = <Nav.Link onClick={props.login}><span><Icon name={"fas fa-user"}/> Login</span></Nav.Link>;
+            userDropdown = <Nav.Link onClick={() => props.history.push("/login")}><span><Icon name={"fas fa-user"}/> Login</span></Nav.Link>;
     }
 
     return (

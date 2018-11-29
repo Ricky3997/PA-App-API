@@ -4,6 +4,7 @@ import HeaderNavbar from "./various/HeaderNavbar";
 import LoggedInApp from "./various/LoggedInApp";
 import Onboarding from "./various/Onboarding";
 import Login from "./various/Login";
+import {Route, Switch} from "react-router-dom";
 const queryString = require('query-string');
 const api = require("./api");
 
@@ -12,20 +13,20 @@ class App extends Component {
 
     constructor(props) {
         super(props);
+        console.log(props);
         this.state = {
-            status: "onboarding"
+            status: "logged-out"
         };
-        this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
-        this.onboard = this.onboard.bind(this);
         this.getUserDetails = this.getUserDetails.bind(this);
     }
 
     componentDidMount() {
-        if(this.state.status !== "logged-in"){
-        const token = (window.localStorage.getItem("token")) || queryString.parse(window.location.search).token;
-        if(token) this.validate(token);
-        }
+        if(this.state.status !== "logged-in" && this.props.location.pathname === "/") this.props.history.push("/onboard")
+        // if(this.state.status !== "logged-in"){
+        // const token = (window.localStorage.getItem("token")) || queryString.parse(window.location.search).token;
+        // if(token) this.validate(token);
+        // }
     }
 
     getUserDetails(){
@@ -47,38 +48,23 @@ class App extends Component {
         })
     }
 
-    login(){
-        this.setState({status: "login"});
-    }
-
-    onboard(){
-        this.setState({status: "onboarding"});
-    }
-
     logout(){
         window.localStorage.removeItem("token");
-        this.setState({status: "onboarding", mentor: null, user: null});
+        this.setState({status: "logged-out", mentor: null, user: null});
     }
 
     render() {
-        let toRender;
-        switch (this.state.status) {
-            case "logged-in":
-                toRender = <LoggedInApp {...this.state} />;
-                break;
-            case "login":
-                toRender = <Login />;
-                break;
-            case "onboarding":
-            default:
-                toRender = <Onboarding />;
-        }
         return (
             <div>
                 <header>
-                    <HeaderNavbar {...this.state} login={this.login} logout={this.logout} onboard={this.onboard}/>
+                    <HeaderNavbar {...this.state} {...this.props}/>
                 </header>
-                {toRender}
+                {this.state.status === "logged-in" ? <LoggedInApp {...this.state} /> :
+                <Switch>
+                    <Route path={"/login"} render={(props) => <Login/>} />
+                    <Route path={"/onboard"} render={(props) => <Onboarding/>} />
+                </Switch>
+                }
             </div>
         );
     }

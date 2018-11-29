@@ -44,7 +44,6 @@ class Login extends Component {
                                 <Button type="submit" variant="success" block>
                                     Login!
                                 </Button>
-
                             </Form>
                             <br />
                             {this.state.alert}

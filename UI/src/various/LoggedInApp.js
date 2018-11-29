@@ -14,8 +14,8 @@ import {Route} from "react-router-dom";
 const LoggedInApp = (props) => {
     const routes = [
         {
-            exact: true,
-            path: "/",
+            exact: false,
+            path: "/home",
             breadcrumb: () => <LinkContainer to="/"><Breadcrumb.Item>Home</Breadcrumb.Item></LinkContainer>,
             render: (routeProps) => <Mentoring {...props} {...routeProps} />
         },

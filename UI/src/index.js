@@ -4,11 +4,11 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import App from './App.js';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter as Router } from "react-router-dom";
+import {BrowserRouter as Router, Route} from "react-router-dom";
 
 ReactDOM.render(
     <Router>
-        <App />
+        <Route path={"/"} component={App} />
     </Router>,
     document.getElementById('root'));
 
