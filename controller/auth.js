@@ -6,6 +6,12 @@ const login = async (req,res) => {
     res.json(result);
 };
 
+const confirm = async (req,res) => {
+    const {id, token, email} = req.query ;
+    const result = await authService.confirm(email, id, token);
+    res.json(result);
+};
+
 
 const validate = (req,res) => {
     res.json({valid: authService.validateToken(req.body.id, req.body.token)});
@@ -18,5 +24,5 @@ const register = async (req,res) => {
 };
 
 module.exports = {
-    login, validate, register
+    login, validate, register, confirm
 };

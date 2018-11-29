@@ -21,12 +21,12 @@ const sendAuthToken = (to, token) => {
     })
 };
 
-const sendConfirmationToken = (to, token) => {
+const sendConfirmationToken = (to, id, token) => {
     send({
         to: to,
         from: "auth@projectaccess.org",
         subject: "Your confirmation link",
-        text: `http://localhost:3000/confirm?token=${token}` //TODO Inject ENV VAR for UI Link
+        text: `http://localhost:3000/confirm?email=${to}&id=${id}&token=${token}` //TODO Inject ENV VAR for UI Link
     })
 };
 

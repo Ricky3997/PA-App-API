@@ -5,6 +5,7 @@ import LoggedInApp from "./various/LoggedInApp";
 import Onboarding from "./various/Onboarding";
 import Login from "./various/Login";
 import {Route, Switch} from "react-router-dom";
+import Confirm from "./various/Confirm";
 const queryString = require('query-string');
 const api = require("./api");
 
@@ -13,7 +14,6 @@ class App extends Component {
 
     constructor(props) {
         super(props);
-        console.log(props);
         this.state = {
             status: "logged-out"
         };
@@ -63,6 +63,7 @@ class App extends Component {
                 <Switch>
                     <Route path={"/login"} render={(props) => <Login/>} />
                     <Route path={"/onboard"} render={(props) => <Onboarding/>} />
+                    <Route path={"/confirm"} render={(props) => <Confirm/>} />
                 </Switch>
                 }
             </div>

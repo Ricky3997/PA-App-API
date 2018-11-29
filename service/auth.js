@@ -8,12 +8,27 @@ const jwt = require('jsonwebtoken');
 const config = require('../config.js');
 const mailService = require("./mail");
 
+const confirm = async (email, id, token) => {
+    const idFromJWT = extractIdFromToken(token);
+    if(id === idFromJWT){
+        await dynamodb.update({
+            TableName: 'users',
+            Key: {id: id},
+            UpdateExpression: "SET emailConfirmed = :confirmed, lastLogin = :lastLogin",
+            ExpressionAttributeValues: {
+                ':lastLogin' : new Date().toDateString(),
+                ':emailConfirmed' : true
+            }}).promise();
+        return {success: true}
+    } else return {};
+};
+
 const register = async (email, firstName, type) => {
     const uniqueness = await dynamodb.get(getEmailFromUniqueness(email)).promise();
     if (_.isEmpty(uniqueness)) { //Email address is unique
         const id = uuid.new();
         const token = createToken(email, id);
-        mailService.sendConfirmationToken(email, token);
+        mailService.sendConfirmationToken(email, id, token);
         await dynamodb.batchWrite(registerNewUserDDBObj(id, email, firstName, type)).promise();
         return {result: "success"};
     } else return {result: "failure"}
@@ -32,7 +47,7 @@ const registerNewUserDDBObj = (userId, email, firstName, type) => {
 
 const validateToken = (id, token) => {
     const valid = extractIdFromToken(token) === id;
-    dynamodb.put({TableName: 'unique-email', Item: {'id': id, lastLogin: new Date().toDateString()}});
+    //dynamodb.put({TableName: 'users', Item: {'id': id, lastLogin: new Date().toDateString()}});
     return valid;
 };
 
@@ -55,7 +70,7 @@ const checkToken = (req, res, next) => {
 
 };
 const generateLoginToken = async (email) =>{
-    const user = 9await dynamodb.get(getEmailFromUniqueness(email)).promise();
+    const user = await dynamodb.get(getEmailFromUniqueness(email)).promise();
     if(!_.isEmpty(user)){
         const token = createToken(email, user.Item.id);
         mailService.sendAuthToken(email, token);
@@ -67,4 +82,4 @@ const createToken = (email, id) => {
     return jwt.sign({email: email, id: id}, config.JWT_SECRET, { expiresIn: '24h'});
 }
 
-module.exports = {register, checkToken, generateLoginToken, validateToken};
+module.exports = {register, confirm, checkToken, generateLoginToken, validateToken};

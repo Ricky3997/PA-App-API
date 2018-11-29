@@ -14,7 +14,7 @@ const post = (resource, body) => {
             'Authorization': `Bearer ${window.localStorage.getItem("token")}`
         },
         method: "POST",
-        body: body
+        body: JSON.stringify(body)
     })
         .then(res => res.json())
         .catch((err) => {

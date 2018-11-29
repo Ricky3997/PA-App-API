@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Button, Col, Container, Form, Image, Row} from "react-bootstrap";
+import {Badge, Button, Col, Container, Form, Image, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import PALogo from '../pa_key.png'
+const api = require("../api");
 
 class Onboarding extends Component {
     constructor(props) {
@@ -16,13 +17,12 @@ class Onboarding extends Component {
     onboardNewUser(event) {
         event.preventDefault();
         event.stopPropagation();
-        fetch("/api/auth/register", {
-            headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
-            method: "POST",
-            body: JSON.stringify(
-                {email: this.state.emailAddress, firstName: this.state.firstName, type: this.state.type === "High School Student" ? "mentee" : "mentor"})
-        })
-            .then(res => res.json())
+        //TODO Verify UNI address filter
+        api.post("/auth/register", {
+                email: this.state.emailAddress,
+                firstName: this.state.firstName,
+                type: this.state.type === "High School Student" ? "mentee" : "mentor"
+            })
             .then(r => alert(r.result))
     }
 
@@ -53,7 +53,17 @@ class Onboarding extends Component {
                                               onChange={e => this.setState({firstName: e.target.value})}/>
 
                                 <Form.Label>
-                                    <span>Your <b>{this.state.type === "High School Student" ? "" : "University"}</b> Email Address</span>
+                                    <span>Your <b>{this.state.type === "High School Student" ? "" : "University"}</b> Email Address  </span>
+                                    {this.state.type === "High School Student" ? null :
+                                        <OverlayTrigger placement="bottom"
+                                                        overlay={<Tooltip placement="bottoom" className="in">We need
+                                                            this to verify the university you attend!</Tooltip>}>
+                                            <Badge pill variant="info">
+                                                Why?
+                                            </Badge>
+                                        </OverlayTrigger>
+                                    }
+
                                 </Form.Label>
                                 <Form.Control
                                     placeholder={this.state.type === "High School Student" ? "you@example.com" : "you@university.edu"}
