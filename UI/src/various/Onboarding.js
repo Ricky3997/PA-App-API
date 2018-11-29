@@ -1,29 +1,49 @@
 import React, {Component} from 'react';
 import {Badge, Button, Col, Container, Form, Image, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import PALogo from '../pa_key.png'
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const api = require("../api");
+
 
 class Onboarding extends Component {
     constructor(props) {
         super(props);
         this.state = {
             firstName: "",
-            emailAddress: "",
-            type: "High School Student"
+            email: "",
+            type: "High School Student",
+            loading: false
         };
+    }
+
+    validateEmail(email, type){
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if(type === "Current University Student") return re.test(email); //TODO More spcific ac.uk / edu
+        else return re.test(String(email.toLowerCase()));
     }
 
 
     onboardNewUser(event) {
         event.preventDefault();
         event.stopPropagation();
-        //TODO Verify UNI address filter
-        api.post("/auth/register", {
-                email: this.state.emailAddress,
-                firstName: this.state.firstName,
-                type: this.state.type === "High School Student" ? "mentee" : "mentor"
+        const {email, type, firstName} = this.state;
+        if(this.validateEmail(email, type)) {
+            this.setState({loading: true});
+            api.post("/auth/register", {
+                email: email,
+                firstName: firstName,
+                type: type === "High School Student" ? "mentee" : "mentor"
             })
-            .then(r => alert(r.result))
+                .then(r => {
+                    this.setState({loading: false});
+                    r.success ? toast.success("Registered") : toast.error("Error")
+                });
+        }
+        else {
+            toast.error("Invalid email address");
+
+        }
     }
 
     render() {
@@ -53,7 +73,7 @@ class Onboarding extends Component {
                                               onChange={e => this.setState({firstName: e.target.value})}/>
 
                                 <Form.Label>
-                                    <span>Your <b>{this.state.type === "High School Student" ? "" : "University"}</b> Email Address  </span>
+                                    <span>Your <b>{this.state.type === "High School Student" ? "" : "Current University Student"}</b> Email Address  </span>
                                     {this.state.type === "High School Student" ? null :
                                         <OverlayTrigger placement="bottom"
                                                         overlay={<Tooltip placement="bottoom" className="in">We need
@@ -65,13 +85,13 @@ class Onboarding extends Component {
                                     }
 
                                 </Form.Label>
-                                <Form.Control
+                                <Form.Control type="email"
                                     placeholder={this.state.type === "High School Student" ? "you@example.com" : "you@university.edu"}
-                                    value={this.state.emailAddress}
-                                    onChange={e => this.setState({emailAddress: e.target.value})}/>
+                                    value={this.state.email}
+                                    onChange={e => this.setState({email: e.target.value})}/>
 
                                 <br/>
-                                <Button type="submit" variant="success" block>
+                                <Button type="submit" variant="success" block disabled={this.state.loading}>
                                     {this.state.type === "High School Student" ? "Find your mentor!" : "Help a mentee!"}
                                 </Button>
 
@@ -79,7 +99,7 @@ class Onboarding extends Component {
                         </Col>
                     </Row>
                 </Container>
-
+                <ToastContainer />
             </Container>
         );
     }

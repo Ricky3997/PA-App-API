@@ -9,7 +9,8 @@ const login = async (req,res) => {
 const confirm = async (req,res) => {
     const {id, token, email} = req.query ;
     const result = await authService.confirm(email, id, token);
-    res.json(result);
+    if(result) res.json(result);
+    else res.sendStatus(400);
 };
 
 
@@ -18,9 +19,10 @@ const validate = (req,res) => {
 };
 
 const register = async (req,res) => {
-    const {email, firstName, type} = req.body;
+    const {email, firstName, type} = req.body; //TODO Clean parse data for Uppercase and so on
     const result = await authService.register(email, firstName, type);
-    res.json(result);
+    if(result) res.json(result);
+    else res.sendStatus(400);
 };
 
 module.exports = {

@@ -7,6 +7,7 @@ class Confirm extends Component {
     constructor(props){
         super(props);
         this.state = {
+            status: "confirming"
         };
         this.confirm = this.confirm.bind(this);
     };
@@ -18,7 +19,7 @@ class Confirm extends Component {
 
     confirm(token, id, email){
         api.get(`/auth/confirm?token=${token}&id=${id}&email=${email}&`).then(r => {
-            if(r.success) alert("worked!")
+            this.setState({status: r.success ? "confirmed" : "error"})
         })
     }
 
@@ -28,7 +29,18 @@ class Confirm extends Component {
                 <Container className="onboarding">
                     <Row className="justify-content-md-center">
                         <Col  md={6} style={{paddingTop: "130px"}}>
-                            Confirming token: {this.state.token}
+                            {this.state.status === "confirming" ?
+                            <span>
+                                Confirming..
+                            </span> : null
+                            }
+                            {this.state.status === "confirmed" ?
+                                <span>
+                                Confirmed
+                            </span> : <span>
+                                    Error
+                                </span>
+                            }
                         </Col>
                     </Row>
                 </Container>

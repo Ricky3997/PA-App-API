@@ -14,13 +14,13 @@ const confirm = async (email, id, token) => {
         await dynamodb.update({
             TableName: 'users',
             Key: {id: id},
-            UpdateExpression: "SET emailConfirmed = :confirmed, lastLogin = :lastLogin",
+            UpdateExpression: "SET emailConfirmed = :emailConfirmed, lastLogin = :lastLogin",
             ExpressionAttributeValues: {
                 ':lastLogin' : new Date().toDateString(),
                 ':emailConfirmed' : true
             }}).promise();
         return {success: true}
-    } else return {};
+    } else return null;
 };
 
 const register = async (email, firstName, type) => {
@@ -30,8 +30,8 @@ const register = async (email, firstName, type) => {
         const token = createToken(email, id);
         mailService.sendConfirmationToken(email, id, token);
         await dynamodb.batchWrite(registerNewUserDDBObj(id, email, firstName, type)).promise();
-        return {result: "success"};
-    } else return {result: "failure"}
+        return {id: id};
+    } else return null;
 };
 
 const getEmailFromUniqueness = (email) => {
@@ -82,4 +82,4 @@ const createToken = (email, id) => {
     return jwt.sign({email: email, id: id}, config.JWT_SECRET, { expiresIn: '24h'});
 }
 
-module.exports = {register, confirm, checkToken, generateLoginToken, validateToken};
+module.exports = {register, confirm, checkToken, generateLoginToken, validateToken, extractIdFromToken};

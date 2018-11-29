@@ -9,7 +9,9 @@ const HeaderNavbar = (props) => {
     let userDropdown;
     switch (props.location.pathname) {
         case "/home":
-            userDropdown = <NavDropdown title={<span><UserCircle pictureUrl={props.user.pictureUrl}/> {props.user.firstName}</span>} id="user-dropdown">
+            userDropdown = <NavDropdown title={<span>
+                <UserCircle pictureUrl={props.user.pictureUrl}/>
+                {props.user.firstName}</span>} id="user-dropdown">
                 <LinkContainer to="/settings">
                     <NavDropdown.Item>
                         <span> <Icon name="fas fa-gear"/> Settings</span>
