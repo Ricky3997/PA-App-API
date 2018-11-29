@@ -56,7 +56,8 @@ const LoggedInApp = (props) => {
             render: (routeProps) => <MentorProfile {...props} {...routeProps}/>
         }
     ];
-    return (
+    return props.user ?
+     (
         <Container fluid>
             <Row>
                 <Col>
@@ -67,7 +68,7 @@ const LoggedInApp = (props) => {
             </Row>
             {routes.map((route,index) => <Route exact={route.exact} key={index} path={route.path} render={route.render}/>)}
         </Container>
-    );
+    ) : (<div>Logged out</div>);
 };
 
 export default LoggedInApp;

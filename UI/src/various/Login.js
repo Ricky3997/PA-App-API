@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Col, Container, Form, Row, Alert} from 'react-bootstrap'
 const api = require("../api");
+const queryString = require('query-string');
 
 class Login extends Component {
     constructor(props){
@@ -11,6 +12,11 @@ class Login extends Component {
         };
         this.login = this.login.bind(this);
     };
+
+    componentDidMount() {
+        const qs =  queryString.parse(window.location.search);
+        if(qs.token && qs.id) this.props.validate(qs.id, qs.token);
+    }
 
     login(event){
         event.preventDefault();
