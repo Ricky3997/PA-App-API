@@ -17,8 +17,17 @@ const sendAuthToken = (to, token) => {
         to: to,
         from: "auth@projectaccess.org",
         subject: "Your login link",
-        text: `http://localhost:3000/?token=${token}` //TODO Inject ENV VAR for UI Link
+        text: `http://localhost:3000/login?token=${token}` //TODO Inject ENV VAR for UI Link
     })
 };
 
-module.exports = {sendAuthToken};
+const sendConfirmationToken = (to, token) => {
+    send({
+        to: to,
+        from: "auth@projectaccess.org",
+        subject: "Your confirmation link",
+        text: `http://localhost:3000/confirm?token=${token}` //TODO Inject ENV VAR for UI Link
+    })
+};
+
+module.exports = {sendAuthToken, sendConfirmationToken};

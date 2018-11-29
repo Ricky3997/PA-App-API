@@ -11,7 +11,10 @@ const mailService = require("./mail");
 const register = async (email, firstName, type) => {
     const uniqueness = await dynamodb.get(getEmailFromUniqueness(email)).promise();
     if (_.isEmpty(uniqueness)) { //Email address is unique
-        await dynamodb.batchWrite(registerNewUserDDBObj(uuid.new(), email, firstName, type)).promise();
+        const id = uuid.new();
+        const token = createToken(email, id);
+        mailService.sendConfirmationToken(email, token);
+        await dynamodb.batchWrite(registerNewUserDDBObj(id, email, firstName, type)).promise();
         return {result: "success"};
     } else return {result: "failure"}
 };
@@ -22,17 +25,19 @@ const getEmailFromUniqueness = (email) => {
 const registerNewUserDDBObj = (userId, email, firstName, type) => {
     return {RequestItems: {
             'users': [{PutRequest: {Item: {
-                        'id': userId, 'firstName': firstName, 'type': type, 'email': email}}}],
+                        'id': userId, 'firstName': firstName, 'type': type, 'email': email, emailConfirmed: false}}}],
             'unique-email': [{PutRequest: {Item: {
                         'email': email, 'id': userId}}}]}};
 };
 
-const validateToken = (email, token) => {
-    return extractEmailFromToken(token) === email;
+const validateToken = (id, token) => {
+    const valid = extractIdFromToken(token) === id;
+    dynamodb.put({TableName: 'unique-email', Item: {'id': id, lastLogin: new Date().toDateString()}});
+    return valid;
 };
 
-const extractEmailFromToken = (token) => {
-    return jwt.verify(token, config.JWT_SECRET).email
+const extractIdFromToken = (token) => {
+    return jwt.verify(token, config.JWT_SECRET).id
 };
 
 const checkToken = (req, res, next) => {
@@ -49,13 +54,17 @@ const checkToken = (req, res, next) => {
     } else return res.json({success: false, message: 'Auth token is not supplied'});
 
 };
-const generateToken = async (email) =>{
-    const uniqueness = await dynamodb.get(getEmailFromUniqueness(email)).promise();
-    if(!_.isEmpty(uniqueness)){
-        const token = jwt.sign({email: email}, config.JWT_SECRET, { expiresIn: '24h'});
+const generateLoginToken = async (email) =>{
+    const user = 9await dynamodb.get(getEmailFromUniqueness(email)).promise();
+    if(!_.isEmpty(user)){
+        const token = createToken(email, user.Item.id);
         mailService.sendAuthToken(email, token);
         return {success: true}
     } else return {success: false, error: "Email address does not exist"}
 };
 
-module.exports = {register, checkToken, generateToken, validateToken, extractEmailFromToken};
+const createToken = (email, id) => {
+    return jwt.sign({email: email, id: id}, config.JWT_SECRET, { expiresIn: '24h'});
+}
+
+module.exports = {register, checkToken, generateLoginToken, validateToken};

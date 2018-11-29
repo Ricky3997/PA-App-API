@@ -5,6 +5,7 @@ import LoggedInApp from "./various/LoggedInApp";
 import Onboarding from "./various/Onboarding";
 import Login from "./various/Login";
 const queryString = require('query-string');
+const api = require("./api");
 
 
 class App extends Component {
@@ -28,9 +29,7 @@ class App extends Component {
     }
 
     getUserDetails(){
-        fetch("/api/users/profile",{
-            headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`},
-        }).then(res => res.json()).then(r => {
+        api.get("/api/users/profile",).then(r => {
             this.setState({status: "logged-in", user: r.user, mentor: r.mentor});
             //window.location.href = window.location.href.split("?")[0];
         })
@@ -39,11 +38,7 @@ class App extends Component {
 
     validate(token){
         const email = window.localStorage.getItem("email");
-        fetch("/auth/validate", {
-            headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
-            method: "POST",
-            body: JSON.stringify({email: email, token: token})
-        }).then(res => res.json()).then(r => {
+        api.post("/auth/validate", JSON.stringify({email: email, token: token})).then(r => {
             if(r.valid) {
                 window.localStorage.setItem("token", token);
                 this.getUserDetails();

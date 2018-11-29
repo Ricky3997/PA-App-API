@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Col, Container, Form, Row, Alert} from 'react-bootstrap'
+const api = require("../api");
 
 class Login extends Component {
     constructor(props){
@@ -14,8 +15,7 @@ class Login extends Component {
     login(event){
         event.preventDefault();
         const {email} = this.state;
-        fetch(`/auth/login?email=${email}`)
-            .then(res => res.json())
+        api.get(`/auth/login?email=${email}`)
             .then(r => {
                 let alert;
                 if(r.success){
