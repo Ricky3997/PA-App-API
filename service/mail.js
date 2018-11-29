@@ -17,7 +17,7 @@ const sendAuthToken = (to, token) => {
         to: to,
         from: "auth@projectaccess.org",
         subject: "Your login link",
-        text: `http://localhost:5000/?token=${encodeURIComponent(token)}`
+        text: `http://localhost:3000/?token=${token}` //TODO Inject ENV VAR for UI Link
     })
 };
 

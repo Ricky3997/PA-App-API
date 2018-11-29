@@ -27,6 +27,14 @@ const registerNewUserDDBObj = (userId, email, firstName, type) => {
                         'email': email, 'id': userId}}}]}};
 };
 
+const validateToken = (email, token) => {
+    return extractEmailFromToken(token) === email;
+};
+
+const extractEmailFromToken = (token) => {
+    return jwt.verify(token, config.JWT_SECRET).email
+};
+
 const checkToken = (req, res, next) => {
     let token = req.headers['x-access-token'] || req.headers['authorization'];
     if (token && token.startsWith('Bearer ')) token = token.slice(7, token.length);
@@ -50,4 +58,4 @@ const generateToken = async (email) =>{
     } else return {success: false, error: "Email address does not exist"}
 };
 
-module.exports = {register, checkToken, generateToken};
+module.exports = {register, checkToken, generateToken, validateToken, extractEmailFromToken};

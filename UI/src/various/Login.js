@@ -13,11 +13,15 @@ class Login extends Component {
 
     login(event){
         event.preventDefault();
-        fetch(`/auth/login?email=${this.state.email}`)
+        const {email} = this.state;
+        fetch(`/auth/login?email=${email}`)
             .then(res => res.json())
             .then(r => {
-                const alert = r.success ? <Alert variant="success">An email with the sign-in link has been sent to {this.state.email}</Alert>
-                    : <Alert variant="danger">{r.error}</Alert>;
+                let alert;
+                if(r.success){
+                    alert = <Alert variant="success">An email with the sign-in link has been sent to {email}</Alert>
+                    window.localStorage.setItem("email", email)
+                } else alert = <Alert variant="danger">{r.error}</Alert>;
                 this.setState({alert: alert})
             })
     }
