@@ -1,11 +1,17 @@
 import React, {Component} from 'react';
 import './App.css'
 import HeaderNavbar from "./various/HeaderNavbar";
-import LoggedInApp from "./various/LoggedInApp";
 import Onboarding from "./various/Onboarding";
 import Login from "./various/Login";
 import {Route, Switch} from "react-router-dom";
 import Confirm from "./various/Confirm";
+import MentorProfile from "./people/MentorProfile";
+import Call from "./call/Call";
+import Message from "./message/Message";
+import Admin from "./admin/Admin";
+import Settings from "./various/Settings";
+import JourneyModule from "./journey/JourneyModule";
+import Home from "./home/Home";
 const api = require("./api");
 
 
@@ -72,13 +78,18 @@ class App extends Component {
                 <header>
                     <HeaderNavbar {...this.state} {...this.props} logout={this.logout}/>
                 </header>
-                {this.state.status === "logged-in" ? <LoggedInApp {...this.state} /> :
                 <Switch>
+                    <Route path={"/home"} render={(props) => <Home {...this.props} {...props} />} />
                     <Route path={"/login"} render={(props) => <Login validate={this.validate}/>} />
                     <Route path={"/onboard"} render={(props) => <Onboarding/>} />
                     <Route path={"/confirm"} render={(props) => <Confirm/>} />
+                    <Route path={"/journey/:id"} render={(props) => <JourneyModule {...this.props} {...props} /> } />
+                    <Route path={"/settings"} render={(props) => <Settings {...this.props} {...props} />} />
+                    <Route path={"/admin/:section?"} render={(props) =>  <Admin {...this.props} {...props} />} />
+                    <Route path={"/message"} render={(props) => <Message {...this.props} {...props} />} />
+                    <Route path={"/call"} render={(props) => <Call {...props} />} />
+                    <Route path={"/mentor/:id"} exact render={(props) => <MentorProfile {...this.props} {...props} />} />
                 </Switch>
-                }
             </div>
         );
     }

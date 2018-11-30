@@ -6,9 +6,10 @@ import MentorTile from "./MentorTile";
 import ProgressChart from "../journey/ProgressChart";
 import NoMentorYet from "./NoMentorYet";
 
-class Mentoring extends Component {
+class Home extends Component {
     constructor(props){
         super(props);
+        if(!props.user) props.history.push("/");
         this.state = {
             active: 2,
             milestones: [{
@@ -69,12 +70,11 @@ class Mentoring extends Component {
                 typeformID: "MDHUre"
             }]
         }
-
+        //TODO Move to API
     }
 
     render() {
-        return (
-            <Row>
+        return <Row>
                 <Col md={2}>
                     <ProgressionTimeline milestones={this.state.milestones} active={this.state.active} changeSection={(m) => this.setState({active: m.id})}/>
                 </Col>
@@ -94,9 +94,8 @@ class Mentoring extends Component {
                         </h5>
                     </Row>
                 </Col>
-            </Row>
-        );
+            </Row>;
     }
 }
 
-export default Mentoring;
+export default Home;
