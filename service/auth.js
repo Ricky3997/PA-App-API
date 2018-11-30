@@ -10,6 +10,7 @@ const mailService = require("./mail");
 
 const confirm = async (email, id, token) => {
     const idFromJWT = extractIdFromToken(token);
+    //TODO Check if already confirmed
     if(id === idFromJWT){
         await dynamodb.update({
             TableName: 'users',
@@ -47,7 +48,7 @@ const registerNewUserDDBObj = (userId, email, firstName, type) => {
 
 const validateToken = (id, token) => {
     const valid = extractIdFromToken(token) === id;
-    //dynamodb.put({TableName: 'users', Item: {'id': id, lastLogin: new Date().toDateString()}});
+    //dynamodb.put({TableName: 'users', Item: {'id': id, lastLogin: new Date().toDateString()}}); TODO
     return valid;
 };
 
@@ -73,7 +74,7 @@ const generateLoginToken = async (email) =>{
     const user = await dynamodb.get(getEmailFromUniqueness(email)).promise();
     if(!_.isEmpty(user)){
         const token = createToken(email, user.Item.id);
-        mailService.sendAuthToken(email, token);
+        mailService.sendAuthToken(email, user.Item.id, token);
         return {success: true}
     } else return {success: false, error: "Email address does not exist"}
 };

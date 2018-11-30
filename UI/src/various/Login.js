@@ -14,8 +14,16 @@ class Login extends Component {
     };
 
     componentDidMount() {
+        this.checkIfLoginToken(this.props);
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        this.checkIfLoginToken(nextProps);
+    }
+
+    checkIfLoginToken(props){
         const qs =  queryString.parse(window.location.search);
-        if(qs.token && qs.id) this.props.validate(qs.id, qs.token);
+        if(qs.token && qs.id) props.validate(qs.id, qs.token);
     }
 
     login(event){

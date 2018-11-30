@@ -1,7 +1,9 @@
 const get = (resource) => {
     return fetch(resource, {headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`}})
         .then(res => {
-            if(res.status === 200) return {success: true, payload: res.json()};
+            if(res.status === 200) {
+                return res.json().then( payload => {return {success: true, payload: payload}})
+            }
             else return {success: false, status: res.status}
         })
         .catch(err => {
@@ -20,7 +22,9 @@ const post = (resource, body) => {
         body: JSON.stringify(body)
     })
         .then(res => {
-            if(res.status === 200) return {success: true, payload: res.json()};
+            if(res.status === 200) {
+                return res.json().then( payload => {return {success: true, payload: payload}})
+            }
             else return {success: false, status: res.status}
         })
         .catch((err) => {

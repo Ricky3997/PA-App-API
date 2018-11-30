@@ -1,4 +1,3 @@
-const jwt = require('jsonwebtoken');
 const email   = require("emailjs");
 
 const smtpServer  = email.server.connect({
@@ -12,12 +11,12 @@ const send = (options) => {
     smtpServer.send(options, (err, msg) => console.log( err || msg));
 };
 
-const sendAuthToken = (to, token) => {
+const sendAuthToken = (to, id, token) => {
     send({
         to: to,
         from: "auth@projectaccess.org",
         subject: "Your login link",
-        text: `http://localhost:3000/login?token=${token}` //TODO Inject ENV VAR for UI Link
+        text: `http://localhost:3000/login?id=${id}&token=${token}` //TODO Inject ENV VAR for UI Link
     })
 };
 

@@ -3,6 +3,7 @@ import {Col, Row} from "react-bootstrap";
 import {ReactTypeformEmbed} from "react-typeform-embed";
 
 const Call = (props) => {
+    //TODO Run with HTTPS=true npm start for cross-origin media access
     const typeformID = "MDHUre";
     return (
         <Row>

@@ -6,7 +6,6 @@ import Onboarding from "./various/Onboarding";
 import Login from "./various/Login";
 import {Route, Switch} from "react-router-dom";
 import Confirm from "./various/Confirm";
-import _ from 'lodash';
 const api = require("./api");
 
 
@@ -19,6 +18,7 @@ class App extends Component {
         };
         this.logout = this.logout.bind(this);
         this.getUserDetails = this.getUserDetails.bind(this);
+        this.validate = this.validate.bind(this);
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
@@ -31,8 +31,6 @@ class App extends Component {
         }
     }
 
-
-
     componentDidMount() {
         const token = window.localStorage.getItem("token"), id = window.localStorage.getItem("id");
         if(token !== null && id !== null){
@@ -43,7 +41,7 @@ class App extends Component {
 
     getUserDetails(){
         api.get("/api/users/profile").then(r => {
-            this.setState({status: "logged-in", user: r.user, mentor: r.mentor});
+            this.setState({status: "logged-in", user: r.payload.user, mentor: r.payload.mentor});
             this.props.history.push({pathname: '/home', search: ''})
         })
 
@@ -51,8 +49,10 @@ class App extends Component {
 
     validate(id, token){
         api.post("/auth/validate", {id: id, token: token}).then(r => {
-            if(r.valid) {
+            console.log(r)
+            if(r.success) {
                 window.localStorage.setItem("token", token);
+                window.localStorage.setItem("id", id);
                 this.getUserDetails();
             }
             else alert("failure")
@@ -63,13 +63,14 @@ class App extends Component {
         window.localStorage.removeItem("token");
         window.localStorage.removeItem("id");
         this.setState({status: "logged-out", mentor: null, user: null});
+        this.props.history.push("/")
     }
 
     render() {
         return (
             <div>
                 <header>
-                    <HeaderNavbar {...this.state} {...this.props}/>
+                    <HeaderNavbar {...this.state} {...this.props} logout={this.logout}/>
                 </header>
                 {this.state.status === "logged-in" ? <LoggedInApp {...this.state} /> :
                 <Switch>
