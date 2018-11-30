@@ -100,7 +100,8 @@ class Admin extends Component {
 
 
     render() {
-        return (
+
+        return (this.props.user && this.props.user.admin) ?
             <Container fluid>
                 <Tabs style={{marginBottom: "10px"}}
                       activeKey={this.validateTab(this.props.match.params.section)}
@@ -118,7 +119,7 @@ class Admin extends Component {
 
 
             </Container>
-        );
+        : <div>Not Logged In</div>;
     }
 
 }

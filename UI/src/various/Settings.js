@@ -40,9 +40,8 @@ class Settings extends Component {
     }
 
     render() {
-        if(this.props.status === "logged-out") return <div>Not logged in</div>
-        return (
-            <Container>
+
+        return this.props.user ? <Container>
                 <Row>
                     <Col>
                         <h2>
@@ -104,8 +103,7 @@ class Settings extends Component {
                         {this.state.outcome}
                     </Col>
                 </Row>
-            </Container>
-        );
+            </Container> : <div>Not logged in</div>;
     }
 
 }

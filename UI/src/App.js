@@ -14,13 +14,13 @@ import JourneyModule from "./journey/JourneyModule";
 import Home from "./home/Home";
 const api = require("./api");
 
-
 class App extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
-            status: "logged-out"
+            status: "logged-out",
+            user: null,
+            mentor: null
         };
         this.logout = this.logout.bind(this);
         this.getUserDetails = this.getUserDetails.bind(this);
@@ -28,12 +28,13 @@ class App extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
-        this.redirectToOnboardingIfLoggedOut(nextProps)
+        this.redirectOnRoot(nextProps)
     }
 
-    redirectToOnboardingIfLoggedOut(props){
-        if(this.state.status === "logged-out"  && props.location.pathname === "/") {
-            props.history.push("/onboard")
+    redirectOnRoot(props){
+        if(props.location.pathname === "/") {
+            if(this.state.status === "logged-out") props.history.push("/onboard")
+            if(this.state.status === "logged-in") props.history.push("/home")
         }
     }
 
@@ -42,20 +43,22 @@ class App extends Component {
         if(token !== null && id !== null){
             this.setState({status: "logging-in"});
             this.validate(id, token)
-        } else this.redirectToOnboardingIfLoggedOut(this.props);
+        } else this.redirectOnRoot(this.props);
     }
 
     getUserDetails(){
         api.get("/api/users/profile").then(r => {
-            this.setState({status: "logged-in", user: r.payload.user, mentor: r.payload.mentor});
-            this.props.history.push({pathname: '/home', search: ''})
+            this.setState({status: "logged-in", user: r.payload.user, mentor: r.payload.mentor}, () => {
+                this.props.history.push({pathname: '/home', search: ''})
+                //this.props.location.pathname
+            });
+
         })
 
     }
 
     validate(id, token){
         api.post("/auth/validate", {id: id, token: token}).then(r => {
-            console.log(r)
             if(r.success) {
                 window.localStorage.setItem("token", token);
                 window.localStorage.setItem("id", id);
@@ -68,8 +71,10 @@ class App extends Component {
     logout(){
         window.localStorage.removeItem("token");
         window.localStorage.removeItem("id");
-        this.setState({status: "logged-out", mentor: null, user: null});
-        this.props.history.push("/")
+        this.setState({status: "logged-out", mentor: null, user: null}, () => {
+            this.props.history.push("/");
+        });
+
     }
 
     render() {
@@ -79,16 +84,16 @@ class App extends Component {
                     <HeaderNavbar {...this.state} {...this.props} logout={this.logout}/>
                 </header>
                 <Switch>
-                    <Route path={"/home"} render={(props) => <Home {...this.props} {...props} />} />
+                    <Route path={"/home"} render={(props) => <Home {...this.state} {...props} />} />
                     <Route path={"/login"} render={(props) => <Login validate={this.validate}/>} />
                     <Route path={"/onboard"} render={(props) => <Onboarding/>} />
                     <Route path={"/confirm"} render={(props) => <Confirm/>} />
-                    <Route path={"/journey/:id"} render={(props) => <JourneyModule {...this.props} {...props} /> } />
-                    <Route path={"/settings"} render={(props) => <Settings {...this.props} {...props} />} />
-                    <Route path={"/admin/:section?"} render={(props) =>  <Admin {...this.props} {...props} />} />
-                    <Route path={"/message"} render={(props) => <Message {...this.props} {...props} />} />
+                    <Route path={"/journey/:id"} render={(props) => <JourneyModule {...props} /> } />
+                    <Route path={"/settings"} render={(props) => <Settings {...this.state} {...props} />} />
+                    <Route path={"/admin/:section?"} render={(props) =>  <Admin {...props} />} />
+                    <Route path={"/message"} render={(props) => <Message {...props} />} />
                     <Route path={"/call"} render={(props) => <Call {...props} />} />
-                    <Route path={"/mentor/:id"} exact render={(props) => <MentorProfile {...this.props} {...props} />} />
+                    <Route path={"/mentor/:id"} exact render={(props) => <MentorProfile {...props} />} />
                 </Switch>
             </div>
         );

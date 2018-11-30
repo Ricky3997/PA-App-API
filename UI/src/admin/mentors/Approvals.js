@@ -5,26 +5,22 @@ class Approvals extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            active: null,
-            mentorsToApprove: []
+            active: null
         };
     }
 
-
-    componentDidMount() {
-        fetch("/api/mentors").then(res => res.json()).then(mentorsToApprove => {
-            this.setState({mentorsToApprove: mentorsToApprove, active: mentorsToApprove.length > 0 ? mentorsToApprove[0].id : null})
-        });
+    componentWillReceiveProps(nextProps, nextContext) {
+        this.setState({active: nextProps.mentors.length > 0 ? nextProps.mentors[0].id : null})
     }
 
     render() {
-        const toApprove = this.state.active ? this.state.mentorsToApprove.filter(m => m.id === this.state.active)[0] : null;
+        const toApprove = this.state.active ? this.props.mentors.filter(m => m.id === this.state.active)[0] : null;
         return (
             <Container fluid>
                 <Row>
                     <Col md={3}>
                         <ListGroup>
-                            {this.state.mentorsToApprove.map(m => <ListGroup.Item active={this.state.active === m.id} onClick={() => this.setState({active: m.id})} style={{cursor: "pointer"}}>
+                            {this.props.mentors.map(m => <ListGroup.Item active={this.state.active === m.id} onClick={() => this.setState({active: m.id})} style={{cursor: "pointer"}}>
                                 <Image roundedCircle alt="Mentor avatar" src={m.pictureUrl}  style={{width: "30px"}}/>
                                     {`  ${m.firstName}`}
                                 </ListGroup.Item>

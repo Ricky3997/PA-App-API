@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {Col, Container, Row} from "react-bootstrap";
 import {scaleLinear} from 'd3-scale';
-
-
 import {
     HeatmapSeries,
     Highlight,

@@ -5,11 +5,11 @@ import Milestone from "./Milestone";
 import MentorTile from "./MentorTile";
 import ProgressChart from "../journey/ProgressChart";
 import NoMentorYet from "./NoMentorYet";
+import Container from "react-bootstrap/es/Container";
 
 class Home extends Component {
     constructor(props){
         super(props);
-        if(!props.user) props.history.push("/");
         this.state = {
             active: 2,
             milestones: [{
@@ -74,7 +74,8 @@ class Home extends Component {
     }
 
     render() {
-        return <Row>
+        return (this.props.user) ? <Container fluid>
+            <Row style={{marginTop: "10px"}}>
                 <Col md={2}>
                     <ProgressionTimeline milestones={this.state.milestones} active={this.state.active} changeSection={(m) => this.setState({active: m.id})}/>
                 </Col>
@@ -94,7 +95,8 @@ class Home extends Component {
                         </h5>
                     </Row>
                 </Col>
-            </Row>;
+            </Row>
+        </Container> : <div>Not Logged In</div>;
     }
 }
 

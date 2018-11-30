@@ -7,8 +7,7 @@ class Database extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            search: '',
-            mentors: []
+            search: ''
         };
         this.search = new JsSearch.Search('id');
         this.search.addIndex('firstName');
@@ -17,15 +16,12 @@ class Database extends Component {
         this.search.addIndex('course');
     }
 
-    componentDidMount() {
-        fetch("/api/mentors").then(res => res.json()).then(mentors => {
-            this.setState({mentors: mentors})
-            this.search.addDocuments(mentors);
-        });
+    componentWillReceiveProps(nextProps, nextContext) {
+        this.search.addDocuments(nextProps.mentors);
     }
 
     render() {
-        const mentorsToRender = this.state.search.length > 0 ? this.search.search(this.state.search) : this.state.mentors;
+        const mentorsToRender = this.state.search.length > 0 ? this.search.search(this.state.search) : this.props.mentors;
         return (
             <Container fluid>
                 <Row>
