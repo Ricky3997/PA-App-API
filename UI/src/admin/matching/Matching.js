@@ -64,11 +64,11 @@ class Matching extends Component {
                                 <Col md={4}>
                                     <h5>{this.state.manualMode ? "Manual Matching" : "Top 3 Recommended Matches"}</h5>
                                 </Col>
-                                <Col md={8}>
-                                    <Button variant="secondary"
+                                <Col md={4}>
+                                    <Button variant="secondary" block
                                             onClick={() => this.setState({manualMode: !this.state.manualMode})}>
                                         {this.state.manualMode ?
-                                            <span>Or See Automated Reccomendations <Icon name="fas fa-magic"/></span>
+                                            <span>Or See Automated Recommendations <Icon name="fas fa-magic"/></span>
                                             :
                                             <span> Or Manually Search for a Mentor <Icon name="fas fa-search"/></span>}
                                     </Button>
@@ -89,13 +89,13 @@ class Matching extends Component {
                                         </Form.Group>
 
                                         <CardColumns>
-                                            {mentorsToRender.map(m => <MentorCard {...m} key={m.id} matching/>)}
+                                            {mentorsToRender.map(m => <MentorCard {...m} key={m.id} matching changeSearch={(p) => this.setState({search: p})}/>)}
                                         </CardColumns>
 
                                     </div> :
                                         <CardDeck>
                                             {this.props.mentors.slice(rand, rand + 3).map(m => <MentorCard
-                                                key={m.id} {...m} matching/>)}
+                                                key={m.id} {...m} matching />)}
                                         </CardDeck>
                                     }
                                     <br/>

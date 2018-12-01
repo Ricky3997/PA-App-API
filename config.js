@@ -10,5 +10,6 @@ module.exports = {
         key: process.env.AWS_ACCESS_KEY_ID,
         secret: process.env.AWS_SECRET_ACCESS_KEY
     },
-    JWT_SECRET: "AWorldWherePassionAndPotential2019"
-}
+    JWT_SECRET: "AWorldWherePassionAndPotential2019",
+    UI_URL: process.env.UI_URL
+};

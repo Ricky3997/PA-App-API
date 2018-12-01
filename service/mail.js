@@ -1,11 +1,7 @@
 const email   = require("emailjs");
+const config = require("../config");
 
-const smtpServer  = email.server.connect({
-    user:    "auth@projectaccess.org",
-    password: "WherePassion2018",
-    host:    "smtp.office365.com",
-    tls: {ciphers: "SSLv3"}
-});
+const smtpServer  = email.server.connect(config.email);
 
 const send = (options) => {
     smtpServer.send(options, (err, msg) => console.log( err || msg));
@@ -16,7 +12,7 @@ const sendAuthToken = (to, id, token) => {
         to: to,
         from: "auth@projectaccess.org",
         subject: "Your login link",
-        text: `http://localhost:3000/login?id=${id}&token=${token}` //TODO Inject ENV VAR for UI Link
+        text: `http://${config.UI_URL}/login?id=${id}&token=${token}` //TODO Inject ENV VAR for UI Link
     })
 };
 
@@ -25,7 +21,7 @@ const sendConfirmationToken = (to, id, token) => {
         to: to,
         from: "auth@projectaccess.org",
         subject: "Your confirmation link",
-        text: `http://localhost:3000/confirm?email=${to}&id=${id}&token=${token}` //TODO Inject ENV VAR for UI Link
+        text: `http://${config.UI_URL}/confirm?email=${to}&id=${id}&token=${token}` //TODO Inject ENV VAR for UI Link
     })
 };
 

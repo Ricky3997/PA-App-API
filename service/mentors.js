@@ -108,12 +108,22 @@ const dummy = [
     }
 ];
 
-getAll = () => {
-    //TODO Get from DB
+getAll = async () => {
+    /*const all = await dynamodb.query({
+        TableName: "mentors",
+        KeyConditionExpression: "#t = :t",
+        ExpressionAttributeNames:{
+            "#t": "type",
+        },
+        ExpressionAttributeValues: {
+            ":t": "mentor"
+        }
+    }).promise();*/
     return dummy
 };
 
 const getById = (id) => {
+    // return await dynamodb.getItem({'Table': 'mentors', 'Key': {'id': id}}).promise();
     return dummy.filter(m => m.id === parseInt(id))
 }
 

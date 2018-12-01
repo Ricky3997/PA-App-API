@@ -3,6 +3,7 @@ import {Badge, Button, Col, Container, Form, Image, OverlayTrigger, Row, Tooltip
 import PALogo from '../pa_key.png'
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import queryString from "query-string";
 const api = require("../api");
 
 
@@ -19,13 +20,25 @@ class Onboarding extends Component {
 
     componentDidMount() {
         this.redirectIfLoggedIn(this.props);
+        this.detectTypeFromUrl(this.props);
     }
     componentWillReceiveProps(nextProps, nextContext) {
         this.redirectIfLoggedIn(nextProps)
+        this.detectTypeFromUrl(nextProps);
     }
 
     redirectIfLoggedIn(props){
         if(props.user) props.history.push("/");
+    }
+
+    detectTypeFromUrl(props){
+        const qs = queryString.parse(window.location.search);
+        if(qs.type) {
+            let type;
+            if(qs.type === "mentee") type = "High School Student";
+            if(qs.type === "mentor") type = "Current University Student";
+            if(type) this.setState({type: type})
+        }
     }
 
     validateEmail(email, type){
@@ -84,7 +97,7 @@ class Onboarding extends Component {
                                               onChange={e => this.setState({firstName: e.target.value})}/>
 
                                 <Form.Label>
-                                    <span>Your <b>{this.state.type === "High School Student" ? "" : "Current University Student"}</b> Email Address  </span>
+                                    <span>Your <b>{this.state.type === "High School Student" ? "" : "University"}</b> Email Address  </span>
                                     {this.state.type === "High School Student" ? null :
                                         <OverlayTrigger placement="bottom"
                                                         overlay={<Tooltip placement="bottoom" className="in">We need

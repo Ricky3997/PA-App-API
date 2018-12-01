@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Card, Col, Image, Row} from "react-bootstrap";
+import {Button, Col, Row} from "react-bootstrap";
 
 class ConfirmMatchButton extends Component {
     constructor(props){

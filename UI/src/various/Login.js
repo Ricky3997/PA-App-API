@@ -35,7 +35,7 @@ class Login extends Component {
             authCode: qs.token,
             userId: qs.id
         }, () => {
-            setTimeout(() => props.validate(this.state.userId, this.state.authCode), 3000)
+            setTimeout(() => props.validate(this.state.userId, this.state.authCode), 1500)
         })
     }
 
@@ -44,7 +44,7 @@ class Login extends Component {
         const {email, authCode, showAuthCodeBox} = this.state;
         if (showAuthCodeBox) {
             this.setState({loading: true}, () => {
-                setTimeout(() => this.props.validate(this.state.userId, this.state.authCode), 3000);
+                setTimeout(() => this.props.validate(this.state.userId, this.state.authCode), 1500);
             });
         } else {
             this.setState({loading: true}, () => api.get(`/auth/login?email=${email}`)
