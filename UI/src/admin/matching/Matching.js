@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {Col, Container, Image, ListGroup, Row} from "react-bootstrap";
+import {Col, Container, Image, ListGroup, Row, CardDeck} from "react-bootstrap";
+import MentorCard from "../mentors/MentorCard";
+import * as _ from 'lodash';
 
 class Matching extends Component {
     constructor(props) {
@@ -14,6 +16,7 @@ class Matching extends Component {
     }
 
     render() {
+        const rand = _.random(0,this.props.mentors.length);
         const toMatch = this.state.active ? this.props.mentees.filter(m => m.id === this.state.active)[0] : null;
         return (
             <Row>
@@ -33,11 +36,23 @@ class Matching extends Component {
                     {toMatch ?
                         <Container fluid>
                             <Row>
-                                <Col md={3}>
+                                <Col md={2}>
                                     <Image rounded alt="Mentor avatar" src={toMatch.pictureUrl} style={{width: "150px"}}/>
                                 </Col>
-                                <Col md={9}>
-                                    <h6>{`${toMatch.firstName}`}</h6>
+                                <Col md={10}>
+                                    <h4>{`${toMatch.firstName}`}</h4>
+                                    <h6>{`From ${toMatch.from}`}</h6>
+                                    <h6>{`Studying at ${toMatch.school}`}</h6>
+                                    <h6>{`Subjects: ${toMatch.subjectsInSchool.toString()}`}</h6>
+                                </Col>
+                            </Row>
+                            <br />
+                            <Row>
+                                <Col md={8}>
+                                    <h5>Suggested Mentors:</h5>
+                                    <CardDeck>
+                                        {this.props.mentors.slice(rand, rand + 2).map(m => <MentorCard key={m.id} {...m} matching />)}
+                                    </CardDeck>
                                 </Col>
                             </Row>
                         </Container> : <Container fluid>

@@ -17,6 +17,17 @@ class Onboarding extends Component {
         };
     }
 
+    componentDidMount() {
+        this.redirectIfLoggedIn(this.props);
+    }
+    componentWillReceiveProps(nextProps, nextContext) {
+        this.redirectIfLoggedIn(nextProps)
+    }
+
+    redirectIfLoggedIn(props){
+        if(props.user) props.history.push("/");
+    }
+
     validateEmail(email, type){
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if(type === "Current University Student") return re.test(email); //TODO More spcific ac.uk / edu

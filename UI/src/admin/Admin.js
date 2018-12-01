@@ -50,7 +50,7 @@ class Admin extends Component {
                         <Route path={"/admin/mentees/:section?"} render={(props) => <Mentees mentees={this.state.mentees} {...this.props} {...props}/>} />
                     </Tab>
                     <Tab eventKey="matching" title="Matching">
-                        <Route path={"/admin/matching"} render={(props) => <Matching mentees={this.state.mentees.filter(m => m.status === "toMatch")} {...this.props} {...props}/>} />
+                        <Route path={"/admin/matching"} render={(props) => <Matching mentors={this.state.mentors} mentees={this.state.mentees.filter(m => m.status === "toMatch")} {...this.props} {...props}/>} />
                     </Tab>
                 </Tabs>
 

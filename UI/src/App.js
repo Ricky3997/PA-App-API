@@ -49,7 +49,8 @@ class App extends Component {
     getUserDetails(){
         api.get("/api/users/profile").then(r => {
             this.setState({status: "logged-in", user: r.payload.user, mentor: r.payload.mentor}, () => {
-                this.props.history.push({pathname: this.props.location.pathname, search: ''})
+                const currentPath = this.props.location.pathname;
+                this.props.history.push({pathname: currentPath === "/login" ? "/" : currentPath, search: ''})
             });
 
         })
@@ -85,7 +86,7 @@ class App extends Component {
                 <Switch>
                     <Route path={"/home"} render={(props) => <Home {...this.state} {...props} />} />
                     <Route path={"/login"} render={(props) => <Login validate={this.validate}/>} />
-                    <Route path={"/onboard"} render={(props) => <Onboarding/>} />
+                    <Route path={"/onboard"} render={(props) => <Onboarding {...this.state} {...props} />} />
                     <Route path={"/confirm"} render={(props) => <Confirm/>} />
                     <Route path={"/journey/:id"} render={(props) => <JourneyModule {...props} /> } />
                     <Route path={"/settings"} render={(props) => <Settings {...this.state} {...props} />} />

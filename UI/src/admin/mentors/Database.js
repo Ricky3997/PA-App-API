@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Col, Container, Form, Row, InputGroup, Image, Card, CardColumns} from "react-bootstrap";
 import {Icon} from "react-fa";
 import * as JsSearch from 'js-search';
+import MentorCard from "./MentorCard";
 
 class Database extends Component {
     constructor(props) {
@@ -65,24 +66,7 @@ class Database extends Component {
                     </Col>
                     <Col md={9}>
                         <CardColumns>
-                            {mentorsToRender.map(m => {
-                                return <Card className="text-center" key={m.id}>
-                                        <Card.Header>
-                                            <Image roundedCircle alt="Mentor avatar" src={m.pictureUrl}
-                                                   style={{width: "70px"}}/>
-                                        </Card.Header>
-                                        <Card.Body>
-                                            <Card.Title>
-                                              {m.firstName}
-                                            </Card.Title>
-                                            <Card.Text>
-                                                <span onClick={() => this.setState({search: m.course})} style={{color: "blue", cursor: "pointer"}}>{m.course}</span>
-                                                <span>{" at "}</span>
-                                                <span onClick={() => this.setState({search: m.university})} style={{color: "blue", cursor: "pointer"}}>{m.university}</span>
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                            })}
+                            {mentorsToRender.map(m => <MentorCard {...m} changeSearch={(p) => this.setState({search: p})} />)}
                         </CardColumns>
                     </Col>
                 </Row>
