@@ -68,15 +68,9 @@ class Login extends Component {
                 <Container className="onboarding">
                     <Row className="justify-content-md-center">
                         <Col md={6} style={{paddingTop: "130px"}}>
-                            <h2>
-                                Sign In
-                            </h2>
-                            <h6>
-                                We'll send you an email with a login code, just click on the link!
-                            </h6>
+                            <h2>Sign In</h2>
+                            <h6>We'll send you an email with a login code, just click on the link!</h6>
                             <Form onSubmit={(event) => this.login(event)}>
-
-
                                 {this.state.showAuthCodeBox ? <div>
                                         <Form.Label>User ID</Form.Label>
                                         <Form.Control placeholder="User ID" value={this.state.userId}
@@ -87,16 +81,13 @@ class Login extends Component {
                                         <Form.Control placeholder="you@example.com" value={this.state.email}
                                                       onChange={e => this.setState({email: e.target.value})}/>
                                     </div>}
-
                                 {this.state.showAuthCodeBox ? <div>
                                         <Form.Label>Auth Code</Form.Label>
                                         <Form.Control placeholder="Auth code" value={this.state.authCode}
                                                       onChange={e => this.setState({authCode: e.target.value})}/>
                                     </div>
                                     : null}
-
                                 <br/>
-
                                 <Button type="submit" variant="success" block disabled={this.state.loading}>
                                     <Row className="justify-content-md-center">
 
@@ -113,7 +104,6 @@ class Login extends Component {
                                 </Button>
                             </Form>
                             <br/>
-
                             {this.state.alert}
                         </Col>
                     </Row>

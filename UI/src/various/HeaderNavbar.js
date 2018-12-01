@@ -34,7 +34,7 @@ const HeaderNavbar = (props) => {
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                    {props.status === "logged-in" && props.user.role === "admin" ?
+                    {props.status === "logged-in" && props.user.admin ?
                         <LinkContainer to="/admin">
                             <Nav.Link>Admin</Nav.Link>
                         </LinkContainer>

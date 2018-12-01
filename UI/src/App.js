@@ -49,8 +49,7 @@ class App extends Component {
     getUserDetails(){
         api.get("/api/users/profile").then(r => {
             this.setState({status: "logged-in", user: r.payload.user, mentor: r.payload.mentor}, () => {
-                this.props.history.push({pathname: '/home', search: ''})
-                //this.props.location.pathname
+                this.props.history.push({pathname: this.props.location.pathname, search: ''})
             });
 
         })
@@ -90,7 +89,7 @@ class App extends Component {
                     <Route path={"/confirm"} render={(props) => <Confirm/>} />
                     <Route path={"/journey/:id"} render={(props) => <JourneyModule {...props} /> } />
                     <Route path={"/settings"} render={(props) => <Settings {...this.state} {...props} />} />
-                    <Route path={"/admin/:section?"} render={(props) =>  <Admin {...props} />} />
+                    <Route path={"/admin/:section?"} render={(props) =>  <Admin {...this.state} {...props} />} />
                     <Route path={"/message"} render={(props) => <Message {...props} />} />
                     <Route path={"/call"} render={(props) => <Call {...props} />} />
                     <Route path={"/mentor/:id"} exact render={(props) => <MentorProfile {...props} />} />

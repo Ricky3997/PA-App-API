@@ -4,21 +4,14 @@ import Database from "./Database";
 import Approvals from "./Approvals";
 import {Route, Switch} from "react-router-dom";
 import Statistics from "./Statistics";
-import * as api from "../../api";
 
 class Mentors extends Component {
     constructor(props){
         super(props);
         this.state = {
-            mentors: []
         };
     }
 
-    componentDidMount() {
-        api.get("/api/mentors").then(r => {
-            this.setState({mentors: r.payload});
-        });
-    }
 
     validateSection (section) {
         return ["database", "approvals", "statistics"].indexOf(section) > -1 ? section : "database"
@@ -45,10 +38,10 @@ class Mentors extends Component {
                     <Tab.Content>
                         <Tab.Pane active>
                             <Switch>
-                                <Route path={"/admin/mentors/approvals"} render={(props) => <Approvals mentors={this.state.mentors}/>}/>
-                                <Route path={"/admin/mentors/statistics"} render={(props) => <Statistics mentors={this.state.mentors}/>}/>
+                                <Route path={"/admin/mentors/approvals"} render={(props) => <Approvals mentors={this.props.mentors}/>}/>
+                                <Route path={"/admin/mentors/statistics"} render={(props) => <Statistics mentors={this.props.mentors}/>}/>
                                 <Route path={["/admin/mentors/database", "/admin/mentors"]}
-                                       render={(props) => <Database mentors={this.state.mentors}/>}/>
+                                       render={(props) => <Database mentors={this.props.mentors}/>}/>
                             </Switch>
                         </Tab.Pane>
                     </Tab.Content>

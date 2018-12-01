@@ -15,7 +15,7 @@ getUserProfile = (email) => {
             firstName: "Riccardo Luca",
             emailAddress: email,
             pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/t/5bb721a4e2c48357967f52fa/1538728361542/Riccardo.jpg?format=300w",
-            role: "admin"
+            admin: true
         },
         mentor: {
             id: 1,
