@@ -3,7 +3,7 @@ import './App.css'
 import HeaderNavbar from "./various/HeaderNavbar";
 import Onboarding from "./various/Onboarding";
 import Login from "./various/Login";
-import {Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import Confirm from "./various/Confirm";
 import MentorProfile from "./people/MentorProfile";
 import Call from "./call/Call";
@@ -94,6 +94,7 @@ class App extends Component {
                     <Route path={"/message"} render={(props) => <Message {...props} />} />
                     <Route path={"/call"} render={(props) => <Call {...props} />} />
                     <Route path={"/mentor/:id"} exact render={(props) => <MentorProfile {...props} />} />
+                    <Redirect to={"/"} />
                 </Switch>
             </div>
         );
