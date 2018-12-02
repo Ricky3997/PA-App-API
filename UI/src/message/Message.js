@@ -20,7 +20,8 @@ class Message extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            active: 1
+            active: null,
+            chats: []
         };
         this.theme = {
             vars: {
@@ -35,88 +36,163 @@ class Message extends Component {
                 }
             }
         };
-        this.chats = [
-            {
-                id:1,
-                name: props.mentor.firstName,
-                avatar: props.mentor.pictureUrl,
-                messages: [
-                    {
-                        id: 1,
-                        from: props.mentor.firstName,
-                        avatar: props.mentor.pictureUrl,
-                        date: "Today 12.46",
-                        content: "I have seen your Personal Statement Draft"
-                    },
-                    {
-                        id: 2,
-                        from: props.mentor.firstName,
-                        avatar: props.mentor.pictureUrl,
-                        date: "Today 14.31",
-                        content: "Incredible work Riccardo, keep it up well done looking forward to seeing the next draft!"
-                    },
-                    {
-                        id: 2,
-                        from: "Me",
-                        date: "Today 14.31",
-                        content: "Thank you Emil! What shall we do next?"
-                    },
-                ]
-            },
-            {
-                id:2,
-                name: "Alexander",
-                messages: [
-                    {
-                        id: 1,
-                        from: "Me",
-                        date: "Today 9.31",
-                        content: "Hey Alex, I'm struggling with the journey module number 7"
-                    },
-                ]
-            },
-            {
-                id:3,
-                name: "PA Italy Class of 2018",
-                avatar: "https://www.thesims3.com/sims3_asset/sims3_asset/thumb/shard000/000/035/351/93/original.jpg",
-                messages: [
-                    {
-                        id: 1,
-                        from: "Me",
-                        date: "Yesterday 11.24",
-                        content: "Hello everyone, I'm Riccardo from Milan!"
-                    },
-                    {
-                        id: 2,
-                        from: "Nicolo",
-                        avatar: "http://www.oas.org/en/ser/dia/perm_observers/Documents/Profiles/Flags/Italy.jpg",
-                        date: "Yesterday 19.31",
-                        content: "Hello to everyone! A reminder tonight we have Pizza con Mamma for Emil's sake"
-                    },
-                    {
-                        id: 3,
-                        from: "Giulio",
-                        avatar: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7f23d84192024c49633e67/5a92ebcac830257a3473f7d4/1540544805094/Giulio+Corsi.jpg",
-                        date: "Yesterday 29.54",
-                        content: "Amazing, looking forward! 🍕"
-                    },
-                ]
+    }
 
-            }
-        ]
+    componentDidMount() {
+        const props = this.props;
+        if(props.user && props.mentor) this.setState({active: 1, chats: [
+                {
+                    id:1,
+                    name: props.mentor.firstName,
+                    avatar: props.mentor.pictureUrl,
+                    messages: [
+                        {
+                            id: 1,
+                            from: props.mentor.firstName,
+                            avatar: props.mentor.pictureUrl,
+                            date: "Today 12.46",
+                            content: "I have seen your Personal Statement Draft"
+                        },
+                        {
+                            id: 2,
+                            from: props.mentor.firstName,
+                            avatar: props.mentor.pictureUrl,
+                            date: "Today 14.31",
+                            content: "Incredible work Riccardo, keep it up well done looking forward to seeing the next draft!"
+                        },
+                        {
+                            id: 2,
+                            from: "Me",
+                            date: "Today 14.31",
+                            content: "Thank you Emil! What shall we do next?"
+                        },
+                    ]
+                },
+                {
+                    id:2,
+                    name: "Alexander",
+                    messages: [
+                        {
+                            id: 1,
+                            from: "Me",
+                            date: "Today 9.31",
+                            content: "Hey Alex, I'm struggling with the journey module number 7"
+                        },
+                    ]
+                },
+                {
+                    id:3,
+                    name: "PA Italy Class of 2018",
+                    avatar: "https://www.thesims3.com/sims3_asset/sims3_asset/thumb/shard000/000/035/351/93/original.jpg",
+                    messages: [
+                        {
+                            id: 1,
+                            from: "Me",
+                            date: "Yesterday 11.24",
+                            content: "Hello everyone, I'm Riccardo from Milan!"
+                        },
+                        {
+                            id: 2,
+                            from: "Nicolo",
+                            avatar: "http://www.oas.org/en/ser/dia/perm_observers/Documents/Profiles/Flags/Italy.jpg",
+                            date: "Yesterday 19.31",
+                            content: "Hello to everyone! A reminder tonight we have Pizza con Mamma for Emil's sake"
+                        },
+                        {
+                            id: 3,
+                            from: "Giulio",
+                            avatar: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7f23d84192024c49633e67/5a92ebcac830257a3473f7d4/1540544805094/Giulio+Corsi.jpg",
+                            date: "Yesterday 29.54",
+                            content: "Amazing, looking forward! 🍕"
+                        },
+                    ]
+
+                }
+            ]})
+    }
+
+    componentWillReceiveProps(props, nextContext) {
+        if(props.user && props.mentor) this.setState({active: 1, chats: [
+                {
+                    id:1,
+                    name: props.mentor.firstName,
+                    avatar: props.mentor.pictureUrl,
+                    messages: [
+                        {
+                            id: 1,
+                            from: props.mentor.firstName,
+                            avatar: props.mentor.pictureUrl,
+                            date: "Today 12.46",
+                            content: "I have seen your Personal Statement Draft"
+                        },
+                        {
+                            id: 2,
+                            from: props.mentor.firstName,
+                            avatar: props.mentor.pictureUrl,
+                            date: "Today 14.31",
+                            content: "Incredible work Riccardo, keep it up well done looking forward to seeing the next draft!"
+                        },
+                        {
+                            id: 2,
+                            from: "Me",
+                            date: "Today 14.31",
+                            content: "Thank you Emil! What shall we do next?"
+                        },
+                    ]
+                },
+                {
+                    id:2,
+                    name: "Alexander",
+                    messages: [
+                        {
+                            id: 1,
+                            from: "Me",
+                            date: "Today 9.31",
+                            content: "Hey Alex, I'm struggling with the journey module number 7"
+                        },
+                    ]
+                },
+                {
+                    id:3,
+                    name: "PA Italy Class of 2018",
+                    avatar: "https://www.thesims3.com/sims3_asset/sims3_asset/thumb/shard000/000/035/351/93/original.jpg",
+                    messages: [
+                        {
+                            id: 1,
+                            from: "Me",
+                            date: "Yesterday 11.24",
+                            content: "Hello everyone, I'm Riccardo from Milan!"
+                        },
+                        {
+                            id: 2,
+                            from: "Nicolo",
+                            avatar: "http://www.oas.org/en/ser/dia/perm_observers/Documents/Profiles/Flags/Italy.jpg",
+                            date: "Yesterday 19.31",
+                            content: "Hello to everyone! A reminder tonight we have Pizza con Mamma for Emil's sake"
+                        },
+                        {
+                            id: 3,
+                            from: "Giulio",
+                            avatar: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7f23d84192024c49633e67/5a92ebcac830257a3473f7d4/1540544805094/Giulio+Corsi.jpg",
+                            date: "Yesterday 29.54",
+                            content: "Amazing, looking forward! 🍕"
+                        },
+                    ]
+
+                }
+            ]})
     }
 
     //Documentation: https://developers.livechatinc.com/docs/react-chat-ui-kit/
 
     render() {
-
+        const messages = this.state.active ? this.state.chats.filter(chat => chat.id === this.state.active)[0].messages : null;
         return (
             <ThemeProvider theme={this.theme}>
-
                 <BRow>
                     <Col md={3}>
                         <ChatList>
-                            {this.chats.map( chat => {
+                            {this.state.chats.map( chat => {
                                 return <ChatListItem active={chat.id === this.state.active} onClick={() => this.setState({active: chat.id})}>
                                     <Avatar imgUrl={chat.avatar || null} letter={chat.avatar ? null : chat.name[0]} />
                                     <Column fill>
@@ -134,7 +210,7 @@ class Message extends Component {
                     </Col>
                     <Col md={9}>
                         <MessageList active style={{height: "580px"}}>
-                            {this.chats.filter(chat => chat.id === this.state.active)[0].messages.map( message => {
+                            {messages ? messages.map( message => {
                                 return <MessageGroup avatar={message.from === "Me" ? null : message.avatar} onlyFirstWithMeta>
                                     <UIKitMessage date={message.date} authorName={message.from} isOwn={message.from === "Me"}>
                                         <MessageText>
@@ -142,7 +218,7 @@ class Message extends Component {
                                         </MessageText>
                                     </UIKitMessage>
                                 </MessageGroup>
-                            })}
+                            }) : null}
                         </MessageList>
                         <TextComposer>
                             <Row align="center">

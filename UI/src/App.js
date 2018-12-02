@@ -91,8 +91,8 @@ class App extends Component {
                     <Route path={"/journey/:id"} render={(props) => <JourneyModule {...props} /> } />
                     <Route path={"/settings"} render={(props) => <Settings {...this.state} {...props} />} />
                     <Route path={"/admin/:section?"} render={(props) =>  <Admin {...this.state} {...props} />} />
-                    <Route path={"/message"} render={(props) => <Message {...props} />} />
-                    <Route path={"/call"} render={(props) => <Call {...props} />} />
+                    <Route path={"/message"} render={(props) => <Message {...this.state} {...props} />} />
+                    <Route path={"/call"} render={(props) => <Call {...this.state} {...props} />} />
                     <Route path={"/mentor/:id"} exact render={(props) => <MentorProfile {...props} />} />
                     <Redirect to={"/"} />
                 </Switch>
