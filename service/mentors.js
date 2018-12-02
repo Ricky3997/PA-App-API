@@ -108,7 +108,7 @@ const dummy = [
     }
 ];
 
-getAll = async () => {
+getAll = () => {
     /*const all = await dynamodb.query({
         TableName: "mentors",
         KeyConditionExpression: "#t = :t",
