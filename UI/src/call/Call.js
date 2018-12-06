@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Col, Row} from "react-bootstrap";
 import {ReactTypeformEmbed} from "react-typeform-embed";
 import AgoraRTC from 'agora-rtc-sdk'
+import Button from "react-bootstrap/es/Button";
 
 
 class Call extends Component {
@@ -14,10 +15,12 @@ class Call extends Component {
         this.channel = "test"; //TODO
         this.uid = "087gnv6ubfdg3nebf"; //TODO
         this.state = {
-            displayMode: 'pip',
-            readyState: false,
-            mode: "video"
+            joinCall: false
         };
+        this.toggleMic = this.toggleMic.bind(this);
+        this.toggleVideo = this.toggleVideo.bind(this);
+        this.hangup = this.hangup.bind(this);
+        this.startCall = this.startCall.bind(this);
 
     }
 
@@ -25,24 +28,6 @@ class Call extends Component {
 
     componentWillMount() {
         this.client = AgoraRTC.createClient({mode: 'live', codec: "h264"});
-        this.client.init(this.appId, () => {
-            console.log("AgoraRTC client initialized");
-            this.subscribeStreamEvents();
-            this.client.join(this.appId, this.channel, this.uid, (uid) => {
-                console.log("User " + uid + " join channel successfully");
-
-                this.localStream = AgoraRTC.createStream({streamID: uid, audio: true, video: true, screen: false});
-                this.localStream.init(() => {
-                        this.client.publish(this.localStream, err => console.log("Publish local stream error: " + err));
-                        this.localStream.play("local-canvas");
-                        this.setState({readyState: true})
-                    },
-                    err => {
-                        console.log("getUserMedia failed", err);
-                        this.setState({readyState: true})
-                    })
-            })
-        })
     }
 
     componentWillUnmount () {
@@ -51,39 +36,22 @@ class Call extends Component {
         this.client && this.client.leave(() => console.log('Client succeed to leave.'), () => console.log('Client failed to leave.'))
     }
 
-
     subscribeStreamEvents() {
         this.client.on('stream-added', (evt) => {
-            let stream = evt.stream;
-            console.log("New stream added: " + stream.getId());
-            console.log('At ' + new Date().toLocaleTimeString());
-            console.log("Subscribe ", stream);
-            this.client.subscribe(stream, (err) => console.log("Subscribe stream failed", err));
+            this.client.subscribe(evt.stream, Call.logError);
         });
 
         this.client.on('stream-subscribed', (evt) => {
-            let stream = evt.stream;
-            console.log("Got stream-subscribed event");
-            console.log(new Date().toLocaleTimeString());
-            console.log("Subscribe remote stream successfully: " + stream.getId());
-            console.log(evt);
-            this.remoteStream = stream;
+            this.remoteStream =  evt.stream;
             this.remoteStream.play("remote-canvas");
         });
 
         this.client.on("stream-removed", (evt) => {
-            let stream = evt.stream;
-            console.log("Stream removed: " + stream.getId());
-            console.log(new Date().toLocaleTimeString());
-            console.log(evt);
-            this.removeStream();
+            this.removeStream(evt.stream);
         });
 
         this.client.on('peer-leave', (evt) => {
-            console.log("Peer has left: " + evt.uid);
-            console.log(new Date().toLocaleTimeString());
-            console.log(evt);
-            this.removeStream();
+            this.removeStream(evt.stream);
         });
 
         this.client.on("stream-published", (evt) => console.log("Publish local stream successful"));
@@ -97,6 +65,46 @@ class Call extends Component {
         }
     }
 
+    static logError = (err) => console.log(err);
+
+    toggleMic(){
+        this.localStream.isAudioOn() ? this.localStream.disableAudio() : this.localStream.enableAudio()
+    }
+
+    toggleVideo(){
+        this.localStream.isVideoOn() ? this.localStream.disableVideo() : this.localStream.enableVideo()
+    }
+
+    hangup(){
+        try {
+            this.setState({joinCall: false})
+            this.client && this.client.unpublish(this.localStream);
+            this.localStream && this.localStream.close();
+            this.client && this.client.leave(() => console.log('Client succeed to leave.'), () => console.log('Client failed to leave.'))
+        }
+        finally {
+            this.client = {};
+            this.localStream = {}
+        }
+    }
+
+    startCall(){
+        this.setState({joinCall: true});
+        this.client.init(this.appId, () => {
+            this.subscribeStreamEvents();
+            this.client.join(this.appId, this.channel, this.uid, (uid) => {
+                console.log("User " + uid + " join channel successfully");
+
+                this.localStream = AgoraRTC.createStream({streamID: uid, audio: true, video: true, screen: false});
+                this.localStream.init(() => {
+                        this.client.publish(this.localStream, Call.logError);
+                        this.localStream.play("local-canvas");
+                    }, Call.logError
+                )
+            })
+        })
+    }
+
 
     render() {
         const typeformID = "MDHUre";
@@ -104,9 +112,20 @@ class Call extends Component {
         return (
             <Row>
                 <Col md={8}>
-                    <div id="remote-canvas" style={{height: "600px"}}>
-                        <div id="local-canvas" style={{position: "absolute", right: "0", bottom: "0", height: "130px", width: "130px", "z-index": "2"}}/>
-                    </div>
+
+                    {this.state.joinCall ?
+                    <div>
+                        <div id="remote-canvas" style={{height: "600px"}}>
+                            <div id="local-canvas" style={{position: "absolute", right: "0", bottom: "0", height: "130px", width: "130px", "z-index": "2"}}/>
+                        </div>
+                        <Button onClick={this.toggleMic}>Mic</Button>
+                        <Button onClick={this.toggleVideo}>Video</Button>
+                        <Button onClick={this.hangup}>Hangup</Button>
+                    </div> : <div>
+                            <Button onClick={this.startCall}>Join Call</Button>
+                        </div>}
+
+
                 </Col>
                 <Col md={4} style={{backdropColor: "red"}}>
                     {/*<Row>*/}
