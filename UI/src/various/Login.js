@@ -71,7 +71,7 @@ class Login extends Component {
                             <h2>Sign In</h2>
                             <h6>We'll send you an email with a login code, just click on the link!</h6>
                             <Form onSubmit={(event) => this.login(event)}>
-                                {this.state.showAuthCodeBox ? <div>
+                                {this.state.showAuthCodeBox && process.env.NODE_ENV === "development" ? <div>
                                         <Form.Label>User ID</Form.Label>
                                         <Form.Control placeholder="User ID" value={this.state.userId}
                                                       onChange={e => this.setState({userId: e.target.value})}/>
@@ -81,7 +81,7 @@ class Login extends Component {
                                         <Form.Control placeholder="you@example.com" value={this.state.email}
                                                       onChange={e => this.setState({email: e.target.value})}/>
                                     </div>}
-                                {this.state.showAuthCodeBox ? <div>
+                                {this.state.showAuthCodeBox && process.env.NODE_ENV === "development" ? <div>
                                         <Form.Label>Auth Code</Form.Label>
                                         <Form.Control placeholder="Auth code" value={this.state.authCode}
                                                       onChange={e => this.setState({authCode: e.target.value})}/>

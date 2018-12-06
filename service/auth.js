@@ -53,7 +53,11 @@ const validateToken = (id, token) => {
 };
 
 const extractIdFromToken = (token) => {
-    return jwt.verify(token, config.JWT_SECRET).id
+    try {
+        return jwt.verify(token, config.JWT_SECRET).id
+    } catch (e) {
+        return null;
+    }
 };
 
 const checkToken = (req, res, next) => {
@@ -81,6 +85,6 @@ const generateLoginToken = async (email) =>{
 
 const createToken = (email, id) => {
     return jwt.sign({email: email, id: id}, config.JWT_SECRET, { expiresIn: '24h'});
-}
+};
 
-module.exports = {register, confirm, checkToken, generateLoginToken, validateToken, extractIdFromToken};
+module.exports = {register, confirm, checkToken, generateLoginToken, validateToken};

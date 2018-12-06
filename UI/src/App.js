@@ -60,11 +60,21 @@ class App extends Component {
     validate(id, token){
         api.post("/auth/validate", {id: id, token: token}).then(r => {
             if(r.success) {
-                window.localStorage.setItem("token", token);
-                window.localStorage.setItem("id", id);
-                this.getUserDetails();
+                if(r.payload.valid) {
+                    window.localStorage.setItem("token", token);
+                    window.localStorage.setItem("id", id);
+                    this.getUserDetails();
+                } else {
+                    window.localStorage.removeItem("token");
+                    window.localStorage.removeItem("id");
+                    //TODO Deal gracefully
+                    alert("failure")
+                }
             }
-            else alert("failure")
+            else {
+                //TODO Deal gracefully
+                alert("failure")
+            }
         })
     }
 
