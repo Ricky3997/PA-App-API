@@ -25,6 +25,7 @@ class App extends Component {
         };
         this.logout = this.logout.bind(this);
         this.getUserDetails = this.getUserDetails.bind(this);
+        this.editUserDetails = this.editUserDetails.bind(this);
         this.validate = this.validate.bind(this);
     }
 
@@ -56,6 +57,10 @@ class App extends Component {
 
         })
 
+    }
+
+    editUserDetails(editedUser){
+        this.setState({user: editedUser});
     }
 
     validate(id, token){
@@ -98,7 +103,7 @@ class App extends Component {
                     <Route path={"/onboard"} render={(props) => <Onboarding {...this.state} {...props} />} />
                     <Route path={"/confirm"} render={(props) => <Confirm/>} />
                     <Route path={"/journey/:id"} render={(props) => <JourneyModule {...props} /> } />
-                    <Route path={"/settings"} render={(props) => <Settings {...this.state} {...props} />} />
+                    <Route path={"/settings"} render={(props) => <Settings {...this.state} {...props} editUserDetails={this.editUserDetails} />} />
                     <Route path={"/admin/:section?"} render={(props) =>  <Admin {...this.state} {...props} />} />
                     <Route path={"/message"} render={(props) => <Message {...this.state} {...props} />} />
                     <Route path={"/call"} render={(props) => <Call {...this.state} {...props} />} />

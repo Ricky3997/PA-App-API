@@ -1,17 +1,20 @@
 import React, {Component} from 'react';
-import {Col, Container, Form, Row, Button, Alert, Image} from "react-bootstrap";
+import {Col, Container, Form, Row, Button, Alert, Image, Modal} from "react-bootstrap";
 import {Icon} from "react-fa";
-import ImageUploader from 'react-images-upload';
+import Dropzone from "react-dropzone";
+import AvatarEditor from "react-avatar-editor";
 
 class Settings extends Component {
     constructor(props) {
         super(props);
+        this.handleDrop = this.handleDrop.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onDrop = this.onDrop.bind(this);
         this.state = {
             email: props.user ? props.user.email : '',
             profilePicToUpload: null,
-            pictures: [],
+            image: null,
+            showPictureModal: false,
             outcome: null,
             validated: false,
             isLoading: false
@@ -25,7 +28,7 @@ class Settings extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
-        if(nextProps.status === "logged-in") this.setState({email: nextProps.user.email})
+        if (nextProps.status === "logged-in") this.setState({email: nextProps.user.email})
     }
 
     handleSubmit(event) {
@@ -33,9 +36,9 @@ class Settings extends Component {
         event.preventDefault();
         event.stopPropagation();
         if (form.checkValidity() === true) {
-            this.setState({ isLoading: true }, () => {
+            this.setState({isLoading: true}, () => {
                 const formData = new FormData();
-                formData.append('file', this.state.profilePicToUpload[0]);
+                formData.append('file', this.state.profilePicToUpload);
                 fetch("/api/users/edit", {
                     headers: {
                         'Authorization': `Bearer ${window.localStorage.getItem("token")}`
@@ -43,13 +46,19 @@ class Settings extends Component {
                     method: "POST",
                     body: formData
                 }).then(res => {
-                    if(res.status === 200) {
+                    if (res.status === 200) {
                         this.setState({
                             isLoading: false,
+                            profilePicToUpload: null,
+                            image: null,
                             outcome: <Alert variant={'success'}>Settings updated successfully</Alert>
                         });
-                    }
-                    else {
+                        res.json().then( payload => {return payload.pictureUrl}).then(pictureUrl => {
+                            let editedUser = this.props.user;
+                            editedUser.pictureUrl = pictureUrl;
+                            this.props.editUserDetails(editedUser);
+                        })
+                    } else {
                         this.setState({
                             isLoading: false,
                             outcome: <Alert variant={'danger'}>Error editing profile</Alert>
@@ -65,19 +74,31 @@ class Settings extends Component {
 
             });
         }
-
     }
 
-    handleFileUpload = (event) => {
-        this.setState({profilePicToUpload: event.target.files});
+
+    handleDrop = dropped => {
+        this.setState({image: dropped[0]})
+    };
+
+    storeCroppedImage = (event) => {
+        if (this.editor) {
+           this.editor.getImage().toBlob((file) => {
+               this.setState({profilePicToUpload: file, showPictureModal: false});
+           });
+        } else alert("error")
     };
 
 
-    //TODO Crop pic so it is guaranteed to be square
+    setEditorRef = (editor) => this.editor = editor;
 
     render() {
-
-        return this.props.user ? <Container>
+        let imageToRender;
+        if(this.state.profilePicToUpload) imageToRender = URL.createObjectURL(this.state.profilePicToUpload);
+        else if(this.props.user) imageToRender = this.props.user.pictureUrl;
+        else imageToRender = "https://media1.tenor.com/images/8d5e73b8d9dd9c7da3cf33c6bbaccb12/tenor.gif";
+        return this.props.user ? <div>
+            <Container>
                 <Row>
                     <Col>
                         <h2>
@@ -92,39 +113,29 @@ class Settings extends Component {
                     <Form.Row>
                         <Col md={3}>
                             <h5>Profile picture </h5>
-                            <div className="settings-user-image-container" onClick={() => alert("Will do soon!")}>
-                                <Image rounded alt="User avatar" src={this.props.user.pictureUrl ||
-                                "https://media1.tenor.com/images/8d5e73b8d9dd9c7da3cf33c6bbaccb12/tenor.gif"}
-                                       className="settings-user-image" />
-                                <input label='upload picture' type='image' onChange={this.handleFileUpload}>
+                            <div className="settings-user-image-container"
+                                 onClick={() => this.setState({showPictureModal: true})}>
+                                <Image rounded alt="User avatar" src={imageToRender}
+                                       className="settings-user-image"/>
 
-                                </input>
-                                    <div className="hover-user-image-overlay">
-                                        <div className="hover-user-image-text">
-                                            <Icon name="fas fa-camera"/>
-                                            <br />
-                                            {this.props.user.pictureUrl ? "Change your profile photo" : "Upload your profile picture"}
-                                        </div>
+                                <div className="hover-user-image-overlay">
+                                    <div className="hover-user-image-text">
+                                        <Icon name="fas fa-camera"/>
+                                        <br/>
+                                        {this.props.user.pictureUrl ? "Change your profile photo" : "Upload your profile picture"}
                                     </div>
+                                </div>
                             </div>
-
-                            <ImageUploader
-                                withIcon={true}
-                                buttonText='Choose images'
-                                onChange={this.onDrop}
-                                imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                                maxFileSize={5242880}
-                            />
 
                         </Col>
                     </Form.Row>
-                    <br />
+                    <br/>
                     <Form.Row>
                         <Col md={6}>
                             <Form.Group controlId="email">
                                 <h5>Email Address</h5>
                                 <Form.Control type="email" value={this.state.email} required
-                                              onChange={(e) => this.setState({ email: e.target.value })}/>
+                                              onChange={(e) => this.setState({email: e.target.value})}/>
                                 <Form.Text className="text-muted">
                                     We'll never share your email with anyone else.
                                 </Form.Text>
@@ -147,13 +158,53 @@ class Settings extends Component {
                         </Col>
                     </Form.Row>
                 </Form>
-                <br />
+                <br/>
                 <Row>
                     <Col>
                         {this.state.outcome}
                     </Col>
                 </Row>
-            </Container> : <div>Not logged in</div>;
+            </Container>
+            <Modal show={this.state.showPictureModal} onHide={() => this.setState({showPictureModal: false})}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Upload Profile Picture</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                    <Dropzone
+                        style={{width: "400px", height: "400px"}}
+                        disableClick
+                        onDrop={this.handleDrop}
+                    >
+                        {this.state.image ?
+                            <div>
+                            <AvatarEditor
+                                scale={1}
+                                border={50}
+                                image={this.state.image}
+                                ref={this.setEditorRef}
+                            />
+                                <Button onClick={() => this.setState({image: null})}>Select a different one</Button>
+                            </div>:
+                            ({open}) => (
+                                <React.Fragment>
+                                    <Button onClick={() => open()}>
+                                        Select or drag and drop
+                                    </Button>
+                                </React.Fragment>
+                            )
+
+                        }
+                    </Dropzone>
+
+                </Modal.Body>
+
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => this.setState({showPictureModal: false})}>Cancel</Button>
+                    <Button variant="primary" onClick={this.storeCroppedImage}>Save</Button>
+                </Modal.Footer>
+            </Modal>
+        </div> : <div>Not logged in</div>;
     }
 
 }

@@ -57,7 +57,7 @@ editProfile = async (req, res) => {
                     ':pictureKey' : data.key
                 }}).promise();
 
-            res.sendStatus(200)
+            res.json({pictureUrl: data.Location});
         } catch (error) {
             res.sendStatus(400)
     ;    }
