@@ -12,7 +12,7 @@ const JourneyModule = (props) => {
                     url={`https://projectaccess.typeform.com/to/${module.typeformID}?` +
                     `mentorfirstname=${props.user.firstName}` +
                     `&uniqueid=${1532907125}&` +
-                    `mentoremail=${props.user.emailAddress}&`+
+                    `mentoremail=${props.user.email}&`+
                     `menteefirstname=${"Emil"}`}
                     style={{"minHeight": "600px"}}/> :
                 <div>

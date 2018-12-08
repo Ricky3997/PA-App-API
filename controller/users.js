@@ -7,4 +7,8 @@ const profile =  async (req,res) => {
     else res.sendStatus(400);
 };
 
-module.exports = {profile};
+const edit =  async (req,res) => {
+    userService.editProfile(req,res);
+};
+
+module.exports = {profile, edit};

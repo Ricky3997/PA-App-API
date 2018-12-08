@@ -12,6 +12,9 @@ module.exports = {
         region: 'eu-west-2',
         endpoint: "http://localhost:8000"
     },
+    s3: {
+        bucketName: "mentor-app-assets"
+    },
     AWS: {
         key: process.env.AWS_ACCESS_KEY_ID,
         secret: process.env.AWS_SECRET_ACCESS_KEY

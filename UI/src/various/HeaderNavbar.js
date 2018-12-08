@@ -10,7 +10,7 @@ const HeaderNavbar = (props) => {
 
     if(props.user){
         userDropdown = <NavDropdown title={<span>
-                <UserCircle pictureUrl={props.user.pictureUrl}/>
+            {props.user.pictureUrl ?<UserCircle pictureUrl={props.user.pictureUrl}/> : <Icon name={"fas fa-user"}/> }
             {props.user.firstName}</span>} id="user-dropdown">
             <LinkContainer to="/settings">
                 <NavDropdown.Item>

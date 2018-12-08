@@ -134,7 +134,7 @@ class Call extends Component {
                                 url={`https://projectaccess.typeform.com/to/${typeformID}?` +
                                 `mentorfirstname=${this.props.user.firstName}` +
                                 `&uniqueid=${1532907125}&` +
-                                `mentoremail=${this.props.user.emailAddress}&` +
+                                `mentoremail=${this.props.user.email}&` +
                                 `menteefirstname=${"Emil"}`}
                                 style={{"minHeight": "600px"}}/> : null}
                     </Row>

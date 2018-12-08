@@ -20,8 +20,7 @@ const post = (resource, body) => {
         },
         method: "POST",
         body: JSON.stringify(body)
-    })
-        .then(res => {
+    }).then(res => {
             if(res.status === 200) {
                 return res.json().then( payload => {return {success: true, payload: payload}})
             }

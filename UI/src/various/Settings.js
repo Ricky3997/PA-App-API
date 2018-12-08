@@ -1,21 +1,31 @@
 import React, {Component} from 'react';
 import {Col, Container, Form, Row, Button, Alert, Image} from "react-bootstrap";
 import {Icon} from "react-fa";
+import ImageUploader from 'react-images-upload';
 
 class Settings extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.onDrop = this.onDrop.bind(this);
         this.state = {
-            emailAddress: props.user ? props.user.emailAddress : '',
+            email: props.user ? props.user.email : '',
+            profilePicToUpload: null,
+            pictures: [],
             outcome: null,
             validated: false,
             isLoading: false
         };
     }
 
+    onDrop(picture) {
+        this.setState({
+            pictures: this.state.pictures.concat(picture),
+        });
+    }
+
     componentWillReceiveProps(nextProps, nextContext) {
-        if(nextProps.status === "logged-in") this.setState({emailAddress: nextProps.user.emailAddress})
+        if(nextProps.status === "logged-in") this.setState({email: nextProps.user.email})
     }
 
     handleSubmit(event) {
@@ -24,20 +34,46 @@ class Settings extends Component {
         event.stopPropagation();
         if (form.checkValidity() === true) {
             this.setState({ isLoading: true }, () => {
-                this.simulateNetworkRequest().then(() => {
-                    this.setState({
-                        isLoading: false,
-                        outcome: <Alert variant={'success'}>Settings would have been updated successfully</Alert>
-                    });
-                });
+                const formData = new FormData();
+                formData.append('file', this.state.profilePicToUpload[0]);
+                fetch("/api/users/edit", {
+                    headers: {
+                        'Authorization': `Bearer ${window.localStorage.getItem("token")}`
+                    },
+                    method: "POST",
+                    body: formData
+                }).then(res => {
+                    if(res.status === 200) {
+                        this.setState({
+                            isLoading: false,
+                            outcome: <Alert variant={'success'}>Settings updated successfully</Alert>
+                        });
+                    }
+                    else {
+                        this.setState({
+                            isLoading: false,
+                            outcome: <Alert variant={'danger'}>Error editing profile</Alert>
+                        });
+                    }
+                })
+                    .catch((err) => {
+                        this.setState({
+                            isLoading: false,
+                            outcome: <Alert variant={'danger'}>Error editing profile</Alert>
+                        });
+                    })
+
             });
         }
 
     }
 
-    simulateNetworkRequest() {
-        return new Promise(resolve => setTimeout(resolve, 1000));
-    }
+    handleFileUpload = (event) => {
+        this.setState({profilePicToUpload: event.target.files});
+    };
+
+
+    //TODO Crop pic so it is guaranteed to be square
 
     render() {
 
@@ -57,24 +93,38 @@ class Settings extends Component {
                         <Col md={3}>
                             <h5>Profile picture </h5>
                             <div className="settings-user-image-container" onClick={() => alert("Will do soon!")}>
-                                <Image rounded alt="User avatar" src={this.props.user.pictureUrl} className="settings-user-image" />
+                                <Image rounded alt="User avatar" src={this.props.user.pictureUrl ||
+                                "https://media1.tenor.com/images/8d5e73b8d9dd9c7da3cf33c6bbaccb12/tenor.gif"}
+                                       className="settings-user-image" />
+                                <input label='upload picture' type='image' onChange={this.handleFileUpload}>
+
+                                </input>
                                     <div className="hover-user-image-overlay">
                                         <div className="hover-user-image-text">
                                             <Icon name="fas fa-camera"/>
                                             <br />
-                                            Change your profile photo
+                                            {this.props.user.pictureUrl ? "Change your profile photo" : "Upload your profile picture"}
                                         </div>
                                     </div>
                             </div>
+
+                            <ImageUploader
+                                withIcon={true}
+                                buttonText='Choose images'
+                                onChange={this.onDrop}
+                                imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                                maxFileSize={5242880}
+                            />
+
                         </Col>
                     </Form.Row>
                     <br />
                     <Form.Row>
                         <Col md={6}>
-                            <Form.Group controlId="emailAddress">
+                            <Form.Group controlId="email">
                                 <h5>Email Address</h5>
-                                <Form.Control type="email" value={this.state.emailAddress} required
-                                              onChange={(e) => this.setState({ emailAddress: e.target.value })}/>
+                                <Form.Control type="email" value={this.state.email} required
+                                              onChange={(e) => this.setState({ email: e.target.value })}/>
                                 <Form.Text className="text-muted">
                                     We'll never share your email with anyone else.
                                 </Form.Text>
