@@ -11,6 +11,7 @@ import Message from "./message/Message";
 import Admin from "./admin/Admin";
 import Settings from "./various/Settings";
 import JourneyModule from "./journey/JourneyModule";
+import MenteeHome from "./home/MenteeHome";
 import Home from "./home/Home";
 const api = require("./api");
 
