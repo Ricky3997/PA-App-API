@@ -128,16 +128,16 @@ class Call extends Component {
 
                 </Col>
                 <Col md={4} style={{backdropColor: "red"}}>
-                    {/*<Row>*/}
-                        {/*{this.props.user ?*/}
-                            {/*<ReactTypeformEmbed*/}
-                                {/*url={`https://projectaccess.typeform.com/to/${typeformID}?` +*/}
-                                {/*`mentorfirstname=${this.props.user.firstName}` +*/}
-                                {/*`&uniqueid=${1532907125}&` +*/}
-                                {/*`mentoremail=${this.props.user.emailAddress}&` +*/}
-                                {/*`menteefirstname=${"Emil"}`}*/}
-                                {/*style={{"minHeight": "600px"}}/> : null}*/}
-                    {/*</Row>*/}
+                    <Row>
+                        {this.props.user ?
+                            <ReactTypeformEmbed
+                                url={`https://projectaccess.typeform.com/to/${typeformID}?` +
+                                `mentorfirstname=${this.props.user.firstName}` +
+                                `&uniqueid=${1532907125}&` +
+                                `mentoremail=${this.props.user.emailAddress}&` +
+                                `menteefirstname=${"Emil"}`}
+                                style={{"minHeight": "600px"}}/> : null}
+                    </Row>
                 </Col>
 
 

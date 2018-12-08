@@ -7,7 +7,7 @@ class Settings extends Component {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
-            emailAddress: '',
+            emailAddress: props.user ? props.user.emailAddress : '',
             outcome: null,
             validated: false,
             isLoading: false
@@ -86,7 +86,7 @@ class Settings extends Component {
                     </Form.Row>
                     <Form.Row>
                         <Col md={{size: 2, offset: 8}}>
-                            <Button variant="secondary" block>
+                            <Button variant="secondary" block onClick={() => this.props.history.push("/")}>
                                 Cancel
                             </Button>
                         </Col>

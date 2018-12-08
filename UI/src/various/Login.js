@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {Button, Col, Container, Form, Row, Alert, Image} from 'react-bootstrap'
 import Loader from 'react-loader-spinner'
-
-const api = require("../api");
-const queryString = require('query-string');
+import * as EmailValidator from 'email-validator';
+import * as api from "../api";
+import * as queryString from 'query-string';
 
 class Login extends Component {
     constructor(props) {
@@ -42,6 +42,10 @@ class Login extends Component {
     login(event) {
         event.preventDefault();
         const {email, authCode, showAuthCodeBox} = this.state;
+        if(!EmailValidator.validate(email)) {
+            this.setState({alert: <Alert variant="danger">Invalid email address</Alert>});
+            return;
+        }
         if (showAuthCodeBox) {
             this.setState({loading: true}, () => {
                 setTimeout(() => this.props.validate(this.state.userId, this.state.authCode), 1500);
@@ -53,14 +57,14 @@ class Login extends Component {
                     if (r.success) {
                         alert = <Alert variant="success">An email with the sign-in link has been sent to {email}</Alert>
                         window.localStorage.setItem("email", email)
-                    } else alert = <Alert variant="danger">{r.error}</Alert>;
+                    } else alert = <Alert variant="danger">There was a problem logging you in, sorry</Alert>;
                     this.setState({loading: false, alert: alert, showAuthCodeBox: r.success})
                 }))
 
         }
     }
 
-    //TODO Add field for manual code input
+    //TODO Consider Formik to improve
 
     render() {
         return (

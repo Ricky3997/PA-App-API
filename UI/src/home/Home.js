@@ -85,14 +85,8 @@ class Home extends Component {
                 <Col md={3}>
                     {this.props.mentor ? <MentorTile mentor={this.props.mentor}/> : <NoMentorYet/>}
 
-                    <Row style={{marginTop: "50px"}}>
-                        <ProgressChart completed={this.state.milestones.filter(m => m.completed).length}
-                                       missing={this.state.milestones.filter(m => !m.completed).length}/>
-                    </Row>
                     <Row>
-                        <h5 style={{transform: "translateX(25%)", fontWeight: "500", textAlign: "center"}}>
-                            You're on track to your <br/>dream University! 💪
-                        </h5>
+                        {null}
                     </Row>
                 </Col>
             </Row>

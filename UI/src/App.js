@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css'
 import HeaderNavbar from "./various/HeaderNavbar";
-import Onboarding from "./various/Onboarding";
+import Onboarding from "./onboarding/Onboarding";
 import Login from "./various/Login";
 import {Redirect, Route, Switch} from "react-router-dom";
 import Confirm from "./various/Confirm";
@@ -67,13 +67,11 @@ class App extends Component {
                 } else {
                     window.localStorage.removeItem("token");
                     window.localStorage.removeItem("id");
-                    //TODO Deal gracefully
-                    alert("failure")
+                    this.props.history.push("/login");
                 }
             }
             else {
-                //TODO Deal gracefully
-                alert("failure")
+                this.props.history.push("/login");
             }
         })
     }

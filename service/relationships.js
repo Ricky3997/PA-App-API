@@ -1,11 +1,11 @@
 require('dotenv').load();
 const uuid = require('short-uuid')();
 const _ = require("lodash");
-const AWS = require('aws-sdk');
-AWS.config.update({region: 'eu-west-2'});
+const AWS = require('aws-sdk')
+const config = require('../config.js');
+AWS.config.update(config.dynamodb);
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 const jwt = require('jsonwebtoken');
-const config = require('../config.js');
 const mailService = require("./mail");
 
 getAll = () => {
