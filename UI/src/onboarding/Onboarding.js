@@ -27,12 +27,12 @@ class Onboarding extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
-        this.redirectIfLoggedIn(nextProps)
+        this.redirectIfLoggedIn(nextProps);
         this.detectTypeFromUrl(nextProps);
     }
 
     redirectIfLoggedIn(props){
-        if(props.user) props.history.push("/");
+        if(props.user && this.state.step ===  1) props.history.push("/");
     }
 
     detectTypeFromUrl(props){
@@ -62,9 +62,13 @@ class Onboarding extends Component {
                 .then(r => {
                     this.setState({loading: false});
                     if(r.success) {
-                        this.setState({step: 2, alert: null})
+                        this.setState({step: 2, alert: null});
+                        window.localStorage.setItem("token", r.payload.token);
+                        window.localStorage.setItem("id", r.payload.id);
+                        this.props.setLoggedIn(r.payload.user)
+
                     } else{
-                        this.setState({alert: <Alert variant="danger">Error</Alert>})
+                        this.setState({alert: <Alert variant="danger">Error</Alert>});
                         setTimeout(() => {
                             this.setState({alert: null})
                         }, 3000)
@@ -81,7 +85,8 @@ class Onboarding extends Component {
         let step;
         switch(this.state.step){
             case 2:
-                step = <div>Step 2</div>
+                step = <div>Step 2</div>;
+                break;
             case 1:
             default:
                 step = <FirstStep changeType={e => this.setState({type: e.target.value})}
@@ -102,6 +107,6 @@ class Onboarding extends Component {
             </Container>
         );
     }
-};
+}
 
 export default Onboarding;
