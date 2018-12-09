@@ -6,6 +6,9 @@ import queryString from "query-string";
 import FirstStep from "./FirstStep";
 import * as EmailValidator from 'email-validator';
 import * as api from "../api";
+import SecondStep from "./SecondStep";
+import ThirdStep from "./ThirdStep";
+import FourthStep from "./FourthStep";
 
 
 class Onboarding extends Component {
@@ -16,7 +19,16 @@ class Onboarding extends Component {
             email: "",
             type: "High School Student",
             loading: false,
-            step: 1,
+            currentUniversity: "",
+            subject: "",
+            level: "Undergraduate",
+            country: "",
+            firstGenStudent: "Yes",
+            city: "",
+            gender: "",
+            year: 1,
+            area: "",
+            step: 2,
             alert: null
         };
     }
@@ -84,17 +96,39 @@ class Onboarding extends Component {
     render() {
         let step;
         switch(this.state.step){
-            case 2:
-                step = <div>Step 2</div>;
-                break;
             case 1:
-            default:
                 step = <FirstStep changeType={e => this.setState({type: e.target.value})}
                                   type={this.state.type} firstName={this.state.firstName} email={this.state.email}
-                                  register={(event) => this.onboardNewUser(event)} loading={this.state.loading}
                                   changeEmail={e => this.setState({email: e.target.value})}
                                   changeFirstName={e => this.setState({firstName: e.target.value})}
-                />
+                                  changeStep={(step) => this.setState({step: step})}
+                                  register={(event) => this.onboardNewUser(event)} loading={this.state.loading}
+                />;
+                break;
+            case 2:
+                step = <SecondStep user={this.props.user} country={this.state.country} city={this.state.city}
+                                   changeCountry={(event) => this.setState({country: event.target.value})}
+                                   changeCity={(event) => this.setState({city: event.target.value})}
+                                   changeStep={(step) => this.setState({step: step})}
+                                   changeFirstGenStudent={(event) => this.setState({firstGenStudent: event.target.value})}
+                                   changeGender={(event) => this.setState({gender: event.target.value})} gender={this.state.gender}
+
+
+                />;
+                break;
+            case 3:
+                step = <ThirdStep user={this.props.user} changeUniversity={e => this.setState({currentUniversity: e.target.value})}
+                                  subject={this.state.subject}  changeSubject={e => this.setState({subject: e.target.value})}
+                                  level={this.state.level}  changeLevel={e => this.setState({level: e.target.value})}
+                                  area={this.state.area}  changeArea={e => this.setState({area: e.target.value})}
+                                  year={this.state.year}  changeYear={e => this.setState({year: e.target.value})}
+                                  changeStep={(step) => this.setState({step: step})}
+                />;
+                break;
+            case 4:
+                step = <FourthStep user={this.props.user} {...this.state} changeStep={(step) => this.setState({step: step})}
+                />;
+                break;
         }
         return (
             <Container fluid>
