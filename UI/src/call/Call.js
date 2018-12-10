@@ -24,7 +24,8 @@ class Call extends Component {
 
     }
 
-    // https://github.com/AgoraIO-Community/OpenAgoraWeb-React/blob/master/src/components/AgoraVideoCall/index.jsx
+    //TODO https://github.com/AgoraIO-Community/OpenAgoraWeb-React/blob/master/src/components/AgoraVideoCall/index.jsx
+
 
     componentWillMount() {
         this.client = AgoraRTC.createClient({mode: 'live', codec: "h264"});

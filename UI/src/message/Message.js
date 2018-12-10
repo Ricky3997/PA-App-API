@@ -38,6 +38,8 @@ class Message extends Component {
         };
     }
 
+    //TODO https://docs.sendbird.com/javascript/quick_start
+
     componentDidMount() {
         const props = this.props;
         if(props.user && props.mentor) this.setState({active: 1, chats: [

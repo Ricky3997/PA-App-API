@@ -66,7 +66,7 @@ class Settings extends Component {
             this.setState({isLoading: true}, () => {
                 const formData = new FormData();
 
-                if(this.state.changeProfilePicture){
+                if(this.state.profilePicToUpload){
                     formData.append('file', this.state.profilePicToUpload);
                 }
                 let changedData = {
@@ -125,7 +125,7 @@ class Settings extends Component {
     storeCroppedImage = (event) => {
         if (this.editor) {
             this.editor.getImage().toBlob((file) => {
-                this.setState({profilePicToUpload: file, showPictureModal: false, changeProfilePicture: true});
+                this.setState({profilePicToUpload: file, showPictureModal: false});
             });
         } else alert("error")
     };

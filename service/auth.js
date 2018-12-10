@@ -72,7 +72,7 @@ const confirm = async (email, id, token) => {
 };
 
 const register = async (email, firstName, type) => {
-    const uniqueness = await ddbClient.get(getEmailFromUniqueness(email)).promise();
+    const uniqueness = await ddbClient.get({TableName: 'unique-email', Key: {'email': email}}).promise();
     if (_.isEmpty(uniqueness)) { //Email address is unique
         const id = uuid.new();
         const token = createToken(email, id);
@@ -82,9 +82,6 @@ const register = async (email, firstName, type) => {
     } else return null;
 };
 
-const getEmailFromUniqueness = (email) => {
-    return {TableName: 'unique-email', Key: {'email': email}};
-};
 const registerNewUserDDBObj = (userId, email, firstName, type) => {
     return {RequestItems: {
             'users': [{PutRequest: {Item: {

@@ -26,7 +26,7 @@ getProfile = async (id) => {
             const profileType = await ddbClient.get({TableName: 'mentee', Key: {'id': id}}).promise();
             toReturn.menteeProfile = profileType.Item;
         }
-    };
+    }
     return toReturn;
 
 };
@@ -47,7 +47,7 @@ editProfile = async (req, res) => {
             let updateValues = {};
             if(files.file){
                 const buffer = fs.readFileSync(files.file[0].path);
-                const type = fileType(buffer)
+                const type = fileType(buffer);
                 const data = await s3.upload({
                     ACL: 'public-read',
                     Body: buffer,
@@ -62,15 +62,24 @@ editProfile = async (req, res) => {
             }
             const changedUserData = JSON.parse(fields.userData);
             if(changedUserData.firstName !== userFromDb.Item.firstName){
-                updateExpression = updateExpression.concat(", firstName = :firstName");
+                if(updateExpression !== "SET " && updateExpression[updateExpression.length-1] !== " " && updateExpression[updateExpression.length-2] !== ","){
+                    updateExpression = updateExpression.concat(", ")
+                }
+                updateExpression =  updateExpression.concat("firstName = :firstName");
                 updateValues[":firstName"] = changedUserData.firstName;
             }
             if(changedUserData.email !== userFromDb.Item.email){
-                updateExpression = updateExpression.concat(", email = :email, emailConfirmed = :emailConfirmed");
-                updateValues[":email"] = changedUserData.email;
-                updateValues[":emailConfirmed"] = false;
-                const newToken = authService.createToken(changedUserData.email, id);
-                mailService.sendConfirmationToken(changedUserData.email, id, newToken);  //TODO Deal better
+                const existsAlready = await ddbClient.get({TableName: 'unique-email', Key: {'email': changedUserData.email}}).promise();
+               if( _.isEmpty(existsAlready)){
+                   if(updateExpression !== "SET " && updateExpression[updateExpression.length-1] !== " " && updateExpression[updateExpression.length-2] !== ","){
+                       updateExpression = updateExpression.concat(", ")
+                   }
+                   updateExpression = updateExpression.concat("email = :email, emailConfirmed = :emailConfirmed");
+                   updateValues[":email"] = changedUserData.email;
+                   updateValues[":emailConfirmed"] = false;
+                   const newToken = authService.createToken(changedUserData.email, id);
+                   mailService.sendConfirmationToken(changedUserData.email, id, newToken);  //TODO Deal better and return updated token and remove existing email from tableC
+               }
             }
             if(updateExpression !== "SET ") {
                 const response = await ddbClient.update({
@@ -88,8 +97,6 @@ editProfile = async (req, res) => {
             if(userFromDb.Item.type === "mentor"){
                 //TODO
             }
-
-
             res.json(updatedUser);
         } catch (error) {
             res.sendStatus(400)
