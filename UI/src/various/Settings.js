@@ -20,7 +20,8 @@ class Settings extends Component {
             showPictureModal: false,
             outcome: null,
             validated: false,
-            isLoading: false
+            isLoading: false,
+            changeProfilePicture: false
         };
     }
 
@@ -64,7 +65,23 @@ class Settings extends Component {
         if (form.checkValidity() === true) {
             this.setState({isLoading: true}, () => {
                 const formData = new FormData();
-                formData.append('file', this.state.profilePicToUpload);
+
+                if(this.state.changeProfilePicture){
+                    formData.append('file', this.state.profilePicToUpload);
+                }
+                let changedData = {
+                    university: this.state.university,
+                    subject:  this.state.subject,
+                    level: this.state.level,
+                    country: this.state.country,
+                    firstGenStudent:  this.state.firstGenStudent === "Yes",
+                    city: this.state.city,
+                    gender: this.state.gender,
+                    year:  parseInt(this.state.year),
+                    area:  this.state.area,
+                };
+                formData.append("data", JSON.stringify(changedData));
+                formData.append("userData", JSON.stringify({email: this.state.email, firstName: this.state.firstName}));
                 fetch("/api/users/edit", {
                     headers: {
                         'Authorization': `Bearer ${window.localStorage.getItem("token")}`
@@ -80,11 +97,7 @@ class Settings extends Component {
                             outcome: <Alert variant={'success'}>Settings updated successfully</Alert>
                         });
                         res.json().then(payload => {
-                            return payload.pictureUrl
-                        }).then(pictureUrl => {
-                            let editedUser = this.props.user;
-                            editedUser.pictureUrl = pictureUrl;
-                            this.props.editUserDetails(editedUser);
+                            this.props.editUserDetails(payload);
                         })
                     } else {
                         this.setState({
@@ -112,7 +125,7 @@ class Settings extends Component {
     storeCroppedImage = (event) => {
         if (this.editor) {
             this.editor.getImage().toBlob((file) => {
-                this.setState({profilePicToUpload: file, showPictureModal: false});
+                this.setState({profilePicToUpload: file, showPictureModal: false, changeProfilePicture: true});
             });
         } else alert("error")
     };

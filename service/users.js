@@ -9,6 +9,9 @@ const fileType = require('file-type');
 const multiparty = require('multiparty');
 const ep = new AWS.Endpoint('s3.eu-west-2.amazonaws.com');
 const s3 = new AWS.S3({endpoint: ep});
+const mentorService = require("./mentors");
+const mailService = require('./mail');
+const authService = require('./auth');
 
 getProfile = async (id) => {
     const userFromDb = await ddbClient.get({TableName: 'users', Key: {'id': id}}).promise();
@@ -39,28 +42,55 @@ editProfile = async (req, res) => {
     form.parse(req, async (error, fields, files) => {
         if (error) throw new Error(error);
         try {
-            const buffer = fs.readFileSync(files.file[0].path);
-            const type = fileType(buffer)
-            const data = await s3.upload({
-                ACL: 'public-read',
-                Body: buffer,
-                Bucket: config.s3.bucketName,
-                ContentType: type.mime,
-                Key: `${`${id}-${Date.now().toString()}`}.${type.ext}`
-            }).promise();
-            if(picToDelete){
-                const deleted = await s3.deleteObject({Bucket: config.s3.bucketName, Key: picToDelete}).promise();
+            let updatedUser;
+            let updateExpression = "SET ";
+            let updateValues = {};
+            if(files.file){
+                const buffer = fs.readFileSync(files.file[0].path);
+                const type = fileType(buffer)
+                const data = await s3.upload({
+                    ACL: 'public-read',
+                    Body: buffer,
+                    Bucket: config.s3.bucketName,
+                    ContentType: type.mime,
+                    Key: `${`${id}-${Date.now().toString()}`}.${type.ext}`
+                }).promise();
+                if(picToDelete) await s3.deleteObject({Bucket: config.s3.bucketName, Key: picToDelete}).promise();
+                updateExpression = updateExpression.concat("pictureKey = :pictureKey, pictureUrl = :pictureUrl");
+                updateValues[":pictureUrl"] = data.Location;
+                updateValues[":pictureKey"] = data.key;
             }
-            const updated = await ddbClient.update({
-                TableName: 'users',
-                Key: {id: id},
-                UpdateExpression: "SET pictureKey = :pictureKey, pictureUrl = :pictureUrl",
-                ExpressionAttributeValues: {
-                    ':pictureUrl' : data.Location,
-                    ':pictureKey' : data.key
-                }}).promise();
+            const changedUserData = JSON.parse(fields.userData);
+            if(changedUserData.firstName !== userFromDb.Item.firstName){
+                updateExpression = updateExpression.concat(", firstName = :firstName");
+                updateValues[":firstName"] = changedUserData.firstName;
+            }
+            if(changedUserData.email !== userFromDb.Item.email){
+                updateExpression = updateExpression.concat(", email = :email, emailConfirmed = :emailConfirmed");
+                updateValues[":email"] = changedUserData.email;
+                updateValues[":emailConfirmed"] = false;
+                const newToken = authService.createToken(changedUserData.email, id);
+                mailService.sendConfirmationToken(changedUserData.email, id, newToken);  //TODO Deal better
+            }
+            if(updateExpression !== "SET ") {
+                const response = await ddbClient.update({
+                    TableName: 'users',
+                    Key: {id: id},
+                    UpdateExpression: updateExpression,
+                    ExpressionAttributeValues: updateValues,
+                    ReturnValues: "ALL_NEW"
+                }).promise();
+                updatedUser = response.Attributes;
+            } else updatedUser = userFromDb.Item;
+            if(userFromDb.Item.type === "mentor"){
+                updatedUser.mentorProfile = await mentorService.edit(id, JSON.parse(fields.data[0]))
+            }
+            if(userFromDb.Item.type === "mentor"){
+                //TODO
+            }
 
-            res.json({pictureUrl: data.Location});
+
+            res.json(updatedUser);
         } catch (error) {
             res.sendStatus(400)
     ;    }

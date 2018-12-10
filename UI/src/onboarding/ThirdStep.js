@@ -9,7 +9,7 @@ const ThirdStep = (props) => {
             <Form.Row style={{paddingTop: "80px"}}>
                 <Col md={{span: 3, offset: 3}}>
                     <Form.Label>Your current University</Form.Label>
-                    <Form.Control value={props.currentUniversity}
+                    <Form.Control value={props.university}
                                   onChange={props.changeUniversity}/>
 
                 </Col>
@@ -51,7 +51,7 @@ const ThirdStep = (props) => {
                 <Form.Row style={{paddingTop: "80px"}}>
                     <Col md={{span: 3, offset: 3}}>
                         <Form.Label>Your current University</Form.Label>
-                        <Form.Control value={props.currentUniversity}
+                        <Form.Control value={props.university}
                                       onChange={props.changeUniversity}/>
 
                     </Col>

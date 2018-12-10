@@ -19,7 +19,7 @@ class Onboarding extends Component {
             email: "",
             type: "High School Student",
             loading: false,
-            currentUniversity: "",
+            university: "",
             subject: "",
             level: "Undergraduate",
             country: "",
@@ -99,14 +99,14 @@ class Onboarding extends Component {
 
     registerMentor(){
         const data = {
-            university: this.state.currentUniversity,
+            university: this.state.university,
             subject:  this.state.subject,
             level: this.state.level,
             country: this.state.country,
             firstGenStudent:  this.state.firstGenStudent === "Yes",
             city: this.state.city,
             gender: this.state.gender,
-            year:  this.state.year,
+            year:  parseInt(this.state.year),
             area:  this.state.area
         };
         this.setState({loading: true}, () => {
@@ -151,8 +151,8 @@ class Onboarding extends Component {
                 />;
                 break;
             case 3:
-                step = <ThirdStep user={this.props.user} changeUniversity={e => this.setState({currentUniversity: e.target.value})}
-                                  currentUniversity={this.state.currentUniversity}
+                step = <ThirdStep user={this.props.user} changeUniversity={e => this.setState({university: e.target.value})}
+                                  university={this.state.university}
                                   subject={this.state.subject}  changeSubject={e => this.setState({subject: e.target.value})}
                                   level={this.state.level}  changeLevel={e => this.setState({level: e.target.value})}
                                   area={this.state.area}  changeArea={e => this.setState({area: e.target.value})}

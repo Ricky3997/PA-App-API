@@ -150,6 +150,31 @@ const getById = (id) => {
     return dummy.filter(m => m.id === parseInt(id))
 };
 
+const edit = async (id, data) => {
+        return await ddbClient.update({
+            TableName: 'mentors',
+            Key: {id: id},
+            UpdateExpression: "SET university = :university, subject = :subject, #l = :level, country = :country, " +
+                "firstGenStudent = :firstGenStudent, city = :city, gender = :gender, #y = :year, area = :area",
+            ExpressionAttributeNames:{
+                "#l": "level",
+                "#y": "year",
+            },
+            ExpressionAttributeValues: {
+                ':university': data.university,
+                ':subject': data.subject,
+                ':level': data.level,
+                ':country': data.country,
+                ':firstGenStudent': data.firstGenStudent,
+                ':city': data.city,
+                ':gender': data.gender,
+                ':year': data.year,
+                ':area': data.area
+            },
+            ReturnValues: "ALL_NEW"
+        }).promise();
+}
+
 const registerNew = async (id, data) => {
 
     try {
@@ -185,4 +210,4 @@ const registerNew = async (id, data) => {
     }
 };
 
-module.exports = {getAll, getById, registerNew};
+module.exports = {getAll, getById, registerNew, edit};

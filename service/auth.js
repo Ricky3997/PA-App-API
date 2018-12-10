@@ -134,4 +134,4 @@ const createToken = (email, id) => {
     return jwt.sign({email: email, id: id}, config.JWT_SECRET, { expiresIn: '24h'});
 };
 
-module.exports = {register, confirm, checkToken, generateLoginToken, validateToken};
+module.exports = {register, confirm, checkToken, createToken, generateLoginToken, validateToken};

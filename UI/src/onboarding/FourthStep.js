@@ -30,7 +30,7 @@ const FourthStep = (props) => {
         <Row>
             <Col md={{span: 4, offset: 2}}>
                 <Badge variant="info">{"Currently studying"}</Badge>
-                <Form.Label>{`${props.subject} at ${props.currentUniversity}`}</Form.Label>
+                <Form.Label>{`${props.subject} at ${props.university}`}</Form.Label>
             </Col>
 
             <Col md={4}>
