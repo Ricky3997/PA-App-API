@@ -25,12 +25,13 @@ class Onboarding extends Component {
             country: "",
             firstGenStudent: "Yes",
             city: "",
-            gender: "",
+            gender: "Male",
             year: 1,
-            area: "",
-            step: 2,
+            area: "Natural Sciences",
+            step: 1,
             alert: null
         };
+        this.registerMentor = this.registerMentor.bind(this);
     }
 
     componentDidMount() {
@@ -44,7 +45,10 @@ class Onboarding extends Component {
     }
 
     redirectIfLoggedIn(props){
-        if(props.user && this.state.step ===  1) props.history.push("/");
+        if(props.user) {
+            if(props.user.onboarded) props.history.push("/");
+            else this.setState({step: 2})
+        }
     }
 
     detectTypeFromUrl(props){
@@ -93,6 +97,36 @@ class Onboarding extends Component {
         }
     }
 
+    registerMentor(){
+        const data = {
+            university: this.state.currentUniversity,
+            subject:  this.state.subject,
+            level: this.state.level,
+            country: this.state.country,
+            firstGenStudent:  this.state.firstGenStudent === "Yes",
+            city: this.state.city,
+            gender: this.state.gender,
+            year:  this.state.year,
+            area:  this.state.area
+        };
+        this.setState({loading: true}, () => {
+            api.post("/api/mentors/registerNew", data).then(r => {
+                if(r.success){
+                    this.setState({loading: false});
+                    let editedUser = this.props.user;
+                    editedUser.onboarded = true;
+                    editedUser.mentorProfile = data;
+                    this.props.editUserDetails(editedUser);
+                    this.props.history.push("/");
+                } else {
+                    this.setState({loading: false});
+                    alert("error")
+                }
+            })
+        })
+
+    }
+
     render() {
         let step;
         switch(this.state.step){
@@ -118,6 +152,7 @@ class Onboarding extends Component {
                 break;
             case 3:
                 step = <ThirdStep user={this.props.user} changeUniversity={e => this.setState({currentUniversity: e.target.value})}
+                                  currentUniversity={this.state.currentUniversity}
                                   subject={this.state.subject}  changeSubject={e => this.setState({subject: e.target.value})}
                                   level={this.state.level}  changeLevel={e => this.setState({level: e.target.value})}
                                   area={this.state.area}  changeArea={e => this.setState({area: e.target.value})}
@@ -127,6 +162,7 @@ class Onboarding extends Component {
                 break;
             case 4:
                 step = <FourthStep user={this.props.user} {...this.state} changeStep={(step) => this.setState({step: step})}
+                                   registerMentor={this.registerMentor}
                 />;
                 break;
         }

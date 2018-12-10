@@ -76,6 +76,7 @@ const ThirdStep = (props) => {
                     </Col>
                     <Col md={{span: 3}}>
 
+                        {/*TODO value not being used to control input, change*/}
                         <Form.Label>Area of study</Form.Label>
                         <Form.Control as="select" value={props.area}
                                       onChange={props.changeArea}>
@@ -101,18 +102,6 @@ const ThirdStep = (props) => {
                             <option>6+</option>
                         </Form.Control>
 
-                    </Col>
-                    <Col md={{span: 3}}>
-
-                        <Form.Label>Area of study</Form.Label>
-                        <Form.Control as="select" value={props.area}
-                                      onChange={props.changeArea}>
-                            <option>Natural Sciences</option>
-                            <option>Humanities</option>
-                            <option>Social Sciences</option>
-                            <option>Engineering</option>
-                            <option>Business and Economics</option>
-                        </Form.Control>
                     </Col>
                 </Form.Row>
                 <br/>

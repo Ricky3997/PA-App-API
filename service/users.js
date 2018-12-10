@@ -18,6 +18,7 @@ getProfile = async (id) => {
             email: userFromDb.Item.email,
             type: userFromDb.Item.type,
             pictureUrl: userFromDb.Item.pictureUrl,
+            onboarded: userFromDb.Item.onboarded,
             admin: true
         }
     };

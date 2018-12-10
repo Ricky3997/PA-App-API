@@ -88,7 +88,7 @@ const getEmailFromUniqueness = (email) => {
 const registerNewUserDDBObj = (userId, email, firstName, type) => {
     return {RequestItems: {
             'users': [{PutRequest: {Item: {
-                        'id': userId, 'firstName': firstName, 'type': type, 'email': email, emailConfirmed: false}}}],
+                        'id': userId, 'firstName': firstName, 'type': type, 'email': email, emailConfirmed: false, onboarded: false}}}],
             'unique-email': [{PutRequest: {Item: {
                         'email': email, 'id': userId}}}]}};
 };

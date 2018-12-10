@@ -4,9 +4,8 @@ const _ = require("lodash");
 const AWS = require('aws-sdk');
 const config = require('../config.js');
 AWS.config.update(config.dynamodb);
-const dynamodb = new AWS.DynamoDB.DocumentClient();
-const jwt = require('jsonwebtoken');
-const mailService = require("./mail");
+const ddb = new AWS.DynamoDB();
+const ddbClient = new AWS.DynamoDB.DocumentClient();
 
 const dummy = [
     {
@@ -108,6 +107,30 @@ const dummy = [
     }
 ];
 
+
+ddb.describeTable({TableName: "mentors"}, (err, data) => {
+    if(err) ddb.createTable({
+        ProvisionedThroughput: {
+            ReadCapacityUnits: 1,
+            WriteCapacityUnits: 1
+        },
+        TableName: 'mentors',
+        KeySchema: [
+            {
+                AttributeName: 'id',
+                KeyType: 'HASH'
+            }
+        ],
+        AttributeDefinitions: [
+            {
+                AttributeName: 'id',
+                AttributeType: 'S'
+            }
+        ],}, (err, data) => {
+        if(err) console.error(err)
+    })
+});
+
 getAll = () => {
     /*const all = await dynamodb.query({
         TableName: "mentors",
@@ -125,6 +148,41 @@ getAll = () => {
 const getById = (id) => {
     // return await dynamodb.getItem({'Table': 'mentors', 'Key': {'id': id}}).promise();
     return dummy.filter(m => m.id === parseInt(id))
-}
+};
 
-module.exports = {getAll, getById};
+const registerNew = async (id, data) => {
+
+    try {
+       await ddbClient.put({
+            TableName: 'mentors',
+            Item: {
+                id: id,
+                university: data.university,
+                subject: data.subject,
+                level: data.level,
+                country: data.country,
+                firstGenStudent: data.firstGenStudent,
+                city: data.city,
+                gender: data.gender,
+                year: data.year,
+                area: data.area
+            },
+            ReturnValues: "ALL_OLD"
+        }).promise();
+
+        await ddbClient.update({
+            TableName: 'users',
+            Key: {id: id},
+            UpdateExpression: "SET onboarded = :onboarded",
+            ExpressionAttributeValues: {
+                ':onboarded': true
+            },
+            ReturnValues: "ALL_NEW"
+        }).promise();
+        return {};
+    } catch(e) {
+        return null;
+    }
+};
+
+module.exports = {getAll, getById, registerNew};

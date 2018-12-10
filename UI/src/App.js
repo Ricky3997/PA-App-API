@@ -36,8 +36,8 @@ class App extends Component {
 
     redirectOnRoot(props){
         if(props.location.pathname === "/") {
-            if(this.state.status === "logged-out") props.history.push("/onboard")
-            if(this.state.status === "logged-in") props.history.push("/home")
+            if(this.state.status === "logged-out") props.history.push("/onboard");
+            if(this.state.status === "logged-in" && this.props.location.pathname !== "/home") props.history.push("/home");
         }
     }
 
@@ -94,7 +94,7 @@ class App extends Component {
     }
 
     setLoggedIn(user){
-        this.setState({state: "logged-in", user: user});
+        this.setState({status: "logged-in", user: user});
     }
 
     render() {
@@ -106,7 +106,7 @@ class App extends Component {
                 <Switch>
                     <Route path={"/home"} render={(props) => <Home {...this.state} {...props} />} />
                     <Route path={"/login"} render={(props) => <Login validate={this.validate}/>} />
-                    <Route path={"/onboard"} render={(props) => <Onboarding setLoggedIn={this.setLoggedIn} {...this.state} {...props} />} />
+                    <Route path={"/onboard"} render={(props) => <Onboarding setLoggedIn={this.setLoggedIn} editUserDetails={this.editUserDetails} {...this.state} {...props} />} />
                     <Route path={"/confirm"} render={(props) => <Confirm/>} />
                     <Route path={"/journey/:id"} render={(props) => <JourneyModule {...props} /> } />
                     <Route path={"/settings"} render={(props) => <Settings {...this.state} {...props} editUserDetails={this.editUserDetails} />} />

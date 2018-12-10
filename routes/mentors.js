@@ -7,4 +7,6 @@ router.get('/', mentorsController.getAll);
 
 router.get('/:id', mentorsController.getById);
 
+router.post('/registerNew', mentorsController.registerNew);
+
 module.exports = router;

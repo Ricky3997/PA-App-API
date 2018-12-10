@@ -17,36 +17,37 @@ const FourthStep = (props) => {
 
 
         <Row>
-            <Col md={{span: 3, offset: 3}}>
-                <Badge variant="info">{"Your Name"}</Badge>
-                <Form.Label>{props.user.firstName} </Form.Label>
+            <Col md={{span: 4, offset: 2}}>
+                <Badge variant="info">{"You are"}</Badge>
+                <Form.Label>{`${props.gender} and ${props.firstGenStudent ? "First Generation" : "Not First Generation"}`} </Form.Label>
             </Col>
 
-            <Col md={3}>
-                <Badge variant="info">{"Your Email"}</Badge>
-                <Form.Label>{` ${props.user.email}`} </Form.Label>
-            </Col>
-        </Row>
-        <Row>
-            <Col md={{span: 3, offset: 3}}>
+            <Col md={4}>
                 <Badge variant="info">{"You are from"}</Badge>
                 <Form.Label>{`${props.city}, ${props.country}`} </Form.Label>
             </Col>
-
-            <Col md={2}>
+        </Row>
+        <Row>
+            <Col md={{span: 4, offset: 2}}>
                 <Badge variant="info">{"Currently studying"}</Badge>
                 <Form.Label>{`${props.subject} at ${props.currentUniversity}`}</Form.Label>
+            </Col>
+
+            <Col md={4}>
+                <Badge variant="info">{"In Year"}</Badge>
+                <Form.Label>{`${props.year} of your ${props.level} degree`} </Form.Label>
             </Col>
         </Row>
 
         <Row>
-            <Col md={{span: 3, offset: 3}}>
+            <Col md={{span: 4, offset: 2}}>
                 <Button block onClick={() => props.changeStep(3)}>
                     Previous
                 </Button>
             </Col>
-            <Col md={{span: 3}}>
-                <Button variant="success" block onClick={() => {this.props.user.type === "mentee" ? this.props.registerMentee() : this.props.registerMentor()}}>
+            <Col md={{span: 4}}>
+                <Button variant="success" block disabled={props.loading}
+                        onClick={() => {props.user.type === "mentee" ? props.registerMentee() : props.registerMentor()}}>
                     Looks good, let's go!
                 </Button>
             </Col>
