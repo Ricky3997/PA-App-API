@@ -78,7 +78,7 @@ const register = async (email, firstName, type) => {
         const token = createToken(email, id);
         mailService.sendConfirmationToken(email, id, token);
         await ddbClient.batchWrite(registerNewUserDDBObj(id, email, firstName, type)).promise();
-        return {user: {firstName: firstName, email: email, type: type}, id: id, token: token};
+        return {user: {firstName: firstName, email: email, type: type, onboarded: false, emailConfirmed: false}, id: id, token: token};
     } else return null;
 };
 

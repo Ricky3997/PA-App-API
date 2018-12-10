@@ -3,6 +3,7 @@ import {Col, Container, Form, Row, Button, Alert, Image, Modal} from "react-boot
 import {Icon} from "react-fa";
 import Dropzone from "react-dropzone";
 import AvatarEditor from "react-avatar-editor";
+import * as _ from "lodash";
 
 class Settings extends Component {
     constructor(props) {
@@ -10,8 +11,10 @@ class Settings extends Component {
         this.handleDrop = this.handleDrop.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onDrop = this.onDrop.bind(this);
+        this.fillStateFromUserProps = this.fillStateFromUserProps.bind(this);
         this.state = {
-            email: props.user ? props.user.email : '',
+            firstName: '',
+            email: '',
             profilePicToUpload: null,
             image: null,
             showPictureModal: false,
@@ -21,6 +24,11 @@ class Settings extends Component {
         };
     }
 
+    componentDidMount() {
+        this.fillStateFromUserProps(this.props)
+    }
+
+
     onDrop(picture) {
         this.setState({
             pictures: this.state.pictures.concat(picture),
@@ -28,7 +36,25 @@ class Settings extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
-        if (nextProps.status === "logged-in") this.setState({email: nextProps.user.email})
+        if (nextProps.status === "logged-in") this.fillStateFromUserProps(nextProps)
+    }
+
+    fillStateFromUserProps(props) {
+        let newState = {};
+        if(props.user){
+            newState.email = props.user.email;
+            newState.firstName = props.user.firstName;
+        }
+        if (_.get(props, "user.onboarded")) {
+            if (props.user.type === "mentor" && props.user.mentorProfile) {
+                Object.keys(props.user.mentorProfile).map(k => newState[k] = props.user.mentorProfile[k]);
+            }
+
+            if (props.user.type === "mentee" && props.user.menteeProfile) {
+                //TODO
+            }
+        }
+        this.setState(newState);
     }
 
     handleSubmit(event) {
@@ -53,7 +79,9 @@ class Settings extends Component {
                             image: null,
                             outcome: <Alert variant={'success'}>Settings updated successfully</Alert>
                         });
-                        res.json().then( payload => {return payload.pictureUrl}).then(pictureUrl => {
+                        res.json().then(payload => {
+                            return payload.pictureUrl
+                        }).then(pictureUrl => {
                             let editedUser = this.props.user;
                             editedUser.pictureUrl = pictureUrl;
                             this.props.editUserDetails(editedUser);
@@ -83,9 +111,9 @@ class Settings extends Component {
 
     storeCroppedImage = (event) => {
         if (this.editor) {
-           this.editor.getImage().toBlob((file) => {
-               this.setState({profilePicToUpload: file, showPictureModal: false});
-           });
+            this.editor.getImage().toBlob((file) => {
+                this.setState({profilePicToUpload: file, showPictureModal: false});
+            });
         } else alert("error")
     };
 
@@ -94,8 +122,8 @@ class Settings extends Component {
 
     render() {
         let imageToRender;
-        if(this.state.profilePicToUpload) imageToRender = URL.createObjectURL(this.state.profilePicToUpload);
-        else if(this.props.user) imageToRender = this.props.user.pictureUrl;
+        if (this.state.profilePicToUpload) imageToRender = URL.createObjectURL(this.state.profilePicToUpload);
+        else if (this.props.user && this.props.user.pictureUrl) imageToRender = this.props.user.pictureUrl;
         else imageToRender = "https://media1.tenor.com/images/8d5e73b8d9dd9c7da3cf33c6bbaccb12/tenor.gif";
         return this.props.user ? <div>
             <Container>
@@ -128,11 +156,13 @@ class Settings extends Component {
                             </div>
 
                         </Col>
-                    </Form.Row>
-                    <br/>
-                    <Form.Row>
                         <Col md={6}>
                             <Form.Group controlId="email">
+
+                                <h5>Your Name</h5>
+                                <Form.Control type="text" value={this.state.firstName} required
+                                              onChange={(e) => this.setState({firstName: e.target.value})}/>
+                                <br />
                                 <h5>Email Address</h5>
                                 <Form.Control type="email" value={this.state.email} required
                                               onChange={(e) => this.setState({email: e.target.value})}/>
@@ -145,6 +175,90 @@ class Settings extends Component {
                             </Form.Group>
                         </Col>
                     </Form.Row>
+                    <br/>
+
+                    {_.get(this.props, "user.type", "") === "mentor" ? (<div>
+                        <Row>
+                        <Col>
+                            <h5>University</h5>
+                            <Form.Control value={this.state.university} required
+                                          onChange={(e) => this.setState({university: e.target.value})}/>
+                        </Col>
+                        <Col>
+                            <h5>Subject</h5>
+                            <Form.Control value={this.state.subject} required
+                                          onChange={(e) => this.setState({subject: e.target.value})}/>
+                        </Col>
+                        <Col>
+                            <h5>Area of study</h5>
+                            <Form.Control as="select" value={this.state.area}
+                                          onChange={e => this.setState({area: e.target.value})}>
+                                <option>Natural Sciences</option>
+                                <option>Humanities</option>
+                                <option>Social Sciences</option>
+                                <option>Engineering</option>
+                                <option>Business and Economics</option>
+                            </Form.Control>
+                        </Col>
+                        </Row>
+
+                        <Row>
+                            <Col>
+                                <h5>Degree Type</h5>
+                                <Form.Control as="select" value={this.state.level} required
+                                              onChange={(e) => this.setState({level: e.target.value})}>
+                                    <option>Undergraduate</option>
+                                    <option>Masters</option>
+                                    <option>Doctorate</option>
+                                </Form.Control>
+                            </Col>
+                            <Col>
+                                <h5>Year</h5>
+                                <Form.Control as="select" value={this.state.year} required
+                                              onChange={(e) => this.setState({year: e.target.value})}>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6+</option>
+                                </Form.Control>
+                            </Col>
+                            <Col>
+                                <h5>First Generation Student</h5>
+                                <Form.Control as="select" value={this.state.firstGenStudent} required
+                                              onChange={(e) => this.setState({firstGenStudent: e.target.value})}>
+                                    <option>Yes</option>
+                                    <option>No</option>
+                                </Form.Control>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <h5>Country</h5>
+                                <Form.Control value={this.state.country} required
+                                              onChange={(e) => this.setState({country: e.target.value})}/>
+                            </Col>
+                            <Col>
+                                <h5>City</h5>
+                                <Form.Control value={this.state.city} required
+                                              onChange={(e) => this.setState({city: e.target.value})}/>
+                            </Col>
+                            <Col>
+                                <h5>Gender</h5>
+                                <Form.Control as="select" value={this.state.gender} required
+                                              onChange={e => this.setState({gender: e.target.value})}>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                    <option>Prefer not to say</option>
+                                </Form.Control>
+                            </Col>
+                        </Row>
+
+                    </div>) : null}
+
+                    <br/>
+
                     <Form.Row>
                         <Col md={{size: 2, offset: 8}}>
                             <Button variant="secondary" block onClick={() => this.props.history.push("/")}>
@@ -178,14 +292,14 @@ class Settings extends Component {
                     >
                         {this.state.image ?
                             <div>
-                            <AvatarEditor
-                                scale={1}
-                                border={50}
-                                image={this.state.image}
-                                ref={this.setEditorRef}
-                            />
+                                <AvatarEditor
+                                    scale={1}
+                                    border={50}
+                                    image={this.state.image}
+                                    ref={this.setEditorRef}
+                                />
                                 <Button onClick={() => this.setState({image: null})}>Select a different one</Button>
-                            </div>:
+                            </div> :
                             ({open}) => (
                                 <React.Fragment>
                                     <Button onClick={() => open()}>

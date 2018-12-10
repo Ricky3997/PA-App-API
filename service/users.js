@@ -12,14 +12,16 @@ const s3 = new AWS.S3({endpoint: ep});
 
 getProfile = async (id) => {
     const userFromDb = await ddbClient.get({TableName: 'users', Key: {'id': id}}).promise();
-    const toReturn = {
-        user: {
-            firstName: userFromDb.Item.firstName,
-            email: userFromDb.Item.email,
-            type: userFromDb.Item.type,
-            pictureUrl: userFromDb.Item.pictureUrl,
-            onboarded: userFromDb.Item.onboarded,
-            admin: true
+    const toReturn = userFromDb.Item;
+    toReturn.admin = true; //TODO
+    if(userFromDb.Item.onboarded){
+        if(userFromDb.Item.type === "mentor") {
+            const profileType = await ddbClient.get({TableName: 'mentors', Key: {'id': id}}).promise();
+            toReturn.mentorProfile = profileType.Item;
+        }
+        if(userFromDb.Item.type === "mentee") {
+            const profileType = await ddbClient.get({TableName: 'mentee', Key: {'id': id}}).promise();
+            toReturn.menteeProfile = profileType.Item;
         }
     };
     return toReturn;

@@ -11,7 +11,6 @@ import Message from "./message/Message";
 import Admin from "./admin/Admin";
 import Settings from "./various/Settings";
 import JourneyModule from "./journey/JourneyModule";
-import MenteeHome from "./home/MenteeHome";
 import Home from "./home/Home";
 const api = require("./api");
 
@@ -20,8 +19,7 @@ class App extends Component {
         super(props);
         this.state = {
             status: "logged-out",
-            user: null,
-            mentor: null
+            user: null
         };
         this.logout = this.logout.bind(this);
         this.getUserDetails = this.getUserDetails.bind(this);
@@ -52,7 +50,7 @@ class App extends Component {
     getUserDetails(){
         api.get("/api/users/profile").then(r => {
             if(r.success) {
-                this.setState({status: "logged-in", user: r.payload.user, mentor: r.payload.mentor}, () => {
+                this.setState({status: "logged-in", user: r.payload}, () => {
                     const currentPath = this.props.location.pathname;
                     this.props.history.push({pathname: currentPath === "/login" ? "/" : currentPath, search: ''})
                 });
@@ -87,7 +85,7 @@ class App extends Component {
     logout(){
         window.localStorage.removeItem("token");
         window.localStorage.removeItem("id");
-        this.setState({status: "logged-out", mentor: null, user: null}, () => {
+        this.setState({status: "logged-out", user: null}, () => {
             this.props.history.push("/");
         });
 
