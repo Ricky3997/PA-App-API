@@ -37,7 +37,7 @@ class Settings extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
-        if (nextProps.status === "logged-in") this.fillStateFromUserProps(nextProps)
+        if (nextProps.user) this.fillStateFromUserProps(nextProps)
     }
 
     fillStateFromUserProps(props) {

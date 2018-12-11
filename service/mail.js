@@ -9,12 +9,12 @@ const send = (options) => {
     });
 };
 
-const sendAuthToken = (to, id, token) => {
+const sendAuthToken = (to, token) => {
     send({
         to: to,
         from: "auth@projectaccess.org",
         subject: "Your login link",
-        text: `http://${config.UI_URL}/login?id=${id}&token=${token}`
+        text: `http://${config.UI_URL}/login?token=${token}`
     })
 };
 

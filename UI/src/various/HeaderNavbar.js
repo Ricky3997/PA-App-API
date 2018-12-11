@@ -4,6 +4,7 @@ import Logo from "../pa_key_white.png";
 import {Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {Icon} from "react-fa";
 import UserCircle from "./UserCircle";
+import * as _ from 'lodash';
 
 const HeaderNavbar = (props) => {
     let userDropdown;
@@ -34,7 +35,7 @@ const HeaderNavbar = (props) => {
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                    {props.status === "logged-in" && props.user.admin ?
+                    {_.get(props, "user.admin") ?
                         <LinkContainer to="/admin">
                             <Nav.Link>Admin</Nav.Link>
                         </LinkContainer>

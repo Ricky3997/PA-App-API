@@ -109,20 +109,20 @@ const checkToken = (req, res, next) => {
     if (token && token.startsWith('Bearer ')) token = token.slice(7, token.length);
     if (token) {
         jwt.verify(token, config.JWT_SECRET, (err, decoded) => {
-            if (err) res.json({success: false, message: 'Token is not valid'});
+            if (err) res.sendStatus(403);
             else {
                 req.decoded = decoded;
                 next();
             }
         });
-    } else return res.json({success: false, message: 'Auth token is not supplied'});
+    } else return res.sendStatus(409);
 
 };
 const generateLoginToken = async (email) =>{
-    const user = await ddbClient.get(getEmailFromUniqueness(email)).promise();
+    const user = await ddbClient.get({TableName: 'unique-email', Key: {'email': email}}).promise();
     if(!_.isEmpty(user)){
         const token = createToken(email, user.Item.id);
-        mailService.sendAuthToken(email, user.Item.id, token);
+        mailService.sendAuthToken(email, token);
         return {success: true}
     } else return {success: false, error: "Email address does not exist"}
 };

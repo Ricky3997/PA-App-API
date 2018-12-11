@@ -34,24 +34,9 @@ class Onboarding extends Component {
         this.registerMentor = this.registerMentor.bind(this);
     }
 
-    componentDidMount() {
-        this.redirectIfLoggedIn(this.props);
-        this.detectTypeFromUrl(this.props);
-    }
-
-    componentWillReceiveProps(nextProps, nextContext) {
-        this.redirectIfLoggedIn(nextProps);
-        this.detectTypeFromUrl(nextProps);
-    }
-
-    redirectIfLoggedIn(props){
-        if(props.user) {
-            if(props.user.onboarded) props.history.push("/");
-            else this.setState({step: 2})
-        }
-    }
 
     detectTypeFromUrl(props){
+        //TODO Again
         const qs = queryString.parse(window.location.search);
         if(qs.type) {
             let type;
@@ -80,8 +65,7 @@ class Onboarding extends Component {
                     if(r.success) {
                         this.setState({step: 2, alert: null});
                         window.localStorage.setItem("token", r.payload.token);
-                        window.localStorage.setItem("id", r.payload.id);
-                        this.props.setLoggedIn(r.payload.user)
+                        this.props.editUserDetails(r.payload.user)
 
                     } else{
                         this.setState({alert: <Alert variant="danger">Error</Alert>});

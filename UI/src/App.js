@@ -12,87 +12,27 @@ import Admin from "./admin/Admin";
 import Settings from "./various/Settings";
 import JourneyModule from "./journey/JourneyModule";
 import Home from "./home/Home";
+import AuthenticatedRoute from "./various/AuthenticatedRoute";
 const api = require("./api");
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            status: "logged-out",
-            user: null
+            user: undefined
         };
         this.logout = this.logout.bind(this);
-        this.getUserDetails = this.getUserDetails.bind(this);
-        this.editUserDetails = this.editUserDetails.bind(this);
-        this.validate = this.validate.bind(this);
-        this.setLoggedIn = this.setLoggedIn.bind(this);
-    }
-
-    componentWillReceiveProps(nextProps, nextContext) {
-        this.redirectOnRoot(nextProps)
-    }
-
-    redirectOnRoot(props){
-        if(props.location.pathname === "/") {
-            if(this.state.status === "logged-out") props.history.push("/onboard");
-            if(this.state.status === "logged-in" && this.props.location.pathname !== "/home") props.history.push("/home");
-        }
-    }
-
-    componentDidMount() {
-        const token = window.localStorage.getItem("token"), id = window.localStorage.getItem("id");
-        if(token !== null && id !== null){
-            this.setState({status: "logging-in"});
-            this.validate(id, token)
-        } else this.redirectOnRoot(this.props);
-    }
-
-    getUserDetails(){
-        api.get("/api/users/profile").then(r => {
-            if(r.success) {
-                this.setState({status: "logged-in", user: r.payload}, () => {
-                    const currentPath = this.props.location.pathname;
-                    this.props.history.push({pathname: currentPath === "/login" ? "/" : currentPath, search: ''})
-                });
-            }
-        })
-
-    }
-
-    editUserDetails(editedUser){
-        this.setState({user: editedUser});
-    }
-
-    validate(id, token){
-        api.post("/auth/validate", {id: id, token: token}).then(r => {
-            if(r.success) {
-                if(r.payload.valid) {
-                    window.localStorage.setItem("token", token);
-                    window.localStorage.setItem("id", id);
-                    this.getUserDetails();
-                } else {
-                    window.localStorage.removeItem("token");
-                    window.localStorage.removeItem("id");
-                    this.props.history.push("/login");
-                }
-            }
-            else {
-                this.props.history.push("/login");
-            }
-        })
+        this.setUser = this.setUser.bind(this);
     }
 
     logout(){
         window.localStorage.removeItem("token");
         window.localStorage.removeItem("id");
-        this.setState({status: "logged-out", user: null}, () => {
-            this.props.history.push("/");
-        });
-
+        this.setState({user: undefined});
     }
 
-    setLoggedIn(user){
-        this.setState({status: "logged-in", user: user});
+    setUser(u){
+        this.setState({user: u});
     }
 
     render() {
@@ -102,17 +42,17 @@ class App extends Component {
                     <HeaderNavbar {...this.state} {...this.props} logout={this.logout}/>
                 </header>
                 <Switch>
-                    <Route path={"/home"} render={(props) => <Home {...this.state} {...props} />} />
-                    <Route path={"/login"} render={(props) => <Login validate={this.validate}/>} />
-                    <Route path={"/onboard"} render={(props) => <Onboarding setLoggedIn={this.setLoggedIn} editUserDetails={this.editUserDetails} {...this.state} {...props} />} />
+                    <Route path={"/login"} render={(props) => <Login {...props} />} />
+                    <Route path={"/onboard"} render={(props) => <Onboarding editUserDetails={this.setUser} {...this.state} {...props} />} />
                     <Route path={"/confirm"} render={(props) => <Confirm/>} />
                     <Route path={"/journey/:id"} render={(props) => <JourneyModule {...props} /> } />
-                    <Route path={"/settings"} render={(props) => <Settings {...this.state} {...props} editUserDetails={this.editUserDetails} />} />
+                    <Route path={"/settings"} render={(props) => <Settings {...this.state} {...props} editUserDetails={this.setUser} />} />
                     <Route path={"/admin/:section?"} render={(props) =>  <Admin {...this.state} {...props} />} />
                     <Route path={"/message"} render={(props) => <Message {...this.state} {...props} />} />
                     <Route path={"/call"} render={(props) => <Call {...this.state} {...props} />} />
                     <Route path={"/mentor/:id"} exact render={(props) => <MentorProfile {...props} />} />
-                    <Redirect to={"/"} />
+                    <Route render={(props) => <Home {...this.state} {...props} />} />
+                    {/*<AuthenticatedRoute/>*/}
                 </Switch>
             </div>
         );
