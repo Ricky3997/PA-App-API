@@ -97,7 +97,7 @@ class Settings extends Component {
                             outcome: <Alert variant={'success'}>Settings updated successfully</Alert>
                         });
                         res.json().then(payload => {
-                            this.props.editUserDetails(payload);
+                            this.props.setUser(payload);
                         })
                     } else {
                         this.setState({

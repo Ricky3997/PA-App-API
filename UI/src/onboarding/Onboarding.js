@@ -65,7 +65,7 @@ class Onboarding extends Component {
                     if(r.success) {
                         this.setState({step: 2, alert: null});
                         window.localStorage.setItem("token", r.payload.token);
-                        this.props.editUserDetails(r.payload.user)
+                        this.props.setUser(r.payload.user)
 
                     } else{
                         this.setState({alert: <Alert variant="danger">Error</Alert>});
@@ -100,7 +100,7 @@ class Onboarding extends Component {
                     let editedUser = this.props.user;
                     editedUser.onboarded = true;
                     editedUser.mentorProfile = data;
-                    this.props.editUserDetails(editedUser);
+                    this.props.setUser(editedUser);
                     this.props.history.push("/");
                 } else {
                     this.setState({loading: false});

@@ -5,6 +5,7 @@ import * as EmailValidator from 'email-validator';
 import * as api from "../api";
 import * as queryString from 'query-string';
 import * as _ from 'lodash';
+import {Redirect} from "react-router-dom";
 
 class Login extends Component {
     constructor(props) {
@@ -14,34 +15,27 @@ class Login extends Component {
             alert: null,
             loading: false
         };
+        this.login = this.login.bind(this);
     };
 
     componentDidMount() {
-        this.checkIfToken();
-
-    }
-
-    componentWillReceiveProps(nextProps, nextContext) {
         this.checkIfToken();
     }
 
     checkIfToken() {
         const qs = queryString.parse(window.location.search);
-        if (qs.token) window.localStorage.setItem("token", qs.token);
-        if(window.localStorage.getItem("token")) this.login()
-
+        if (qs.token) {
+            window.localStorage.setItem("token", qs.token);
+            this.login()
+        }
     }
 
     login(){
         api.get("/api/users/profile").then(r => {
-            if(r.success) this.setState({user: r.payload}, () => {
-                const redirectTo = _.get(this.props, "location.state.from") || "/";
-                this.props.history.push({redirectTo, search: ''});
-            });
+            if(r.success) this.props.setUser(r.payload);
             else {
                 window.localStorage.removeItem("token");
-                window.localStorage.removeItem("id");
-                this.setState({user: undefined})
+                window.localStorage.removeItem("user");
             }
         })
 
@@ -68,7 +62,7 @@ class Login extends Component {
     //TODO Consider Formik to improve
 
     render() {
-        return (
+        return this.props.user ? <Redirect to={_.get(this.props, "location.state.from") || "/"} /> : (
             <Container fluid>
                 <Container className="onboarding">
                     <Row className="justify-content-md-center">
