@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Button, Col, Container, Row, Alert, Image, Form } from "react-bootstrap";
+import { Button, Col, Container, Row, Image, Form } from "react-bootstrap";
 import Loader from "react-loader-spinner";
-import * as EmailValidator from "email-validator";
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import * as api from "../../api";
 import * as queryString from "query-string";
 import * as _ from "lodash";
@@ -10,56 +11,16 @@ import * as Yup from "yup";
 import { ErrorMessage, Field, Formik, Form as FormikForm } from "formik";
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-    this.login = this.login.bind(this);
-  };
-
   componentDidMount() {
-    this.checkIfToken();
-  }
-
-  checkIfToken() {
     const qs = queryString.parse(window.location.search);
     if (qs.token) {
       window.localStorage.setItem("token", qs.token);
-      this.login();
+      this.props.login()
     }
   }
-
-  login() {
-    api.get("/api/users/profile").then(r => {
-      if (r.success) this.props.setUser(r.payload);
-      else {
-        window.localStorage.removeItem("token");
-        window.localStorage.removeItem("user");
-      }
-    });
-
-  }
-
-  requestLoginToken(event) {
-    const { email } = this.state;
-    if (!EmailValidator.validate(email)) {
-      this.setState({ alert: <Alert variant="danger">Invalid email address</Alert> });
-      return;
-    }
-    this.setState({ loading: true }, () => api.get(`/auth/login?email=${email}`)
-      .then(r => {
-        let alert;
-        if (r.success) {
-          alert = <Alert variant="success">An email with the sign-in link has been sent to {email}</Alert>;
-          window.localStorage.setItem("email", email);
-        } else alert = <Alert variant="danger">There was a problem logging you in, sorry</Alert>;
-        this.setState({ loading: false, alert: alert });
-      }));
-  }
-
-  //TODO Consider Formik to improve
 
   render() {
-    return this.props.user ? <Redirect to={_.get(this.props, "location.state.from") || "/"}/> : (
+    return this.props.user ? <Redirect to="/"/> : (
       <Container fluid>
         <Container className="onboarding">
           <Row className="justify-content-md-center">
@@ -73,12 +34,15 @@ class Login extends Component {
                     .required("Email is required.")
                 })}
                 initialValues={{ email: "" }}
-                onSubmit={(values, actions) => {
+                onSubmit={({email}, {setSubmitting}) => {
                   //this.requestLoginToken();
-                  console.log(values)
-                  alert(values)
+                  api.get(`/auth/login?email=${email}`).then(r => {
+                    if(r.success) toast.success(`An email with the sign-in link has been sent to ${email}`);
+                    else toast.error("There was an error requesting your magic link, sorry");
+                    setSubmitting(false);
+                  });
                 }}
-                render={({ values, touched, errors, isSubmitting}) => (
+                render={({ values, touched, errors, isSubmitting }) => (
                   <FormikForm>
                     <Field
                       type="email"
@@ -86,18 +50,15 @@ class Login extends Component {
                       label="Your Email"
                       render={({ field, form: { touched, errors } }) => {
                         const error = touched[field.name] && errors[field.name];
-                        console.log(errors[field.name])
                         return <div>
                           <Form.Control {...field}
-                                       isValid={!error}
-                                       isInvalid={error} />
+                                        isValid={!error}
+                                        isInvalid={error}/>
                           <ErrorMessage name={field.name}/>
-                        </div>
+                        </div>;
                       }}
                     />
-
-                    <br />
-
+                    <br/>
                     <Button block type="submit" variant="success" disabled={isSubmitting || !_.isEmpty(errors)}>
                       {isSubmitting ? <Loader type="Oval" color="#ffffff" width="20" height="20"/> :
                         <span>Send me a magic link! <Image
@@ -111,7 +72,7 @@ class Login extends Component {
             </Col>
           </Row>
         </Container>
-
+        <ToastContainer />
       </Container>
     );
   }

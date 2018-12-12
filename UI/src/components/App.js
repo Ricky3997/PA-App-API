@@ -12,6 +12,8 @@ import Admin from "./admin/Admin";
 import Settings from "./various/Settings";
 import JourneyModule from "./journey/JourneyModule";
 import Home from "./home/Home";
+import connect from "react-redux/es/connect/connect";
+import { getUser, removeUser, updateUser } from "../actions/actionCreator";
 
 class App extends Component {
 
@@ -33,7 +35,7 @@ class App extends Component {
           <HeaderNavbar user={user} logout={removeUser} history={history} location={location}/>
         </header>
         <Switch>
-          <Route path={"/login"} render={(props) => <Login {...props} setUser={this.setUser} user={user}/>}/>
+          <Route path={"/login"} component={connect(() => {return {user}}, dispatch => {return { login: () => dispatch(getUser()) }})(Login)} />
           <Route path={"/onboard"} render={(props) => <Onboarding user={user} {...props} setUser={this.setUser}/>}/>
           <Route path={"/confirm"} render={(props) => <Confirm/>}/>
           <Route path={"/journey/:id"} render={(props) => <JourneyModule {...props} />}/>
