@@ -1,4 +1,6 @@
-const get = (resource) => {
+import fetch from 'cross-fetch'
+
+export const get = (resource) => {
     return fetch(resource, {headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`}})
         .then(res => {
             if(res.status === 200) {
@@ -11,7 +13,7 @@ const get = (resource) => {
         })
 };
 
-const post = (resource, body) => {
+export const post = (resource, body) => {
     return fetch(resource, {
         headers: {
             'Accept': 'application/json',
@@ -30,5 +32,3 @@ const post = (resource, body) => {
             return {success: false, error: "Unexpected error, sorry!"}
         })
 };
-
-module.exports = {get, post};

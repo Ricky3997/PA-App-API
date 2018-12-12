@@ -12,8 +12,19 @@ function user(state = null, action) {
   }
 }
 
+function login(state = {}, action) {
+  switch (action.type) {
+    case (UPDATE_USER):
+      return action.user;
+    case (REMOVE_USER):
+      return null;
+    default:
+      return state
+  }
+}
+
 const app = combineReducers({
-  user,
+  user,login
 });
 
 export default app

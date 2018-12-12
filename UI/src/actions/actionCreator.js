@@ -1,4 +1,5 @@
 import {REMOVE_USER, UPDATE_USER} from "./actionTypes";
+import * as api from "../api";
 
 export const updateUser = (user) => {
   return {
@@ -11,5 +12,17 @@ export const updateUser = (user) => {
 export const removeUser = () => {
   return {
     type: REMOVE_USER
+  }
+};
+
+export const getUser = () => {
+  return (dispatch) => {
+    return api.get("/api/users/profile").then(r => {
+      if(r.success) dispatch(updateUser(r.payload));
+      else {
+        window.localStorage.removeItem("token");
+        window.localStorage.removeItem("user");
+      }
+    })
   }
 };
