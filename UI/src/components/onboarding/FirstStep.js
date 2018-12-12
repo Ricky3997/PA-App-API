@@ -1,6 +1,6 @@
 import React from 'react';
 import {Badge, Button, Col, Form, Image, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
-import PALogo from "../pa_key.png";
+import PALogo from "../../assets/pa_key.png";
 
 const FirstStep = (props) => {
         return (

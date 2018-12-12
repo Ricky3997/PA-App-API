@@ -4,6 +4,7 @@ import {Icon} from "react-fa";
 import Dropzone from "react-dropzone";
 import AvatarEditor from "react-avatar-editor";
 import * as _ from "lodash";
+import {Redirect} from "react-router-dom";
 
 class Settings extends Component {
     constructor(props) {
@@ -320,18 +321,15 @@ class Settings extends Component {
                                     </Button>
                                 </React.Fragment>
                             )
-
                         }
                     </Dropzone>
-
                 </Modal.Body>
-
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => this.setState({showPictureModal: false})}>Cancel</Button>
                     <Button variant="primary" onClick={this.storeCroppedImage}>Save</Button>
                 </Modal.Footer>
             </Modal>
-        </div> : <div>Not logged in</div>;
+        </div> :<Redirect to={_.get(this.props, "location.state.from") || "/"} />;
     }
 
 }

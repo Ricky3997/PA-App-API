@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Col, Container, Form, Row, InputGroup, Image, Card, CardColumns} from "react-bootstrap";
+import {Col, Container, Form, Row, InputGroup, CardColumns} from "react-bootstrap";
 import {Icon} from "react-fa";
 import * as JsSearch from 'js-search';
 import MentorCard from "./MentorCard";

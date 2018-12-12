@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Button, Col, Container, Form, Row, Alert, Image} from 'react-bootstrap'
 import Loader from 'react-loader-spinner'
 import * as EmailValidator from 'email-validator';
-import * as api from "../api";
+import * as api from "../../api";
 import * as queryString from 'query-string';
 import * as _ from 'lodash';
 import {Redirect} from "react-router-dom";

@@ -1,15 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './assets/index.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import App from './App.js';
+import App from './components/App.js';
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter as Router, Route} from "react-router-dom";
+import {connect, Provider}  from "react-redux";
+import {updateUser, removeUser} from "./actions/actionCreator"
+import store from "./store/configureStore"
+
+const ReduxApp = connect(state => {
+  return {user: state.user}
+}, dispatch => {
+  return {
+    removeUser: () => dispatch(removeUser()),
+    updateUser: (user) => dispatch(updateUser(user))
+  }
+})(App);
 
 ReactDOM.render(
+  <Provider store={store}>
     <Router>
-        <Route path={"/"} component={App} />
-    </Router>,
+        <Route component={ReduxApp} />
+    </Router>
+  </Provider>,
     document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

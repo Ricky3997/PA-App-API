@@ -3,7 +3,6 @@ import {Col, Row} from "react-bootstrap";
 import ProgressionTimeline from "./ProgressionTimeline";
 import Milestone from "./Milestone";
 import MentorTile from "./MentorTile";
-import ProgressChart from "../journey/ProgressChart";
 import NoMentorYet from "./NoMentorYet";
 import Container from "react-bootstrap/es/Container";
 

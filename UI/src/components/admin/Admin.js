@@ -5,7 +5,7 @@ import Mentees from "./mentees/Mentees";
 import Mentors from "./mentors/Mentors";
 import {Route} from "react-router-dom";
 import Matching from "./matching/Matching";
-import * as api from "../api";
+import * as api from "../../api";
 
 class Admin extends Component {
     constructor(props) {

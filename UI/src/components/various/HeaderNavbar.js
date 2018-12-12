@@ -1,6 +1,6 @@
 import React from 'react';
 import {LinkContainer} from "react-router-bootstrap";
-import Logo from "../pa_key_white.png";
+import Logo from "../../assets/pa_key_white.png";
 import {Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {Icon} from "react-fa";
 import UserCircle from "./UserCircle";
@@ -8,6 +8,12 @@ import * as _ from 'lodash';
 
 const HeaderNavbar = (props) => {
     let userDropdown;
+
+    const logout = () => {
+      window.localStorage.removeItem("token");
+      window.localStorage.removeItem("user");
+      props.logout();
+    }
 
     if(props.user){
         userDropdown = <NavDropdown title={<span>
@@ -19,7 +25,7 @@ const HeaderNavbar = (props) => {
                 </NavDropdown.Item>
             </LinkContainer>
             <NavDropdown.Item href="">
-                <span onClick={props.logout}> <Icon name="fas fa-sign-out"/> Sign Out</span>
+                <span onClick={logout}> <Icon name="fas fa-sign-out"/> Sign Out</span>
             </NavDropdown.Item>
         </NavDropdown>;
     } else if(props.location.pathname === "/login") {

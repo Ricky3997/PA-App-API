@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Col, Container, Row} from 'react-bootstrap'
-import * as api from "../api";
+import * as api from "../../api";
 const queryString = require('query-string');
 
 class Confirm extends Component {

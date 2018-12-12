@@ -1,6 +1,6 @@
 import React from 'react';
-import {Badge, Button, Col, Form, Image, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
-import PALogo from "../pa_key.png";
+import {Badge, Button, Col, Form, OverlayTrigger, Tooltip} from "react-bootstrap";
+
 
 const SecondStep = (props) => {
     if (!props.user) return null;

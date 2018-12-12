@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import queryString from "query-string";
 import FirstStep from "./FirstStep";
 import * as EmailValidator from 'email-validator';
-import * as api from "../api";
+import * as api from "../../api";
 import SecondStep from "./SecondStep";
 import ThirdStep from "./ThirdStep";
 import FourthStep from "./FourthStep";
