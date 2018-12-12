@@ -60,7 +60,7 @@ editProfile = async (req, res) => {
                 updateValues[":pictureUrl"] = data.Location;
                 updateValues[":pictureKey"] = data.key;
             }
-            const changedUserData = JSON.parse(fields.userData);
+            const changedUserData = JSON.parse(fields.data);
             if(changedUserData.firstName !== userFromDb.Item.firstName){
                 if(updateExpression !== "SET " && updateExpression[updateExpression.length-1] !== " " && updateExpression[updateExpression.length-2] !== ","){
                     updateExpression = updateExpression.concat(", ")
@@ -92,7 +92,8 @@ editProfile = async (req, res) => {
                 updatedUser = response.Attributes;
             } else updatedUser = userFromDb.Item;
             if(userFromDb.Item.type === "mentor"){
-                updatedUser.mentorProfile = await mentorService.edit(id, JSON.parse(fields.data[0]))
+                const response =await mentorService.edit(id, JSON.parse(fields.data[0]));
+                updatedUser.mentorProfile = response.Attributes;
             }
             if(userFromDb.Item.type === "mentor"){
                 //TODO

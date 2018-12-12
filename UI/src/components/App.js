@@ -13,14 +13,16 @@ import Admin from "./admin/Admin";
 import Settings from "./settings/Settings";
 import JourneyModule from "./journey/JourneyModule";
 import Home from "./home/Home";
-import { getUser, togglePicurePicker,storePictureToCrop, removePictureToCrop, storePictureCropped } from "../actions/actionCreator";
+import {
+  getUser,
+  togglePicurePicker,
+  storePictureToCrop,
+  removePictureToCrop,
+  storePictureCropped,
+  updateUser
+} from "../actions/actionCreator";
 
 class App extends Component {
-
-  componentDidMount() {
-    const storedUser = window.localStorage.getItem("user");
-    if (storedUser) this.props.updateUser(JSON.parse(storedUser))
-  }
 
   setUser(user) {
     window.localStorage.setItem("user", JSON.stringify(user));
@@ -47,6 +49,7 @@ class App extends Component {
             },
             dispatch => {
               return {
+                updateUser: (user) => dispatch(updateUser(user)),
                 togglePicturePicker: () => dispatch(togglePicurePicker()),
                 storePictureToCrop: (pictureToCrop) => dispatch(storePictureToCrop(pictureToCrop)),
                 removePictureToCrop: () => dispatch(removePictureToCrop()),
@@ -63,6 +66,7 @@ class App extends Component {
           <Route path={"/call"} render={(props) => <Call user={user} {...props} />}/>
           <Route path={"/mentor/:id"} exact render={(props) => <MentorProfile {...props} />}/>
           <Route render={(props) => <Home user={user} {...props} />}/>
+
           {/*<AuthenticatedRoute/>*/}
         </Switch>
       </div>

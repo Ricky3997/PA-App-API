@@ -8,7 +8,7 @@ import {
 } from "../actions/actionTypes";
 import { combineReducers } from 'redux';
 
-function user(state = null, action) {
+function user(state = JSON.parse(window.localStorage.getItem("user")) || null, action) {
   switch (action.type) {
     case (UPDATE_USER):
       return action.user;
@@ -32,7 +32,7 @@ function settings(state = {
     case (STORE_PICTURE_TO_CROP):
       return {...state, pictureToCrop: action.pictureToCrop};
     case (REMOVE_PICTURE_TO_CROP):
-      return {...state, pictureCropped: null};
+      return {...state, pictureToCrop: null};
     default:
       return state
   }
