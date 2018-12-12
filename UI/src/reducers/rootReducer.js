@@ -1,4 +1,11 @@
-import {REMOVE_USER, UPDATE_USER} from "../actions/actionTypes";
+import {
+  REMOVE_PICTURE_TO_CROP,
+  REMOVE_USER,
+  STORE_PICTURE_CROPPED,
+  STORE_PICTURE_TO_CROP,
+  TOGGLE_PICTURE_PICKER,
+  UPDATE_USER
+} from "../actions/actionTypes";
 import { combineReducers } from 'redux';
 
 function user(state = null, action) {
@@ -12,19 +19,27 @@ function user(state = null, action) {
   }
 }
 
-function login(state = {}, action) {
+function settings(state = {
+  showPicturePicker: false,
+  pictureToCrop: null,
+  pictureCropped: null,
+}, action) {
   switch (action.type) {
-    case (UPDATE_USER):
-      return action.user;
-    case (REMOVE_USER):
-      return null;
+    case (TOGGLE_PICTURE_PICKER):
+      return {...state, showPicturePicker: !state.showPicturePicker};
+    case (STORE_PICTURE_CROPPED):
+      return {...state, pictureCropped: action.pictureCropped};
+    case (STORE_PICTURE_TO_CROP):
+      return {...state, pictureToCrop: action.pictureToCrop};
+    case (REMOVE_PICTURE_TO_CROP):
+      return {...state, pictureCropped: null};
     default:
       return state
   }
 }
 
 const app = combineReducers({
-  user,login
+  user,settings
 });
 
 export default app

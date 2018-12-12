@@ -35,7 +35,6 @@ class Login extends Component {
                 })}
                 initialValues={{ email: "" }}
                 onSubmit={({email}, {setSubmitting}) => {
-                  //this.requestLoginToken();
                   api.get(`/auth/login?email=${email}`).then(r => {
                     if(r.success) toast.success(`An email with the sign-in link has been sent to ${email}`);
                     else toast.error("There was an error requesting your magic link, sorry");

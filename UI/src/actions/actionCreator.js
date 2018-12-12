@@ -1,4 +1,10 @@
-import {REMOVE_USER, UPDATE_USER} from "./actionTypes";
+import {
+  REMOVE_PICTURE_TO_CROP,
+  REMOVE_USER, STORE_PICTURE_CROPPED,
+  STORE_PICTURE_TO_CROP,
+  TOGGLE_PICTURE_PICKER,
+  UPDATE_USER
+} from "./actionTypes";
 import * as api from "../api";
 
 export const updateUser = (user) => {
@@ -7,7 +13,6 @@ export const updateUser = (user) => {
     user
   }
 };
-
 
 export const removeUser = () => {
   return {
@@ -27,5 +32,31 @@ export const getUser = () => {
         window.localStorage.removeItem("user");
       }
     })
+  }
+};
+
+export const togglePicurePicker = () => {
+  return {
+    type: TOGGLE_PICTURE_PICKER
+  }
+};
+
+export const storePictureToCrop = (pictureToCrop) => {
+  return {
+    type: STORE_PICTURE_TO_CROP,
+    pictureToCrop
+  }
+};
+
+export const removePictureToCrop = () => {
+  return {
+    type: REMOVE_PICTURE_TO_CROP
+  }
+};
+
+export const storePictureCropped = (pictureCropped) => {
+  return {
+    type: STORE_PICTURE_CROPPED,
+    pictureCropped
   }
 };
