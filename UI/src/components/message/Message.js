@@ -19,6 +19,7 @@ import {
   Title
 } from "@livechat/ui-kit";
 import { Col, Row as BRow } from "react-bootstrap";
+import NotReadyYet from "../various/NotReadyYet";
 
 class Message extends Component {
     constructor(props) {
@@ -192,53 +193,55 @@ class Message extends Component {
     //Documentation: https://developers.livechatinc.com/docs/react-chat-ui-kit/
 
     render() {
-        const messages = this.state.active ? this.state.chats.filter(chat => chat.id === this.state.active)[0].messages : null;
-        return (
-            <ThemeProvider theme={this.theme}>
-                <BRow>
-                    <Col md={3}>
-                        <ChatList>
-                            {this.state.chats.map( chat => {
-                                return <ChatListItem active={chat.id === this.state.active} onClick={() => this.setState({active: chat.id})}>
-                                    <Avatar imgUrl={chat.avatar || null} letter={chat.avatar ? null : chat.name[0]} />
-                                    <Column fill>
-                                        <Row justify>
-                                            <Title ellipsis>{chat.name}</Title>
-                                            <Subtitle nowrap>{chat.messages[chat.messages.length - 1].date}</Subtitle>
-                                        </Row>
-                                        <Subtitle ellipsis>
-                                            {`${chat.messages[chat.messages.length - 1].from} ${chat.messages[chat.messages.length - 1].content}`}
-                                        </Subtitle>
-                                    </Column>
-                                </ChatListItem>
-                            })}
-                        </ChatList>
-                    </Col>
-                    <Col md={9}>
-                        <MessageList active style={{height: "580px"}}>
-                            {messages ? messages.map( message => {
-                                return <MessageGroup avatar={message.from === "Me" ? null : message.avatar} onlyFirstWithMeta>
-                                    <UIKitMessage date={message.date} authorName={message.from} isOwn={message.from === "Me"}>
-                                        <MessageText>
-                                            {message.content}
-                                        </MessageText>
-                                    </UIKitMessage>
-                                </MessageGroup>
-                            }) : null}
-                        </MessageList>
-                        <TextComposer>
-                            <Row align="center">
-                                <IconButton fit>
-                                    <AddIcon/>
-                                </IconButton>
-                                <TextInput fill/>
-                                <SendButton fit/>
-                            </Row>
-                        </TextComposer>
-                    </Col>
-                </BRow>
-            </ThemeProvider>
-        );
+
+      return <NotReadyYet/>
+        // const messages = this.state.active ? this.state.chats.filter(chat => chat.id === this.state.active)[0].messages : null;
+        // return (
+        //     <ThemeProvider theme={this.theme}>
+        //         <BRow>
+        //             <Col md={3}>
+        //                 <ChatList>
+        //                     {this.state.chats.map( chat => {
+        //                         return <ChatListItem active={chat.id === this.state.active} onClick={() => this.setState({active: chat.id})}>
+        //                             <Avatar imgUrl={chat.avatar || null} letter={chat.avatar ? null : chat.name[0]} />
+        //                             <Column fill>
+        //                                 <Row justify>
+        //                                     <Title ellipsis>{chat.name}</Title>
+        //                                     <Subtitle nowrap>{chat.messages[chat.messages.length - 1].date}</Subtitle>
+        //                                 </Row>
+        //                                 <Subtitle ellipsis>
+        //                                     {`${chat.messages[chat.messages.length - 1].from} ${chat.messages[chat.messages.length - 1].content}`}
+        //                                 </Subtitle>
+        //                             </Column>
+        //                         </ChatListItem>
+        //                     })}
+        //                 </ChatList>
+        //             </Col>
+        //             <Col md={9}>
+        //                 <MessageList active style={{height: "580px"}}>
+        //                     {messages ? messages.map( message => {
+        //                         return <MessageGroup avatar={message.from === "Me" ? null : message.avatar} onlyFirstWithMeta>
+        //                             <UIKitMessage date={message.date} authorName={message.from} isOwn={message.from === "Me"}>
+        //                                 <MessageText>
+        //                                     {message.content}
+        //                                 </MessageText>
+        //                             </UIKitMessage>
+        //                         </MessageGroup>
+        //                     }) : null}
+        //                 </MessageList>
+        //                 <TextComposer>
+        //                     <Row align="center">
+        //                         <IconButton fit>
+        //                             <AddIcon/>
+        //                         </IconButton>
+        //                         <TextInput fill/>
+        //                         <SendButton fit/>
+        //                     </Row>
+        //                 </TextComposer>
+        //             </Col>
+        //         </BRow>
+        //     </ThemeProvider>
+        // );
     }
 };
 

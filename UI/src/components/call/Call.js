@@ -3,6 +3,7 @@ import { Col, Row } from "react-bootstrap";
 import { ReactTypeformEmbed } from "react-typeform-embed";
 import AgoraRTC from "agora-rtc-sdk";
 import Button from "react-bootstrap/es/Button";
+import NotReadyYet from "../various/NotReadyYet";
 
 
 class Call extends Component {
@@ -32,9 +33,9 @@ class Call extends Component {
     }
 
     componentWillUnmount () {
-        this.client && this.client.unpublish(this.localStream);
-        this.localStream && this.localStream.close();
-        this.client && this.client.leave(() => console.log('Client succeed to leave.'), () => console.log('Client failed to leave.'))
+        // this.client && this.client.unpublish(this.localStream);
+        // this.localStream && this.localStream.close();
+        // this.client && this.client.leave(() => console.log('Client succeed to leave.'), () => console.log('Client failed to leave.'))
     }
 
     subscribeStreamEvents() {
@@ -110,40 +111,42 @@ class Call extends Component {
     render() {
         const typeformID = "MDHUre";
 
-        return (
-            <Row>
-                <Col md={8}>
+        return <NotReadyYet/>
 
-                    {this.state.joinCall ?
-                    <div>
-                        <div id="remote-canvas" style={{height: "600px"}}>
-                            <div id="local-canvas" style={{position: "absolute", right: "0", bottom: "0", height: "130px", width: "130px", "z-index": "2"}}/>
-                        </div>
-                        <Button onClick={this.toggleMic}>Mic</Button>
-                        <Button onClick={this.toggleVideo}>Video</Button>
-                        <Button onClick={this.hangup}>Hangup</Button>
-                    </div> : <div>
-                            <Button onClick={this.startCall}>Join Call</Button>
-                        </div>}
-
-
-                </Col>
-                <Col md={4} style={{backdropColor: "red"}}>
-                    <Row>
-                        {this.props.user ?
-                            <ReactTypeformEmbed
-                                url={`https://projectaccess.typeform.com/to/${typeformID}?` +
-                                `mentorfirstname=${this.props.user.firstName}` +
-                                `&uniqueid=${1532907125}&` +
-                                `mentoremail=${this.props.user.email}&` +
-                                `menteefirstname=${"Emil"}`}
-                                style={{"minHeight": "600px"}}/> : null}
-                    </Row>
-                </Col>
-
-
-            </Row>
-        );
+        // return (
+        //     <Row>
+        //         <Col md={8}>
+        //
+        //             {this.state.joinCall ?
+        //             <div>
+        //                 <div id="remote-canvas" style={{height: "600px"}}>
+        //                     <div id="local-canvas" style={{position: "absolute", right: "0", bottom: "0", height: "130px", width: "130px", "z-index": "2"}}/>
+        //                 </div>
+        //                 <Button onClick={this.toggleMic}>Mic</Button>
+        //                 <Button onClick={this.toggleVideo}>Video</Button>
+        //                 <Button onClick={this.hangup}>Hangup</Button>
+        //             </div> : <div>
+        //                     <Button onClick={this.startCall}>Join Call</Button>
+        //                 </div>}
+        //
+        //
+        //         </Col>
+        //         <Col md={4} style={{backdropColor: "red"}}>
+        //             <Row>
+        //                 {this.props.user ?
+        //                     <ReactTypeformEmbed
+        //                         url={`https://projectaccess.typeform.com/to/${typeformID}?` +
+        //                         `mentorfirstname=${this.props.user.firstName}` +
+        //                         `&uniqueid=${1532907125}&` +
+        //                         `mentoremail=${this.props.user.email}&` +
+        //                         `menteefirstname=${"Emil"}`}
+        //                         style={{"minHeight": "600px"}}/> : null}
+        //             </Row>
+        //         </Col>
+        //
+        //
+        //     </Row>
+        // );
     }
 }
 

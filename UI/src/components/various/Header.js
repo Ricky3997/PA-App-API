@@ -1,7 +1,7 @@
 import React from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import Logo from "../../assets/pa_key_white.png";
-import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Badge, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Icon } from "react-fa";
 import UserCircle from "./UserCircle";
 import * as _ from "lodash";
@@ -43,6 +43,13 @@ const Header = (props) => {
       <Navbar.Toggle aria-controls="basic-navbar-nav"/>
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
+
+          {props.user ? <LinkContainer to={"/message"}>
+            <Nav.Link>Messages <Badge variant="light">3</Badge></Nav.Link>
+          </LinkContainer> : null}
+          {props.user ? <LinkContainer to={"/call"}>
+            <Nav.Link>Call</Nav.Link>
+          </LinkContainer> : null}
           {_.get(props, "user.admin") ?
             <LinkContainer to="/admin">
               <Nav.Link>Admin</Nav.Link>
