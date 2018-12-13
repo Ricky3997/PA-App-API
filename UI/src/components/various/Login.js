@@ -48,11 +48,11 @@ class Login extends Component {
                       name="email"
                       label="Your Email"
                       render={({ field, form: { touched, errors } }) => {
-                        const error = touched[field.name] && errors[field.name];
+
                         return <div>
                           <Form.Control {...field}
-                                        isValid={!error}
-                                        isInvalid={error}/>
+
+                                        isInvalid={touched[field.name] && errors[field.name]}/>
                           <ErrorMessage name={field.name}/>
                         </div>;
                       }}

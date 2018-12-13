@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
-import 'react-toastify/dist/ReactToastify.css';
 import MentorSettings from "./MentorSettings";
 import MenteeSettings from "./MenteeSettings";
 import * as api from "../../api";

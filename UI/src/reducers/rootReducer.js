@@ -1,4 +1,5 @@
 import {
+  CHANGE_ONBOARDING_TYPE, CHANGE_STAGE,
   REMOVE_PICTURE_TO_CROP,
   REMOVE_USER,
   STORE_PICTURE_CROPPED,
@@ -37,9 +38,20 @@ function settings(state = {
       return state
   }
 }
+function onboarding(state = {
+  step: 1,
+  userType: "High School Student"
+}, action) {
+  switch (action.type) {
+    case CHANGE_STAGE:
+      return {...state, step: state.step + action.change};
+    default:
+      return state
+  }
+}
 
 const app = combineReducers({
-  user,settings
+  user,settings, onboarding
 });
 
 export default app

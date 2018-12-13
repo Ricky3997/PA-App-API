@@ -1,4 +1,5 @@
 import {
+  CHANGE_ONBOARDING_TYPE, CHANGE_STAGE,
   REMOVE_PICTURE_TO_CROP,
   REMOVE_USER, STORE_PICTURE_CROPPED,
   STORE_PICTURE_TO_CROP,
@@ -60,3 +61,11 @@ export const storePictureCropped = (pictureCropped) => {
     pictureCropped
   }
 };
+
+export const changeStage = (change) => {
+  return {
+    type: CHANGE_STAGE,
+    change
+  }
+};
+

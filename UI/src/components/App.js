@@ -19,7 +19,7 @@ import {
   storePictureToCrop,
   removePictureToCrop,
   storePictureCropped,
-  updateUser
+  updateUser, changeUserType, changeStage
 } from "../actions/actionCreator";
 
 class App extends Component {
@@ -38,7 +38,7 @@ class App extends Component {
         </header>
         <Switch>
 
-          <Route path={"/login"} component={connect(() => {
+          <Route path={"/login"} component={connect(({user}) => {
             return { user }
           }, dispatch => {
             return { login: () => dispatch(getUser()) }
@@ -57,8 +57,15 @@ class App extends Component {
               }
             })(Settings)}/>
 
+          <Route path={"/onboard"} component={connect(({user, onboarding}) => {
+            return { user, onboarding }
+          }, dispatch => {
+            return {
+              updateUser: (user) => dispatch(updateUser(user)),
+              changeStage: (change) => dispatch(changeStage(change))
+            }
+          })(Onboarding)}/>
 
-          <Route path={"/onboard"} render={(props) => <Onboarding user={user} {...props} setUser={this.setUser}/>}/>
           <Route path={"/confirm"} render={(props) => <Confirm/>}/>
           <Route path={"/journey/:id"} render={(props) => <JourneyModule {...props} />}/>
           <Route path={"/admin/:section?"} render={(props) => <Admin user={user} {...props} />}/>

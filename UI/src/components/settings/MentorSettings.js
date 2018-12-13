@@ -6,20 +6,21 @@ import * as _ from "lodash"
 import { ErrorMessage, Field, Form as FormikForm, Formik } from "formik";
 import Loader from "react-loader-spinner";
 import ProfilePicture from "./ProfilePicture";
-import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from "react-toastify";
 
 class MentorSettings extends Component {
   
   FormControlWithValidationWithFormik = (type, children, label) => {
     return ({ field, form: { touched, errors } }) => {
-      const error = touched[field.name] && errors[field.name];
+
       return <div>
         <h5>
           {label}
         </h5>
         <Form.Control {...field}
-                      isValid={!error}
-                      isInvalid={error}
+
+                      isInvalid={touched[field.name] && errors[field.name]}
                       as={type}>
           {children}
         </Form.Control>
@@ -63,10 +64,11 @@ class MentorSettings extends Component {
         onSubmit={(values , { setSubmitting }) => {
           saveChanges(values).then(r => {
             if (r.success) {
-              setSubmitting(false);
+              alert("Wowo")
               toast.success("Settings updated successfully");
               window.localStorage.setItem("user", JSON.stringify(r.payload));
               this.props.updateUser(r.payload);
+              setSubmitting(false);
             } else toast.error("There was a problem saving your settings")
           })
         }
@@ -171,6 +173,7 @@ class MentorSettings extends Component {
           </FormikForm>
         )}
       />
+      <ToastContainer />
     </div>
   }
 };

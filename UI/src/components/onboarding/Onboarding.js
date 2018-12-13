@@ -3,159 +3,73 @@ import {Container, Alert} from "react-bootstrap";
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import queryString from "query-string";
-import FirstStep from "./FirstStep";
+import RegisterNewUser from "./RegisterNewUser";
 import * as EmailValidator from 'email-validator';
 import * as api from "../../api";
-import SecondStep from "./SecondStep";
+import MentorOnboarding from "./MentorOnboarding";
 import ThirdStep from "./ThirdStep";
 import FourthStep from "./FourthStep";
+import MenteeOnboarding from "./MenteeOnboarding";
 
 
 class Onboarding extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            firstName: "",
-            email: "",
-            type: "High School Student",
-            loading: false,
-            university: "",
-            subject: "",
-            level: "Undergraduate",
-            country: "",
-            firstGenStudent: "Yes",
-            city: "",
-            gender: "Male",
-            year: 1,
-            area: "Natural Sciences",
-            step: 1,
-            alert: null
-        };
-        this.registerMentor = this.registerMentor.bind(this);
-    }
 
+    // detectTypeFromUrl(props){
+    //     //TODO Again
+    //     const qs = queryString.parse(window.location.search);
+    //     if(qs.type) {
+    //         let type;
+    //         if(qs.type === "mentee") type = "High School Student";
+    //         if(qs.type === "mentor") type = "Current University Student";
+    //         if(type) this.setState({type: type})
+    //     }
+    // }
+    //
 
-    detectTypeFromUrl(props){
-        //TODO Again
-        const qs = queryString.parse(window.location.search);
-        if(qs.type) {
-            let type;
-            if(qs.type === "mentee") type = "High School Student";
-            if(qs.type === "mentor") type = "Current University Student";
-            if(type) this.setState({type: type})
-        }
-    }
-
-    //TODO More spcific ac.uk / edu
-
-
-    onboardNewUser(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        const {email, type, firstName} = this.state;
-        if(EmailValidator.validate(email)) {
-            this.setState({loading: true});
-            api.post("/auth/register", {
-                email: email,
-                firstName: firstName,
-                type: type === "High School Student" ? "mentee" : "mentor"
-            })
-                .then(r => {
-                    this.setState({loading: false});
-                    if(r.success) {
-                        this.setState({step: 2, alert: null});
-                        window.localStorage.setItem("token", r.payload.token);
-                        this.props.setUser(r.payload.user)
-
-                    } else{
-                        this.setState({alert: <Alert variant="danger">Error</Alert>});
-                        setTimeout(() => {
-                            this.setState({alert: null})
-                        }, 3000)
-                    }
-                });
-        }
-        else {
-            toast.error("Invalid email address");
-
-        }
-    }
-
-    registerMentor(){
-        const data = {
-            university: this.state.university,
-            subject:  this.state.subject,
-            level: this.state.level,
-            country: this.state.country,
-            firstGenStudent:  this.state.firstGenStudent === "Yes",
-            city: this.state.city,
-            gender: this.state.gender,
-            year:  parseInt(this.state.year),
-            area:  this.state.area
-        };
-        this.setState({loading: true}, () => {
-            api.post("/api/mentors/registerNew", data).then(r => {
-                if(r.success){
-                    this.setState({loading: false});
-                    let editedUser = this.props.user;
-                    editedUser.onboarded = true;
-                    editedUser.mentorProfile = data;
-                    this.props.setUser(editedUser);
-                    this.props.history.push("/");
-                } else {
-                    this.setState({loading: false});
-                    alert("error")
-                }
-            })
-        })
-
-    }
+    //
+    // registerMentor(){
+    //     const data = {
+    //         university: this.state.university,
+    //         subject:  this.state.subject,
+    //         level: this.state.level,
+    //         country: this.state.country,
+    //         firstGenStudent:  this.state.firstGenStudent === "Yes",
+    //         city: this.state.city,
+    //         gender: this.state.gender,
+    //         year:  parseInt(this.state.year),
+    //         area:  this.state.area
+    //     };
+    //     this.setState({loading: true}, () => {
+    //         api.post("/api/mentors/registerNew", data).then(r => {
+    //             if(r.success){
+    //                 this.setState({loading: false});
+    //                 let editedUser = this.props.user;
+    //                 editedUser.onboarded = true;
+    //                 editedUser.mentorProfile = data;
+    //                 this.props.setUser(editedUser);
+    //                 this.props.history.push("/");
+    //             } else {
+    //                 this.setState({loading: false});
+    //                 alert("error")
+    //             }
+    //         })
+    //     })
+    //
+    // }
 
     render() {
+
+        const {changeStage, updateUser, onboarding, user} = this.props;
+
         let step;
-        switch(this.state.step){
-            case 1:
-                step = <FirstStep changeType={e => this.setState({type: e.target.value})}
-                                  type={this.state.type} firstName={this.state.firstName} email={this.state.email}
-                                  changeEmail={e => this.setState({email: e.target.value})}
-                                  changeFirstName={e => this.setState({firstName: e.target.value})}
-                                  changeStep={(step) => this.setState({step: step})}
-                                  register={(event) => this.onboardNewUser(event)} loading={this.state.loading}
-                />;
-                break;
-            case 2:
-                step = <SecondStep user={this.props.user} country={this.state.country} city={this.state.city}
-                                   changeCountry={(event) => this.setState({country: event.target.value})}
-                                   changeCity={(event) => this.setState({city: event.target.value})}
-                                   changeStep={(step) => this.setState({step: step})}
-                                   changeFirstGenStudent={(event) => this.setState({firstGenStudent: event.target.value})}
-                                   changeGender={(event) => this.setState({gender: event.target.value})} gender={this.state.gender}
+        if(onboarding.step === 1) step = <RegisterNewUser user={user} updateUser={updateUser} changeStage={changeStage} />;
+        else if(user.type === "mentor") step = <MentorOnboarding user={user} onboarding={onboarding} changeStage={changeStage}/>;
+        else if(user.type === "mentee") step = <MenteeOnboarding />;
 
-
-                />;
-                break;
-            case 3:
-                step = <ThirdStep user={this.props.user} changeUniversity={e => this.setState({university: e.target.value})}
-                                  university={this.state.university}
-                                  subject={this.state.subject}  changeSubject={e => this.setState({subject: e.target.value})}
-                                  level={this.state.level}  changeLevel={e => this.setState({level: e.target.value})}
-                                  area={this.state.area}  changeArea={e => this.setState({area: e.target.value})}
-                                  year={this.state.year}  changeYear={e => this.setState({year: e.target.value})}
-                                  changeStep={(step) => this.setState({step: step})}
-                />;
-                break;
-            case 4:
-                step = <FourthStep user={this.props.user} {...this.state} changeStep={(step) => this.setState({step: step})}
-                                   registerMentor={this.registerMentor}
-                />;
-                break;
-        }
         return (
             <Container fluid>
                 <Container className="onboarding">
                     {step}
-                    <br />
-                    {this.state.alert}
                 </Container>
                 <ToastContainer />
             </Container>
