@@ -10,9 +10,7 @@
     "chart.js": "^1.1.1",
     "cross-fetch": "^3.0.0",
     "d3-scale": "latest",
-    "email-validator": "^2.0.4",
     "formik": "^1.4.0",
-    "yup": "^0.26.6",
     "js-search": "^1.4.2",
     "prettier": "latest",
     "query-string": "^6.2.0",
@@ -32,13 +30,12 @@
     "react-scripts": "2.1.1",
     "react-select": "^2.1.2",
     "react-toastify": "^4.4.3",
-    "react-typeform-embed": "^0.1.6",
     "react-vertical-timeline": "^0.2.0",
     "react-vis": "^1.11.5",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "serve": "^10.1.1"
+    "yup": "^0.26.6"
   },
   "scripts": {
     "start": "react-scripts start",

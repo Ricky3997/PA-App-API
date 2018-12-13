@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Col, Row } from "react-bootstrap";
-import { ReactTypeformEmbed } from "react-typeform-embed";
+// import { ReactTypeformEmbed } from "react-typeform-embed";
+// "react-typeform-embed": "^0.1.6",
 import AgoraRTC from "agora-rtc-sdk";
 import Button from "react-bootstrap/es/Button";
 import NotReadyYet from "../various/NotReadyYet";

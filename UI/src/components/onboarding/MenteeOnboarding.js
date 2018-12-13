@@ -1,8 +1,36 @@
-import React from "react";
-import NotReadyYet from "../various/NotReadyYet";
+import React from 'react';
+import Select from 'react-select';
 
-const MenteeOnboarding = (props) => {
-    return <NotReadyYet/>
-};
+const options = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' }
+];
+
+class MenteeOnboarding extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedOption: null,
+    };
+  }
+
+  handleChange = (selectedOption) => {
+    this.setState({ selectedOption });
+    console.log(`Option selected:`, selectedOption);
+  };
+
+  render() {
+    const { selectedOption } = this.state;
+
+    return (
+      <Select
+        value={selectedOption}
+        onChange={this.handleChange}
+        options={options}
+      />
+    );
+  }
+}
 
 export default MenteeOnboarding;

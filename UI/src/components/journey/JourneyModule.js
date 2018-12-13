@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import { ReactTypeformEmbed } from "react-typeform-embed";
+// import { ReactTypeformEmbed } from "react-typeform-embed";
 
 
 const JourneyModule = (props) => {
@@ -8,17 +8,17 @@ const JourneyModule = (props) => {
     return (
         <Row>
             <Col>
-                {(module && module.ready) ? <ReactTypeformEmbed
-                    url={`https://projectaccess.typeform.com/to/${module.typeformID}?` +
-                    `mentorfirstname=${props.user.firstName}` +
-                    `&uniqueid=${1532907125}&` +
-                    `mentoremail=${props.user.email}&`+
-                    `menteefirstname=${"Emil"}`}
-                    style={{"minHeight": "600px"}}/> :
-                <div>
-                    What you are looking for either doesn't exist or you're not allowed to get to, yet!
-                </div>
-                }
+                {/*{(module && module.ready) ? <ReactTypeformEmbed*/}
+                    {/*url={`https://projectaccess.typeform.com/to/${module.typeformID}?` +*/}
+                    {/*`mentorfirstname=${props.user.firstName}` +*/}
+                    {/*`&uniqueid=${1532907125}&` +*/}
+                    {/*`mentoremail=${props.user.email}&`+*/}
+                    {/*`menteefirstname=${"Emil"}`}*/}
+                    {/*style={{"minHeight": "600px"}}/> :*/}
+                {/*<div>*/}
+                    {/*What you are looking for either doesn't exist or you're not allowed to get to, yet!*/}
+                {/*</div>*/}
+                {/*}*/}
             </Col>
         </Row>
     );
