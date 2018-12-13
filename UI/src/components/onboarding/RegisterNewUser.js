@@ -7,9 +7,19 @@ import * as _ from "lodash";
 import Loader from "react-loader-spinner";
 import * as api from "../../api";
 import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
+import * as queryString from "query-string";
 
 const RegisterNewUser = (props) => {
+
+  const qs = queryString.parse(window.location.search);
+  let typeFromUrl;
+  if (qs.type) {
+    if (qs.type === "mentee") typeFromUrl = "High School Student";
+    if (qs.type === "mentor") typeFromUrl = "University Student";
+  }
+
+
   return (
     <Row>
       <Col md={7} style={{ paddingTop: "160px" }}>
@@ -31,20 +41,20 @@ const RegisterNewUser = (props) => {
               .required("First name is required."),
             userType: Yup.string()
           })}
-          initialValues={{ email: "", firstName: "", userType: "High School Student" }}
-          onSubmit={({ email, userType, firstName}, { setSubmitting }) => {
+          initialValues={{ email: "", firstName: "", userType: typeFromUrl || "High School Student" }}
+          onSubmit={({ email, userType, firstName }, { setSubmitting }) => {
 
             api.post("/auth/register", {
               email: email,
               firstName: firstName,
               type: userType === "High School Student" ? "mentee" : "mentor"
             }).then(r => {
-              if(r.success) {
+              if (r.success) {
                 window.localStorage.setItem("token", r.payload.token);
+                window.localStorage.setItem("user", JSON.stringify(r.payload.user));
                 props.updateUser(r.payload.user);
-                props.changeStage(1);
-              }
-              else toast.error("There was an error requesting your magic link, sorry");
+                props.changeStage(2);
+              } else toast.error("There was an error requesting your magic link, sorry");
               setSubmitting(false);
             });
           }}

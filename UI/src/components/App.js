@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {connect} from "react-redux"
+import { connect } from "react-redux";
 import "../assets/App.css";
 import HeaderNavbar from "./various/HeaderNavbar";
 import Onboarding from "./onboarding/Onboarding";
@@ -14,20 +14,17 @@ import Settings from "./settings/Settings";
 import JourneyModule from "./journey/JourneyModule";
 import Home from "./home/Home";
 import {
-  getUser,
-  togglePicurePicker,
-  storePictureToCrop,
-  removePictureToCrop,
+  addOnboardingProperties,
+  changeStage,
+  getUser, registerMentor,
+  removePictureToCrop, saveMentorSettings,
   storePictureCropped,
-  updateUser, changeUserType, changeStage
+  storePictureToCrop,
+  togglePicurePicker,
+  updateUser
 } from "../actions/actionCreator";
 
 class App extends Component {
-
-  setUser(user) {
-    window.localStorage.setItem("user", JSON.stringify(user));
-    this.props.updateUser(user);
-  };
 
   render() {
     const { user, removeUser, history, location } = this.props;
@@ -53,7 +50,8 @@ class App extends Component {
                 togglePicturePicker: () => dispatch(togglePicurePicker()),
                 storePictureToCrop: (pictureToCrop) => dispatch(storePictureToCrop(pictureToCrop)),
                 removePictureToCrop: () => dispatch(removePictureToCrop()),
-                storePictureCropped: (pictureCropped) => dispatch(storePictureCropped(pictureCropped))
+                storePictureCropped: (pictureCropped) => dispatch(storePictureCropped(pictureCropped)),
+                saveMentorSettings: (settings) => dispatch(saveMentorSettings(settings))
               }
             })(Settings)}/>
 
@@ -62,7 +60,9 @@ class App extends Component {
           }, dispatch => {
             return {
               updateUser: (user) => dispatch(updateUser(user)),
-              changeStage: (change) => dispatch(changeStage(change))
+              changeStage: (change) => dispatch(changeStage(change)),
+              addOnboardingProperties: (properties) => dispatch(addOnboardingProperties(properties)),
+              registerMentor: () => dispatch(registerMentor())
             }
           })(Onboarding)}/>
 

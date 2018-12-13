@@ -1,5 +1,5 @@
-import React from 'react';
-import {Card, Image} from "react-bootstrap";
+import React from "react";
+import { Card, Image } from "react-bootstrap";
 import ConfirmMatchButton from "./ConfirmMatchButton";
 
 const MentorCard = (props) => {

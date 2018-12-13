@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import {Col, Nav, Row, Tab} from "react-bootstrap";
+import React, { Component } from "react";
+import { Col, Nav, Row, Tab } from "react-bootstrap";
 import Database from "./Database";
 import Approvals from "./Approvals";
-import {Route, Switch} from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Statistics from "./Statistics";
 
 class Mentors extends Component {

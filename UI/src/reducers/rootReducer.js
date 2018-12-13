@@ -1,13 +1,14 @@
 import {
-  CHANGE_ONBOARDING_TYPE, CHANGE_STAGE,
+  ADD_ONBOARDING_PROPERTIES,
+  CHANGE_STAGE,
   REMOVE_PICTURE_TO_CROP,
   REMOVE_USER,
   STORE_PICTURE_CROPPED,
   STORE_PICTURE_TO_CROP,
-  TOGGLE_PICTURE_PICKER,
+  TOGGLE_PICTURE_PICKER, TOGGLE_REGISTERING_MENTOR,
   UPDATE_USER
 } from "../actions/actionTypes";
-import { combineReducers } from 'redux';
+import { combineReducers } from "redux";
 
 function user(state = JSON.parse(window.localStorage.getItem("user")) || null, action) {
   switch (action.type) {
@@ -27,31 +28,45 @@ function settings(state = {
 }, action) {
   switch (action.type) {
     case (TOGGLE_PICTURE_PICKER):
-      return {...state, showPicturePicker: !state.showPicturePicker};
+      return { ...state, showPicturePicker: !state.showPicturePicker };
     case (STORE_PICTURE_CROPPED):
-      return {...state, pictureCropped: action.pictureCropped};
+      return { ...state, pictureCropped: action.pictureCropped };
     case (STORE_PICTURE_TO_CROP):
-      return {...state, pictureToCrop: action.pictureToCrop};
+      return { ...state, pictureToCrop: action.pictureToCrop };
     case (REMOVE_PICTURE_TO_CROP):
-      return {...state, pictureToCrop: null};
+      return { ...state, pictureToCrop: null };
     default:
       return state
   }
 }
+
 function onboarding(state = {
-  step: 1,
-  userType: "High School Student"
+  step: 4,
+  country: "Italy",
+  city: "Milan",
+  university: "Bath",
+  subject: "Computer Science",
+  level: "Undergraduate",
+  area: "Social Sciences",
+  year: "1",
+  gender: "Female",
+  firstGenStudent: "Yes",
+  registeringMentor: false
 }, action) {
   switch (action.type) {
+    case TOGGLE_REGISTERING_MENTOR:
+      return {...state, registeringMentor: !state.registeringMentor};
+    case ADD_ONBOARDING_PROPERTIES:
+      return { ...state, ...action.properties };
     case CHANGE_STAGE:
-      return {...state, step: state.step + action.change};
+      return { ...state, step: action.change };
     default:
       return state
   }
 }
 
 const app = combineReducers({
-  user,settings, onboarding
+  user, settings, onboarding
 });
 
 export default app

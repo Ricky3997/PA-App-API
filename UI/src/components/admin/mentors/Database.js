@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {Col, Container, Form, Row, InputGroup, CardColumns} from "react-bootstrap";
-import {Icon} from "react-fa";
-import * as JsSearch from 'js-search';
+import React, { Component } from "react";
+import { CardColumns, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
+import { Icon } from "react-fa";
+import * as JsSearch from "js-search";
 import MentorCard from "./MentorCard";
 
 class Database extends Component {

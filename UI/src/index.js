@@ -1,14 +1,14 @@
-import 'babel-polyfill'
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './assets/index.css';
-import 'bootstrap/dist/css/bootstrap.css';
-import App from './components/App.js';
-import * as serviceWorker from './serviceWorker';
-import {BrowserRouter as Router, Route} from "react-router-dom";
-import {connect, Provider}  from "react-redux";
-import {updateUser, removeUser} from "./actions/actionCreator"
-import store from "./store/configureStore"
+import "babel-polyfill";
+import React from "react";
+import ReactDOM from "react-dom";
+import "./assets/index.css";
+import "bootstrap/dist/css/bootstrap.css";
+import App from "./components/App.js";
+import * as serviceWorker from "./serviceWorker";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { connect, Provider } from "react-redux";
+import { removeUser, updateUser } from "./actions/actionCreator";
+import store from "./store/configureStore";
 
 const ReduxApp = connect(state => {
   return {user: state.user}

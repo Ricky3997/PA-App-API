@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Col, Row} from "react-bootstrap";
+import React, { Component } from "react";
+import { Col, Row } from "react-bootstrap";
 import ProgressionTimeline from "./ProgressionTimeline";
 import Milestone from "./Milestone";
 import MentorTile from "./MentorTile";

@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {Col, Row} from "react-bootstrap";
-import {ReactTypeformEmbed} from "react-typeform-embed";
-import AgoraRTC from 'agora-rtc-sdk'
+import React, { Component } from "react";
+import { Col, Row } from "react-bootstrap";
+import { ReactTypeformEmbed } from "react-typeform-embed";
+import AgoraRTC from "agora-rtc-sdk";
 import Button from "react-bootstrap/es/Button";
 
 

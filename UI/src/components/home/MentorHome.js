@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Col, Row} from "react-bootstrap";
+import React, { Component } from "react";
+import { Col, Row } from "react-bootstrap";
 import Container from "react-bootstrap/es/Container";
 import Button from "react-bootstrap/es/Button";
 

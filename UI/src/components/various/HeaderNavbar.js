@@ -1,10 +1,10 @@
-import React from 'react';
-import {LinkContainer} from "react-router-bootstrap";
+import React from "react";
+import { LinkContainer } from "react-router-bootstrap";
 import Logo from "../../assets/pa_key_white.png";
-import {Nav, Navbar, NavDropdown} from "react-bootstrap";
-import {Icon} from "react-fa";
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Icon } from "react-fa";
 import UserCircle from "./UserCircle";
-import * as _ from 'lodash';
+import * as _ from "lodash";
 
 const HeaderNavbar = (props) => {
     let userDropdown;

@@ -1,5 +1,5 @@
-import React from 'react';
-import {Doughnut} from 'react-chartjs'
+import React from "react";
+import { Doughnut } from "react-chartjs";
 
 
 const ProgressChart = (props) => {

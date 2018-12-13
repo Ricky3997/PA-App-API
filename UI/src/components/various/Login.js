@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import { Button, Col, Container, Row, Image, Form } from "react-bootstrap";
+import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import Loader from "react-loader-spinner";
-import {toast, ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import * as api from "../../api";
 import * as queryString from "query-string";
 import * as _ from "lodash";
 import { Redirect } from "react-router-dom";
 import * as Yup from "yup";
-import { ErrorMessage, Field, Formik, Form as FormikForm } from "formik";
+import { ErrorMessage, Field, Form as FormikForm, Formik } from "formik";
 
 class Login extends Component {
   componentDidMount() {

@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 import MentorHome from "./MentorHome";
 import MenteeHome from "./MenteeHome";
-import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 const Home = (props) => {
     if(!props.user) return <Redirect to={{pathname: '/login', state: { from: props.location.pathname }}} />;

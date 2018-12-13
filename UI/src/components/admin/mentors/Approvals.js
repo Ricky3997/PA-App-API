@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Col, Container, Row, Image, ListGroup, Button} from "react-bootstrap";
+import React, { Component } from "react";
+import { Button, Col, Container, Image, ListGroup, Row } from "react-bootstrap";
 
 class Approvals extends Component {
     constructor(props) {

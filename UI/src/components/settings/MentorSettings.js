@@ -1,19 +1,18 @@
 import { Button, Col, Row } from "react-bootstrap";
 import Form from "react-bootstrap/es/Form";
-import React, {Component} from "react";
+import React, { Component } from "react";
 import * as Yup from "yup";
-import * as _ from "lodash"
+import * as _ from "lodash";
 import { ErrorMessage, Field, Form as FormikForm, Formik } from "formik";
 import Loader from "react-loader-spinner";
 import ProfilePicture from "./ProfilePicture";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
 
 class MentorSettings extends Component {
   
   FormControlWithValidationWithFormik = (type, children, label) => {
     return ({ field, form: { touched, errors } }) => {
-
       return <div>
         <h5>
           {label}
@@ -22,7 +21,7 @@ class MentorSettings extends Component {
 
                       isInvalid={touched[field.name] && errors[field.name]}
                       as={type}>
-          {children}
+          {(children) ? children.map((v, i) => <option key={i}>{v}</option>) : null}
         </Form.Control>
         <ErrorMessage name={field.name}/>
       </div>
@@ -30,8 +29,7 @@ class MentorSettings extends Component {
   };
 
   render() {
-    const {user, settings, togglePicturePicker, storePictureToCrop, removePictureToCrop, storePictureCropped, saveChanges} = this.props;
-    console.log(user);
+    const {user, settings, togglePicturePicker, storePictureToCrop, removePictureToCrop, storePictureCropped} = this.props;
     return <div>
       <Formik
         validationSchema={Yup.object().shape({
@@ -62,14 +60,11 @@ class MentorSettings extends Component {
         })}
         initialValues={{email: user.email, firstName: user.firstName, ...user.mentorProfile}}
         onSubmit={(values , { setSubmitting }) => {
-          saveChanges(values).then(r => {
+          this.props.saveMentorSettings(values).then(r => {
             if (r.success) {
-              alert("Wowo")
-              toast.success("Settings updated successfully");
-              window.localStorage.setItem("user", JSON.stringify(r.payload));
-              this.props.updateUser(r.payload);
+              toast.success("Settings saved successfully");
               setSubmitting(false);
-            } else toast.error("There was a problem saving your settings")
+            } else toast.error("There was a problem saving your settings");
           })
         }
         }
@@ -107,11 +102,11 @@ class MentorSettings extends Component {
               </Col>
               <Col>
                 <Field name="area" render={this.FormControlWithValidationWithFormik("select", [
-                    <option >Natural Sciences</option>,
-                    <option>Humanities</option>,
-                    <option>Social Sciences</option>,
-                    <option>Engineering</option>,
-                    <option>Business and Economics</option>], "Area of study")}
+                    "Natural Sciences",
+                    "Humanities",
+                    "Social Sciences",
+                    "Engineering",
+                    "Business and Economics"], "Area of study")}
                 />
               </Col>
             </Row>
@@ -123,18 +118,18 @@ class MentorSettings extends Component {
               </Col>
               <Col>
                 <Field name="area" render={this.FormControlWithValidationWithFormik("select", [
-                    <option>1</option>,
-                    <option>2</option>,
-                    <option>3</option>,
-                    <option>4</option>,
-                    <option>5</option>,
-                    <option>6+</option>], "Area of study")}
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6+"], "Area of study")}
                 />
               </Col>
               <Col>
                 <Field name="firstGenStudent" render={this.FormControlWithValidationWithFormik("select", [
-                    <option>Yes</option>,
-                    <option>No</option>
+                    "Yes",
+                    "No"
                   ], "First Generation Student")}
                 />
               </Col>
@@ -151,9 +146,9 @@ class MentorSettings extends Component {
               </Col>
               <Col>
                 <Field name="gender" render={this.FormControlWithValidationWithFormik("select", [
-                    <option>Male</option>,
-                    <option>Female</option>,
-                    <option>Prefer not to say</option>], "Gender")}
+                    "Male",
+                    "Female",
+                    "Prefer not to say"], "Gender")}
                 />
               </Col>
             </Row>

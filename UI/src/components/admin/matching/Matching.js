@@ -1,8 +1,19 @@
-import React, {Component} from 'react';
-import {Col, Container, Image, ListGroup, Row, CardDeck, Button, InputGroup, CardColumns, Form} from "react-bootstrap";
+import React, { Component } from "react";
+import {
+  Button,
+  CardColumns,
+  CardDeck,
+  Col,
+  Container,
+  Form,
+  Image,
+  InputGroup,
+  ListGroup,
+  Row
+} from "react-bootstrap";
 import MentorCard from "../mentors/MentorCard";
-import * as _ from 'lodash';
-import {Icon} from "react-fa";
+import * as _ from "lodash";
+import { Icon } from "react-fa";
 import * as JsSearch from "js-search";
 
 class Matching extends Component {

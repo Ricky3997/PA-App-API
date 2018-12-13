@@ -1,17 +1,19 @@
-import React, {Component} from 'react';
-import {Col, Container, Row} from "react-bootstrap";
-import {scaleLinear} from 'd3-scale';
+import React, { Component } from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import { scaleLinear } from "d3-scale";
 import {
-    HeatmapSeries,
-    Highlight,
-    HorizontalGridLines, LabelSeries,
-    LineSeries,
-    MarkSeries,
-    VerticalGridLines, VerticalRectSeries,
-    XAxis,
-    XYPlot,
-    YAxis
-} from 'react-vis'
+  HeatmapSeries,
+  Highlight,
+  HorizontalGridLines,
+  LabelSeries,
+  LineSeries,
+  MarkSeries,
+  VerticalGridLines,
+  VerticalRectSeries,
+  XAxis,
+  XYPlot,
+  YAxis
+} from "react-vis";
 
 class Statistics extends Component {
     constructor(props) {

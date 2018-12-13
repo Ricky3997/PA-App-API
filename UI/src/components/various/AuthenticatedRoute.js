@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Redirect, Route} from "react-router-dom";
+import React, { Component } from "react";
+import { Redirect, Route } from "react-router-dom";
 
 const AuthenticatedRoute = (props) => (
     //TODO Implement after Redux https://tylermcginnis.com/react-router-protected-routes-authentication/

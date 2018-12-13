@@ -1,6 +1,6 @@
-import React from 'react';
-import {Col, Nav, Row, Tab} from "react-bootstrap";
-import {Route, Switch} from "react-router-dom";
+import React from "react";
+import { Col, Nav, Row, Tab } from "react-bootstrap";
+import { Route, Switch } from "react-router-dom";
 
 const Mentees = (props) => {
     const validateSection = (section) => {

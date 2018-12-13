@@ -1,5 +1,5 @@
-import React from 'react';
-import {Container} from "react-bootstrap";
+import React from "react";
+import { Container } from "react-bootstrap";
 import ModuleBox from "../journey/ModuleBox";
 
 const Milestone = (props) => {

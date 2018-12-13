@@ -1,6 +1,6 @@
-import React from 'react';
-import {Timeline, Bookmark} from 'react-vertical-timeline'
-import 'react-vertical-timeline/style.css'
+import React from "react";
+import { Bookmark, Timeline } from "react-vertical-timeline";
+import "react-vertical-timeline/style.css";
 
 const ProgressionTimeline = (props) => {
     return (
