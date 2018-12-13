@@ -6,7 +6,7 @@ import MenteeSettings from "./MenteeSettings";
 
 class Settings extends Component {
   render() {
-    return this.props.user ? <div>
+    return this.props.user ?
       <Container>
         <Row>
           <Col>
@@ -18,8 +18,7 @@ class Settings extends Component {
         <div>
           {this.props.user.type === "mentor" ? <MentorSettings {...this.props} /> : <MenteeSettings/>}
         </div>
-      </Container>
-    </div> : <Redirect to={"/login"}/>;
+      </Container> : <Redirect to={"/login"}/>;
   }
 
 }

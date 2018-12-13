@@ -121,6 +121,7 @@ const RegisterNewUser = (props) => {
                   </div>;
                 }}
               />
+              <br />
               <Button block type="submit" variant="success" disabled={isSubmitting || !_.isEmpty(errors)}>
                 {isSubmitting ? <Loader type="Oval" color="#ffffff" width="20" height="20"/> :
                   (props.type === "High School Student" ? "Find your mentor!" : "Help a mentee!")}

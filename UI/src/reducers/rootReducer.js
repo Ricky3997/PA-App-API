@@ -41,13 +41,13 @@ function settings(state = {
 }
 
 function onboarding(state = {
-  step: 4,
-  country: "Italy",
-  city: "Milan",
-  university: "Bath",
-  subject: "Computer Science",
-  level: "Undergraduate",
-  area: "Social Sciences",
+  step: 1,
+  country: "",
+  city: "",
+  university: "",
+  subject: "",
+  level: "",
+  area: "Engineering",
   year: "1",
   gender: "Female",
   firstGenStudent: "Yes",

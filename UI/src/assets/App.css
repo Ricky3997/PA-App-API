@@ -81,3 +81,11 @@
     margin-top: 50px;
     color: beige;
 }
+
+#root_div{
+    height: 100vh
+}
+#root_container{
+    min-height: 95vh;
+    padding-top: 10vh
+}
