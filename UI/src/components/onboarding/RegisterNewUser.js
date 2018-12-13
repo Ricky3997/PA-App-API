@@ -9,6 +9,7 @@ import * as api from "../../api";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as queryString from "query-string";
+import { Icon } from "react-fa";
 
 const RegisterNewUser = (props) => {
 
@@ -103,13 +104,13 @@ const RegisterNewUser = (props) => {
 
                   return <div>
                     <Form.Label>
-                      <span>Your <b>{values.userType === "High School Student" ? "" : "University"}</b> Email Address</span>
+                      <span>Your <b>{values.userType === "High School Student" ? "" : "University"}</b> {"Email Address "}</span>
                       {values.userType === "High School Student" ? null :
                         <OverlayTrigger placement="bottom"
                                         overlay={<Tooltip placement="bottoom" className="in">We need
                                           this to verify the university you attend!</Tooltip>}>
                           <Badge pill variant="info">
-                            Why?
+                            <span><Icon style={{color: "white"}} name="fas fa-info-circle"/>{" Why?"}</span>
                           </Badge>
                         </OverlayTrigger>
                       }

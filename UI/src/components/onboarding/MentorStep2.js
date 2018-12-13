@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import "react-toastify/dist/ReactToastify.css";
 import { ErrorMessage, Field, Form as FormikForm, Formik } from "formik";
 import * as _ from "lodash";
+import { Icon } from "react-fa";
 
 const MentorStep2 = (props) => {
   return <Formik
@@ -104,7 +105,7 @@ const MentorStep2 = (props) => {
                                       "Knowing whether your parents went to University will help us find a younger student needing your help who, coming from your same background, will be able to relate to you better!!"}
                                   </Tooltip>}>
                                     <Badge pill variant="info">
-                                        Why?
+                                        <Icon style={{color: "white"}} name="fas fa-info-circle"/> Why?
                                     </Badge>
                                 </OverlayTrigger>
                     </span></Form.Label>
