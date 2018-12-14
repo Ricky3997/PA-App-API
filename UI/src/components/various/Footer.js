@@ -4,7 +4,7 @@ import Badge from "react-bootstrap/es/Badge";
 import { Icon } from "react-fa";
 
 const Footer = () => {
-  return <Navbar fixed="bottom" variant="light" bg="light" >
+  return <Navbar sticky="bottom" variant="light" bg="light" >
     <Navbar.Brand>
       <Badge  variant="info">
         Alpha

@@ -8,6 +8,13 @@ import Loader from "react-loader-spinner";
 import ProfilePicture from "./ProfilePicture";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
+import CountryPicker from "../various/forms/CountryPicker";
+import TextFieldWithLabel from "../various/forms/TextFieldWithLabel";
+import AreaOfDegreePicker from "../various/forms/AreaOfDegreePicker";
+import DegreeLevelPicker from "../various/forms/DegreeLevelPicker";
+import YearPicker from "../various/forms/YearPicker";
+import FirstGenerationStudentPicker from "../various/forms/FirstGenerationStudentPicker";
+import GenderPicker from "../various/forms/GenderPicker";
 
 class MentorSettings extends Component {
 
@@ -24,8 +31,8 @@ class MentorSettings extends Component {
           {(children) ? children.map((v, i) => <option key={i}>{v}</option>) : null}
         </Form.Control>
         <p style={{ color: "red" }}>{errors[field.name]}</p>
-      </div>
-    }
+      </div>;
+    };
   };
 
   render() {
@@ -55,7 +62,7 @@ class MentorSettings extends Component {
           city: Yup.string()
             .required("City is required."),
           gender: Yup.string()
-            .required("Gender is required."),
+            .required("Gender is required.")
 
         })}
         initialValues={{ email: user.email, firstName: user.firstName, ...user.mentorProfile }}
@@ -65,10 +72,10 @@ class MentorSettings extends Component {
               toast.success("Settings saved successfully");
               setSubmitting(false);
             } else toast.error("There was a problem saving your settings");
-          })
+          });
         }
         }
-        render={({ values, touched, errors, isSubmitting }) => (
+        render={({ values, touched, errors, isSubmitting, setFieldValue }) => (
           <FormikForm>
             <Row>
               <Col md={3}>
@@ -81,11 +88,15 @@ class MentorSettings extends Component {
                 />
               </Col>
               <Col md={6}>
-                <Field type="text" name="firstName"
-                       render={this.FormControlWithValidationWithFormik("input", null, "Your First Name")}/>
 
-                <Field type="email" name="email"
-                       render={this.FormControlWithValidationWithFormik("input", null, "Your Email")}/>
+                <Field name="firstName" render={({ field, form: { touched, errors } }) =>
+                  <TextFieldWithLabel label="Your first name" field={field} touched={touched} errors={errors} />}
+                />
+
+
+                <Field name="email" render={({ field, form: { touched, errors } }) =>
+                  <TextFieldWithLabel label="Your current email address" field={field} touched={touched} errors={errors} />}
+                />
 
                 <Form.Text className="text-muted">
                   We'll never share your email with anyone else.
@@ -96,73 +107,64 @@ class MentorSettings extends Component {
             <br/>
 
             {this.props.user.onboarded ?
-            <div>
-              <Row>
-                <Col>
-                  <Field type="text" name="university"
-                         render={this.FormControlWithValidationWithFormik("input", null, "University")}/>
-                </Col>
-                <Col>
-                  <Field type="text" name="subject"
-                         render={this.FormControlWithValidationWithFormik("input", null, "Subject")}
-                  />
-                </Col>
-                <Col>
-                  <Field name="area" render={this.FormControlWithValidationWithFormik("select", [
-                    "Natural Sciences",
-                    "Humanities",
-                    "Social Sciences",
-                    "Engineering",
-                    "Business and Economics"], "Area of study")}
-                  />
-                </Col>
-              </Row>
-              <br/>
-              <Row>
-                <Col>
-                  <Field type="text" name="level"
-                         render={this.FormControlWithValidationWithFormik("input", null, "Degree Type")}
-                  />
-                </Col>
-                <Col>
-                  <Field name="area" render={this.FormControlWithValidationWithFormik("select", [
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5",
-                    "6+"], "Area of study")}
-                  />
-                </Col>
-                <Col>
-                  <Field name="firstGenStudent" render={this.FormControlWithValidationWithFormik("select", [
-                    "Yes",
-                    "No"
-                  ], "First Generation Student")}
-                  />
-                </Col>
-              </Row>
-              <br/>
-              <Row>
-                <Col>
-                  <Field type="text" name="country"
-                         render={this.FormControlWithValidationWithFormik("input", null, "Country")}
-                  />
-                </Col>
-                <Col>
-                  <Field type="text" name="city"
-                         render={this.FormControlWithValidationWithFormik("input", null, "City")}
-                  />
-                </Col>
-                <Col>
-                  <Field name="gender" render={this.FormControlWithValidationWithFormik("select", [
-                    "Male",
-                    "Female",
-                    "Prefer not to say"], "Gender")}
-                  />
-                </Col>
-              </Row>
-            </div> : <Button onClick={() => this.props.history.push("/onboard")}>Looks like you are not onboarded, go finish</Button>}
+              <div>
+                <Row>
+                  <Col>
+                    <Field name="university" render={({ field, form: { touched, errors } }) =>
+                      <TextFieldWithLabel label="Your current University" field={field} touched={touched} errors={errors} />}
+                    />
+                  </Col>
+                  <Col>
+
+                    <Field name="subject" render={({ field, form: { touched, errors } }) =>
+                      <TextFieldWithLabel label="Your current subject" field={field} touched={touched} errors={errors} />}
+                    />
+                  </Col>
+                  <Col>
+                    <Field name="area" render={({ field, form: { touched, errors } }) =>
+                      <AreaOfDegreePicker setFieldValue={setFieldValue} field={field} touched={touched} errors={errors} />}
+                    />
+                  </Col>
+                </Row>
+                <br/>
+                <Row>
+                  <Col>
+                    <Field name="level" render={({ field, form: { touched, errors } }) =>
+                      <DegreeLevelPicker setFieldValue={setFieldValue} field={field} touched={touched} errors={errors} />}
+                    />
+                  </Col>
+                  <Col>
+                    <Field name="year" render={({ field, form: { touched, errors } }) =>
+                      <YearPicker setFieldValue={setFieldValue} field={field} touched={touched} errors={errors} />}
+                    />
+                  </Col>
+                  <Col>
+                    <Field name="firstGenStudent" render={({ field, form: { touched, errors } }) =>
+                      <FirstGenerationStudentPicker user={user} setFieldValue={setFieldValue} field={field} touched={touched} errors={errors} />}
+                    />
+                  </Col>
+                </Row>
+                <br/>
+                <Row>
+                  <Col>
+                    <Field name="country" render={({ field, form: { touched, errors } }) => <CountryPicker setFieldValue={setFieldValue} field={field} touched={touched}
+                                            errors={errors}/>
+                    }
+                    />
+                  </Col>
+                  <Col>
+                    <Field name="city" render={({ field, form: { touched, errors } }) =>
+                      <TextFieldWithLabel label="Your city of origin" field={field} touched={touched} errors={errors} />}
+                    />
+                  </Col>
+                  <Col>
+                    <Field name="gender" render={({ field, form: { touched, errors } }) =>
+                      <GenderPicker setFieldValue={setFieldValue} field={field} touched={touched} errors={errors} />}
+                    />
+                  </Col>
+                </Row>
+              </div> : <Button onClick={() => this.props.history.push("/onboard")}>Looks like you are not onboarded, go
+                finish</Button>}
 
             <br/>
             <Row>
@@ -181,7 +183,7 @@ class MentorSettings extends Component {
         )}
       />
       <ToastContainer/>
-    </div>
+    </div>;
   }
 };
 

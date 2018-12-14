@@ -3,6 +3,10 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import * as _ from "lodash";
 import { Field, Form as FormikForm, Formik } from "formik";
 import * as Yup from "yup";
+import TextFieldWithLabel from "../various/forms/TextFieldWithLabel";
+import AreaOfDegreePicker from "../various/forms/AreaOfDegreePicker";
+import DegreeLevelPicker from "../various/forms/DegreeLevelPicker";
+import YearPicker from "../various/forms/YearPicker";
 
 const MentorAcademicBackground = (props) => {
   return <Formik
@@ -29,103 +33,37 @@ const MentorAcademicBackground = (props) => {
       props.changeStage(4);
       setSubmitting(false);
     }}
-    render={({ values, touched, errors, isSubmitting }) => (
+    render={({ values, touched, errors, isSubmitting, setFieldValue }) => (
       <FormikForm>
         <Form.Row style={{paddingTop: "80px"}}>
           <Col md={{span: 3, offset: 3}}>
-            <Field
-              type="text"
-              name="university"
-              render={({ field, form: { touched, errors } }) => {
-                return <div>
-                  <Form.Label>Your current University</Form.Label>
-                  <Form.Control {...field}
-                                isInvalid={touched[field.name] && errors[field.name]}/>
-                  {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
-                </div>;
-              }}
+            <Field name="university" render={({ field, form: { touched, errors } }) =>
+              <TextFieldWithLabel label="Your current University" field={field} touched={touched} errors={errors} />}
             />
-
           </Col>
           <Col md={{span: 3}}>
-
-            <Field
-              type="text"
-              name="subject"
-              render={({ field, form: { touched, errors } }) => {
-                return <div>
-                  <Form.Label>Your subject of study</Form.Label>
-                  <Form.Control {...field}
-                                isInvalid={touched[field.name] && errors[field.name]}/>
-                  {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
-                </div>;
-              }}
+            <Field name="subject" render={({ field, form: { touched, errors } }) =>
+              <TextFieldWithLabel label="Your subject" field={field} touched={touched} errors={errors} />}
             />
-
           </Col>
         </Form.Row>
         <Form.Row>
           <Col md={{span: 3, offset: 3}}>
-
-            <Field
-              type="text"
-              name="level"
-              render={({ field, form: { touched, errors } }) => {
-                return <div>
-                  <Form.Label>Your degree level</Form.Label>
-                  <Form.Control {...field} as="select"
-                                isInvalid={touched[field.name] && errors[field.name]}>
-                    <option>Undergraduate</option>
-                    <option>Masters</option>
-                    <option>Doctorate</option>
-                  </Form.Control>
-                  {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
-                </div>;
-              }}
+            <Field name="level" render={({ field, form: { touched, errors } }) =>
+              <DegreeLevelPicker setFieldValue={setFieldValue} field={field} touched={touched} errors={errors} />}
             />
           </Col>
           <Col md={{span: 3}}>
-            <Field
-              type="text"
-              name="area"
-              render={({ field, form: { touched, errors } }) => {
-                return <div>
-                  <Form.Label>Area of study</Form.Label>
-                  <Form.Control {...field} as="select"
-                                isInvalid={touched[field.name] && errors[field.name]}>
-                    <option>Natural Sciences</option>
-                    <option>Humanities</option>
-                    <option>Social Sciences</option>
-                    <option>Engineering</option>
-                    <option>Business and Economics</option>
-                  </Form.Control>
-                  {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
-                </div>;
-              }}
+            <Field name="area" render={({ field, form: { touched, errors } }) =>
+              <AreaOfDegreePicker setFieldValue={setFieldValue} field={field} touched={touched} errors={errors} />}
             />
           </Col>
         </Form.Row>
         <Row>
           <Col md={{span: 3, offset: 3}}>
-            <Field
-              type="text"
-              name="year"
-              render={({ field, form: { touched, errors } }) => {
-                return <div>
-                  <Form.Label>Current year of degree</Form.Label>
-                  <Form.Control {...field} as="select"
-                                isInvalid={touched[field.name] && errors[field.name]}>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6+</option>
-                  </Form.Control>
-                  {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
-                </div>
-              }}/>
-
+            <Field name="year" render={({ field, form: { touched, errors } }) =>
+              <YearPicker setFieldValue={setFieldValue} field={field} touched={touched} errors={errors} />}
+            />
           </Col>
         </Row>
 

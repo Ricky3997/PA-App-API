@@ -12,7 +12,6 @@ class Mentors extends Component {
         };
     }
 
-
     validateSection (section) {
         return ["database", "approvals", "statistics"].indexOf(section) > -1 ? section : "database"
     };

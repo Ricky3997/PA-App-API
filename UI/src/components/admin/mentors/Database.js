@@ -38,6 +38,8 @@ class Database extends Component {
                 </InputGroup>
               </Form.Group>
 
+              {/*TODO npm install --save react-bootstrap-typeahead*/}
+
               <Form.Row>
                 <Form.Group as={Col}>
                   <Form.Control as="select">
