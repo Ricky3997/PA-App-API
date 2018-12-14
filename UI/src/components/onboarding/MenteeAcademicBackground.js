@@ -1,9 +1,10 @@
 import { Field, Form as FormikForm, Formik } from "formik";
 import { Select } from "antd";
 import React from "react";
+
 const {OptGroup, Option} = Select;
 
-const MenteeStep3 = (props) => {
+const MenteeAcademicBackground = (props) => {
   return <Formik
     // validationSchema={} //TODO
     initialValues={{tags: ["React", "woow"]}}
@@ -42,4 +43,4 @@ const MenteeStep3 = (props) => {
 };
 
 
-export default MenteeStep3;
+export default MenteeAcademicBackground;

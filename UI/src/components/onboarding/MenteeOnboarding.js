@@ -1,17 +1,13 @@
 import React from "react";
-import { Select } from "antd";
 import AnagraphicInfoStep from "./AnagraphicInfoStep";
-import MenteeStep3 from "./MenteeStep3"
-import MenteeStep4 from "./MenteeStep4";
-
-
-const { Option, OptGroup } = Select;
+import MenteeAcademicBackground from "./MenteeAcademicBackground";
+import MenteeConfirm from "./MenteeConfirm";
 
 const MenteeOnboarding = (props) => {
   return <div>
     {props.onboarding.step === 2 ? <AnagraphicInfoStep {...props} /> : null}
-    {props.onboarding.step === 3 ? <MenteeStep3 {...props} /> : null}
-    {props.onboarding.step === 4 ? <MenteeStep4 {...props} /> : null}
+    {props.onboarding.step === 3 ? <MenteeAcademicBackground {...props} /> : null}
+    {props.onboarding.step === 4 ? <MenteeConfirm {...props} /> : null}
   </div>
 
 };

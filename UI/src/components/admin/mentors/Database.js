@@ -3,8 +3,6 @@ import { CardColumns, Col, Container, Form, InputGroup, Row } from "react-bootst
 import { Icon } from "react-fa";
 import * as JsSearch from "js-search";
 import MentorCard from "./MentorCard";
-import { Field, Form as FormikForm, Formik } from "formik";
-import { Select } from "antd";
 
 class Database extends Component {
   constructor(props) {

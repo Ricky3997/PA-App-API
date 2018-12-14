@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import 'antd/dist/antd.css';
+import "antd/dist/antd.css";
 import "../assets/App.css";
 import Header from "./various/Header";
 import Onboarding from "./onboarding/Onboarding";
@@ -18,8 +18,10 @@ import Home from "./home/Home";
 import {
   addOnboardingProperties,
   changeStage,
-  getUser, registerMentor,
-  removePictureToCrop, saveMentorSettings,
+  getUser,
+  registerMentor,
+  removePictureToCrop,
+  saveMentorSettings,
   storePictureCropped,
   storePictureToCrop,
   togglePicurePicker,

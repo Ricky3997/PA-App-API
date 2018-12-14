@@ -2,7 +2,7 @@ import React from "react";
 import { Badge, Button, Col, Form, Row } from "react-bootstrap";
 import Loader from "react-loader-spinner";
 
-const MenteeStep4 = (props) => {
+const MentorConfirm = (props) => {
   return <div>
 
     <Row style={{ paddingTop: "80px" }}>
@@ -54,4 +54,4 @@ const MenteeStep4 = (props) => {
   </div>;
 };
 
-export default MenteeStep4;
+export default MentorConfirm;

@@ -4,7 +4,7 @@ import * as _ from "lodash";
 import { ErrorMessage, Field, Form as FormikForm, Formik } from "formik";
 import * as Yup from "yup";
 
-const MentorStep3 = (props) => {
+const MentorAcademicBackground = (props) => {
   return <Formik
     validationSchema={Yup.object().shape({
       university: Yup.string()
@@ -146,4 +146,4 @@ const MentorStep3 = (props) => {
 };
 
 
-export default MentorStep3;
+export default MentorAcademicBackground;

@@ -1,24 +1,4 @@
 import React, { Component } from "react";
-import {
-  AddIcon,
-  Avatar,
-  ChatList,
-  ChatListItem,
-  Column,
-  IconButton,
-  Message as UIKitMessage,
-  MessageGroup,
-  MessageList,
-  MessageText,
-  Row,
-  SendButton,
-  Subtitle,
-  TextComposer,
-  TextInput,
-  ThemeProvider,
-  Title
-} from "@livechat/ui-kit";
-import { Col, Row as BRow } from "react-bootstrap";
 import NotReadyYet from "../various/NotReadyYet";
 
 class Message extends Component {

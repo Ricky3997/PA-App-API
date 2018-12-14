@@ -15,7 +15,7 @@ const Footer = () => {
     </Navbar.Text>
     <Navbar.Collapse className="justify-content-end">
       <Navbar.Text>
-        Made with <Icon style={{color: "red"}} name="fas fa-heart"/> at <a target="_blank" href="https://projectaccess.org">Project Access</a>
+        Made with <Icon style={{color: "red"}} name="fas fa-heart"/> at <a rel="noopener noreferrer" target="_blank" href="https://projectaccess.org">Project Access</a>
       </Navbar.Text>
     </Navbar.Collapse>
   </Navbar>;

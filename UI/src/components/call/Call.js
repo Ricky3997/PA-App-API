@@ -108,8 +108,6 @@ class Call extends Component {
 
 
     render() {
-        const typeformID = "MDHUre";
-
         return <NotReadyYet/>
 
         // return (

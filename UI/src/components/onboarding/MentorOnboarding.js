@@ -1,13 +1,13 @@
 import React from "react";
 import AnagraphicInfoStep from "./AnagraphicInfoStep";
-import MentorStep3 from "./MentorStep3";
-import MentorStep4 from "./MentorStep4";
+import MentorAcademicBackground from "./MentorAcademicBackground";
+import MentorConfirm from "./MentorConfirm";
 
 const MentorOnboarding = (props) => {
   return <div>
     {props.onboarding.step === 2 ? <AnagraphicInfoStep {...props} /> : null}
-    {props.onboarding.step === 3 ? <MentorStep3 {...props} /> : null}
-    {props.onboarding.step === 4 ? <MentorStep4 {...props} /> : null}
+    {props.onboarding.step === 3 ? <MentorAcademicBackground {...props} /> : null}
+    {props.onboarding.step === 4 ? <MentorConfirm {...props} /> : null}
   </div>;
 };
 

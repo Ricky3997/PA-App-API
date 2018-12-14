@@ -4,7 +4,7 @@ import { Col, Row } from "react-bootstrap";
 
 
 const JourneyModule = (props) => {
-    const module = props.milestones.filter(m => m.id === parseInt(props.match.params.id))[0];
+    // const module = props.milestones.filter(m => m.id === parseInt(props.match.params.id))[0];
     return (
         <Row>
             <Col>
