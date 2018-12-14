@@ -14,6 +14,7 @@ import Admin from "./admin/Admin";
 import Settings from "./settings/Settings";
 import JourneyModule from "./journey/JourneyModule";
 import Home from "./home/Home";
+import About from "./various/About";
 
 import {
   addOnboardingProperties,
@@ -73,14 +74,14 @@ class App extends Component {
             <Route path={"/message"} render={(props) => <Message user={user} {...props} />}/>
             <Route path={"/call"} render={(props) => <Call user={user} {...props} />}/>
             <Route path={"/mentor/:id"} exact render={(props) => <MentorProfile {...props} />}/>
+            <Route path={"/about"} component={About} />
             <Route render={(props) => <Home user={user} {...props} />}/>
           </Switch>
         </Container>
-        <Footer/>
+        <Footer history={history} />
       </div>
     );
   }
-
 };
 
 export default App;
