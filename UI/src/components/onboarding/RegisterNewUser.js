@@ -16,8 +16,8 @@ const RegisterNewUser = (props) => {
   const qs = queryString.parse(window.location.search);
   let typeFromUrl;
   if (qs.type) {
-    if (qs.type === "mentee") typeFromUrl = "High School Student";
-    if (qs.type === "mentor") typeFromUrl = "University Student";
+    if (qs.type === "mentee") typeFromUrl = "Student Looking for Help";
+    if (qs.type === "mentor") typeFromUrl = "University Student looking to help";
   }
 
 
@@ -42,13 +42,13 @@ const RegisterNewUser = (props) => {
               .required("First name is required."),
             userType: Yup.string()
           })}
-          initialValues={{ email: "", firstName: "", userType: typeFromUrl || "High School Student" }}
+          initialValues={{ email: "", firstName: "", userType: typeFromUrl || "Student Looking for Help" }}
           onSubmit={({ email, userType, firstName }, { setSubmitting }) => {
 
             api.post("/auth/register", {
               email: email,
               firstName: firstName,
-              type: userType === "High School Student" ? "mentee" : "mentor"
+              type: userType === "Student Looking for Help" ? "mentee" : "mentor"
             }).then(r => {
               if (r.success) {
                 window.localStorage.setItem("token", r.payload.token);
@@ -74,8 +74,8 @@ const RegisterNewUser = (props) => {
                                   isInvalid={touched[field.name] && errors[field.name]}
                                   as="select"
                     >
-                      <option>High School Student</option>
-                      <option>University Student</option>
+                      <option>Student Looking for Help</option>
+                      <option>University Student looking to help</option>
                     </Form.Control>
                     {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
                   </div>;
@@ -104,8 +104,8 @@ const RegisterNewUser = (props) => {
 
                   return <div>
                     <Form.Label>
-                      <span>Your <b>{values.userType === "High School Student" ? "" : "University"}</b> {"Email Address "}</span>
-                      {values.userType === "High School Student" ? null :
+                      <span>Your <b>{values.userType === "Student Looking for Help" ? "" : "University"}</b> {"Email Address "}</span>
+                      {values.userType === "Student Looking for Help" ? null :
                         <OverlayTrigger placement="bottom"
                                         overlay={<Tooltip placement="bottoom" className="in">We need
                                           this to verify the university you attend!</Tooltip>}>
@@ -125,11 +125,12 @@ const RegisterNewUser = (props) => {
               <br />
               <Button block type="submit" variant="success" disabled={isSubmitting || !_.isEmpty(errors)}>
                 {isSubmitting ? <Loader type="Oval" color="#ffffff" width="20" height="20"/> :
-                  (props.type === "High School Student" ? "Find your mentor!" : "Help a mentee!")}
+                  (values.userType === "Student Looking for Help" ? "Find your mentor!" : "Help a mentee!")}
               </Button>
             </FormikForm>
           )}
         />
+        <Button block style={{color: "white"}} variant="link" onClick={() => props.history.push("/login")}>Already registered? Sign in instead</Button>
       </Col>
       <ToastContainer/>
     </Row>

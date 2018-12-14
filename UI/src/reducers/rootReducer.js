@@ -42,16 +42,20 @@ function settings(state = {
 }
 
 function onboarding(state = {
-  step: 1,
+  step: 3,
   country: "",
   city: "",
   university: "",
+  school: "",
   subject: "",
+  subjects: [],
   level: "",
-  area: "Engineering",
-  year: "1",
-  gender: "Female",
-  firstGenStudent: "Yes",
+  area: "",
+  year: "",
+  gender: "",
+  firstGenStudent: "",
+  interestedIn: [],
+  unisApplyingFor: [],
   registeringMentor: false
 }, action) {
   switch (action.type) {

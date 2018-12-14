@@ -4,10 +4,11 @@ import { Form } from "react-bootstrap";
 
 const { Option } = Select;
 
-const SelectWithLabel = ({field, touched, errors, setFieldValue, label, placeholder, options}) => {
+const SelectWithLabel = ({mode, field, touched, errors, setFieldValue, label, placeholder, options}) => {
   return <div>
     <Form.Label>{label}</Form.Label>
     <Select allowClear size={"large"}
+            mode={mode || "default"}
             style={{ width: "100%" }}
             value={field.value}
             placeholder={placeholder}

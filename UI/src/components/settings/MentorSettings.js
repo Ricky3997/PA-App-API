@@ -154,7 +154,7 @@ class MentorSettings extends Component {
                   </Col>
                   <Col>
                     <Field name="city" render={({ field, form: { touched, errors } }) =>
-                      <TextFieldWithLabel label="Your city of origin" field={field} touched={touched} errors={errors} />}
+                      <TextFieldWithLabel label="What city are you from?" field={field} touched={touched} errors={errors} />}
                     />
                   </Col>
                   <Col>

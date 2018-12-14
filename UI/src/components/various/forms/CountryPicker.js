@@ -9,7 +9,7 @@ Object.keys(countries).forEach(key => countryFlags[key] = require(`svg-country-f
 
 const CountryPicker = ({field, touched, errors, setFieldValue}) => {
   return <div>
-    <Form.Label>Your country of origin</Form.Label>
+    <Form.Label>What country are you from?</Form.Label>
     <Select showSearch allowClear size={"large"}
             style={{ width: "100%" }}
             value={field.value}

@@ -1,10 +1,10 @@
 import React from "react";
 import { Badge, Button, Col, Form, Row } from "react-bootstrap";
 import Loader from "react-loader-spinner";
+import { Icon } from "react-fa";
 
 const MenteeConfirm = (props) => {
   return <div>
-
     <Row style={{ paddingTop: "80px" }}>
       <Col md={{ span: 6, offset: 3 }}>
         <p>
@@ -26,20 +26,31 @@ const MenteeConfirm = (props) => {
     </Row>
     <Row>
       <Col md={{ span: 4, offset: 2 }}>
-        <Badge variant="info">{"Currently studying"}</Badge>
-        <Form.Label>{`${props.onboarding.subject} at ${props.onboarding.university}`}</Form.Label>
+        <Badge variant="info">{"Currently in year"}</Badge>
+        <Form.Label>{`${props.onboarding.year} at ${props.onboarding.school}`}</Form.Label>
       </Col>
 
       <Col md={4}>
-        <Badge variant="info">{"In Year"}</Badge>
-        <Form.Label>{`${props.onboarding.year} of your ${props.onboarding.level} degree`} </Form.Label>
+        <Badge variant="info">{"Currently studying"}</Badge>
+        <Form.Label>{`${props.onboarding.subjects.join(", ")}`} </Form.Label>
+      </Col>
+    </Row>
+    <Row>
+      <Col md={{ span: 4, offset: 2 }}>
+        <Badge variant="info">{"Applying for"}</Badge>
+        <Form.Label>{`${props.onboarding.interestedIn.join(", ")}`}</Form.Label>
+      </Col>
+
+      <Col md={4}>
+        <Badge variant="info">{"At"}</Badge>
+        <Form.Label>{`${props.onboarding.level} level`} </Form.Label>
       </Col>
     </Row>
 
     <Row>
       <Col md={{ span: 4, offset: 2 }}>
         <Button block onClick={() => props.changeStage(3)}>
-          Previous
+          <span><Icon name="fas fa-arrow-left" />{" Previous"}  </span>
         </Button>
       </Col>
       <Col md={{ span: 4 }}>

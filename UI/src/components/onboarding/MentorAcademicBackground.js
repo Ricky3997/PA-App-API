@@ -7,6 +7,7 @@ import TextFieldWithLabel from "../various/forms/TextFieldWithLabel";
 import AreaOfDegreePicker from "../various/forms/AreaOfDegreePicker";
 import DegreeLevelPicker from "../various/forms/DegreeLevelPicker";
 import YearPicker from "../various/forms/YearPicker";
+import { Icon } from "react-fa";
 
 const MentorAcademicBackground = (props) => {
   return <Formik
@@ -27,7 +28,7 @@ const MentorAcademicBackground = (props) => {
         .min(1)
         .required("Year is required.")
     })}
-    initialValues={{...props.onboarding}}
+    initialValues={{ ...props.onboarding }}
     onSubmit={(values, { setSubmitting }) => {
       props.addOnboardingProperties(values);
       props.changeStage(4);
@@ -35,52 +36,50 @@ const MentorAcademicBackground = (props) => {
     }}
     render={({ values, touched, errors, isSubmitting, setFieldValue }) => (
       <FormikForm>
-        <Form.Row style={{paddingTop: "80px"}}>
-          <Col md={{span: 3, offset: 3}}>
+        <Row style={{ paddingTop: "80px" }}>
+          <Col md={{ span: 3, offset: 3 }}>
             <Field name="university" render={({ field, form: { touched, errors } }) =>
-              <TextFieldWithLabel label="Your current University" field={field} touched={touched} errors={errors} />}
+              <TextFieldWithLabel label="Your current University" field={field} touched={touched} errors={errors}/>}
             />
           </Col>
-          <Col md={{span: 3}}>
+          <Col md={{ span: 3 }}>
             <Field name="subject" render={({ field, form: { touched, errors } }) =>
-              <TextFieldWithLabel label="Your subject" field={field} touched={touched} errors={errors} />}
-            />
-          </Col>
-        </Form.Row>
-        <Form.Row>
-          <Col md={{span: 3, offset: 3}}>
-            <Field name="level" render={({ field, form: { touched, errors } }) =>
-              <DegreeLevelPicker setFieldValue={setFieldValue} field={field} touched={touched} errors={errors} />}
-            />
-          </Col>
-          <Col md={{span: 3}}>
-            <Field name="area" render={({ field, form: { touched, errors } }) =>
-              <AreaOfDegreePicker setFieldValue={setFieldValue} field={field} touched={touched} errors={errors} />}
-            />
-          </Col>
-        </Form.Row>
-        <Row>
-          <Col md={{span: 3, offset: 3}}>
-            <Field name="year" render={({ field, form: { touched, errors } }) =>
-              <YearPicker setFieldValue={setFieldValue} field={field} touched={touched} errors={errors} />}
+              <TextFieldWithLabel label="Your subject" field={field} touched={touched} errors={errors}/>}
             />
           </Col>
         </Row>
-
         <Row>
-          <Col md={{ span: 3, offset: 3 }}>
+          <Col md={{ span: 2, offset: 3 }}>
+            <Field name="level" render={({ field, form: { touched, errors } }) =>
+              <DegreeLevelPicker setFieldValue={setFieldValue} field={field} touched={touched} errors={errors}/>}
+            />
+          </Col>
+          <Col md={{ span: 2 }}>
+            <Field name="year" render={({ field, form: { touched, errors } }) =>
+              <YearPicker setFieldValue={setFieldValue} field={field} touched={touched} errors={errors}/>}
+            />
+          </Col>
+          <Col md={{ span: 2 }}>
+            <Field name="area" render={({ field, form: { touched, errors } }) =>
+              <AreaOfDegreePicker setFieldValue={setFieldValue} field={field} touched={touched} errors={errors}/>}
+            />
+          </Col>
+        </Row>
+        <br />
+        <Row>
+          < Col md={{ span: 3, offset: 3 }}>
             <Button block onClick={() => props.changeStage(2)}>
-              Previous
+              <span><Icon name="fas fa-arrow-left" />{" Previous"}  </span>
             </Button>
           </Col>
-          <Col md={{ span: 3}}>
-          <Button block type="submit" variant="success" disabled={isSubmitting || !_.isEmpty(errors)}>
-            Next
-          </Button>
-        </Col>
+          <Col md={{ span: 3 }}>
+            <Button block type="submit" variant="success" disabled={isSubmitting || !_.isEmpty(errors)}>
+              <span>{"Next "} <Icon name="fas fa-arrow-right" /> </span>
+            </Button>
+          </Col>
         </Row>
       </FormikForm>
-    )}/>
+    )}/>;
 };
 
 

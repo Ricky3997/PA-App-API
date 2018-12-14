@@ -5,7 +5,7 @@ import { Icon } from "react-fa";
 
 const FirstGenerationStudentPicker = (props) => {
   const options = ["Yes", "No"];
-  const label = <span>{"First generation student? "}
+  const label = <span>{"Are you a First Gen Student? "}
 
     <OverlayTrigger placement="bottom"
                     overlay={<Tooltip placement="bottoom" className="in">

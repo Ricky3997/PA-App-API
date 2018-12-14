@@ -1,6 +1,7 @@
 import React from "react";
 import { Badge, Button, Col, Form, Row } from "react-bootstrap";
 import Loader from "react-loader-spinner";
+import { Icon } from "react-fa";
 
 const MentorConfirm = (props) => {
   return <div>
@@ -40,7 +41,7 @@ const MentorConfirm = (props) => {
     <Row>
       <Col md={{ span: 4, offset: 2 }}>
         <Button block onClick={() => props.changeStage(3)}>
-          Previous
+          <span><Icon name="fas fa-arrow-left" />{" Previous"}  </span>
         </Button>
       </Col>
       <Col md={{ span: 4 }}>

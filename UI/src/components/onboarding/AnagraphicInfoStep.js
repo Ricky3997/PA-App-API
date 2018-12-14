@@ -8,6 +8,7 @@ import CountryPicker from "../various/forms/CountryPicker";
 import TextFieldWithLabel from "../various/forms/TextFieldWithLabel";
 import FirstGenerationStudentPicker from "../various/forms/FirstGenerationStudentPicker";
 import GenderPicker from "../various/forms/GenderPicker";
+import { Icon } from "react-fa";
 
 
 const AnagraphicInfoStep = (props) => {
@@ -52,7 +53,7 @@ const AnagraphicInfoStep = (props) => {
           </Col>
           <Col md={{ span: 3 }}>
             <Field name="city" render={({ field, form: { touched, errors } }) =>
-              <TextFieldWithLabel label="Your city of origin" field={field} touched={touched} errors={errors} />}
+              <TextFieldWithLabel label="What city are you from?" field={field} touched={touched} errors={errors} />}
             />
           </Col>
         </Row>
@@ -69,10 +70,11 @@ const AnagraphicInfoStep = (props) => {
           </Col>
         </Row>
 
+        <br />
         <Row>
           <Col md={{ span: 6, offset: 3 }}>
             <Button block type="submit" variant="success" disabled={isSubmitting || !_.isEmpty(errors)}>
-              Next
+              <span>{"Next "} <Icon name="fas fa-arrow-right" /> </span>
             </Button>
           </Col>
         </Row>
