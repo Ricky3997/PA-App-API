@@ -7,6 +7,7 @@ const UnisApplyingFor = ({field, touched, errors, setFieldValue}) => {
   return <div>
     <Form.Label>Universities you may apply for</Form.Label>
     <Select mode="multiple" showSearch
+            size={"large"}
             style={{ width: "100%" }}
             value={field.value}
             placeholder="Select Universities you may apply for"

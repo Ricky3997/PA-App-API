@@ -6,7 +6,7 @@ import {
   STORE_PICTURE_CROPPED,
   STORE_PICTURE_TO_CROP,
   TOGGLE_PICTURE_PICKER,
-  TOGGLE_REGISTERING_MENTOR,
+  TOGGLE_REGISTERING,
   UPDATE_USER
 } from "../actions/actionTypes";
 import { combineReducers } from "redux";
@@ -42,25 +42,25 @@ function settings(state = {
 }
 
 function onboarding(state = {
-  step: 3,
-  country: "",
-  city: "",
+  step: 4,
+  country: "Italy",
+  city: "Milano",
   university: "",
-  school: "",
+  school: "StLouis",
   subject: "",
-  subjects: [],
-  level: "",
+  subjects: ["Maths", "Econ", "Philosophy"],
+  level: "Masters",
   area: "",
-  year: "",
-  gender: "",
-  firstGenStudent: "",
-  interestedIn: [],
-  unisApplyingFor: [],
-  registeringMentor: false
+  year: "Penultimate",
+  gender: "Male",
+  firstGenStudent: "Yes",
+  interestedIn: ["Arts"],
+  unisApplyingFor: ["Princeton", "Harvard"],
+  registering: false
 }, action) {
   switch (action.type) {
-    case TOGGLE_REGISTERING_MENTOR:
-      return {...state, registeringMentor: !state.registeringMentor};
+    case TOGGLE_REGISTERING:
+      return {...state, registering: !state.registering};
     case ADD_ONBOARDING_PROPERTIES:
       return { ...state, ...action.properties };
     case CHANGE_STAGE:

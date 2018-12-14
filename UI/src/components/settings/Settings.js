@@ -16,7 +16,7 @@ class Settings extends Component {
           </Col>
         </Row>
         <div>
-          {this.props.user.type === "mentor" ? <MentorSettings {...this.props} /> : <MenteeSettings/>}
+          {this.props.user.type === "mentor" ? <MentorSettings {...this.props} /> : <MenteeSettings {...this.props}/>}
         </div>
       </Container> : <Redirect to={"/login"}/>;
   }

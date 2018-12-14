@@ -19,13 +19,13 @@ import About from "./various/About";
 import {
   addOnboardingProperties,
   changeStage,
-  getUser,
+  getUser, registerMentee,
   registerMentor,
   removePictureToCrop,
-  saveMentorSettings,
+  saveSettings,
   storePictureCropped,
   storePictureToCrop,
-  togglePicurePicker,
+  togglePicturePicker,
   updateUser
 } from "../actions/actionCreator";
 import Footer from "./various/Footer";
@@ -50,11 +50,11 @@ class App extends Component {
             }, dispatch => {
               return {
                 updateUser: (user) => dispatch(updateUser(user)),
-                togglePicturePicker: () => dispatch(togglePicurePicker()),
+                togglePicturePicker: () => dispatch(togglePicturePicker()),
                 storePictureToCrop: (pictureToCrop) => dispatch(storePictureToCrop(pictureToCrop)),
                 removePictureToCrop: () => dispatch(removePictureToCrop()),
                 storePictureCropped: (pictureCropped) => dispatch(storePictureCropped(pictureCropped)),
-                saveMentorSettings: (settings) => dispatch(saveMentorSettings(settings))
+                saveSettings: (settings) => dispatch(saveSettings(settings))
               };
             })(Settings)}/>
             <Route path={"/onboard"} component={connect(({ user, onboarding }) => {
@@ -64,7 +64,8 @@ class App extends Component {
                 updateUser: (user) => dispatch(updateUser(user)),
                 changeStage: (change) => dispatch(changeStage(change)),
                 addOnboardingProperties: (properties) => dispatch(addOnboardingProperties(properties)),
-                registerMentor: () => dispatch(registerMentor())
+                registerMentor: () => dispatch(registerMentor()),
+                registerMentee: () => dispatch(registerMentee())
               };
             })(Onboarding)}/>
 

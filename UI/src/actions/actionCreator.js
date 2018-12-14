@@ -6,7 +6,7 @@ import {
   STORE_PICTURE_CROPPED,
   STORE_PICTURE_TO_CROP,
   TOGGLE_PICTURE_PICKER,
-  TOGGLE_REGISTERING_MENTOR,
+  TOGGLE_REGISTERING,
   UPDATE_USER
 } from "./actionTypes";
 import * as api from "../api";
@@ -39,7 +39,7 @@ export const getUser = () => {
   }
 };
 
-export const togglePicurePicker = () => {
+export const togglePicturePicker = () => {
   return {
     type: TOGGLE_PICTURE_PICKER
   }
@@ -79,18 +79,18 @@ export const addOnboardingProperties = (properties) => {
   }
 };
 
-export const toggleRegisteringMentor = () => {
+export const toggleRegistering = () => {
   return {
-    type: TOGGLE_REGISTERING_MENTOR,
+    type: TOGGLE_REGISTERING,
   }
 };
 
 export const registerMentor = () => {
   return (dispatch,getState) => {
-    dispatch(toggleRegisteringMentor());
+    dispatch(toggleRegistering());
     const {onboarding} = getState();
     return api.post("/api/mentors/registerNew", onboarding).then(r => {
-      dispatch(toggleRegisteringMentor());
+      dispatch(toggleRegistering());
       if(r.success) {
         window.localStorage.setItem("user", JSON.stringify(r.payload));
         dispatch(updateUser(r.payload));
@@ -99,7 +99,21 @@ export const registerMentor = () => {
   }
 };
 
-export const saveMentorSettings = (values) => {
+export const registerMentee = () => {
+  return (dispatch,getState) => {
+    dispatch(toggleRegistering());
+    const {onboarding} = getState();
+    return api.post("/api/mentees/registerNew", onboarding).then(r => {
+      dispatch(toggleRegistering());
+      if(r.success) {
+        window.localStorage.setItem("user", JSON.stringify(r.payload));
+        dispatch(updateUser(r.payload));
+      }
+    })
+  }
+};
+
+export const saveSettings = (values) => {
   return (dispatch, getState) => {
     const formData = new FormData();
     const {pictureCropped} = getState().settings;

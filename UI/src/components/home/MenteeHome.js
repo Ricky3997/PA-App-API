@@ -6,6 +6,7 @@ import MentorTile from "./MentorTile";
 import NoMentorYet from "./NoMentorYet";
 import Container from "react-bootstrap/es/Container";
 import Button from "react-bootstrap/es/Button";
+import NotReadyYet from "../various/NotReadyYet";
 
 class MenteeHome extends Component {
   constructor(props) {
@@ -74,27 +75,30 @@ class MenteeHome extends Component {
   }
 
   render() {
-    return <Container fluid>
-      <Row>
-        {!this.props.user.onboarded ?
-          <Button onClick={() => this.props.history.push("/onboard")}>Looks like you are not onboarded, go
-            finish</Button> :
-
-          <div><Col md={2}>
-            <ProgressionTimeline milestones={this.state.milestones} active={this.state.active}
-                                 changeSection={(m) => this.setState({ active: m.id })}/>
-          </Col>
-            <Col md={7}>
-              <Milestone milestone={this.state.milestones.filter(m => m.id === this.state.active)[0]}/>
-            </Col>
-            <Col md={3}>
-              {this.props.mentor ? <MentorTile mentor={this.props.mentor}/> : <NoMentorYet/>}
-              <Row>
-                {null}
-              </Row>
-            </Col></div>}
-      </Row>
-    </Container>;
+    return <div>
+      {!this.props.user.onboarded ?
+        <Button onClick={() => this.props.history.push("/onboard")}>
+          Looks like you are not onboarded, go finish
+        </Button> : <div>
+          Mentee home
+        <NotReadyYet/>
+        </div>}
+        {/*<Row>*/}
+          {/*<Col md={2}>*/}
+            {/*<ProgressionTimeline milestones={this.state.milestones} active={this.state.active}*/}
+                                 {/*changeSection={(m) => this.setState({ active: m.id })}/>*/}
+          {/*</Col>*/}
+          {/*<Col md={7}>*/}
+            {/*<Milestone milestone={this.state.milestones.filter(m => m.id === this.state.active)[0]}/>*/}
+          {/*</Col>*/}
+          {/*<Col md={3}>*/}
+            {/*{this.props.mentor ? <MentorTile mentor={this.props.mentor}/> : <NoMentorYet/>}*/}
+            {/*<Row>*/}
+              {/*{null}*/}
+            {/*</Row>*/}
+          {/*</Col>*/}
+        {/*</Row>*/}
+    </div>;
   }
 }
 

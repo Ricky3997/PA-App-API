@@ -45,10 +45,10 @@ const MentorConfirm = (props) => {
         </Button>
       </Col>
       <Col md={{ span: 4 }}>
-        <Button variant="success" block disabled={props.onboarding.registeringMentor} onClick={() => {
+        <Button variant="success" block disabled={props.onboarding.registering} onClick={() => {
           props.registerMentor();
         }}>
-          {props.onboarding.registeringMentor ? <Loader type="Oval" color="#ffffff" width="20" height="20"/> : <span>Looks good, let's go!</span>}
+          {props.onboarding.registering ? <Loader type="Oval" color="#ffffff" width="20" height="20"/> : <span>Looks good, let's go!</span>}
         </Button>
       </Col>
     </Row>

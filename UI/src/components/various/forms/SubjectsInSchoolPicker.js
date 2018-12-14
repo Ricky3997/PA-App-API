@@ -7,6 +7,7 @@ const SubjectsInSchoolPicker = ({field, touched, errors, setFieldValue}) => {
   return <div>
     <Form.Label>Subjects you study in school</Form.Label>
     <Select mode="multiple" showSearch
+            size={"large"}
             style={{ width: "100%" }}
             value={field.value}
             placeholder="Subjects"

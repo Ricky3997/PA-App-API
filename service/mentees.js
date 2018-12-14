@@ -4,9 +4,35 @@ const _ = require("lodash");
 const AWS = require('aws-sdk');
 const config = require('../config.js');
 AWS.config.update(config.dynamodb);
-const dynamodb = new AWS.DynamoDB.DocumentClient();
+const ddbClient = new AWS.DynamoDB.DocumentClient();
+const ddb = new AWS.DynamoDB();
 const jwt = require('jsonwebtoken');
 const mailService = require("./mail");
+
+
+ddb.describeTable({ TableName: "mentees" }, (err, data) => {
+  if (err) ddb.createTable({
+    ProvisionedThroughput: {
+      ReadCapacityUnits: 1,
+      WriteCapacityUnits: 1
+    },
+    TableName: "mentees",
+    KeySchema: [
+      {
+        AttributeName: "id",
+        KeyType: "HASH"
+      }
+    ],
+    AttributeDefinitions: [
+      {
+        AttributeName: "id",
+        AttributeType: "S"
+      }
+    ]
+  }, (err, data) => {
+    if (err) console.error(err);
+  });
+});
 
 getAll = () => {
     //TODO Get from DB
@@ -129,6 +155,70 @@ getAll = () => {
             pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb247c7e79c70440c674eec/1538667470758/14383474_1341206875897109_1207170910_n.jpg?format=500w"
         }
     ];
-}
+};
 
-module.exports = {getAll};
+
+const edit = async (id, data) => {
+  return await ddbClient.update({
+    TableName: "mentees",
+    Key: { id: id },
+    UpdateExpression: "SET unisApplyingFor = :unisApplyingFor, school = :school, subjects = :subjects, #l = :level, country = :country, " +
+      "firstGenStudent = :firstGenStudent, city = :city, gender = :gender, #y = :year, interestedIn = :interestedIn",
+    ExpressionAttributeNames: {
+      "#l": "level",
+      "#y": "year"
+    },
+    ExpressionAttributeValues: {
+      ":unisApplyingFor": data.unisApplyingFor,
+      ":school": data.school,
+      ":subjects": data.subjects,
+      ":level": data.level,
+      ":country": data.country,
+      ":firstGenStudent": data.firstGenStudent,
+      ":city": data.city,
+      ":gender": data.gender,
+      ":year": data.year,
+      ":interestedIn": data.interestedIn
+    },
+    ReturnValues: "ALL_NEW"
+  }).promise();
+};
+
+const registerNew = async (id, data) => {
+  try {
+    const menteeProfile = {
+      id: id,
+      unisApplyingFor: data.unisApplyingFor,
+      interestedIn: data.interestedIn,
+      subjects: data.subjects,
+      school: data.school,
+      level: data.level,
+      country: data.country,
+      firstGenStudent: data.firstGenStudent,
+      city: data.city,
+      gender: data.gender,
+      year: data.year
+    };
+    await ddbClient.put({
+      TableName: "mentees",
+      Item: menteeProfile,
+      ReturnValues: "ALL_OLD"
+    }).promise();
+
+    const onboardedUser = (await ddbClient.update({
+      TableName: "users",
+      Key: { id: id },
+      UpdateExpression: "SET onboarded = :onboarded",
+      ExpressionAttributeValues: {
+        ":onboarded": true
+      },
+      ReturnValues: "ALL_NEW"
+    }).promise()).Attributes;
+    onboardedUser.menteeProfile = menteeProfile;
+    return onboardedUser;
+  } catch (e) {
+    return null;
+  }
+};
+
+module.exports = {getAll, registerNew, edit};

@@ -10,6 +10,7 @@ const multiparty = require('multiparty');
 const ep = new AWS.Endpoint('s3.eu-west-2.amazonaws.com');
 const s3 = new AWS.S3({endpoint: ep});
 const mentorService = require("./mentors");
+const menteeService = require("./mentees");
 const mailService = require('./mail');
 const authService = require('./auth');
 
@@ -92,12 +93,13 @@ editProfile = async (req, res) => {
                 updatedUser = response.Attributes;
             } else updatedUser = userFromDb.Item;
             if(userFromDb.Item.type === "mentor" && userFromDb.Item.onboarded){
-                const response =await mentorService.edit(id, JSON.parse(fields.data[0]));
+                const response = await mentorService.edit(id, JSON.parse(fields.data[0]));
                 updatedUser.mentorProfile = response.Attributes;
             }
-            if(userFromDb.Item.type === "mentor"){
-                //TODO
-            }
+          if(userFromDb.Item.type === "mentee" && userFromDb.Item.onboarded){
+            const response = await menteeService.edit(id, JSON.parse(fields.data[0]));
+            updatedUser.menteeProfile = response.Attributes;
+          }
             res.json(updatedUser);
         } catch (error) {
             res.sendStatus(400)
