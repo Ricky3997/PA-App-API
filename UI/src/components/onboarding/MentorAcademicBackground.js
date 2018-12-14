@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import * as _ from "lodash";
-import { ErrorMessage, Field, Form as FormikForm, Formik } from "formik";
+import { Field, Form as FormikForm, Formik } from "formik";
 import * as Yup from "yup";
 
 const MentorAcademicBackground = (props) => {
@@ -41,7 +41,7 @@ const MentorAcademicBackground = (props) => {
                   <Form.Label>Your current University</Form.Label>
                   <Form.Control {...field}
                                 isInvalid={touched[field.name] && errors[field.name]}/>
-                  <ErrorMessage name={field.name}/>
+                  {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
                 </div>;
               }}
             />
@@ -57,7 +57,7 @@ const MentorAcademicBackground = (props) => {
                   <Form.Label>Your subject of study</Form.Label>
                   <Form.Control {...field}
                                 isInvalid={touched[field.name] && errors[field.name]}/>
-                  <ErrorMessage name={field.name}/>
+                  {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
                 </div>;
               }}
             />
@@ -79,7 +79,7 @@ const MentorAcademicBackground = (props) => {
                     <option>Masters</option>
                     <option>Doctorate</option>
                   </Form.Control>
-                  <ErrorMessage name={field.name}/>
+                  {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
                 </div>;
               }}
             />
@@ -99,7 +99,7 @@ const MentorAcademicBackground = (props) => {
                     <option>Engineering</option>
                     <option>Business and Economics</option>
                   </Form.Control>
-                  <ErrorMessage name={field.name}/>
+                  {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
                 </div>;
               }}
             />
@@ -122,7 +122,7 @@ const MentorAcademicBackground = (props) => {
                     <option>5</option>
                     <option>6+</option>
                   </Form.Control>
-                  <ErrorMessage name={field.name}/>
+                  {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
                 </div>
               }}/>
 

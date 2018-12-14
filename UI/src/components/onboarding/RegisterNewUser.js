@@ -2,7 +2,7 @@ import React from "react";
 import { Badge, Button, Col, Form, Image, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import PALogo from "../../assets/pa_key.png";
 import * as Yup from "yup";
-import { ErrorMessage, Field, Form as FormikForm, Formik } from "formik";
+import { Field, Form as FormikForm, Formik } from "formik";
 import * as _ from "lodash";
 import Loader from "react-loader-spinner";
 import * as api from "../../api";
@@ -77,7 +77,7 @@ const RegisterNewUser = (props) => {
                       <option>High School Student</option>
                       <option>University Student</option>
                     </Form.Control>
-                    <ErrorMessage name={field.name}/>
+                    {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
                   </div>;
                 }}
               />
@@ -92,7 +92,7 @@ const RegisterNewUser = (props) => {
                     <Form.Control {...field}
 
                                   isInvalid={touched[field.name] && errors[field.name]}/>
-                    <ErrorMessage name={field.name}/>
+                    {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
                   </div>;
                 }}
               />
@@ -118,7 +118,7 @@ const RegisterNewUser = (props) => {
                     <Form.Control {...field}
 
                                   isInvalid={touched[field.name] && errors[field.name]}/>
-                    <ErrorMessage name={field.name}/>
+                    {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
                   </div>;
                 }}
               />

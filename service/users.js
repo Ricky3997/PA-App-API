@@ -91,7 +91,7 @@ editProfile = async (req, res) => {
                 }).promise();
                 updatedUser = response.Attributes;
             } else updatedUser = userFromDb.Item;
-            if(userFromDb.Item.type === "mentor"){
+            if(userFromDb.Item.type === "mentor" && userFromDb.Item.onboarded){
                 const response =await mentorService.edit(id, JSON.parse(fields.data[0]));
                 updatedUser.mentorProfile = response.Attributes;
             }

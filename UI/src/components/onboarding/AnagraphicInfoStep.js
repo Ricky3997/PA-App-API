@@ -2,15 +2,20 @@ import React from "react";
 import { Badge, Button, Col, Form, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import * as Yup from "yup";
 import "react-toastify/dist/ReactToastify.css";
-import { ErrorMessage, Field, Form as FormikForm, Formik } from "formik";
+import { Field, Form as FormikForm, Formik } from "formik";
 import * as _ from "lodash";
 import { Icon } from "react-fa";
+import countries from "svg-country-flags/countries";
+import { Select } from "antd";
+
+const { Option } = Select;
+const countryFlags = {};
+Object.keys(countries).forEach(key => countryFlags[key] = require(`svg-country-flags/svg/${key.toLowerCase()}.svg`));
 
 const AnagraphicInfoStep = (props) => {
   return <Formik
     validationSchema={Yup.object().shape({
       country: Yup.string()
-        .min(3)
         .required("Country is required."),
       city: Yup.string()
         .min(3)
@@ -20,14 +25,14 @@ const AnagraphicInfoStep = (props) => {
       firstGenStudent: Yup.string()
         .required("First Generation is required.")
     })}
-    initialValues={{...props.onboarding}}
+    initialValues={{ ...props.onboarding }}
     onSubmit={(values, { setSubmitting }) => {
       props.addOnboardingProperties(values);
       props.changeStage(3);
       setSubmitting(false);
 
     }}
-    render={({ values, touched, errors, isSubmitting }) => (
+    render={({ values, touched, errors, isSubmitting, setFieldValue}) => (
       <FormikForm>
         <Row style={{ paddingTop: "80px" }}>
           <Col md={{ span: 6, offset: 3 }}>
@@ -44,11 +49,22 @@ const AnagraphicInfoStep = (props) => {
               type="text"
               name="country"
               render={({ field, form: { touched, errors } }) => {
+                console.log(errors);
                 return <div>
                   <Form.Label>Your country of origin</Form.Label>
-                  <Form.Control {...field}
-                                isInvalid={touched[field.name] && errors[field.name]}/>
-                  <ErrorMessage name={field.name}/>
+                  <Select showSearch allowClear size={"large"}
+                          style={{ width: "100%" }}
+                          value={field.value}
+                          placeholder="Select your country"
+                          onChange={(o) => setFieldValue(field.name, o)}
+                          tokenSeparators={[",", ":"]}>
+                    {Object.keys(countries).map((key) => {
+                      return <Option key={key} value={countries[key]}>
+                        <img alt={countries[key]} width="15px" src={countryFlags[key]}/> {` ${countries[key]}`}
+                      </Option>
+                    })}
+                  </Select>
+                  {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
                 </div>;
               }}
             />
@@ -63,7 +79,7 @@ const AnagraphicInfoStep = (props) => {
                   <Form.Label>Your city of origin</Form.Label>
                   <Form.Control {...field}
                                 isInvalid={touched[field.name] && errors[field.name]}/>
-                  <ErrorMessage name={field.name}/>
+                  {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
                 </div>;
               }}
             />
@@ -83,7 +99,7 @@ const AnagraphicInfoStep = (props) => {
                     <option>Female</option>
                     <option>Prefer not to say</option>
                   </Form.Control>
-                  <ErrorMessage name={field.name}/>
+                  {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
                 </div>;
               }}
             />
@@ -105,7 +121,7 @@ const AnagraphicInfoStep = (props) => {
                                       "Knowing whether your parents went to University will help us find a younger student needing your help who, coming from your same background, will be able to relate to you better!!"}
                                   </Tooltip>}>
                                     <Badge pill variant="info">
-                                        <Icon style={{color: "white"}} name="fas fa-info-circle"/> Why?
+                                        <Icon style={{ color: "white" }} name="fas fa-info-circle"/> Why?
                                     </Badge>
                                 </OverlayTrigger>
                     </span></Form.Label>
@@ -115,7 +131,7 @@ const AnagraphicInfoStep = (props) => {
                     <option>Yes</option>
                     <option>No</option>
                   </Form.Control>
-                  <ErrorMessage name={field.name}/>
+                  {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
                 </div>;
               }}
             />
@@ -131,7 +147,7 @@ const AnagraphicInfoStep = (props) => {
         </Row>
       </FormikForm>
     )}
-  />
+  />;
 };
 
 

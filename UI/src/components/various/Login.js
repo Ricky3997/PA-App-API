@@ -8,7 +8,7 @@ import * as queryString from "query-string";
 import * as _ from "lodash";
 import { Redirect } from "react-router-dom";
 import * as Yup from "yup";
-import { ErrorMessage, Field, Form as FormikForm, Formik } from "formik";
+import { Field, Form as FormikForm, Formik } from "formik";
 
 class Login extends Component {
   componentDidMount() {
@@ -52,7 +52,7 @@ class Login extends Component {
                         <Form.Control {...field}
 
                                       isInvalid={touched[field.name] && errors[field.name]}/>
-                        <ErrorMessage name={field.name}/>
+                        {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
                       </div>;
                     }}
                   />
