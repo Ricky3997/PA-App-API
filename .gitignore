@@ -28,3 +28,7 @@ yarn-error.log*
 
 mentor.iml
 .idea
+
+.env
+*.db
+localdb/**

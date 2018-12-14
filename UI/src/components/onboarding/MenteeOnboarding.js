@@ -1,36 +1,19 @@
-import React from 'react';
-import Select from 'react-select';
+import React from "react";
+import { Select } from "antd";
+import AnagraphicInfoStep from "./AnagraphicInfoStep";
+import MenteeStep3 from "./MenteeStep3"
+import MenteeStep4 from "./MenteeStep4";
 
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
-];
 
-class MenteeOnboarding extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedOption: null,
-    };
-  }
+const { Option, OptGroup } = Select;
 
-  handleChange = (selectedOption) => {
-    this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
-  };
+const MenteeOnboarding = (props) => {
+  return <div>
+    {props.onboarding.step === 2 ? <AnagraphicInfoStep {...props} /> : null}
+    {props.onboarding.step === 3 ? <MenteeStep3 {...props} /> : null}
+    {props.onboarding.step === 4 ? <MenteeStep4 {...props} /> : null}
+  </div>
 
-  render() {
-    const { selectedOption } = this.state;
-
-    return (
-      <Select
-        value={selectedOption}
-        onChange={this.handleChange}
-        options={options}
-      />
-    );
-  }
-}
+};
 
 export default MenteeOnboarding;

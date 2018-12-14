@@ -6,7 +6,7 @@ import { ErrorMessage, Field, Form as FormikForm, Formik } from "formik";
 import * as _ from "lodash";
 import { Icon } from "react-fa";
 
-const MentorStep2 = (props) => {
+const AnagraphicInfoStep = (props) => {
   return <Formik
     validationSchema={Yup.object().shape({
       country: Yup.string()
@@ -135,4 +135,4 @@ const MentorStep2 = (props) => {
 };
 
 
-export default MentorStep2;
+export default AnagraphicInfoStep;

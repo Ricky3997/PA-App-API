@@ -15,7 +15,7 @@ class Onboarding extends Component {
   }
 
   render() {
-    const { changeStage, updateUser, onboarding, user, addOnboardingProperties,registerMentor } = this.props;
+    const { changeStage, updateUser, onboarding, user, addOnboardingProperties, registerMentor } = this.props;
     let step;
     if (!user) step =
       <RegisterNewUser user={user} updateUser={updateUser} changeStage={changeStage}/>;
@@ -23,7 +23,9 @@ class Onboarding extends Component {
     else if (user.type === "mentor") step =
       <MentorOnboarding user={user} addOnboardingProperties={addOnboardingProperties} onboarding={onboarding}
                         changeStage={changeStage} registerMentor={registerMentor}/>;
-    else if (user.type === "mentee") step = <MenteeOnboarding/>;
+    else if (user.type === "mentee") step =
+      <MenteeOnboarding user={user} addOnboardingProperties={addOnboardingProperties} onboarding={onboarding}
+                        changeStage={changeStage}/>;
     return (
       <Container fluid>
         <Container className="onboarding">

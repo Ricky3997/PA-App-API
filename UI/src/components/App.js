@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import 'antd/dist/antd.css';
 import "../assets/App.css";
 import Header from "./various/Header";
 import Onboarding from "./onboarding/Onboarding";
@@ -13,6 +14,7 @@ import Admin from "./admin/Admin";
 import Settings from "./settings/Settings";
 import JourneyModule from "./journey/JourneyModule";
 import Home from "./home/Home";
+
 import {
   addOnboardingProperties,
   changeStage,
