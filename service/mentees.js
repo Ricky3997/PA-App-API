@@ -1,13 +1,16 @@
 require('dotenv').load();
-const uuid = require('short-uuid')();
 const _ = require("lodash");
 const AWS = require('aws-sdk');
 const config = require('../config.js');
 AWS.config.update(config.dynamodb);
 const ddbClient = new AWS.DynamoDB.DocumentClient();
 const ddb = new AWS.DynamoDB();
-const jwt = require('jsonwebtoken');
-const mailService = require("./mail");
+const fs = require("fs");
+const fileType = require("file-type");
+const ep = new AWS.Endpoint("s3.eu-west-2.amazonaws.com");
+const s3 = new AWS.S3({ endpoint: ep });
+AWS.config.update(config.dynamodb);
+
 
 
 ddb.describeTable({ TableName: "mentees" }, (err, data) => {
@@ -158,28 +161,57 @@ getAll = () => {
 };
 
 
-const edit = async (id, data) => {
+const edit = async (id, data, file, userFromDb) => {
+
+
+  let updateExpression = "SET ";
+  let updateValues = {};
+
+
+  const picToDelete = userFromDb.Item.pictureKey;
+
+  if(file){
+    const buffer = fs.readFileSync(file[0].path);
+    const type = fileType(buffer);
+    const data = await s3.upload({
+      ACL: 'public-read',
+      Body: buffer,
+      Bucket: config.s3.bucketName,
+      ContentType: type.mime,
+      Key: `${`${id}-${Date.now().toString()}`}.${type.ext}`
+    }).promise();
+    if(picToDelete) await s3.deleteObject({Bucket: config.s3.bucketName, Key: picToDelete}).promise();
+    updateExpression = updateExpression.concat("pictureKey = :pictureKey, pictureUrl = :pictureUrl");
+    updateValues[":pictureUrl"] = data.Location;
+    updateValues[":pictureKey"] = data.key;
+  }
+
+  if(updateExpression !== "SET " && updateExpression[updateExpression.length-1] !== " " && updateExpression[updateExpression.length-2] !== ","){
+    updateExpression = updateExpression.concat(", ")
+  }
+
+  updateExpression = updateExpression.concat("unisApplyingFor = :unisApplyingFor, school = :school, subjects = :subjects, #l = :level, country = :country, " +
+    "firstGenStudent = :firstGenStudent, city = :city, gender = :gender, #y = :year, interestedIn = :interestedIn");
+  updateValues[":unisApplyingFor"] = data.unisApplyingFor;
+  updateValues[":school"] = data.school;
+  updateValues[":subjects"] = data.subjects;
+  updateValues[":level"] = data.level;
+  updateValues[":firstGenStudent"] = data.firstGenStudent;
+  updateValues[":city"] = data.city;
+  updateValues[":gender"] = data.gender;
+  updateValues[":year"] = data.year;
+  updateValues[":interestedIn"] = data.interestedIn;
+  updateValues[":country"] = data.country;
+
   return await ddbClient.update({
     TableName: "mentees",
     Key: { id: id },
-    UpdateExpression: "SET unisApplyingFor = :unisApplyingFor, school = :school, subjects = :subjects, #l = :level, country = :country, " +
-      "firstGenStudent = :firstGenStudent, city = :city, gender = :gender, #y = :year, interestedIn = :interestedIn",
+    UpdateExpression: updateExpression,
     ExpressionAttributeNames: {
       "#l": "level",
       "#y": "year"
     },
-    ExpressionAttributeValues: {
-      ":unisApplyingFor": data.unisApplyingFor,
-      ":school": data.school,
-      ":subjects": data.subjects,
-      ":level": data.level,
-      ":country": data.country,
-      ":firstGenStudent": data.firstGenStudent,
-      ":city": data.city,
-      ":gender": data.gender,
-      ":year": data.year,
-      ":interestedIn": data.interestedIn
-    },
+    ExpressionAttributeValues: updateValues,
     ReturnValues: "ALL_NEW"
   }).promise();
 };

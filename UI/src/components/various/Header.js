@@ -16,8 +16,9 @@ const Header = (props) => {
   };
 
   if (props.user) {
+    const pictureUrl = _.get(props.user, `${props.user.type === "mentee" ? "menteeProfile" : "mentorProfile"}.pictureUrl`);
     userDropdown = <NavDropdown title={<span>
-            {props.user.pictureUrl ? <UserCircle pictureUrl={props.user.pictureUrl}/> : <Icon name={"fas fa-user"}/>}
+            {pictureUrl ? <UserCircle pictureUrl={pictureUrl}/> : <Icon name={"fas fa-user"}/>}
       {props.user.firstName}</span>} id="user-dropdown">
       <LinkContainer to="/settings">
         <NavDropdown.Item>

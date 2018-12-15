@@ -3,6 +3,7 @@ import { Button, Image, Modal } from "react-bootstrap";
 import { Icon } from "react-fa";
 import Dropzone from "react-dropzone";
 import AvatarEditor from "react-avatar-editor";
+import * as _ from "lodash";
 
 class ProfilePicture extends Component {
 
@@ -23,24 +24,20 @@ class ProfilePicture extends Component {
 
     let imageToRender;
     if (settings.pictureCropped) imageToRender = URL.createObjectURL(settings.pictureCropped);
-    else if (user && user.pictureUrl) imageToRender = user.pictureUrl;
+    else if (_.get(user, `${user.type === "mentee" ? "menteeProfile" : "mentorProfile"}.pictureUrl`)) imageToRender = _.get(user, `${user.type === "mentee" ? "menteeProfile" : "mentorProfile"}.pictureUrl`);
     else imageToRender = "https://media1.tenor.com/images/8d5e73b8d9dd9c7da3cf33c6bbaccb12/tenor.gif";
 
     return <div>
-
-      <div className="settings-user-image-container" onClick={() => togglePicturePicker()}>
-        <Image rounded alt="User avatar" src={imageToRender}
-               className="settings-user-image"/>
-
+      <div className="settings-user-image-container" onClick={() => user.onboarded ? togglePicturePicker() : null}>
+        <Image rounded alt="User avatar" src={imageToRender} className="settings-user-image"/>
         <div className="hover-user-image-overlay">
           <div className="hover-user-image-text">
             <Icon name="fas fa-camera"/>
             <br/>
-            {user.pictureUrl ? "Change your profile photo" : "Upload your profile picture"}
+            {_.get(user, `${user.type === "mentee" ? "menteeProfile" : "mentorProfile"}.pictureUrl`) ? "Change your profile photo" : (user.onboarded ? "Upload your profile picture" : "Onboard first please")}
           </div>
         </div>
       </div>
-
       <Modal show={settings.showPicturePicker} backdrop="static">
         <Modal.Header>
           <Modal.Title>Upload Profile Picture</Modal.Title>
@@ -77,7 +74,7 @@ class ProfilePicture extends Component {
           <Button variant="primary" onClick={this.storeCroppedImage}>Save</Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </div>;
   }
 };
 
