@@ -2,9 +2,9 @@ import {
   ADD_ONBOARDING_PROPERTIES,
   CHANGE_STAGE,
   REMOVE_PICTURE_TO_CROP,
-  REMOVE_USER,
+  REMOVE_USER, SET_MENTEES, SET_MENTORS, SET_RELATIONSHIPS,
   STORE_PICTURE_CROPPED,
-  STORE_PICTURE_TO_CROP,
+  STORE_PICTURE_TO_CROP, TOGGLE_ADMIN_FETCHING,
   TOGGLE_PICTURE_PICKER,
   TOGGLE_REGISTERING,
   UPDATE_USER
@@ -18,14 +18,14 @@ function user(state = JSON.parse(window.localStorage.getItem("user")) || null, a
     case (REMOVE_USER):
       return null;
     default:
-      return state
+      return state;
   }
 }
 
 function settings(state = {
   showPicturePicker: false,
   pictureToCrop: null,
-  pictureCropped: null,
+  pictureCropped: null
 }, action) {
   switch (action.type) {
     case (TOGGLE_PICTURE_PICKER):
@@ -37,7 +37,7 @@ function settings(state = {
     case (REMOVE_PICTURE_TO_CROP):
       return { ...state, pictureToCrop: null };
     default:
-      return state
+      return state;
   }
 }
 
@@ -60,18 +60,38 @@ function onboarding(state = {
 }, action) {
   switch (action.type) {
     case TOGGLE_REGISTERING:
-      return {...state, registering: !state.registering};
+      return { ...state, registering: !state.registering };
     case ADD_ONBOARDING_PROPERTIES:
       return { ...state, ...action.properties };
     case CHANGE_STAGE:
       return { ...state, step: action.change };
     default:
-      return state
+      return state;
+  }
+}
+
+function admin(state = {
+  fetching: false,
+  mentors: [],
+  relationships: [],
+  mentees: []
+}, action) {
+  switch (action.type) {
+    case SET_RELATIONSHIPS:
+      return {...state, relationships: action.relationships};
+    case SET_MENTEES:
+      return {...state, mentees: action.mentees};
+    case SET_MENTORS:
+      return {...state, mentors: action.mentors};
+    case TOGGLE_ADMIN_FETCHING:
+      return {...state, fetching: !state.fetching};
+    default:
+      return state;
   }
 }
 
 const app = combineReducers({
-  user, settings, onboarding
+  user, settings, onboarding, admin
 });
 
-export default app
+export default app;

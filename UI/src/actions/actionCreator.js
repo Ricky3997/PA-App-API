@@ -2,9 +2,9 @@ import {
   ADD_ONBOARDING_PROPERTIES,
   CHANGE_STAGE,
   REMOVE_PICTURE_TO_CROP,
-  REMOVE_USER,
+  REMOVE_USER, SET_MENTEES, SET_MENTORS,
   STORE_PICTURE_CROPPED,
-  STORE_PICTURE_TO_CROP,
+  STORE_PICTURE_TO_CROP, TOGGLE_ADMIN_FETCHING,
   TOGGLE_PICTURE_PICKER,
   TOGGLE_REGISTERING,
   UPDATE_USER
@@ -23,6 +23,7 @@ export const removeUser = () => {
     type: REMOVE_USER
   }
 };
+
 
 export const getUser = () => {
   return (dispatch) => {
@@ -142,6 +143,33 @@ export const saveSettings = (values) => {
       }
       return r;
     });
+  }
+};
+
+
+export const setMentors = (mentors) => {
+  return {
+    type: SET_MENTORS,
+    mentors: mentors
+  }
+};
+
+export const toggleAdminFetching = () => {
+  return {
+    type: TOGGLE_ADMIN_FETCHING
+  }
+};
+
+
+export const fetchMentors = () => {
+  return (dispatch) => {
+    dispatch(toggleAdminFetching());
+    return api.get("/api/mentors").then(r => {
+      dispatch(toggleAdminFetching());
+      if(r.success){
+        dispatch(setMentors(r.payload))
+      }
+    })
   }
 };
 

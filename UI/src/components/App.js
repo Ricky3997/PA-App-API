@@ -18,7 +18,7 @@ import About from "./various/About";
 
 import {
   addOnboardingProperties, changeMentorStatus,
-  changeStage,
+  changeStage, fetchMentors,
   getUser, registerMentee,
   registerMentor,
   removePictureToCrop,
@@ -74,11 +74,20 @@ class App extends Component {
 
             <Route path={"/confirm"} render={(props) => <Confirm/>}/>
             <Route path={"/journey/:id"} render={(props) => <JourneyModule {...props} />}/>
-            <Route path={"/admin/:section?"} render={(props) => <Admin user={user} {...props} />}/>
             <Route path={"/message"} render={(props) => <Message user={user} {...props} />}/>
             <Route path={"/call"} render={(props) => <Call user={user} {...props} />}/>
             <Route path={"/mentor/:id"} exact render={(props) => <MentorProfile {...props} />}/>
             <Route path={"/about"} component={About}/>
+
+
+
+            <Route path={"/admin/:section?"} component={connect(({ user, admin }) => {
+              return { user, admin };
+            }, dispatch => {
+              return {
+                fetchMentors: () => dispatch(fetchMentors())
+              };
+            })(Admin)}/>
 
             <Route component={connect(({ user }) => {
               return { user };

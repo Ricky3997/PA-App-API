@@ -1,16 +1,12 @@
 import React, { Component } from "react";
-import { Col, Nav, Row, Tab } from "react-bootstrap";
+import { Button, Col, Nav, Row, Tab } from "react-bootstrap";
 import Database from "./Database";
 import Approvals from "./Approvals";
 import { Route, Switch } from "react-router-dom";
 import Statistics from "./Statistics";
+import { Icon } from "react-fa";
 
 class Mentors extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-        };
-    }
 
     validateSection (section) {
         return ["database", "approvals", "statistics"].indexOf(section) > -1 ? section : "database"
@@ -18,6 +14,7 @@ class Mentors extends Component {
 
     render() {
         return (
+
             <Row>
                 <Col md={2}>
                     <Nav variant="pills" className="flex-column" activeKey={this.validateSection(this.props.match.params.section)}
