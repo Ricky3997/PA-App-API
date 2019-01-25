@@ -17,7 +17,7 @@ import Home from "./home/Home";
 import About from "./various/About";
 
 import {
-  addOnboardingProperties,
+  addOnboardingProperties, changeMentorStatus,
   changeStage,
   getUser, registerMentee,
   registerMentor,
@@ -40,11 +40,13 @@ class App extends Component {
         <Header user={user} logout={removeUser} history={history} location={location}/>
         <Container fluid id="root_container">
           <Switch>
+
             <Route path={"/login"} component={connect(({ user }) => {
               return { user };
             }, dispatch => {
               return { login: () => dispatch(getUser()) };
             })(Login)}/>
+
             <Route path={"/settings"} component={connect(({ settings, user }) => {
               return { settings, user };
             }, dispatch => {
@@ -57,6 +59,7 @@ class App extends Component {
                 saveSettings: (settings) => dispatch(saveSettings(settings))
               };
             })(Settings)}/>
+
             <Route path={"/onboard"} component={connect(({ user, onboarding }) => {
               return { user, onboarding };
             }, dispatch => {
@@ -75,11 +78,19 @@ class App extends Component {
             <Route path={"/message"} render={(props) => <Message user={user} {...props} />}/>
             <Route path={"/call"} render={(props) => <Call user={user} {...props} />}/>
             <Route path={"/mentor/:id"} exact render={(props) => <MentorProfile {...props} />}/>
-            <Route path={"/about"} component={About} />
-            <Route render={(props) => <Home user={user} {...props} />}/>
+            <Route path={"/about"} component={About}/>
+
+            <Route component={connect(({ user }) => {
+              return { user };
+            }, dispatch => {
+              return {
+                changeMentorStatus: (status) => dispatch(changeMentorStatus(status))
+              };
+            })(Home)}/>
+
           </Switch>
         </Container>
-        <Footer history={history} />
+        <Footer history={history}/>
       </div>
     );
   }

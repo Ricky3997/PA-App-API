@@ -1,9 +1,9 @@
 import React from "react";
-import { Navbar } from "react-bootstrap";
-import Badge from "react-bootstrap/es/Badge";
+import { LinkContainer } from "react-router-bootstrap";
+import { Navbar, Badge } from "react-bootstrap";
 import { Icon } from "react-fa";
 
-const Footer = ({history}) => {
+const Footer = () => {
   return <Navbar sticky="bottom" variant="light" bg="light" >
     <Navbar.Brand>
       <Badge  variant="info">
@@ -15,7 +15,10 @@ const Footer = ({history}) => {
     </Navbar.Text>
     <Navbar.Collapse className="justify-content-end">
       <Navbar.Text>
-        Made with <Icon style={{color: "red"}} name="fas fa-heart"/> at <a onClick={() => history.push("/about")}> Project Access</a>
+        Made with <Icon style={{color: "red"}} name="fas fa-heart"/> <span> at </span>
+        <LinkContainer to={"/about"} style={{textDecoration: "underline", cursor: "pointer"}}>
+          <span>Project Access</span>
+        </LinkContainer>
       </Navbar.Text>
     </Navbar.Collapse>
   </Navbar>;

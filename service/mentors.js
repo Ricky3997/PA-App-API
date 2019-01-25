@@ -31,7 +31,7 @@ const dummy = [
     course: "PPE",
     from: "Milano",
     status: "toApprove",
-    pictureUrl: "https://media.licdn.com/dms/image/C4E03AQGlbrCAUfvWlQ/profile-displayphoto-shrink_800_800/0?e=1548288000&v=beta&t=vdnVA5UEjlo7WWmNHxXFCWNgvEUsK1sTEPysG3GHOtw"
+    pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5a7c387b4192029bc4b0dd95/1538660326244/20247810_10211655657680787_3062606713295678620_o.jpg?format=500w"
   }, {
     id: 3,
     firstName: "Nicole",
@@ -221,9 +221,13 @@ const registerNew = async (id, data) => {
     const onboardedUser = (await ddbClient.update({
       TableName: "users",
       Key: { id: id },
-      UpdateExpression: "SET onboarded = :onboarded",
+      UpdateExpression: "SET onboarded = :onboarded, #s= :status",
+      ExpressionAttributeNames: {
+        "#s": "status"
+      },
       ExpressionAttributeValues: {
-        ":onboarded": true
+        ":onboarded": true,
+        ":status": "notYetRequested"
       },
       ReturnValues: "ALL_NEW"
     }).promise()).Attributes;
@@ -234,4 +238,26 @@ const registerNew = async (id, data) => {
   }
 };
 
-module.exports = { getAll, getById, registerNew, edit };
+const changeStatus = async (id, data) => {
+  try {
+    await ddbClient.update({
+      TableName: "users",
+      Key: { id: id },
+      UpdateExpression: "SET #s= :status",
+      ExpressionAttributeNames: {
+        "#s": "status"
+      },
+      ExpressionAttributeValues: {
+        ":status": data.status
+      },
+      ReturnValues: "ALL_NEW"
+    }).promise();
+   return true
+  } catch (e) {
+    return null;
+  }
+};
+
+
+
+module.exports = { getAll, getById, registerNew, edit, changeStatus };

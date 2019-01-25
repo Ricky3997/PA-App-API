@@ -42,20 +42,20 @@ function settings(state = {
 }
 
 function onboarding(state = {
-  step: 4,
-  country: "Italy",
-  city: "Milano",
+  step: 1,
+  country: "",
+  city: "",
   university: "",
-  school: "StLouis",
+  school: "",
   subject: "",
-  subjects: ["Maths", "Econ", "Philosophy"],
-  level: "Masters",
+  subjects: [],
+  level: "",
   area: "",
-  year: "Penultimate",
-  gender: "Male",
-  firstGenStudent: "Yes",
-  interestedIn: ["Arts"],
-  unisApplyingFor: ["Princeton", "Harvard"],
+  year: "",
+  gender: "",
+  firstGenStudent: "",
+  interestedIn: [],
+  unisApplyingFor: [],
   registering: false
 }, action) {
   switch (action.type) {

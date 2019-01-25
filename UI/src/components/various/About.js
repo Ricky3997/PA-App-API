@@ -1,8 +1,4 @@
 import React from "react";
-import { Navbar } from "react-bootstrap";
-import Badge from "react-bootstrap/es/Badge";
-import { Icon } from "react-fa";
-import Container from "react-bootstrap/es/Container";
 import NotReadyYet from "./NotReadyYet";
 
 const About = () => {

@@ -27,7 +27,8 @@ class Admin extends Component {
         });
         api.get("/api/mentees").then(r => {
             this.setState({mentees: r.payload});
-        }); api.get("/api/relationships").then(r => {
+        });
+        api.get("/api/relationships").then(r => {
             this.setState({relationships: r.payload});
         });
     }
