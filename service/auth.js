@@ -7,20 +7,10 @@ const { User } = require("../models/users");
 
 
 const confirm = async (email, id, token) => {
-  const idFromJWT = extractIdFromToken(token);
-  //TODO Check if already confirmed
-  if (id === idFromJWT) {
-    await ddbClient.update({
-      TableName: "users",
-      Key: { id: id },
-      UpdateExpression: "SET emailConfirmed = :emailConfirmed, lastLogin = :lastLogin",
-      ExpressionAttributeValues: {
-        ":lastLogin": new Date().toDateString(),
-        ":emailConfirmed": true
-      }
-    }).promise();
+  if (id === extractIdFromToken(token)) {
+    await User.update({_id: id},{ emailConfirmed: true });
     return { success: true };
-  } else return null;
+  } else return {error: "Id provided does not match authentication token"};
 };
 
 const register = async (email, firstName, type) => {
@@ -28,7 +18,6 @@ const register = async (email, firstName, type) => {
     const id = uuid.new();
     const token = createToken(email, id);
     mailService.sendConfirmationToken(email, id, token);
-
     const user = await new User({
       _id: id,
       firstName: firstName,
@@ -46,11 +35,8 @@ const register = async (email, firstName, type) => {
 
 };
 
-
 const validateToken = (id, token) => {
-  const valid = extractIdFromToken(token) === id;
-  //ddbClient.put({TableName: 'users', Item: {'id': id, lastLogin: new Date().toDateString()}}); TODO
-  return valid;
+  return extractIdFromToken(token) === id;
 };
 
 const extractIdFromToken = (token) => {
@@ -75,10 +61,11 @@ const checkToken = (req, res, next) => {
   } else return res.sendStatus(409);
 
 };
+
 const generateLoginToken = async (email) => {
-  const user = await ddbClient.get({ TableName: "unique-email", Key: { "email": email } }).promise();
-  if (!_.isEmpty(user)) {
-    const token = createToken(email, user.Item.id);
+  const user = await User.findOne({email: email}).exec();
+  if (user) {
+    const token = createToken(email, user._id);
     mailService.sendAuthToken(email, token);
     return { success: true };
   } else return { success: false, error: "Email address does not exist" };

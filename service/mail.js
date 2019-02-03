@@ -4,7 +4,7 @@ const config = require("../config");
 const smtpServer  = email.server.connect(config.email);
 
 const send = (options) => {
-    smtpServer.send(options, (err, msg) => {
+    if(config.EMAIL_ON) smtpServer.send(options, (err, msg) => {
         if(err) console.log(err)
     });
 };
