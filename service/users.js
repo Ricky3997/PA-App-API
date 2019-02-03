@@ -1,14 +1,12 @@
 require("dotenv").load();
+const uuid = require('short-uuid')();
 const _ = require("lodash");
-const AWS = require("aws-sdk");
-const config = require("../config.js");
-AWS.config.update(config.dynamodb);
-const ddbClient = new AWS.DynamoDB.DocumentClient();
 const multiparty = require("multiparty");
 const mentorService = require("./mentors");
 const menteeService = require("./mentees");
 const mailService = require("./mail");
 const authService = require("./auth");
+const db = require("./db");
 
 getProfile = async (id) => {
   const userFromDb = await ddbClient.get({ TableName: "users", Key: { "id": id } }).promise();

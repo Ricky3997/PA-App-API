@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { Button, Col, Nav, Row, Tab } from "react-bootstrap";
+import { Col, Nav, Row, Tab } from "react-bootstrap";
 import Database from "./Database";
 import Approvals from "./Approvals";
 import { Route, Switch } from "react-router-dom";
 import Statistics from "./Statistics";
-import { Icon } from "react-fa";
 
 class Mentors extends Component {
 
@@ -21,7 +20,7 @@ class Mentors extends Component {
             <Row>
                 <Col md={2}>
                     <Nav variant="pills" className="flex-column" activeKey={this.validateSection(this.props.match.params.section)}
-                         onSelect={(key, event) => this.props.history.push(`/admin/mentors/${key}`)}>
+                         onSelect={(key) => this.props.history.push(`/admin/mentors/${key}`)}>
                         <Nav.Item>
                             <Nav.Link eventKey="database">Database</Nav.Link>
                         </Nav.Item>

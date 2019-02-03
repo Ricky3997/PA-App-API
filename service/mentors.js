@@ -7,9 +7,9 @@ const fs = require("fs");
 const fileType = require("file-type");
 const ep = new AWS.Endpoint("s3.eu-west-2.amazonaws.com");
 const s3 = new AWS.S3({ endpoint: ep });
-AWS.config.update(config.dynamodb);
-const ddb = new AWS.DynamoDB();
-const ddbClient = new AWS.DynamoDB.DocumentClient();
+// AWS.config.update(config.dynamodb);
+// const ddb = new AWS.DynamoDB();
+// const ddbClient = new AWS.DynamoDB.DocumentClient();
 
 
 const dummy = [
@@ -112,30 +112,30 @@ const dummy = [
   }
 ];
 
-
-ddb.describeTable({ TableName: "mentors" }, (err, data) => {
-  if (err) ddb.createTable({
-    ProvisionedThroughput: {
-      ReadCapacityUnits: 1,
-      WriteCapacityUnits: 1
-    },
-    TableName: "mentors",
-    KeySchema: [
-      {
-        AttributeName: "id",
-        KeyType: "HASH"
-      }
-    ],
-    AttributeDefinitions: [
-      {
-        AttributeName: "id",
-        AttributeType: "S"
-      }
-    ]
-  }, (err, data) => {
-    if (err) console.error(err);
-  });
-});
+//
+// ddb.describeTable({ TableName: "mentors" }, (err, data) => {
+//   if (err) ddb.createTable({
+//     ProvisionedThroughput: {
+//       ReadCapacityUnits: 1,
+//       WriteCapacityUnits: 1
+//     },
+//     TableName: "mentors",
+//     KeySchema: [
+//       {
+//         AttributeName: "id",
+//         KeyType: "HASH"
+//       }
+//     ],
+//     AttributeDefinitions: [
+//       {
+//         AttributeName: "id",
+//         AttributeType: "S"
+//       }
+//     ]
+//   }, (err, data) => {
+//     if (err) console.error(err);
+//   });
+// });
 
 getAll = () => {
   return dummy;

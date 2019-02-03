@@ -61,7 +61,6 @@ class Admin extends Component {
       </Container>
       : <div>Not Logged In</div>;
   }
-
 }
 
 export default Admin;

@@ -2,40 +2,36 @@ require('dotenv').load();
 const _ = require("lodash");
 const AWS = require('aws-sdk');
 const config = require('../config.js');
-AWS.config.update(config.dynamodb);
-const ddbClient = new AWS.DynamoDB.DocumentClient();
-const ddb = new AWS.DynamoDB();
 const fs = require("fs");
 const fileType = require("file-type");
 const ep = new AWS.Endpoint("s3.eu-west-2.amazonaws.com");
 const s3 = new AWS.S3({ endpoint: ep });
-AWS.config.update(config.dynamodb);
 
 
-
-ddb.describeTable({ TableName: "mentees" }, (err, data) => {
-  if (err) ddb.createTable({
-    ProvisionedThroughput: {
-      ReadCapacityUnits: 1,
-      WriteCapacityUnits: 1
-    },
-    TableName: "mentees",
-    KeySchema: [
-      {
-        AttributeName: "id",
-        KeyType: "HASH"
-      }
-    ],
-    AttributeDefinitions: [
-      {
-        AttributeName: "id",
-        AttributeType: "S"
-      }
-    ]
-  }, (err, data) => {
-    if (err) console.error(err);
-  });
-});
+//
+// ddb.describeTable({ TableName: "mentees" }, (err, data) => {
+//   if (err) ddb.createTable({
+//     ProvisionedThroughput: {
+//       ReadCapacityUnits: 1,
+//       WriteCapacityUnits: 1
+//     },
+//     TableName: "mentees",
+//     KeySchema: [
+//       {
+//         AttributeName: "id",
+//         KeyType: "HASH"
+//       }
+//     ],
+//     AttributeDefinitions: [
+//       {
+//         AttributeName: "id",
+//         AttributeType: "S"
+//       }
+//     ]
+//   }, (err, data) => {
+//     if (err) console.error(err);
+//   });
+// });
 
 getAll = () => {
     //TODO Get from DB
