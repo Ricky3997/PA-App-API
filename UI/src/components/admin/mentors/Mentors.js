@@ -12,9 +12,12 @@ class Mentors extends Component {
         return ["database", "approvals", "statistics"].indexOf(section) > -1 ? section : "database"
     };
 
+    filterForApproval(mentors){
+        return mentors.filter(m => m.status === "requested")
+    }
+
     render() {
         return (
-
             <Row>
                 <Col md={2}>
                     <Nav variant="pills" className="flex-column" activeKey={this.validateSection(this.props.match.params.section)}
@@ -34,10 +37,9 @@ class Mentors extends Component {
                     <Tab.Content>
                         <Tab.Pane active>
                             <Switch>
-                                <Route path={"/admin/mentors/approvals"} render={(props) => <Approvals mentors={this.props.mentors}/>}/>
-                                <Route path={"/admin/mentors/statistics"} render={(props) => <Statistics mentors={this.props.mentors}/>}/>
-                                <Route path={["/admin/mentors/database", "/admin/mentors"]}
-                                       render={(props) => <Database mentors={this.props.mentors}/>}/>
+                                <Route path={"/admin/mentors/approvals"} render={() => <Approvals mentors={this.filterForApproval(this.props.mentors)}/>}/>
+                                <Route path={"/admin/mentors/statistics"} render={() => <Statistics mentors={this.props.mentors}/>}/>
+                                <Route path={["/admin/mentors/database", "/admin/mentors"]} render={() => <Database mentors={this.props.mentors}/>}/>
                             </Switch>
                         </Tab.Pane>
                     </Tab.Content>

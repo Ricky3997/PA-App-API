@@ -13,6 +13,10 @@ class Admin extends Component {
     this.changeTab = this.changeTab.bind(this);
   }
 
+  componentDidMount() {
+    this.props.fetchMentors();
+  }
+
   validateTab(tabKey) {
     return ["dashboard", "mentors", "mentees", "matching"].indexOf(tabKey) > -1 ? tabKey : "dashboard";
   }
