@@ -1,15 +1,6 @@
 require("dotenv").load();
-const uuid = require("short-uuid")();
-const _ = require("lodash");
-const AWS = require("aws-sdk");
-const config = require("../config.js");
-const fs = require("fs");
-const fileType = require("file-type");
-const ep = new AWS.Endpoint("s3.eu-west-2.amazonaws.com");
-const s3 = new AWS.S3({ endpoint: ep });
-// AWS.config.update(config.dynamodb);
-// const ddb = new AWS.DynamoDB();
-// const ddbClient = new AWS.DynamoDB.DocumentClient();
+const { Mentor } = require("./../models/mentors");
+const { User } = require("./../models/users");
 
 
 const dummy = [
@@ -112,31 +103,6 @@ const dummy = [
   }
 ];
 
-//
-// ddb.describeTable({ TableName: "mentors" }, (err, data) => {
-//   if (err) ddb.createTable({
-//     ProvisionedThroughput: {
-//       ReadCapacityUnits: 1,
-//       WriteCapacityUnits: 1
-//     },
-//     TableName: "mentors",
-//     KeySchema: [
-//       {
-//         AttributeName: "id",
-//         KeyType: "HASH"
-//       }
-//     ],
-//     AttributeDefinitions: [
-//       {
-//         AttributeName: "id",
-//         AttributeType: "S"
-//       }
-//     ]
-//   }, (err, data) => {
-//     if (err) console.error(err);
-//   });
-// });
-
 getAll = () => {
   return dummy;
 };
@@ -146,96 +112,24 @@ const getById = (id) => {
   return dummy.filter(m => m.id === parseInt(id));
 };
 
-const edit = async (id, data, file, userFromDb) => {
-
-  let updateExpression = "SET ";
-  let updateValues = {};
-
-
-  const picToDelete = userFromDb.Item.pictureKey;
-
-  if(file){
-    const buffer = fs.readFileSync(file[0].path);
-    const type = fileType(buffer);
-    const data = await s3.upload({
-      ACL: 'public-read',
-      Body: buffer,
-      Bucket: config.s3.bucketName,
-      ContentType: type.mime,
-      Key: `${`${id}-${Date.now().toString()}`}.${type.ext}`
-    }).promise();
-    if(picToDelete) await s3.deleteObject({Bucket: config.s3.bucketName, Key: picToDelete}).promise();
-    updateExpression = updateExpression.concat("pictureKey = :pictureKey, pictureUrl = :pictureUrl");
-    updateValues[":pictureUrl"] = data.Location;
-    updateValues[":pictureKey"] = data.key;
-  }
-
-  if(updateExpression !== "SET " && updateExpression[updateExpression.length-1] !== " " && updateExpression[updateExpression.length-2] !== ","){
-    updateExpression = updateExpression.concat(", ")
-  }
-
-  updateExpression = updateExpression.concat("university = :university, subject = :subject, #l = :level, country = :country, " +
-    "firstGenStudent = :firstGenStudent, city = :city, gender = :gender, #y = :year, area = :area");
-  updateValues[":university"] = data.university;
-  updateValues[":subject"] = data.subject;
-  updateValues[":level"] = data.level;
-  updateValues[":country"] = data.country;
-  updateValues[":firstGenStudent"] = data.firstGenStudent;
-  updateValues[":city"] = data.city;
-  updateValues[":gender"] = data.gender;
-  updateValues[":year"] = data.year;
-  updateValues[":area"] = data.area;
-  return await ddbClient.update({
-    TableName: "mentors",
-    Key: { id: id },
-    UpdateExpression: updateExpression,
-    ExpressionAttributeNames: {
-      "#l": "level",
-      "#y": "year"
-    },
-    ExpressionAttributeValues: updateValues,
-    ReturnValues: "ALL_NEW"
-  }).promise();
+const registerNew = async (id, data) => {
+  await new Mentor({
+    _id: id,
+    university: data.university,
+    subject: data.subject,
+    level: data.level,
+    country: data.country,
+    firstGenStudent: data.firstGenStudent,
+    city: data.city,
+    gender: data.gender,
+    year: data.year,
+    area: data.area
+  }).save();
+  return await User.findByIdAndUpdate(id, { onboarded: true, mentorProfile: id}, { new: true }).populate("mentorProfile").exec().then(p => { return p});
 };
 
-const registerNew = async (id, data) => {
-  try {
-    const mentorProfile = {
-      id: id,
-      university: data.university,
-      subject: data.subject,
-      level: data.level,
-      country: data.country,
-      firstGenStudent: data.firstGenStudent,
-      city: data.city,
-      gender: data.gender,
-      year: data.year,
-      area: data.area
-    };
-    await ddbClient.put({
-      TableName: "mentors",
-      Item: mentorProfile,
-      ReturnValues: "ALL_OLD"
-    }).promise();
-
-    const onboardedUser = (await ddbClient.update({
-      TableName: "users",
-      Key: { id: id },
-      UpdateExpression: "SET onboarded = :onboarded, #s= :status",
-      ExpressionAttributeNames: {
-        "#s": "status"
-      },
-      ExpressionAttributeValues: {
-        ":onboarded": true,
-        ":status": "notYetRequested"
-      },
-      ReturnValues: "ALL_NEW"
-    }).promise()).Attributes;
-    onboardedUser.mentorProfile = mentorProfile;
-    return onboardedUser;
-  } catch (e) {
-    return null;
-  }
+const edit = async (id, data) => {
+  return await Mentor.findByIdAndUpdate(id, data, { new: true }).exec().then(p => { return p});
 };
 
 const changeStatus = async (id, data) => {
@@ -252,12 +146,10 @@ const changeStatus = async (id, data) => {
       },
       ReturnValues: "ALL_NEW"
     }).promise();
-   return true
+    return true
   } catch (e) {
     return null;
   }
 };
-
-
 
 module.exports = { getAll, getById, registerNew, edit, changeStatus };

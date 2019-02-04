@@ -1,5 +1,4 @@
 require('dotenv').load();
-const uuid = require('short-uuid')();
 const _ = require("lodash");
 
 getAll = () => {

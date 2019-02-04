@@ -1,10 +1,9 @@
 require("dotenv").load();
-const uuid = require("short-uuid")();
+const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const mailService = require("./mail");
 const config = require("./../config");
 const { User } = require("../models/users");
-
 
 const confirm = async (email, id, token) => {
   if (id === extractIdFromToken(token)) {
@@ -15,7 +14,7 @@ const confirm = async (email, id, token) => {
 
 const register = async (email, firstName, type) => {
   try {
-    const id = uuid.new();
+    const id = new mongoose.Types.ObjectId();
     const token = createToken(email, id);
     mailService.sendConfirmationToken(email, id, token);
     const user = await new User({
@@ -24,13 +23,12 @@ const register = async (email, firstName, type) => {
       type: type,
       email: email,
       emailConfirmed: false,
-      onboarded: false
+      onboarded: false,
+      status: "notYetRequested"
     }).save();
     return { user, id, token };
   } catch (e) {
-    return {
-      error: "User with that email exists already"
-    }
+    return null
   }
 
 };

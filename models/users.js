@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const User = mongoose.model('User', new mongoose.Schema({
-  _id: String,
+  _id: Schema.Types.ObjectId,
   firstName: String,
   emailConfirmed: Boolean,
   type: String,
@@ -10,7 +11,12 @@ const User = mongoose.model('User', new mongoose.Schema({
     unique: true,
     required: true
   },
-  onboarded: Boolean
+  onboarded: Boolean,
+  status: String,
+  status: String,
+  pictureUrl: String,
+  mentorProfile: { type: Schema.Types.ObjectId, ref: 'Mentor' },
+  // menteeProfile: { type: Schema.Types.ObjectId, ref: 'Mentee' },
 }));
 
 module.exports = {User}

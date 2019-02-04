@@ -83,6 +83,7 @@ const MentorSettings = (props) => {
                 We'll never share your email with anyone else.
               </Form.Text>
               <span>{user.emailConfirmed ? "Email Confirmed" : "Email Not Confirmed"}</span>
+              {/*TODO Handle email confimed API call and not updating local storage user object*/}
             </Col>
           </Row>
           <br/>
