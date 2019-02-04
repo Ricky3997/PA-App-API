@@ -13,8 +13,6 @@ const User = mongoose.model('User', new mongoose.Schema({
   },
   onboarded: Boolean,
   status: String,
-  status: String,
-  pictureUrl: String,
   mentorProfile: { type: Schema.Types.ObjectId, ref: 'Mentor' },
   // menteeProfile: { type: Schema.Types.ObjectId, ref: 'Mentee' },
 }));

@@ -12,6 +12,7 @@ const Mentor = mongoose.model('Mentor', new mongoose.Schema({
   gender: String,
   year: String,
   area: String,
+  pictureUrl: String
 }));
 
 module.exports = {Mentor};

@@ -1,16 +1,10 @@
 require("dotenv").load();
 const _ = require("lodash");
-const AWS = require("aws-sdk");
-const fs = require("fs");
-const fileType = require("file-type");
-const ep = new AWS.Endpoint("s3.eu-west-2.amazonaws.com");
-const s3 = new AWS.S3({ endpoint: ep });
 const multiparty = require("multiparty");
 const mentorService = require("./mentors");
 const menteeService = require("./mentees");
 const mailService = require("./mail");
 const authService = require("./auth");
-const config = require("../config.js");
 const { User } = require("./../models/users");
 
 getProfile = async (id) => {
@@ -40,24 +34,7 @@ editProfile = async (req, res) => {
         mailService.sendConfirmationToken(changedUserData.email, id, newToken);  //TODO Return updated token and check unique
       }
 
-
-      const picToDelete = (await User.findById(id)).pictureUrl;
-
-      if (files.file) {
-        const buffer = fs.readFileSync(files.file[0].path);
-        const type = fileType(buffer);
-        const data = await s3.upload({
-          ACL: 'public-read',
-          Body: buffer,
-          Bucket: config.s3.bucketName,
-          ContentType: type.mime,
-          Key: `${`${id}-${Date.now().toString()}`}.${type.ext}`
-        }).promise();
-        if (picToDelete) await s3.deleteObject({ Bucket: config.s3.bucketName, Key: picToDelete }).promise();
-        fieldsToUpdate.pictureUrl = data.Location;
-      }
-
-      if (user.type === "mentor" && user.onboarded) await mentorService.edit(id, changedUserData);
+      if (user.type === "mentor" && user.onboarded) await mentorService.edit(id, changedUserData, files.file);
 
       // if (userFromDb.Item.type === "mentee" && userFromDb.Item.onboarded) {
       //   const response = await menteeService.edit(id, JSON.parse(fields.data[0]), files.file, userFromDb);
