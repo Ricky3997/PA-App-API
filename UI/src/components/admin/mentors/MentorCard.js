@@ -1,9 +1,8 @@
 import React from "react";
-import { Card, Image } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import ConfirmMatchButton from "./ConfirmMatchButton";
 import { Icon } from "react-fa";
 import ProfileIcon from "../../various/ProfileIcon";
-import ListGroup from "react-bootstrap/es/ListGroup";
 
 const MentorCard = (props) => {
 
@@ -16,7 +15,7 @@ const MentorCard = (props) => {
   };
 
   return (
-    <Card className="text-center" key={props.id}>
+    <Card className="text-center" key={props._id}>
       <Card.Header>
         <ProfileIcon pictureUrl={props.pictureUrl} size={"m"}/>
       </Card.Header>

@@ -3,19 +3,13 @@ import { Button, Col, Container, Image, ListGroup, Row } from "react-bootstrap";
 import ProfileIcon from "../../various/ProfileIcon";
 
 class Approvals extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      active: null
-    };
-  }
 
-  componentWillReceiveProps(nextProps, nextContext) {
-    this.setState({ active: nextProps.mentors.length > 0 ? nextProps.mentors[0].id : null });
-  }
+  // this.setState({ active: nextProps.mentors.length > 0 ? nextProps.mentors[0]._id : null });
+
 
   render() {
-    const toApprove = this.state.active ? this.props.mentors.filter(m => m.id === this.state.active)[0] : null;
+    const { setActiveMentorApprovalId,activeApprovalId } = this.props;
+    const toApprove = activeApprovalId ? this.props.mentors.filter(m => m._id === activeApprovalId)[0] : null;
     return (
       <Container fluid>
         <Row>
@@ -23,8 +17,11 @@ class Approvals extends Component {
             <ListGroup>
               {
                 this.props.mentors.length > 0 ?
-                  this.props.mentors.map(m => <ListGroup.Item active={this.state.active === m.id}
-                                                              onClick={() => this.setState({ active: m.id })}
+                  this.props.mentors.map(m => <ListGroup.Item active={m._id === activeApprovalId}
+                                                              onClick={() => {
+                                                                console.log(m);
+                                                                setActiveMentorApprovalId(m._id)
+                                                              }}
                                                               style={{ cursor: "pointer" }}>
                     <ProfileIcon pictureUrl={m.pictureUrl} size={"s"}/>
                     {`  ${m.firstName}`}

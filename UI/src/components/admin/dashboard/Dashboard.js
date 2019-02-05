@@ -5,7 +5,7 @@ import ProfileIcon from "../../various/ProfileIcon";
 const Dashboard = (props) => {
     return (
         <Row>
-            {props.relationships.map(r => <Card key={r.id} className="text-center" style={{margin: "10px"}}>
+            {props.relationships.map(r => <Card key={r._id} className="text-center" style={{margin: "10px"}}>
                     <Card.Header>
                         <ProfileIcon pictureUrl={r.mentor.pictureUrl} size={"m"}/>
                         <ProfileIcon pictureUrl={r.mentee.pictureUrl} size={"m"} shiftLeft/>

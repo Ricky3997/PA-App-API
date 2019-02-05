@@ -2,7 +2,7 @@ import {
   ADD_ONBOARDING_PROPERTIES,
   CHANGE_STAGE,
   REMOVE_PICTURE_TO_CROP,
-  REMOVE_USER, SET_MENTEES, SET_MENTORS, SET_RELATIONSHIPS,
+  REMOVE_USER, SET_ACTIVE_MENTOR_APPROVAL_ID, SET_MENTEES, SET_MENTORS, SET_RELATIONSHIPS,
   STORE_PICTURE_CROPPED,
   STORE_PICTURE_TO_CROP, TOGGLE_ADMIN_FETCHING,
   TOGGLE_PICTURE_PICKER,
@@ -74,7 +74,8 @@ function admin(state = {
   fetching: false,
   mentors: [],
   relationships: [],
-  mentees: []
+  mentees: [],
+  activeMentorApprovalId: null
 }, action) {
   switch (action.type) {
     case SET_RELATIONSHIPS:
@@ -83,15 +84,27 @@ function admin(state = {
       return {...state, mentees: action.mentees};
     case SET_MENTORS:
       return {...state, mentors: action.mentors};
+    case SET_ACTIVE_MENTOR_APPROVAL_ID:
+      return {...state, activeMentorApprovalId: action.id};
     case TOGGLE_ADMIN_FETCHING:
       return {...state, fetching: !state.fetching};
     default:
       return state;
   }
 }
+function mentorAdmin(state = {
+  activeApprovalId: null
+}, action) {
+  switch (action.type) {
+    case SET_ACTIVE_MENTOR_APPROVAL_ID:
+      return {...state, activeApprovalId: action.id};
+    default:
+      return state;
+  }
+}
 
 const app = combineReducers({
-  user, settings, onboarding, admin
+  user, settings, onboarding, admin, mentorAdmin
 });
 
 export default app;

@@ -16,6 +16,8 @@ class Mentors extends Component {
     }
 
     render() {
+        const {mentors} = this.props.admin;
+        const {activeApprovalId} = this.props.mentorAdmin;
         return (
             <Row>
                 <Col md={2}>
@@ -36,9 +38,9 @@ class Mentors extends Component {
                     <Tab.Content>
                         <Tab.Pane active>
                             <Switch>
-                                <Route path={"/admin/mentors/approvals"} render={() => <Approvals mentors={this.filterForApproval(this.props.mentors)}/>}/>
-                                <Route path={"/admin/mentors/statistics"} render={() => <Statistics mentors={this.props.mentors}/>}/>
-                                <Route path={["/admin/mentors/database", "/admin/mentors"]} render={() => <Database mentors={this.props.mentors}/>}/>
+                                <Route path={"/admin/mentors/approvals"} render={() => <Approvals activeApprovalId={activeApprovalId} mentors={this.filterForApproval(mentors)} setActiveMentorApprovalId={this.props.setActiveMentorApprovalId}/>}/>
+                                <Route path={"/admin/mentors/statistics"} render={() => <Statistics mentors={mentors}/>}/>
+                                <Route path={["/admin/mentors/database", "/admin/mentors"]} render={() => <Database mentors={mentors}/>}/>
                             </Switch>
                         </Tab.Pane>
                     </Tab.Content>

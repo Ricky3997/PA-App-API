@@ -6,9 +6,11 @@ import Mentors from "./mentors/Mentors";
 import { Route } from "react-router-dom";
 import Matching from "./matching/Matching";
 import { Icon } from "react-fa";
+import { setActiveMentorApprovalId } from "../../actions/actionCreator";
+import connect from "react-redux/es/connect/connect";
 
 class Admin extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.changeTab = this.changeTab.bind(this);
   }
@@ -21,18 +23,14 @@ class Admin extends Component {
     return ["dashboard", "mentors", "mentees", "matching"].indexOf(tabKey) > -1 ? tabKey : "dashboard";
   }
 
-  changeTab(key){
-    if(key === "refresh") {
-      const {section} = this.props.match.params;
-      const {fetchMentors} = this.props;
-      if(section === "mentors") fetchMentors();
-    }
+  changeTab(key) {
+    if (key === "refresh" && this.props.match.params.section === "mentors") this.props.fetchMentors();
     else this.props.history.push(`/admin/${key}`);
   }
 
   render() {
-    const {mentors, mentees, relationships, fetching} = this.props.admin;
-    const {section} = this.props.match.params;
+    const { fetching } = this.props.admin;
+    const { section } = this.props.match.params;
 
     return (this.props.user && this.props.user.admin) ?
       <Container fluid>
@@ -40,19 +38,25 @@ class Admin extends Component {
               activeKey={this.validateTab(section)}
               onSelect={this.changeTab}>
           <Tab eventKey="dashboard" title="Dashboard">
-            <Dashboard relationships={relationships}/>
+            <Dashboard relationships={[]}/>
           </Tab>
           <Tab eventKey="mentors" title="Mentors">
             <Route path={"/admin/mentors/:section?"}
-                   render={(props) => <Mentors mentors={mentors} {...this.props} {...props}/>}/>
+                   component={connect(({ user, admin, mentorAdmin }) => {
+                     return { user, admin, mentorAdmin };
+                   }, dispatch => {
+                     return {
+                       setActiveMentorApprovalId: (id) => dispatch(setActiveMentorApprovalId(id))
+                     };
+                   })(Mentors)}/>
+
           </Tab>
           <Tab eventKey="mentees" title="Mentees">
             <Route path={"/admin/mentees/:section?"}
-                   render={(props) => <Mentees mentees={mentees} {...this.props} {...props}/>}/>
+                   render={() => <Mentees mentees={[]}/>}/>
           </Tab>
           <Tab eventKey="matching" title="Matching">
-            <Route path={"/admin/matching"} render={(props) => <Matching mentors={mentors}
-                                                                         mentees={mentees.filter(m => m.status === "toMatch")} {...this.props} {...props}/>}/>
+            <Route path={"/admin/matching"} render={(props) => <Matching mentors={[]} mentees={[]}/>}/>
           </Tab>
           <Tab eventKey="refresh" disabled={fetching} title={<Icon name={"fas fa-refresh"}/>}/>
         </Tabs>

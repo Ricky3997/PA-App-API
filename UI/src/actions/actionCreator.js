@@ -2,7 +2,7 @@ import {
   ADD_ONBOARDING_PROPERTIES,
   CHANGE_STAGE,
   REMOVE_PICTURE_TO_CROP,
-  REMOVE_USER, SET_MENTEES, SET_MENTORS,
+  REMOVE_USER, SET_ACTIVE_MENTOR_APPROVAL_ID, SET_MENTORS,
   STORE_PICTURE_CROPPED,
   STORE_PICTURE_TO_CROP, TOGGLE_ADMIN_FETCHING,
   TOGGLE_PICTURE_PICKER,
@@ -150,6 +150,12 @@ export const setMentors = (mentors) => {
   return {
     type: SET_MENTORS,
     mentors: mentors
+  }
+};
+export const setActiveMentorApprovalId = (id) => {
+  return {
+    type: SET_ACTIVE_MENTOR_APPROVAL_ID,
+    id: id
   }
 };
 

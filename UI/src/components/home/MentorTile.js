@@ -15,7 +15,7 @@ const MentorTile = (props) => {
             </Row>
             <Row>
                 <Col>
-                    <LinkContainer to={`/mentor/${props.mentor.id}`} style={{cursor: "pointer"}}>
+                    <LinkContainer to={`/mentor/${props.mentor._id}`} style={{cursor: "pointer"}}>
                         <img alt="mentor profile pic" width="150px" src={props.mentor.pictureUrl} />
                     </LinkContainer>
                 </Col>

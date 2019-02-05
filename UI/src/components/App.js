@@ -80,7 +80,6 @@ class App extends Component {
             <Route path={"/about"} component={About}/>
 
 
-
             <Route path={"/admin/:section?"} component={connect(({ user, admin }) => {
               return { user, admin };
             }, dispatch => {

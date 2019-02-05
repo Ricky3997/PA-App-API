@@ -1,6 +1,5 @@
 import React from "react";
-import { LinkContainer } from "react-router-bootstrap";
-import { Navbar, Badge, Image } from "react-bootstrap";
+import { Image } from "react-bootstrap";
 import { Icon } from "react-fa";
 
 const Footer = (props) => {
