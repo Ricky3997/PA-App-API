@@ -4,9 +4,6 @@ import ProfileIcon from "../../various/ProfileIcon";
 
 class Approvals extends Component {
 
-  // this.setState({ active: nextProps.mentors.length > 0 ? nextProps.mentors[0]._id : null });
-
-
   render() {
     const { setActiveMentorApprovalId,activeApprovalId } = this.props;
     const toApprove = activeApprovalId ? this.props.mentors.filter(m => m._id === activeApprovalId)[0] : null;
@@ -18,10 +15,7 @@ class Approvals extends Component {
               {
                 this.props.mentors.length > 0 ?
                   this.props.mentors.map(m => <ListGroup.Item active={m._id === activeApprovalId}
-                                                              onClick={() => {
-                                                                console.log(m);
-                                                                setActiveMentorApprovalId(m._id)
-                                                              }}
+                                                              onClick={() => setActiveMentorApprovalId(m._id)}
                                                               style={{ cursor: "pointer" }}>
                     <ProfileIcon pictureUrl={m.pictureUrl} size={"s"}/>
                     {`  ${m.firstName}`}
@@ -37,12 +31,12 @@ class Approvals extends Component {
             <Container fluid>
               <Row>
                 <Col md={3}>
-                  <Image rounded alt="Mentor avatar" src={toApprove.pictureUrl} style={{ width: "150px" }}/>
+                  <ProfileIcon pictureUrl={toApprove.pictureUrl} size={"m"}/>
                 </Col>
                 <Col md={9}>
-                  <h6>{`${toApprove.firstName} ${toApprove.lastName}`}</h6>
-                  <h6>{`${toApprove.course} at ${toApprove.university}`}</h6>
-                  <h6>{`From ${toApprove.from}`}</h6>
+                  <h6>{`${toApprove.firstName}`}</h6>
+                  <h6>{`${toApprove.subject} at ${toApprove.university}`}</h6>
+                  <h6>{`From ${toApprove.city}`}</h6>
                 </Col>
               </Row>
               <Row>

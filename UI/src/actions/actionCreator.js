@@ -172,7 +172,8 @@ export const fetchMentors = () => {
     return api.get("/api/mentors").then(r => {
       dispatch(toggleAdminFetching());
       if(r.success){
-        dispatch(setMentors(r.payload))
+        dispatch(setMentors(r.payload));
+        if(r.payload.filter(m => m.status === "requested").length > 0) dispatch(setActiveMentorApprovalId(r.payload.filter(m => m.status === "requested")[0]._id));
       }
     })
   }
