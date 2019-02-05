@@ -6,8 +6,8 @@ const getAll = async (req,res) => {
     else res.sendStatus(400);
 };
 
-const getById = (req,res) => {
-    const result = mentorsService.getById(req.params.id);
+const getById = async (req,res) => {
+    const result = await mentorsService.getById(req.params.id);
     if(result) res.json(result);
     else res.sendStatus(400);
 };

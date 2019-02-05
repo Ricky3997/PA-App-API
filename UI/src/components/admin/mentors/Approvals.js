@@ -41,10 +41,10 @@ class Approvals extends Component {
               </Row>
               <Row>
                 <Col md={{ size: 2, offset: 8 }}>
-                  <Button block variant="danger"> Reject </Button>
+                  <Button block variant="danger" onClick={() => this.props.adminChangeMentorStatus(toApprove._id, "rejected")}> Reject </Button>
                 </Col>
                 <Col md={{ size: 2 }}>
-                  <Button block variant="success"> Approve </Button>
+                  <Button block variant="success" onClick={() => this.props.adminChangeMentorStatus(toApprove._id, "approved")}> Approve </Button>
                 </Col>
               </Row>
             </Container> : <div><h4>Nothing to approve</h4></div>}

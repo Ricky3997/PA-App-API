@@ -179,4 +179,18 @@ export const fetchMentors = () => {
   }
 };
 
+export const adminChangeMentorStatus = (id, status) => {
+  return (dispatch, getState) => {
+    dispatch(toggleAdminFetching());
+    return api.post("/api/admin/changeMentorStatus", {id: id, status: status}).then(r => {
+      dispatch(toggleAdminFetching());
+      let {mentors} = getState().admin;
+      mentors = mentors.filter(m => m._id !==id);
+      mentors.push(r.payload);
+      if(r.success){
+        dispatch(setMentors(mentors));}
+    })
+  }
+};
+
 

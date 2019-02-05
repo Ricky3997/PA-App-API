@@ -4,12 +4,14 @@ const jwt = require("jsonwebtoken");
 const mailService = require("./mail");
 const config = require("./../config");
 const { User } = require("../models/users");
+const { Mentor } = require("../models/mentors");
+
 
 const confirm = async (email, id, token) => {
   if (id === extractIdFromToken(token)) {
-    await User.update({_id: id},{ emailConfirmed: true });
+    await User.update({ _id: id }, { emailConfirmed: true });
     return { success: true };
-  } else return {error: "Id provided does not match authentication token"};
+  } else return { error: "Id provided does not match authentication token" };
 };
 
 const register = async (email, firstName, type) => {
@@ -28,7 +30,7 @@ const register = async (email, firstName, type) => {
     }).save();
     return { user, id, token };
   } catch (e) {
-    return null
+    return null;
   }
 
 };
@@ -60,8 +62,15 @@ const checkToken = (req, res, next) => {
 
 };
 
+const checkAdmin = async (req, res, next) => {
+  const {id} = req.decoded;
+  const user = await User.findById(id);
+  if (user && user.admin) next();
+  else return res.sendStatus(401);
+};
+
 const generateLoginToken = async (email) => {
-  const user = await User.findOne({email: email}).exec();
+  const user = await User.findOne({ email: email }).exec();
   if (user) {
     const token = createToken(email, user._id);
     mailService.sendAuthToken(email, token);
@@ -73,4 +82,4 @@ const createToken = (email, id) => {
   return jwt.sign({ email: email, id: id }, config.JWT_SECRET, { expiresIn: "24h" });
 };
 
-module.exports = { register, confirm, checkToken, createToken, generateLoginToken, validateToken };
+module.exports = { register, confirm, checkToken, checkAdmin, createToken, generateLoginToken, validateToken };

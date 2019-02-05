@@ -38,7 +38,10 @@ class Mentors extends Component {
                     <Tab.Content>
                         <Tab.Pane active>
                             <Switch>
-                                <Route path={"/admin/mentors/approvals"} render={() => <Approvals activeApprovalId={activeApprovalId} mentors={this.filterForApproval(mentors)} setActiveMentorApprovalId={this.props.setActiveMentorApprovalId}/>}/>
+                                <Route path={"/admin/mentors/approvals"} render={() => <Approvals activeApprovalId={activeApprovalId}
+                                                                                                  mentors={this.filterForApproval(mentors)}
+                                                                                                  adminChangeMentorStatus={this.props.adminChangeMentorStatus}
+                                                                                                  setActiveMentorApprovalId={this.props.setActiveMentorApprovalId}/>}/>
                                 <Route path={"/admin/mentors/statistics"} render={() => <Statistics mentors={mentors}/>}/>
                                 <Route path={["/admin/mentors/database", "/admin/mentors"]} render={() => <Database mentors={mentors}/>}/>
                             </Switch>

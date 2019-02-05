@@ -6,7 +6,7 @@ import Mentors from "./mentors/Mentors";
 import { Route } from "react-router-dom";
 import Matching from "./matching/Matching";
 import { Icon } from "react-fa";
-import { setActiveMentorApprovalId } from "../../actions/actionCreator";
+import { adminChangeMentorStatus, setActiveMentorApprovalId } from "../../actions/actionCreator";
 import connect from "react-redux/es/connect/connect";
 
 class Admin extends Component {
@@ -46,7 +46,8 @@ class Admin extends Component {
                      return { user, admin, mentorAdmin };
                    }, dispatch => {
                      return {
-                       setActiveMentorApprovalId: (id) => dispatch(setActiveMentorApprovalId(id))
+                       setActiveMentorApprovalId: (id) => dispatch(setActiveMentorApprovalId(id)),
+                       adminChangeMentorStatus: (id,status) => dispatch(adminChangeMentorStatus(id,status))
                      };
                    })(Mentors)}/>
 
