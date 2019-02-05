@@ -13,7 +13,8 @@ const Mentor = mongoose.model('Mentor', new mongoose.Schema({
   year: String,
   area: String,
   pictureUrl: String,
-  status: String
+  status: String,
+  firstName: String
 }));
 
 module.exports = {Mentor};

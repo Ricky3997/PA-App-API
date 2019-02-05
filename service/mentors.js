@@ -117,6 +117,7 @@ const getById = async (id) => {
 };
 
 const registerNew = async (id, data) => {
+  const user = await User.findById(id);
   await new Mentor({
     _id: id,
     university: data.university,
@@ -128,7 +129,8 @@ const registerNew = async (id, data) => {
     gender: data.gender,
     year: data.year,
     area: data.area,
-    status: "notYetRequested"
+    status: "notYetRequested",
+    firstName: user.firstName
   }).save();
   return await User.findByIdAndUpdate(id, { onboarded: true, mentorProfile: id}, { new: true }).populate("mentorProfile").exec().then(p => { return p});
 };
