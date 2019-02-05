@@ -108,13 +108,12 @@ const dummy = [
   }
 ];
 
-getAll = () => {
-  return dummy;
+getAll = async () => {
+  return await Mentor.find();
 };
 
-const getById = (id) => {
-  // return await dynamodb.getItem({'Table': 'mentors', 'Key': {'id': id}}).promise();
-  return dummy.filter(m => m.id === parseInt(id));
+const getById = async (id) => {
+  return await Mentor.findById(id);
 };
 
 const registerNew = async (id, data) => {
@@ -128,7 +127,8 @@ const registerNew = async (id, data) => {
     city: data.city,
     gender: data.gender,
     year: data.year,
-    area: data.area
+    area: data.area,
+    status: "notYetRequested"
   }).save();
   return await User.findByIdAndUpdate(id, { onboarded: true, mentorProfile: id}, { new: true }).populate("mentorProfile").exec().then(p => { return p});
 };
@@ -153,19 +153,8 @@ const edit = async (id, data, file) => {
 
 const changeStatus = async (id, data) => {
   try {
-    await ddbClient.update({
-      TableName: "users",
-      Key: { id: id },
-      UpdateExpression: "SET #s= :status",
-      ExpressionAttributeNames: {
-        "#s": "status"
-      },
-      ExpressionAttributeValues: {
-        ":status": data.status
-      },
-      ReturnValues: "ALL_NEW"
-    }).promise();
-    return true
+    await Mentor.findByIdAndUpdate(id, {status: data.status}).exec();
+    return User.findById(id).populate("mentorProfile").exec().then(p => { return p});
   } catch (e) {
     return null;
   }

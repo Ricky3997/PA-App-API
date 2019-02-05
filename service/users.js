@@ -19,7 +19,6 @@ getProfile = async (id) => {
 editProfile = async (req, res) => {
   const { id } = req.decoded;
   let user = await User.findById(id);
-
   new multiparty.Form().parse(req, async (error, fields, files) => {
     if (error) throw new Error(error);
     try {

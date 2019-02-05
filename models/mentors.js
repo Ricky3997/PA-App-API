@@ -12,7 +12,8 @@ const Mentor = mongoose.model('Mentor', new mongoose.Schema({
   gender: String,
   year: String,
   area: String,
-  pictureUrl: String
+  pictureUrl: String,
+  status: String
 }));
 
 module.exports = {Mentor};

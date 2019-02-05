@@ -24,7 +24,7 @@ const register = async (email, firstName, type) => {
       email: email,
       emailConfirmed: false,
       onboarded: false,
-      status: "notYetRequested"
+      admin: true //TODO
     }).save();
     return { user, id, token };
   } catch (e) {

@@ -1,7 +1,7 @@
 const mentorsService = require("../service/mentors");
 
-const getAll = (req,res) => {
-    const result = mentorsService.getAll();
+const getAll = async (req,res) => {
+    const result = await mentorsService.getAll();
     if(result) res.json(result);
     else res.sendStatus(400);
 };

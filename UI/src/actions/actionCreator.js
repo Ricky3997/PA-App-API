@@ -90,9 +90,8 @@ export const changeMentorStatus = (status) => {
   return (dispatch, getState) => {
     return api.post("/api/mentors/changeStatus", {status: status}).then(r => {
       if(r.success) {
-        const user = { ...(getState().user), status: status };
-        window.localStorage.setItem("user", JSON.stringify(user));
-        dispatch(updateUser(user));
+        window.localStorage.setItem("user", JSON.stringify(r.payload));
+        dispatch(updateUser(r.payload));
       }
       return r;
     })
