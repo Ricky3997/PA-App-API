@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { scaleLinear } from "d3-scale";
 import * as _ from "lodash";
 import {
@@ -11,10 +11,6 @@ import {
 } from "react-vis";
 
 class Statistics extends Component {
-  constructor(props) {
-    super(props);
-  }
-
 
   render() {
     const { mentors } = this.props;

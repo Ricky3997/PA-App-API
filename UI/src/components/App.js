@@ -92,7 +92,8 @@ class App extends Component {
               return { user };
             }, dispatch => {
               return {
-                changeMentorStatus: (status) => dispatch(changeMentorStatus(status))
+                changeMentorStatus: (status) => dispatch(changeMentorStatus(status)),
+                refreshUser: () => dispatch(getUser())
               };
             })(Home)}/>
 

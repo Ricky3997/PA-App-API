@@ -5,19 +5,20 @@ First install dependencies
 
 ### `npm install`
 
-Start local aws dynamodb
+Start local mongodb (require having installed it previously)
 
-### `java -Djava.library.path=./localdb/DynamoDBLocal_lib -jar ./localdb/DynamoDBLocal.jar`
+### `mongod`
+
+Start local server
+
+### `node server.js`
 
 Then develop (at [http://localhost:3000](http://localhost:3000)
 )
 
 
-### `npm start`
+### `cd UI && npm start`
 
 Then release 
 ### `npm run build`
 
-
-
-mentormongodb

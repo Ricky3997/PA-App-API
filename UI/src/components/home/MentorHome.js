@@ -3,6 +3,7 @@ import { Col, Row } from "react-bootstrap";
 import Container from "react-bootstrap/es/Container";
 import Button from "react-bootstrap/es/Button";
 import NotReadyYet from "../various/NotReadyYet";
+import { Icon } from "react-fa";
 
 class MentorHome extends Component {
 
@@ -41,8 +42,13 @@ class MentorHome extends Component {
 
     return <Container fluid>
       <Row style={{ marginTop: "10px" }}>
-        <Col>
+        <Col md={{span: 11}} >
           {toRender}
+        </Col>
+        <Col md={{span: 1}}>
+          <Button onClick={() => this.props.refreshUser()}>
+            <Icon name={"fas fa-refresh"} />
+          </Button>
         </Col>
       </Row>
     </Container>;

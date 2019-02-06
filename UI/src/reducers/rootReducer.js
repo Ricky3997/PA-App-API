@@ -72,6 +72,7 @@ function onboarding(state = {
 
 function admin(state = {
   fetching: false,
+  fetched: false,
   mentors: [],
   relationships: [],
   mentees: [],
@@ -87,7 +88,7 @@ function admin(state = {
     case SET_ACTIVE_MENTOR_APPROVAL_ID:
       return {...state, activeMentorApprovalId: action.id};
     case TOGGLE_ADMIN_FETCHING:
-      return {...state, fetching: !state.fetching};
+      return {...state, fetching: !state.fetching, fetched: true};
     default:
       return state;
   }

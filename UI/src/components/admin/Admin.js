@@ -16,7 +16,7 @@ class Admin extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchMentors();
+    if(!this.props.admin.fetched) this.props.fetchMentors();
   }
 
   validateTab(tabKey) {
