@@ -18,7 +18,6 @@ const register = async (email, firstName, type) => {
   try {
     const id = new mongoose.Types.ObjectId();
     const token = createToken(email, id);
-    mailService.sendConfirmationToken(email, id, token);
     const user = await new User({
       _id: id,
       firstName: firstName,
@@ -27,6 +26,7 @@ const register = async (email, firstName, type) => {
       emailConfirmed: false,
       onboarded: false
     }).save();
+    mailService.sendConfirmationToken(email, id, token);
     return { user, id, token };
   } catch (e) {
     return null;

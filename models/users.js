@@ -15,7 +15,7 @@ const User = mongoose.model('User', new mongoose.Schema({
   onboarded: Boolean,
   status: String,
   mentorProfile: { type: Schema.Types.ObjectId, ref: 'Mentor' },
-  // menteeProfile: { type: Schema.Types.ObjectId, ref: 'Mentee' },
+  menteeProfile: { type: Schema.Types.ObjectId, ref: 'Mentee' },
 }));
 
 module.exports = {User}

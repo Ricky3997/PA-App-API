@@ -26,7 +26,10 @@ const Header = (props) => {
         </NavDropdown.Item>
       </LinkContainer>
       <NavDropdown.Item href="">
-        <span onClick={logout}> <Icon name="fas fa-sign-out"/> Sign Out</span>
+        <span onClick={() => {
+          logout();
+          props.history.push("/");
+        }}> <Icon name="fas fa-sign-out"/> Sign Out</span>
       </NavDropdown.Item>
     </NavDropdown>;
   } else if (props.location.pathname === "/login") {
