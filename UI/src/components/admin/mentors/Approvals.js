@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Col, Container, Image, ListGroup, Row } from "react-bootstrap";
+import { Button, Col, Container, ListGroup, Row } from "react-bootstrap";
 import ProfileIcon from "../../various/ProfileIcon";
 
 class Approvals extends Component {

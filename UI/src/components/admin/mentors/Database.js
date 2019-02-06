@@ -2,23 +2,29 @@ import React, { Component } from "react";
 import { CardColumns, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import { Icon } from "react-fa";
 import * as JsSearch from "js-search";
+import * as _ from "lodash";
 import MentorCard from "./MentorCard";
 
 class Database extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: ""
+      search: "",
+      unisToSarch: ""
     };
-    this.search = new JsSearch.Search("id");
+    this.search = new JsSearch.Search("_id");
     this.search.addIndex("firstName");
-    this.search.addIndex("lastName");
     this.search.addIndex("university");
-    this.search.addIndex("course");
+    this.search.addIndex("subject");
+    this.search.addDocuments(props.mentors);
   }
 
-  componentWillReceiveProps(nextProps, nextContext) {
-    this.search.addDocuments(nextProps.mentors);
+  createListOfUnisToFilter(){
+    return _.uniq(this.props.mentors.map(m=> m.university))
+  }
+
+  createListOfSubjectsToFilter(){
+    return _.uniq(this.props.mentors.map(m=> m.subject))
   }
 
   render() {
@@ -44,8 +50,7 @@ class Database extends Component {
                 <Form.Group as={Col}>
                   <Form.Control as="select">
                     <option>University</option>
-                    <option>Oxford</option>
-                    <option>Cambridge</option>
+                    {this.createListOfUnisToFilter().map(u => <option key={u} onClick={() => alert(u)}>{u}</option>)}
                   </Form.Control>
                 </Form.Group>
 
@@ -55,8 +60,7 @@ class Database extends Component {
                 <Form.Group as={Col}>
                   <Form.Control as="select">
                     <option>Course</option>
-                    <option>Computer Science</option>
-                    <option>PPE</option>
+                    {this.createListOfSubjectsToFilter().map(u => <option key={u}>{u}</option>)}
                   </Form.Control>
                 </Form.Group>
               </Form.Row>
@@ -68,7 +72,7 @@ class Database extends Component {
           </Col>
           <Col md={9}>
             <CardColumns>
-              {mentorsToRender.map(m => <MentorCard {...m} changeSearch={(p) => this.setState({ search: p })}/>)}
+              {mentorsToRender.map(m => <MentorCard {...m} key={m._id} changeSearch={(p) => this.setState({ search: p })}/>)}
             </CardColumns>
           </Col>
         </Row>

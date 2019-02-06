@@ -25,8 +25,7 @@ const register = async (email, firstName, type) => {
       type: type,
       email: email,
       emailConfirmed: false,
-      onboarded: false,
-      admin: true //TODO
+      onboarded: false
     }).save();
     return { user, id, token };
   } catch (e) {

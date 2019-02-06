@@ -188,7 +188,11 @@ export const adminChangeMentorStatus = (id, status) => {
       mentors = mentors.filter(m => m._id !==id);
       mentors.push(r.payload);
       if(r.success){
-        dispatch(setMentors(mentors));}
+        dispatch(setMentors(mentors));
+        mentors = getState().admin.mentors;
+        if(mentors.filter(m => m.status === "requested").length > 0) dispatch(setActiveMentorApprovalId(mentors.filter(m => m.status === "requested")[0]._id));
+      }
+
     })
   }
 };
