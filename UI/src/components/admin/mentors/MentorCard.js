@@ -33,10 +33,10 @@ const MentorCard = (props) => {
         </Card.Title>
         {props.setFieldValue ?
           <Card.Text>
-            <span onClick={() => props.setFieldValue("subject", props.subject)}
+            <span onClick={() => props.setFieldValue("subject", [props.subject])}
                   style={{ color: "blue", cursor: "pointer" }}>{props.subject}</span>
             <span>{" at "}</span>
-            <span onClick={() => props.setFieldValue("university", props.university)}
+            <span onClick={() => props.setFieldValue("university", [props.university])}
                   style={{ color: "blue", cursor: "pointer" }}>{props.university}</span>
           </Card.Text>
           : <Card.Text>

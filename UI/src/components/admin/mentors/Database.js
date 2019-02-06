@@ -34,6 +34,10 @@ class Database extends Component {
     return _.uniq(this.props.mentors.map(m => m.subject));
   }
 
+  createListOfStatuses() {
+    return _.uniq(this.props.mentors.map(m => m.status));
+  }
+
   render() {
     return (
       <Formik
@@ -47,6 +51,11 @@ class Database extends Component {
           if(_.get(values, "subject.length") > 0) {
             mentorsToRender = mentorsToRender.filter(m => _.some(values.subject, (u) => {
               return m.subject === u
+            }));
+          }
+          if(_.get(values, "status.length") > 0) {
+            mentorsToRender = mentorsToRender.filter(m => _.some(values.status, (u) => {
+              return m.status === u
             }));
           }
 
@@ -79,7 +88,6 @@ class Database extends Component {
                       type="select"
                       name="university"
                       render={({ field }) => {
-
                         return <Select allowClear size={"large"}
                                        showSearch
                                        mode="tags"
@@ -97,9 +105,29 @@ class Database extends Component {
                       type="select"
                       name="subject"
                       render={({ field }) => {
-
-                        return <Select allowClear   onChange={(o) => setFieldValue(field.name, o)}>
+                        return <Select allowClear size={"large"}
+                                       showSearch
+                                       mode="tags"
+                                       value={field.value}
+                                       placeholder={"Subject"}
+                                       onChange={(o) => setFieldValue(field.name, o)}>
                           {this.createListOfSubjectsToFilter().map((v) => <Option key={v} value={v}>{v}</Option>)}
+                        </Select>;
+
+                      }}
+                    />
+
+                    <Field
+                      type="select"
+                      name="status"
+                      render={({ field }) => {
+                        return <Select allowClear size={"large"}
+                                       showSearch
+                                       mode="tags"
+                                       value={field.value}
+                                       placeholder={"Status"}
+                                       onChange={(o) => setFieldValue(field.name, o)}>
+                          {this.createListOfStatuses().map((v) => <Option key={v} value={v}>{v}</Option>)}
                         </Select>;
 
                       }}
@@ -108,8 +136,7 @@ class Database extends Component {
                   </Col>
                   <Col md={9}>
                     <CardColumns>
-                      {mentorsToRender.map(m => <MentorCard {...m} key={m._id}
-                                                            setFieldValue={setFieldValue}/>)}
+                      {mentorsToRender.map(m => <MentorCard {...m} key={m._id} setFieldValue={setFieldValue}/>)}
                     </CardColumns>
                   </Col>
 

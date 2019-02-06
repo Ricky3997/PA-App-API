@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, ProgressBar, Row } from "react-bootstrap";
+import { Card, Container, ProgressBar, Row } from "react-bootstrap";
 import ProfileIcon from "../../various/ProfileIcon";
 
 const Dashboard = (props) => {
@@ -18,7 +18,7 @@ const Dashboard = (props) => {
                     <Card.Footer>
                         <ProgressBar now={r.progress} label={`${r.progress}%`} style={{minWidth: "100px"}}/>
                     </Card.Footer>
-                </Card>) : <div><h5>No Relationships At This Time</h5></div>
+                </Card>) : <Container fluid><h5>No Relationships At This Time</h5></Container>
             }
         </Row>
     );

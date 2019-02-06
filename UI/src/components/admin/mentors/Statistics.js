@@ -62,7 +62,7 @@ class Statistics extends Component {
           height={600}
         >
           <XAxis orientation="top"/>
-          <YAxis/>
+          <YAxis />
           <HeatmapSeries
             colorType="literal"
             getColor={d => exampleColorScale(d.color)}
