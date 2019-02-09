@@ -11,7 +11,7 @@ import {
   ListGroup,
   Row
 } from "react-bootstrap";
-import MentorCard from "../mentors/MentorCard";
+import MentorCard from "../utils/UserCard";
 import * as _ from "lodash";
 import { Icon } from "react-fa";
 import * as JsSearch from "js-search";

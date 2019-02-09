@@ -17,8 +17,8 @@ import Home from "./home/Home";
 import About from "./various/About";
 
 import {
-  addOnboardingProperties, changeMentorStatus,
-  changeStage, fetchMentors,
+  addOnboardingProperties, changeMenteeStatus, changeMentorStatus,
+  changeStage, fetchMentees, fetchMentors,
   getUser, registerMentee,
   registerMentor,
   removePictureToCrop,
@@ -84,7 +84,8 @@ class App extends Component {
               return { user, admin };
             }, dispatch => {
               return {
-                fetchMentors: () => dispatch(fetchMentors())
+                fetchMentors: () => dispatch(fetchMentors()),
+                fetchMentees: () => dispatch(fetchMentees())
               };
             })(Admin)}/>
 
@@ -93,6 +94,7 @@ class App extends Component {
             }, dispatch => {
               return {
                 changeMentorStatus: (status) => dispatch(changeMentorStatus(status)),
+                changeMenteeStatus: (status) => dispatch(changeMenteeStatus(status)),
                 refreshUser: () => dispatch(getUser())
               };
             })(Home)}/>

@@ -2,7 +2,7 @@ import {
   ADD_ONBOARDING_PROPERTIES,
   CHANGE_STAGE,
   REMOVE_PICTURE_TO_CROP,
-  REMOVE_USER, SET_ACTIVE_MENTOR_APPROVAL_ID, SET_MENTORS,
+  REMOVE_USER, SET_ACTIVE_MENTOR_APPROVAL_ID, SET_MENTEES, SET_MENTORS,
   STORE_PICTURE_CROPPED,
   STORE_PICTURE_TO_CROP, TOGGLE_ADMIN_FETCHING,
   TOGGLE_PICTURE_PICKER,
@@ -98,6 +98,18 @@ export const changeMentorStatus = (status) => {
   }
 };
 
+export const changeMenteeStatus = (status) => {
+  return (dispatch, getState) => {
+    return api.post("/api/mentees/changeStatus", {status: status}).then(r => {
+      if(r.success) {
+        window.localStorage.setItem("user", JSON.stringify(r.payload));
+        dispatch(updateUser(r.payload));
+      }
+      return r;
+    })
+  }
+};
+
 
 export const registerMentor = () => {
   return (dispatch,getState) => {
@@ -152,6 +164,14 @@ export const setMentors = (mentors) => {
     mentors: mentors
   }
 };
+
+export const setMentees = (mentees) => {
+  return {
+    type: SET_MENTEES,
+    mentees: mentees
+  }
+};
+
 export const setActiveMentorApprovalId = (id) => {
   return {
     type: SET_ACTIVE_MENTOR_APPROVAL_ID,
@@ -174,6 +194,18 @@ export const fetchMentors = () => {
       if(r.success){
         dispatch(setMentors(r.payload));
         if(r.payload.filter(m => m.status === "requested").length > 0) dispatch(setActiveMentorApprovalId(r.payload.filter(m => m.status === "requested")[0]._id));
+      }
+    })
+  }
+};
+export const fetchMentees = () => {
+  return (dispatch) => {
+    dispatch(toggleAdminFetching());
+    return api.get("/api/mentees").then(r => {
+      dispatch(toggleAdminFetching());
+      if(r.success){
+        dispatch(setMentees(r.payload));
+        // if(r.payload.filter(m => m.status === "requested").length > 0) dispatch(setActiveMentorApprovalId(r.payload.filter(m => m.status === "requested")[0]._id));
       }
     })
   }

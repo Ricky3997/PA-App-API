@@ -3,14 +3,14 @@ import {
   CardColumns,
   Col,
   Container,
-  Form,
+  Form, Image,
   InputGroup,
   Row
 } from "react-bootstrap";
 import { Icon } from "react-fa";
 import * as JsSearch from "js-search";
 import * as _ from "lodash";
-import MentorCard from "./MentorCard";
+import UserCard from "./UserCard";
 import { Field, Form as FormikForm, Formik } from "formik";
 import { Select } from "antd";
 
@@ -21,9 +21,9 @@ class Database extends Component {
     super(props);
     this.search = new JsSearch.Search("_id");
     this.search.addIndex("firstName");
-    this.search.addIndex("university");
-    this.search.addIndex("subject");
-    this.search.addDocuments(props.mentors);
+    if (props.mode === "mentors") this.search.addIndex("university");
+    if (props.mode === "mentors") this.search.addIndex("subject");
+    this.search.addDocuments(props.mode === "mentors" ? props.mentors : props.mentees);
   }
 
   createListOfUnisToFilter() {
@@ -34,30 +34,40 @@ class Database extends Component {
     return _.uniq(this.props.mentors.map(m => m.subject));
   }
 
-  createListOfStatuses() {
-    return _.uniq(this.props.mentors.map(m => m.status));
+  createListOfStatuses(mentorMode) {
+    return _.uniq(this.props[mentorMode ? "mentors" : "mentees"].map(m => m.status));
   }
 
   render() {
     return (
       <Formik
         render={({ values, setFieldValue }) => {
-          let mentorsToRender = (_.get(values, "search.length") > 0 ) ? this.search.search(values.search) : this.props.mentors;
-          if(_.get(values, "university.length") > 0) {
-            mentorsToRender = mentorsToRender.filter(m => _.some(values.university, (u) => {
-              return m.university === u
-            }));
+          const mentorMode = this.props.mode === "mentors";
+          let toRender;
+
+          if (mentorMode) {
+            toRender = (_.get(values, "search.length") > 0) ? this.search.search(values.search) : this.props.mentors;
+            if (_.get(values, "university.length") > 0) {
+              toRender = toRender.filter(m => _.some(values.university, (u) => {
+                return m.university === u
+              }));
+            }
+            if (_.get(values, "subject.length") > 0) {
+              toRender = toRender.filter(m => _.some(values.subject, (u) => {
+                return m.subject === u
+              }));
+            }
+          } else {
+            toRender = (_.get(values, "search.length") > 0) ? this.search.search(values.search) : this.props.mentees;
           }
-          if(_.get(values, "subject.length") > 0) {
-            mentorsToRender = mentorsToRender.filter(m => _.some(values.subject, (u) => {
-              return m.subject === u
-            }));
-          }
-          if(_.get(values, "status.length") > 0) {
-            mentorsToRender = mentorsToRender.filter(m => _.some(values.status, (u) => {
+
+
+          if (_.get(values, "status.length") > 0) {
+            toRender = toRender.filter(m => _.some(values.status, (u) => {
               return m.status === u
             }));
           }
+
 
           return (
             <FormikForm>
@@ -83,8 +93,7 @@ class Database extends Component {
                     />
 
 
-
-                    <Field
+                    {mentorMode ? <Field
                       type="select"
                       name="university"
                       render={({ field }) => {
@@ -98,10 +107,11 @@ class Database extends Component {
                         </Select>;
 
                       }}
-                    />
+                    /> : null}
+
                     <br/>
 
-                    <Field
+                    {mentorMode ? <Field
                       type="select"
                       name="subject"
                       render={({ field }) => {
@@ -115,7 +125,7 @@ class Database extends Component {
                         </Select>;
 
                       }}
-                    />
+                    /> : null}
 
                     <Field
                       type="select"
@@ -127,7 +137,7 @@ class Database extends Component {
                                        value={field.value}
                                        placeholder={"Status"}
                                        onChange={(o) => setFieldValue(field.name, o)}>
-                          {this.createListOfStatuses().map((v) => <Option key={v} value={v}>{v}</Option>)}
+                          {this.createListOfStatuses(mentorMode).map((v) => <Option key={v} value={v}>{v}</Option>)}
                         </Select>;
 
                       }}
@@ -136,8 +146,14 @@ class Database extends Component {
                   </Col>
                   <Col md={9}>
                     <CardColumns>
-                      {mentorsToRender.map(m => <MentorCard {...m} key={m._id} setFieldValue={setFieldValue}/>)}
+                      {toRender.map(m => <UserCard mentorMode={mentorMode} {...m} key={m._id} setFieldValue={setFieldValue}/>)}
                     </CardColumns>
+                    {toRender.length === 0 && _.get(values, "search.length") > 0 ?
+                      <div>
+                        <h4>No results match your search <Icon name="fas fa-search"/>
+                        </h4>
+                        <Image src={'https://media.giphy.com/media/6uGhT1O4sxpi8/giphy.gif'} />
+                      </div> : null}
                   </Col>
 
                 </Row>

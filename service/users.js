@@ -10,8 +10,7 @@ const { User } = require("./../models/users");
 getProfile = async (id) => {
   let user = await User.findById(id);
   if (user.onboarded) {
-    if (user.type === "mentor") user = await User.findById(id).populate("mentorProfile").exec().then(p => {return p});
-    // if (user.type === "mentee") user = await User.findById(id).populate("menteeProfile").exec().then(p => {return p}); TODO
+    user = await User.findById(id).populate(user.type === "mentor"? "mentorProfile" : "menteeProfile").exec().then(p => {return p});
   }
   return user;
 };
@@ -34,13 +33,11 @@ editProfile = async (req, res) => {
       }
 
       if (user.type === "mentor" && user.onboarded) await mentorService.edit(id, changedUserData, files.file);
+      if (user.type === "mentee" && user.onboarded) await menteeService.edit(id, changedUserData, files.file);
 
-      // if (userFromDb.Item.type === "mentee" && userFromDb.Item.onboarded) {
-      //   const response = await menteeService.edit(id, JSON.parse(fields.data[0]), files.file, userFromDb);
-      //   updatedUser.menteeProfile = response.Attributes;
-      // }
-
-      user = await User.findByIdAndUpdate(id, fieldsToUpdate, { new: true }).populate("mentorProfile").exec().then(p => {return p});
+      user = await User.findByIdAndUpdate(id, fieldsToUpdate, { new: true })
+        .populate(user.type === "mentor" ? "mentorProfile" : "menteeProfile")
+        .exec().then(p => {return p});
       res.json(user);
     } catch (error) {
       res.sendStatus(400)

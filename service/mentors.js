@@ -36,7 +36,7 @@ const registerNew = async (id, data) => {
 };
 
 const edit = async (id, data, file) => {
-  const picToDelete = (await User.findById(id)).pictureUrl;
+  const picToDelete = (await Mentor.findById(id)).pictureUrl;
   if (file) {
     const buffer = fs.readFileSync(file[0].path);
     const type = fileType(buffer);

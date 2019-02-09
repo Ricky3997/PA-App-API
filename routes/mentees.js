@@ -6,4 +6,6 @@ router.get('/', menteesController.getAll);
 
 router.post('/registerNew', menteesController.registerNew);
 
+router.post('/changeStatus', menteesController.changeStatus);
+
 module.exports = router;

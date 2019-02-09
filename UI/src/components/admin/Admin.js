@@ -16,7 +16,10 @@ class Admin extends Component {
   }
 
   componentDidMount() {
-    if(!this.props.admin.fetched) this.props.fetchMentors();
+    if(!this.props.admin.fetched) {
+      this.props.fetchMentors();
+      this.props.fetchMentees();
+    }
   }
 
   validateTab(tabKey) {
@@ -24,11 +27,15 @@ class Admin extends Component {
   }
 
   changeTab(key) {
-    if (key === "refresh" && this.props.match.params.section === "mentors") this.props.fetchMentors();
+    if (key === "refresh") {
+      if( this.props.match.params.section === "mentors") this.props.fetchMentors();
+      if( this.props.match.params.section === "mentees") this.props.fetchMentees();
+    }
     else this.props.history.push(`/admin/${key}`);
   }
 
   render() {
+    console.log(this.props)
     const { fetching } = this.props.admin;
     const { section } = this.props.match.params;
 
@@ -54,7 +61,12 @@ class Admin extends Component {
           </Tab>
           <Tab eventKey="mentees" title="Mentees">
             <Route path={"/admin/mentees/:section?"}
-                   render={() => <Mentees mentees={[]}/>}/>
+                   component={connect(({ user, admin, menteeAdmin }) => {
+                     return { user, admin, menteeAdmin };
+                   }, dispatch => {
+                     return {
+                     };
+                   })(Mentees)}/>
           </Tab>
           <Tab eventKey="matching" title="Matching">
             <Route path={"/admin/matching"} render={(props) => <Matching mentors={[]} mentees={[]}/>}/>

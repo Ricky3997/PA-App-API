@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { Col, Row } from "react-bootstrap";
-import Container from "react-bootstrap/es/Container";
-import Button from "react-bootstrap/es/Button";
+import { Col, Row, Container, Button } from "react-bootstrap";
 import NotReadyYet from "../various/NotReadyYet";
 import { Icon } from "react-fa";
 

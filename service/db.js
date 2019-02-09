@@ -1,4 +1,5 @@
 const { Mentor } = require("../models/mentors");
+const { Mentee } = require("../models/mentees");
 const { User } = require("../models/users");
 const assert = require("assert");
 const mongoose = require("mongoose");
@@ -34,7 +35,7 @@ const loadDummyMentors = async () => {
   const dummy = [
     {
       level: "Masters",
-      country: "",
+      country: "Italy",
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -47,7 +48,7 @@ const loadDummyMentors = async () => {
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5a7c387b4192029bc4b0dd95/1538660326244/20247810_10211655657680787_3062606713295678620_o.jpg?format=500w"
     }, {
       level: "Masters",
-      country: "",
+      country: "Italy",
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -60,7 +61,7 @@ const loadDummyMentors = async () => {
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb257a29140b75265e2b89e/1538667677946/0+%289%29.jpeg?format=500w"
     }, {
       level: "Masters",
-      country: "",
+      country: "Italy",
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -73,7 +74,7 @@ const loadDummyMentors = async () => {
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb24fc6e4966bf3c9d5df59/1538412681321/33038092_1063433287139499_9178229761615331328_n.jpg?format=500w"
     }, {
       level: "Masters",
-      country: "",
+      country: "Italy",
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -87,7 +88,7 @@ const loadDummyMentors = async () => {
     },
     {
       level: "Masters",
-      country: "",
+      country: "Italy",
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -101,7 +102,7 @@ const loadDummyMentors = async () => {
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5a7c3a6653450a8017a4dd11/1538511549752/Anna.jpg?format=500w"
     }, {
       level: "Masters",
-      country: "",
+      country: "Italy",
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -114,7 +115,7 @@ const loadDummyMentors = async () => {
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb257eeec212d94bfb1ec35/1538415414370/27747541_865005767039622_4075308886654729626_o.jpg?format=500w"
     }, {
       level: "Masters",
-      country: "",
+      country: "Italy",
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -128,7 +129,7 @@ const loadDummyMentors = async () => {
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb2580eeef1a197ab25d9cf/1538659979387/LinkedIn+Headshot.png?format=500w"
     }, {
       level: "Masters",
-      country: "",
+      country: "Italy",
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -142,7 +143,7 @@ const loadDummyMentors = async () => {
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb259e28165f5a2736d1a0f/1538824695598/20840824_1472104999536081_8363351716822259875_n.jpg?format=500w"
     }, {
       level: "Masters",
-      country: "",
+      country: "Italy",
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -154,9 +155,9 @@ const loadDummyMentors = async () => {
       city: "Milano",
       status: "rejected",
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb247c7e79c70440c674eec/1538667470758/14383474_1341206875897109_1207170910_n.jpg?format=500w"
-    },{
+    }, {
       level: "Masters",
-      country: "",
+      country: "Italy",
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -169,7 +170,7 @@ const loadDummyMentors = async () => {
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5a7c387b4192029bc4b0dd95/1538660326244/20247810_10211655657680787_3062606713295678620_o.jpg?format=500w"
     }, {
       level: "Masters",
-      country: "",
+      country: "Italy",
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -182,7 +183,7 @@ const loadDummyMentors = async () => {
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb257a29140b75265e2b89e/1538667677946/0+%289%29.jpeg?format=500w"
     }, {
       level: "Masters",
-      country: "",
+      country: "Italy",
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -195,7 +196,7 @@ const loadDummyMentors = async () => {
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb24fc6e4966bf3c9d5df59/1538412681321/33038092_1063433287139499_9178229761615331328_n.jpg?format=500w"
     }, {
       level: "Masters",
-      country: "",
+      country: "Italy",
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -209,7 +210,7 @@ const loadDummyMentors = async () => {
     },
     {
       level: "Masters",
-      country: "",
+      country: "Italy",
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -223,7 +224,7 @@ const loadDummyMentors = async () => {
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5a7c3a6653450a8017a4dd11/1538511549752/Anna.jpg?format=500w"
     }, {
       level: "Masters",
-      country: "",
+      country: "Italy",
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -236,7 +237,7 @@ const loadDummyMentors = async () => {
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb257eeec212d94bfb1ec35/1538415414370/27747541_865005767039622_4075308886654729626_o.jpg?format=500w"
     }, {
       level: "Masters",
-      country: "",
+      country: "Italy",
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -250,7 +251,7 @@ const loadDummyMentors = async () => {
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb2580eeef1a197ab25d9cf/1538659979387/LinkedIn+Headshot.png?format=500w"
     }, {
       level: "Masters",
-      country: "",
+      country: "Italy",
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -263,7 +264,7 @@ const loadDummyMentors = async () => {
       status: "notYetRequested"
     }, {
       level: "Masters",
-      country: "",
+      country: "Italy",
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -274,7 +275,7 @@ const loadDummyMentors = async () => {
       emailAddress: "riccardo@broggi.co.uk",
       city: "Milano",
       status: "rejected"
-  }
+    }
   ];
   await Mentor.insertMany(dummy);
 };
@@ -283,7 +284,7 @@ const loadDevUser = async () => {
   const mentorProfile = {
     _id: id,
     level: "Masters",
-    country: "",
+    country: "Italy",
     firstGenStudent: "Yes",
     gender: "Male",
     year: "2",
@@ -294,25 +295,44 @@ const loadDevUser = async () => {
     city: "Milano",
     status: "requested",
     pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/t/5bb721a4e2c48357967f52fa/1538728361542/Riccardo.jpg?format=300w"
+  };
+  const menteeProfile = {
+    _id: id,
+    city: "London",
+    country: "Antigua and Barbuda",
+    firstGenStudent: "No",
+    firstName: "Riccardo",
+    gender: "Male",
+    interestedIn: ["Natural Sciences"],
+    level: "Undergraduate",
+    school: "StLouisSchool OF Milan",
+    subjects: ["Biology"],
+    unisApplyingFor: ["LSE"],
+    year: "Gap Year",
+    status: "requested",
+    pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/t/5bb721a4e2c48357967f52fa/1538728361542/Riccardo.jpg?format=300w"
 
   };
   await new Mentor(mentorProfile).save();
+  await new Mentee(menteeProfile).save();
   const userProfile = {
     _id: id,
     firstName: "Riccardo",
-    type: "mentor",
+    type: "mentee",
     email: "riccardo@broggi.co.uk",
     emailConfirmed: true,
     onboarded: true,
     admin: true,
-    mentorProfile: id
+    mentorProfile: id,
+    menteeProfile: id,
   };
-  const user = await new User(userProfile).save();
+  await new User(userProfile).save();
 
 };
 
 const clearDb = async () => {
   await Mentor.deleteMany({});
+  await Mentee.deleteMany({});
   await User.deleteMany({});
 };
 

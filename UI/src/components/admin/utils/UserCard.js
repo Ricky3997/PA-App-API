@@ -4,10 +4,10 @@ import ConfirmMatchButton from "./ConfirmMatchButton";
 import { Icon } from "react-fa";
 import ProfileIcon from "../../various/ProfileIcon";
 
-const MentorCard = (props) => {
+const UserCard = (props) => {
 
   const statusToIcon = () => {
-    if (props.status === "notYetRequested") return  <Icon name={`fas fa-newspaper-o`} style={{ color: "#03619b" }}/>;
+    if (props.status === "notYetRequested") return <Icon name={`fas fa-newspaper-o`} style={{ color: "#03619b" }}/>;
     else if (props.status === "approved") return <Icon name={`fas fa-check-circle`} style={{ color: "#289b00" }}/>;
     else if (props.status === "requested") return <Icon name={`fas fa-hourglass`} style={{ color: "#c69200" }}/>;
     else if (props.status === "rejected") return <Icon name={`fas fa-ban`} style={{ color: "#9b0014" }}/>;
@@ -17,7 +17,7 @@ const MentorCard = (props) => {
   return (
     <Card className="text-center" key={props._id}>
       <Card.Header>
-        <ProfileIcon pictureUrl={props.pictureUrl} size={"m"}/>
+        <ProfileIcon mentorMode={props.mentorMode} pictureUrl={props.pictureUrl} size={"m"}/>
       </Card.Header>
       <Card.Body>
         <Card.Title>
@@ -33,14 +33,17 @@ const MentorCard = (props) => {
         </Card.Title>
         {props.setFieldValue ?
           <Card.Text>
-            <span onClick={() => props.setFieldValue("subject", [props.subject])}
-                  style={{ color: "blue", cursor: "pointer" }}>{props.subject}</span>
+            {props.mentorMode ? <span>
+               <span onClick={() => props.setFieldValue("subject", [props.subject])}
+                     style={{ color: "blue", cursor: "pointer" }}>{props.subject}</span>
             <span>{" at "}</span>
             <span onClick={() => props.setFieldValue("university", [props.university])}
                   style={{ color: "blue", cursor: "pointer" }}>{props.university}</span>
+            </span> : <span>Mentee</span>}
+
           </Card.Text>
           : <Card.Text>
-            {`${props.course} at ${props.university}`}
+            {props.mentorMode ? `${props.course} at ${props.university}` : "mentee"}
           </Card.Text>}
       </Card.Body>
       {props.matching ?
@@ -51,4 +54,4 @@ const MentorCard = (props) => {
   );
 };
 
-export default MentorCard;
+export default UserCard;

@@ -2,9 +2,15 @@ import {
   ADD_ONBOARDING_PROPERTIES,
   CHANGE_STAGE,
   REMOVE_PICTURE_TO_CROP,
-  REMOVE_USER, SET_ACTIVE_MENTOR_APPROVAL_ID, SET_MENTEES, SET_MENTORS, SET_RELATIONSHIPS,
+  REMOVE_USER,
+  SET_ACTIVE_MENTEE_APPROVAL_ID,
+  SET_ACTIVE_MENTOR_APPROVAL_ID,
+  SET_MENTEES,
+  SET_MENTORS,
+  SET_RELATIONSHIPS,
   STORE_PICTURE_CROPPED,
-  STORE_PICTURE_TO_CROP, TOGGLE_ADMIN_FETCHING,
+  STORE_PICTURE_TO_CROP,
+  TOGGLE_ADMIN_FETCHING,
   TOGGLE_PICTURE_PICKER,
   TOGGLE_REGISTERING,
   UPDATE_USER
@@ -75,8 +81,7 @@ function admin(state = {
   fetched: false,
   mentors: [],
   relationships: [],
-  mentees: [],
-  activeMentorApprovalId: null
+  mentees: []
 }, action) {
   switch (action.type) {
     case SET_RELATIONSHIPS:
@@ -85,8 +90,6 @@ function admin(state = {
       return {...state, mentees: action.mentees};
     case SET_MENTORS:
       return {...state, mentors: action.mentors};
-    case SET_ACTIVE_MENTOR_APPROVAL_ID:
-      return {...state, activeMentorApprovalId: action.id};
     case TOGGLE_ADMIN_FETCHING:
       return {...state, fetching: !state.fetching, fetched: true};
     default:
@@ -98,6 +101,16 @@ function mentorAdmin(state = {
 }, action) {
   switch (action.type) {
     case SET_ACTIVE_MENTOR_APPROVAL_ID:
+      return {...state, activeApprovalId: action.id};
+    default:
+      return state;
+  }
+}
+function menteeAdmin(state = {
+  activeApprovalId: null
+}, action) {
+  switch (action.type) {
+    case SET_ACTIVE_MENTEE_APPROVAL_ID:
       return {...state, activeApprovalId: action.id};
     default:
       return state;
