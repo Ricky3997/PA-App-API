@@ -8,7 +8,7 @@ module.exports = {
   },
 
   mongodb: process.env.NODE_ENV === "production" ? {
-    URI: 'mongodb://mentordatabase:ccc@mentor-mongodb-cluster.cluster-can55q6gsba8.eu-west-1.docdb.amazonaws.com:27017/?ssl_ca_certs=rds-combined-ca-bundle.pem&replicaSet=rs0'
+    URI: process.env.MONGODB_URI
   } : {
     URI: 'mongodb://localhost/mentor-mongodb'
   },
