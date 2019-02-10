@@ -4,7 +4,7 @@ const AWS = require("aws-sdk");
 const config = require("../config.js");
 const fs = require("fs");
 const fileType = require("file-type");
-const ep = new AWS.Endpoint("s3.eu-west-2.amazonaws.com");
+const ep = new AWS.Endpoint("s3.eu-west-1.amazonaws.com");
 const s3 = new AWS.S3({ endpoint: ep });
 
 const {Mentee} = require("./../models/mentees");
