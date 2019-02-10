@@ -13,6 +13,7 @@ const initDb = (callback) => {
     return callback(null, _db);
   }
 
+  console.log("Connecting to " + config.mongodb.URI);
   mongoose.connect(config.mongodb.URI).then(async () => {
     _db = mongoose.connection;
     if (true ) { //TODO !config.PROD_MODE
