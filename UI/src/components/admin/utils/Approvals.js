@@ -1,22 +1,22 @@
-import React, { Component } from "react";
+import React from "react";
 import { Button, Col, Container, ListGroup, Row } from "react-bootstrap";
 import ProfileIcon from "../../various/ProfileIcon";
 
-class Approvals extends Component {
+const Approvals = (props) => {
 
-  render() {
-    const { setActiveMentorApprovalId,activeApprovalId } = this.props;
-    const toApprove = activeApprovalId ? this.props.mentors.filter(m => m._id === activeApprovalId)[0] : null;
+    const { setActiveApprovalId, activeApprovalId } = props;
+    const toApprove = activeApprovalId ? props[props.mentorMode ? "mentors" : "mentees"].filter(m => m._id === activeApprovalId)[0] : null;
     return (
       <Container fluid>
         <Row>
           <Col md={3}>
             <ListGroup>
               {
-                this.props.mentors.length > 0 ?
-                  this.props.mentors.map(m => <ListGroup.Item active={m._id === activeApprovalId}
-                                                              onClick={() => setActiveMentorApprovalId(m._id)}
-                                                              style={{ cursor: "pointer" }}>
+                props[props.mentorMode ? "mentors" : "mentees"].length > 0 ?
+                  props[props.mentorMode ? "mentors" : "mentees"].map(m => <ListGroup.Item
+                    active={m._id === activeApprovalId}
+                    onClick={() => setActiveApprovalId(m._id)}
+                    style={{ cursor: "pointer" }}>
                     <ProfileIcon pictureUrl={m.pictureUrl} size={"s"}/>
                     {`  ${m.firstName}`}
                   </ListGroup.Item>) :
@@ -35,16 +35,20 @@ class Approvals extends Component {
                 </Col>
                 <Col md={9}>
                   <h6>{`${toApprove.firstName}`}</h6>
-                  <h6>{`${toApprove.subject} at ${toApprove.university}`}</h6>
+                  {props.mentorMode ? <h6>{`${toApprove.subject} at ${toApprove.university}`}</h6> :
+                    <h6>{`${toApprove.interestedIn} at ${toApprove.unisApplyingFor}`}</h6>}
+
                   <h6>{`From ${toApprove.city}`}</h6>
                 </Col>
               </Row>
               <Row>
                 <Col md={{ size: 2, offset: 8 }}>
-                  <Button block variant="danger" onClick={() => this.props.adminChangeMentorStatus(toApprove._id, "rejected")}> Reject </Button>
+                  <Button block variant="danger"
+                          onClick={() => props.adminChangeUserStatus(toApprove._id, "rejected", props.mentorMode ? "mentor" : "mentee")}> Reject </Button>
                 </Col>
                 <Col md={{ size: 2 }}>
-                  <Button block variant="success" onClick={() => this.props.adminChangeMentorStatus(toApprove._id, "approved")}> Approve </Button>
+                  <Button block variant="success"
+                          onClick={() => props.adminChangeUserStatus(toApprove._id, "approved", props.mentorMode ? "mentor" : "mentee")}> Approve </Button>
                 </Col>
               </Row>
             </Container> : <div><h4>Nothing to approve</h4></div>}
@@ -52,9 +56,10 @@ class Approvals extends Component {
         </Row>
       </Container>
     );
-  }
+    ;
 
-};
+  }
+;
 
 
 export default Approvals;

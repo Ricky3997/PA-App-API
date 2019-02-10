@@ -2,7 +2,7 @@ import {
   ADD_ONBOARDING_PROPERTIES,
   CHANGE_STAGE,
   REMOVE_PICTURE_TO_CROP,
-  REMOVE_USER, SET_ACTIVE_MENTOR_APPROVAL_ID, SET_MENTEES, SET_MENTORS,
+  REMOVE_USER, SET_ACTIVE_MENTEE_APPROVAL_ID, SET_ACTIVE_MENTOR_APPROVAL_ID, SET_MENTEES, SET_MENTORS,
   STORE_PICTURE_CROPPED,
   STORE_PICTURE_TO_CROP, TOGGLE_ADMIN_FETCHING,
   TOGGLE_PICTURE_PICKER,
@@ -179,6 +179,13 @@ export const setActiveMentorApprovalId = (id) => {
   }
 };
 
+export const setActiveMenteeApprovalId = (id) => {
+  return {
+    type: SET_ACTIVE_MENTEE_APPROVAL_ID,
+    id: id
+  }
+};
+
 export const toggleAdminFetching = () => {
   return {
     type: TOGGLE_ADMIN_FETCHING
@@ -205,28 +212,37 @@ export const fetchMentees = () => {
       dispatch(toggleAdminFetching());
       if(r.success){
         dispatch(setMentees(r.payload));
-        // if(r.payload.filter(m => m.status === "requested").length > 0) dispatch(setActiveMentorApprovalId(r.payload.filter(m => m.status === "requested")[0]._id));
+        if(r.payload.filter(m => m.status === "requested").length > 0) dispatch(setActiveMenteeApprovalId(r.payload.filter(m => m.status === "requested")[0]._id));
       }
     })
   }
 };
 
-export const adminChangeMentorStatus = (id, status) => {
+export const adminChangeUserStatus = (id, status, type) => {
   return (dispatch, getState) => {
     dispatch(toggleAdminFetching());
-    return api.post("/api/admin/changeMentorStatus", {id: id, status: status}).then(r => {
+    return api.post("/api/admin/changeUserStatus", {id: id, status: status, type: type}).then(r => {
       dispatch(toggleAdminFetching());
-      let {mentors} = getState().admin;
-      mentors = mentors.filter(m => m._id !==id);
-      mentors.push(r.payload);
-      if(r.success){
-        dispatch(setMentors(mentors));
-        mentors = getState().admin.mentors;
-        if(mentors.filter(m => m.status === "requested").length > 0) dispatch(setActiveMentorApprovalId(mentors.filter(m => m.status === "requested")[0]._id));
-      }
 
+      if(type === "mentor"){
+        let {mentors} = getState().admin;
+        mentors = mentors.filter(m => m._id !==id);
+        mentors.push(r.payload);
+        if(r.success){
+          dispatch(setMentors(mentors));
+          mentors = getState().admin.mentors;
+          if(mentors.filter(m => m.status === "requested").length > 0) dispatch(setActiveMentorApprovalId(mentors.filter(m => m.status === "requested")[0]._id));
+        }
+      } else {
+        let {mentees} = getState().admin;
+        mentees = mentees.filter(m => m._id !==id);
+        mentees.push(r.payload);
+        if(r.success){
+          dispatch(setMentees(mentees));
+          mentees = getState().admin.mentees;
+          if(mentees.filter(m => m.status === "requested").length > 0) dispatch(setActiveMenteeApprovalId(mentees.filter(m => m.status === "requested")[0]._id));
+        }
+      }
     })
   }
 };
-
-

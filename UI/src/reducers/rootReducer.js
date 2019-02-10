@@ -118,7 +118,7 @@ function menteeAdmin(state = {
 }
 
 const app = combineReducers({
-  user, settings, onboarding, admin, mentorAdmin
+  user, settings, onboarding, admin, mentorAdmin, menteeAdmin
 });
 
 export default app;

@@ -39,7 +39,15 @@ const UserCard = (props) => {
             <span>{" at "}</span>
             <span onClick={() => props.setFieldValue("university", [props.university])}
                   style={{ color: "blue", cursor: "pointer" }}>{props.university}</span>
-            </span> : <span>Mentee</span>}
+            </span> : <span>
+
+              {props.interestedIn.map((s,i) => <span onClick={() => props.setFieldValue("subject", [s])}
+                                                    style={{ color: "blue", cursor: "pointer" }}>{`${s}${i !== (props.interestedIn.length - 1) ? ',' : ''} `}</span>)}
+
+            <span>{" at "}</span>
+              {props.unisApplyingFor.map((u,i) => <span onClick={() => props.setFieldValue("university", [u])}
+                                                    style={{ color: "blue", cursor: "pointer" }}>{`${u}${i !== (props.unisApplyingFor.length - 1) ? ',' : ''} `}</span>)}
+            </span>}
 
           </Card.Text>
           : <Card.Text>

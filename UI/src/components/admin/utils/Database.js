@@ -26,12 +26,14 @@ class Database extends Component {
     this.search.addDocuments(props.mode === "mentors" ? props.mentors : props.mentees);
   }
 
-  createListOfUnisToFilter() {
-    return _.uniq(this.props.mentors.map(m => m.university));
+  createListOfUnisToFilter(mentorMode) {
+    if (mentorMode) return _.uniq(this.props.mentors.map(m => m.university));
+    else return _.uniq(this.props.mentees.flatMap(m => m.unisApplyingFor));
   }
 
-  createListOfSubjectsToFilter() {
-    return _.uniq(this.props.mentors.map(m => m.subject));
+  createListOfSubjectsToFilter(mentorMode) {
+    if (mentorMode) return _.uniq(this.props.mentors.map(m => m.subject));
+    else return _.uniq(this.props.mentees.flatMap(m => m.interestedIn));
   }
 
   createListOfStatuses(mentorMode) {
@@ -45,26 +47,22 @@ class Database extends Component {
           const mentorMode = this.props.mode === "mentors";
           let toRender;
 
-          if (mentorMode) {
-            toRender = (_.get(values, "search.length") > 0) ? this.search.search(values.search) : this.props.mentors;
-            if (_.get(values, "university.length") > 0) {
-              toRender = toRender.filter(m => _.some(values.university, (u) => {
-                return m.university === u
-              }));
-            }
-            if (_.get(values, "subject.length") > 0) {
-              toRender = toRender.filter(m => _.some(values.subject, (u) => {
-                return m.subject === u
-              }));
-            }
-          } else {
-            toRender = (_.get(values, "search.length") > 0) ? this.search.search(values.search) : this.props.mentees;
-          }
+          toRender = (_.get(values, "search.length") > 0) ? this.search.search(values.search) : this.props[mentorMode ? "mentors" : "mentees"];
 
+          if (_.get(values, "university.length") > 0) {
+            toRender = toRender.filter(m => _.some(values.university, (u) => {
+              return mentorMode ? m.university === u : _.some(m.unisApplyingFor, uAf => uAf === u);
+            }));
+          }
+          if (_.get(values, "subject.length") > 0) {
+            toRender = toRender.filter(m => _.some(values.subject, (s) => {
+              return mentorMode ? m.subject === s : _.some(m.interestedIn, iI => iI === s);
+            }));
+          }
 
           if (_.get(values, "status.length") > 0) {
             toRender = toRender.filter(m => _.some(values.status, (u) => {
-              return m.status === u
+              return m.status === u;
             }));
           }
 
@@ -93,7 +91,7 @@ class Database extends Component {
                     />
 
 
-                    {mentorMode ? <Field
+                    <Field
                       type="select"
                       name="university"
                       render={({ field }) => {
@@ -103,15 +101,15 @@ class Database extends Component {
                                        value={field.value}
                                        placeholder={"University"}
                                        onChange={(o) => setFieldValue(field.name, o)}>
-                          {this.createListOfUnisToFilter().map((v) => <Option key={v} value={v}>{v}</Option>)}
+                          {this.createListOfUnisToFilter(mentorMode).map((v) => <Option key={v} value={v}>{v}</Option>)}
                         </Select>;
 
                       }}
-                    /> : null}
+                    />
 
                     <br/>
 
-                    {mentorMode ? <Field
+                    <Field
                       type="select"
                       name="subject"
                       render={({ field }) => {
@@ -121,11 +119,12 @@ class Database extends Component {
                                        value={field.value}
                                        placeholder={"Subject"}
                                        onChange={(o) => setFieldValue(field.name, o)}>
-                          {this.createListOfSubjectsToFilter().map((v) => <Option key={v} value={v}>{v}</Option>)}
+                          {this.createListOfSubjectsToFilter(mentorMode).map((v) => <Option key={v}
+                                                                                            value={v}>{v}</Option>)}
                         </Select>;
 
                       }}
-                    /> : null}
+                    />
 
                     <Field
                       type="select"
@@ -146,20 +145,21 @@ class Database extends Component {
                   </Col>
                   <Col md={9}>
                     <CardColumns>
-                      {toRender.map(m => <UserCard mentorMode={mentorMode} {...m} key={m._id} setFieldValue={setFieldValue}/>)}
+                      {toRender.map(m => <UserCard mentorMode={mentorMode} {...m} key={m._id}
+                                                   setFieldValue={setFieldValue}/>)}
                     </CardColumns>
                     {toRender.length === 0 && _.get(values, "search.length") > 0 ?
                       <div>
                         <h4>No results match your search <Icon name="fas fa-search"/>
                         </h4>
-                        <Image src={'https://media.giphy.com/media/6uGhT1O4sxpi8/giphy.gif'} />
+                        <Image src={"https://media.giphy.com/media/6uGhT1O4sxpi8/giphy.gif"}/>
                       </div> : null}
                   </Col>
 
                 </Row>
               </Container>
             </FormikForm>
-          )
+          );
         }}
       />
 

@@ -6,7 +6,11 @@ import Mentors from "./mentors/Mentors";
 import { Route } from "react-router-dom";
 import Matching from "./matching/Matching";
 import { Icon } from "react-fa";
-import { adminChangeMentorStatus, setActiveMentorApprovalId } from "../../actions/actionCreator";
+import {
+  adminChangeUserStatus,
+  setActiveMenteeApprovalId,
+  setActiveMentorApprovalId
+} from "../../actions/actionCreator";
 import connect from "react-redux/es/connect/connect";
 
 class Admin extends Component {
@@ -35,7 +39,6 @@ class Admin extends Component {
   }
 
   render() {
-    console.log(this.props)
     const { fetching } = this.props.admin;
     const { section } = this.props.match.params;
 
@@ -54,7 +57,7 @@ class Admin extends Component {
                    }, dispatch => {
                      return {
                        setActiveMentorApprovalId: (id) => dispatch(setActiveMentorApprovalId(id)),
-                       adminChangeMentorStatus: (id,status) => dispatch(adminChangeMentorStatus(id,status))
+                       adminChangeUserStatus: (id,status, type) => dispatch(adminChangeUserStatus(id,status, type))
                      };
                    })(Mentors)}/>
 
@@ -65,11 +68,13 @@ class Admin extends Component {
                      return { user, admin, menteeAdmin };
                    }, dispatch => {
                      return {
+                       setActiveMenteeApprovalId: (id) => dispatch(setActiveMenteeApprovalId(id)),
+                       adminChangeUserStatus: (id,status, type) => dispatch(adminChangeUserStatus(id,status, type))
                      };
                    })(Mentees)}/>
           </Tab>
           <Tab eventKey="matching" title="Matching">
-            <Route path={"/admin/matching"} render={(props) => <Matching mentors={[]} mentees={[]}/>}/>
+            <Route path={"/admin/matching"} render={() => <Matching mentors={[]} mentees={[]}/>}/>
           </Tab>
           <Tab eventKey="refresh" disabled={fetching} title={<Icon name={"fas fa-refresh"}/>}/>
         </Tabs>
