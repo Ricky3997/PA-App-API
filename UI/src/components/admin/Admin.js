@@ -9,7 +9,7 @@ import { Icon } from "react-fa";
 import {
   adminChangeUserStatus,
   setActiveMenteeApprovalId,
-  setActiveMentorApprovalId
+  setActiveMentorApprovalId, setMatchingActiveId, switchMatchingMode
 } from "../../actions/actionCreator";
 import connect from "react-redux/es/connect/connect";
 
@@ -74,7 +74,20 @@ class Admin extends Component {
                    })(Mentees)}/>
           </Tab>
           <Tab eventKey="matching" title="Matching">
-            <Route path={"/admin/matching"} render={() => <Matching mentors={[]} mentees={[]}/>}/>
+            <Route path={"/admin/matching"} component={connect(({ user, admin, matching }) => {
+              return { user,
+                mentors: admin.mentors.filter(m => m.status = "approved"),
+                mentees: admin.mentees.filter(m => m.status = "approved"),
+                matching
+              };
+            }, dispatch => {
+              return {
+                switchMatchingMode: () => dispatch(switchMatchingMode()),
+                setMatchingActiveId: (id) => dispatch(setMatchingActiveId(id)),
+              };
+            })(Matching)}/>
+
+
           </Tab>
           <Tab eventKey="refresh" disabled={fetching} title={<Icon name={"fas fa-refresh"}/>}/>
         </Tabs>

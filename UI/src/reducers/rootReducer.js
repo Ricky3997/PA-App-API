@@ -4,12 +4,12 @@ import {
   REMOVE_PICTURE_TO_CROP,
   REMOVE_USER,
   SET_ACTIVE_MENTEE_APPROVAL_ID,
-  SET_ACTIVE_MENTOR_APPROVAL_ID,
+  SET_ACTIVE_MENTOR_APPROVAL_ID, SET_MATCHING_ID,
   SET_MENTEES,
   SET_MENTORS,
   SET_RELATIONSHIPS,
   STORE_PICTURE_CROPPED,
-  STORE_PICTURE_TO_CROP,
+  STORE_PICTURE_TO_CROP, SWITCH_MATCHING_MODE,
   TOGGLE_ADMIN_FETCHING,
   TOGGLE_PICTURE_PICKER,
   TOGGLE_REGISTERING,
@@ -106,6 +106,7 @@ function mentorAdmin(state = {
       return state;
   }
 }
+
 function menteeAdmin(state = {
   activeApprovalId: null
 }, action) {
@@ -117,8 +118,23 @@ function menteeAdmin(state = {
   }
 }
 
+function matching(state = {
+  manualMode: false,
+  activeId: null
+}, action) {
+  switch (action.type) {
+    case SET_MATCHING_ID:
+      return {...state, activeId: action.id};
+    case SWITCH_MATCHING_MODE:
+      return {...state, manualMode: !state.manualMode};
+    default:
+      return state;
+  }
+}
+
+
 const app = combineReducers({
-  user, settings, onboarding, admin, mentorAdmin, menteeAdmin
+  user, settings, onboarding, admin, mentorAdmin, menteeAdmin, matching
 });
 
 export default app;
