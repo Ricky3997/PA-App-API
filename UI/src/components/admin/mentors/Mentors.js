@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React  from "react";
 import { Col, Nav, Row, Tab } from "react-bootstrap";
 import Database from "./../utils/Database";
 import Approvals from "./../utils/Approvals";
@@ -45,7 +45,7 @@ const Mentors = (props) => {
                                                           adminChangeUserStatus={props.adminChangeUserStatus}
                                                           setActiveApprovalId={props.setActiveMentorApprovalId}/>}/>
                           <Route path={"/admin/mentors/statistics"}
-                                 render={() => <Statistics mentors={mentors}/>}/>
+                                 render={() => <Statistics mentorMode mentors={mentors}/>}/>
 
                           <Route path={["/admin/mentors/database", "/admin/mentors"]}
                                  render={() => <Database mode="mentors" mentors={mentors}/>}/>

@@ -8,4 +8,18 @@ const changeUserStatus = async (id, status, type) => {
   else return await Mentee.findByIdAndUpdate(id, {status: status}, {new: true}).exec().then(p => {return p});
 };
 
-module.exports = { changeUserStatus };
+const matchingMentorRecommendations = async (id) => {
+  const menteeProfile = await Mentee.findById(id).exec().then(p => {return p});;
+
+  const mentors = await Mentor.find().exec().then(p => {return p});;
+
+  const mentorRecommendations = new Array(3);
+  mentorRecommendations[0] = _.sample(mentors);
+  mentorRecommendations[1] = _.sample(mentors);
+  mentorRecommendations[2] = _.sample(mentors);
+
+  return mentorRecommendations;
+
+};
+
+module.exports = { changeUserStatus, matchingMentorRecommendations };

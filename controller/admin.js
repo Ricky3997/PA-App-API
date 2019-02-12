@@ -6,5 +6,10 @@ const changeUserStatus =  async (req,res) => {
     if(result) res.json(result);
     else res.sendStatus(400);
 };
+const matchingMentorRecommendations =  async (req,res) => {
+    const result = await adminService.matchingMentorRecommendations(req.params.id);
+    if(result) res.json(result);
+    else res.sendStatus(400);
+};
 
-module.exports = {changeUserStatus};
+module.exports = {changeUserStatus, matchingMentorRecommendations};

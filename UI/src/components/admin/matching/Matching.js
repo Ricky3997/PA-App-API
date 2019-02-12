@@ -11,11 +11,11 @@ import {
   Row
 } from "react-bootstrap";
 import UserCard from "../utils/UserCard";
-import * as _ from "lodash";
 import { Icon } from "react-fa";
 import * as JsSearch from "js-search";
 import ProfileIcon from "../../various/ProfileIcon";
 import { Field, Form as FormikForm, Formik } from "formik";
+import LoadingCard from "../utils/LoadingCard";
 
 class Matching extends Component {
   constructor(props) {
@@ -28,10 +28,9 @@ class Matching extends Component {
   }
 
   render() {
+    const { activeId, manualMode, mentorRecommendations } = this.props.matching;
+    const { mentors, mentees, switchMatchingMode, changeMenteeBeingMatched } = this.props;
 
-    const { activeId, manualMode } = this.props.matching;
-    const { mentors, mentees, switchMatchingMode, setMatchingActiveId } = this.props;
-    const rand = _.random(0, mentors.length - 3);
     const toMatch = activeId ? mentees.filter(m => m._id === activeId)[0] : null;
 
     return (
@@ -42,7 +41,7 @@ class Matching extends Component {
               <ListGroup.Item active>No Mentees To Match</ListGroup.Item> : null}
             {mentees.map(m => <ListGroup.Item active={activeId === m._id}
                                               key={m._id}
-                                              onClick={() => setMatchingActiveId(m._id)}
+                                              onClick={() => (m._id !== activeId) ? changeMenteeBeingMatched(m._id) : null}
                                               style={{ cursor: "pointer" }}>
                 <ProfileIcon pictureUrl={m.pictureUrl} size={"s"}/>
                 {`  ${m.firstName}`}
@@ -83,43 +82,50 @@ class Matching extends Component {
               <Row>
                 <Col>
                   {manualMode ? <Formik
-                      initialValues={{ search: "" }}
-                      render={({ values, setFieldValue }) => {
+                    initialValues={{ search: "" }}
+                    render={({ values, setFieldValue }) => {
 
-                        const mentorsToRender = values.search.length > 0 ? this.search.search(values.search) : mentors;
+                      const mentorsToRender = values.search.length > 0 ? this.search.search(values.search) : mentors;
 
-                        return (
-                          <FormikForm>
-                            <div>
-                              <Field
-                                type="select"
-                                name="search"
-                                render={({ field }) => {
+                      return (
+                        <FormikForm>
+                          <div>
+                            <Field
+                              type="select"
+                              name="search"
+                              render={({ field }) => {
 
-                                  return <InputGroup className="mb-3">
-                                    <InputGroup.Prepend>
-                                      <InputGroup.Text><Icon name="fas fa-search"/></InputGroup.Text>
-                                    </InputGroup.Prepend>
-                                    <Form.Control placeholder="Search..." value={field.search}
-                                                  onChange={(e) => setFieldValue(field.name, e.target.value)}/>
-                                  </InputGroup>;
+                                return <InputGroup className="mb-3">
+                                  <InputGroup.Prepend>
+                                    <InputGroup.Text><Icon name="fas fa-search"/></InputGroup.Text>
+                                  </InputGroup.Prepend>
+                                  <Form.Control placeholder="Search..." value={field.search}
+                                                onChange={(e) => setFieldValue(field.name, e.target.value)}/>
+                                </InputGroup>;
 
-                                }}
-                              />
+                              }}
+                            />
 
-                              <CardColumns>
-                                {mentorsToRender.map(m => <UserCard {...m} key={m._id} matching mentorMode
-                                                                    changeSearch={(p) => this.setState({ search: p })}/>)}
-                              </CardColumns>
+                            <CardColumns>
+                              {mentorsToRender.map(m => <UserCard {...m} key={m._id} matching mentorMode
+                                                                  changeSearch={(p) => this.setState({ search: p })}/>)}
+                            </CardColumns>
 
-                            </div>
-                          </FormikForm>
-                        );
-                      }}
-                    /> :
-                    <CardDeck>
-                      {mentors.slice(rand, rand + 3).map(m => <UserCard mentorMode key={m._id} {...m} matching/>)}
-                    </CardDeck>
+                          </div>
+                        </FormikForm>
+                      );
+                    }}
+                  /> : <div>
+                    {mentorRecommendations.length === 0
+                      ? <CardDeck>
+                        <LoadingCard/>
+                        <LoadingCard/>
+                        <LoadingCard/>
+                      </CardDeck> :
+                      <CardDeck>
+                        {mentorRecommendations.map(m => <UserCard mentorMode key={`${toMatch._id}-${m._id}`} {...m} matching/>)}
+                      </CardDeck>}
+                  </div>
                   }
                   <br/>
 

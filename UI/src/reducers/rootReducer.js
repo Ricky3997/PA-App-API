@@ -5,7 +5,7 @@ import {
   REMOVE_USER,
   SET_ACTIVE_MENTEE_APPROVAL_ID,
   SET_ACTIVE_MENTOR_APPROVAL_ID, SET_MATCHING_ID,
-  SET_MENTEES,
+  SET_MENTEES, SET_MENTOR_RECOMMENDATIONS,
   SET_MENTORS,
   SET_RELATIONSHIPS,
   STORE_PICTURE_CROPPED,
@@ -120,11 +120,14 @@ function menteeAdmin(state = {
 
 function matching(state = {
   manualMode: false,
-  activeId: null
+  activeId: null,
+  mentorRecommendations: []
 }, action) {
   switch (action.type) {
     case SET_MATCHING_ID:
-      return {...state, activeId: action.id};
+      return {...state, activeId: action.id, mentorRecommendations: []};
+    case SET_MENTOR_RECOMMENDATIONS:
+      return {...state, mentorRecommendations: action.mentorRecommendations};
     case SWITCH_MATCHING_MODE:
       return {...state, manualMode: !state.manualMode};
     default:

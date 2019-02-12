@@ -42,6 +42,7 @@ const UserCard = (props) => {
             </span> :
               <span>
               {props.interestedIn.map((s, i) => <span onClick={() => props.setFieldValue("subject", [s])}
+                                                      key={i}
                                                       style={{
                                                         color: "blue",
                                                         cursor: "pointer"
@@ -49,6 +50,7 @@ const UserCard = (props) => {
 
                 <span>{" at "}</span>
                 {props.unisApplyingFor.map((u, i) => <span onClick={() => props.setFieldValue("university", [u])}
+                                                           key={i}
                                                            style={{
                                                              color: "blue",
                                                              cursor: "pointer"

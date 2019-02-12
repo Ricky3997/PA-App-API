@@ -2,9 +2,17 @@ import {
   ADD_ONBOARDING_PROPERTIES,
   CHANGE_STAGE,
   REMOVE_PICTURE_TO_CROP,
-  REMOVE_USER, SET_ACTIVE_MENTEE_APPROVAL_ID, SET_ACTIVE_MENTOR_APPROVAL_ID, SET_MATCHING_ID, SET_MENTEES, SET_MENTORS,
+  REMOVE_USER,
+  SET_ACTIVE_MENTEE_APPROVAL_ID,
+  SET_ACTIVE_MENTOR_APPROVAL_ID,
+  SET_MATCHING_ID,
+  SET_MENTEES,
+  SET_MENTOR_RECOMMENDATIONS,
+  SET_MENTORS,
   STORE_PICTURE_CROPPED,
-  STORE_PICTURE_TO_CROP, SWITCH_MATCHING_MODE, TOGGLE_ADMIN_FETCHING,
+  STORE_PICTURE_TO_CROP,
+  SWITCH_MATCHING_MODE,
+  TOGGLE_ADMIN_FETCHING,
   TOGGLE_PICTURE_PICKER,
   TOGGLE_REGISTERING,
   UPDATE_USER
@@ -204,7 +212,12 @@ export const setMatchingActiveId = (id) => {
     id: id
   }
 };
-
+export const setMentorRecommendations = (mentorRecommendations) => {
+  return {
+    type: SET_MENTOR_RECOMMENDATIONS,
+    mentorRecommendations: mentorRecommendations
+  }
+};
 
 export const fetchMentors = () => {
   return (dispatch) => {
@@ -218,6 +231,18 @@ export const fetchMentors = () => {
     })
   }
 };
+
+export const changeMenteeBeingMatched = (id) => {
+  return (dispatch) => {
+    dispatch(setMatchingActiveId(id));
+    return api.get(`/api/admin/matchingMentorRecommendations/${id}`).then(r => {
+      if(r.success){
+        dispatch(setMentorRecommendations(r.payload));
+      }
+    })
+  }
+};
+
 export const fetchMentees = () => {
   return (dispatch) => {
     dispatch(toggleAdminFetching());
@@ -225,7 +250,14 @@ export const fetchMentees = () => {
       dispatch(toggleAdminFetching());
       if(r.success){
         dispatch(setMentees(r.payload));
-        if(r.payload.filter(m => m.status === "requested").length > 0) dispatch(setActiveMenteeApprovalId(r.payload.filter(m => m.status === "requested")[0]._id));
+        if(r.payload.filter(m => m.status === "approved").length > 0) {
+          const menteeId = r.payload.filter(m => m.status === "approved")[0]._id;
+          dispatch(changeMenteeBeingMatched(menteeId));
+        }
+        if(r.payload.filter(m => m.status === "requested").length > 0) {
+          const menteeId = r.payload.filter(m => m.status === "requested")[0]._id;
+          dispatch(setActiveMenteeApprovalId(menteeId));
+        }
       }
     })
   }

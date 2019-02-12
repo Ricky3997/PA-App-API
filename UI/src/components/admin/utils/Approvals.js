@@ -3,7 +3,6 @@ import { Button, Col, Container, ListGroup, Row } from "react-bootstrap";
 import ProfileIcon from "../../various/ProfileIcon";
 
 const Approvals = (props) => {
-
     const { setActiveApprovalId, activeApprovalId } = props;
     const toApprove = activeApprovalId ? props[props.mentorMode ? "mentors" : "mentees"].filter(m => m._id === activeApprovalId)[0] : null;
     return (
@@ -56,8 +55,6 @@ const Approvals = (props) => {
         </Row>
       </Container>
     );
-    ;
-
   }
 ;
 

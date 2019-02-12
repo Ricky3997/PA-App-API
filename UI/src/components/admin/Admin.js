@@ -7,9 +7,9 @@ import { Route } from "react-router-dom";
 import Matching from "./matching/Matching";
 import { Icon } from "react-fa";
 import {
-  adminChangeUserStatus,
+  adminChangeUserStatus, changeMenteeBeingMatched,
   setActiveMenteeApprovalId,
-  setActiveMentorApprovalId, setMatchingActiveId, switchMatchingMode
+  setActiveMentorApprovalId, switchMatchingMode
 } from "../../actions/actionCreator";
 import connect from "react-redux/es/connect/connect";
 
@@ -83,7 +83,7 @@ class Admin extends Component {
             }, dispatch => {
               return {
                 switchMatchingMode: () => dispatch(switchMatchingMode()),
-                setMatchingActiveId: (id) => dispatch(setMatchingActiveId(id)),
+                changeMenteeBeingMatched: (id) => dispatch(changeMenteeBeingMatched(id))
               };
             })(Matching)}/>
 

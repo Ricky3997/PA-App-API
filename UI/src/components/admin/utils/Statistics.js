@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Container } from "react-bootstrap";
 import * as _ from "lodash";
 import DataVisHeatMap from "../../various/DataVisHeatMap";
@@ -29,10 +29,9 @@ const Statistics = (props) => {
     }, []);
   } else {
     const { mentees } = props;
-    console.log(mentees)
     const subjectsInterested = _.uniq(mentees.flatMap(m => m.interestedIn));
     const unisInterested = _.uniq(mentees.flatMap(m => m.unisApplyingFor));
-    xDomain = unisInterested ;
+    xDomain = unisInterested;
     yDomain = subjectsInterested;
     data = unisInterested.reduce((acc, uni) => {
       return acc.concat(
@@ -50,7 +49,7 @@ const Statistics = (props) => {
     }, []);
   }
 
-  console.log(data)
+  console.log(data);
 
   return (
     <Container fluid>
