@@ -73,7 +73,13 @@ class App extends Component {
             })(Onboarding)}/>
 
             <Route path={"/confirm"} render={(props) => <Confirm/>}/>
-            <Route path={"/journey/:id"} render={(props) => <JourneyModule {...props} />}/>
+            <Route path={"/journey/:id"} component={connect(({ user }) => {
+              return {  user };
+            }, dispatch => {
+              return {
+              };
+            })(JourneyModule)}/>
+
             <Route path={"/message"} render={(props) => <Message user={user} {...props} />}/>
             <Route path={"/call"} render={(props) => <Call user={user} {...props} />}/>
             <Route path={"/mentor/:id"} exact render={(props) => <MentorProfile {...props} />}/>

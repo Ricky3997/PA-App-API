@@ -49,8 +49,8 @@ class Message extends Component {
         console.log(props.user);
         if(props.user) {
             const userProfile = props.user[props.user.type === "mentor" ? "mentorProfile" : "menteeProfile"];
-            const name = "Riccardo";
-            const avatar = "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/t/5bb721a4e2c48357967f52fa/1538728361542/Riccardo.jpg?format=300w";;
+            const name = userProfile.firstName;
+            const avatar = userProfile.pictureUrl;
             this.setState({active: 1, chats: [
                     {
                         id:1,
