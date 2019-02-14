@@ -22,4 +22,8 @@ const matchingMentorRecommendations = async (id) => {
 
 };
 
-module.exports = { changeUserStatus, matchingMentorRecommendations };
+const createMatch = async (mentorId, menteeId) => {
+  return true;
+};
+
+module.exports = { changeUserStatus, matchingMentorRecommendations, createMatch };

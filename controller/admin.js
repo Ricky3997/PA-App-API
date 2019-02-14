@@ -11,5 +11,11 @@ const matchingMentorRecommendations =  async (req,res) => {
     if(result) res.json(result);
     else res.sendStatus(400);
 };
+const createMatch =  async (req,res) => {
+    const {mentorId, menteeId} = req.body;
+    const result = await adminService.createMatch(mentorId, menteeId);
+    if(result) res.json(result);
+    else res.sendStatus(400);
+};
 
-module.exports = {changeUserStatus, matchingMentorRecommendations};
+module.exports = {changeUserStatus, matchingMentorRecommendations, createMatch};

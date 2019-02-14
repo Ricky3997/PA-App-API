@@ -3,6 +3,8 @@ import { Card } from "react-bootstrap";
 import ConfirmMatchButton from "./ConfirmMatchButton";
 import { Icon } from "react-fa";
 import ProfileIcon from "../../various/ProfileIcon";
+import connect from "react-redux/es/connect/connect";
+import { confirmMatch, unsetMatchingConfirmation, showMatchingConfirmation } from "../../../actions/actionCreator";
 
 const UserCard = (props) => {
 
@@ -13,6 +15,16 @@ const UserCard = (props) => {
     else if (props.status === "rejected") return <Icon name={`fas fa-ban`} style={{ color: "#9b0014" }}/>;
     else return null;
   };
+
+  const ConfirmButton = connect(({ admin, matching }) => {
+    return { fetching: admin.fetching, showConfirm: matching.showConfirm === props._id, menteeToMatch: props.menteeToMatch, mentorId: props._id};
+  }, dispatch => {
+    return {
+      confirmMatch: (mentorId, menteeeId) => dispatch(confirmMatch(mentorId, menteeeId)),
+      showConfirmation: (id) => dispatch(showMatchingConfirmation(id)),
+      unsetMatchingConfirmation: () => dispatch(unsetMatchingConfirmation()),
+    };
+  })(ConfirmMatchButton);
 
   return (
     <Card className="text-center" key={props._id}>
@@ -64,7 +76,7 @@ const UserCard = (props) => {
       </Card.Body>
       {props.matching ?
         <Card.Footer>
-          <ConfirmMatchButton/>
+          <ConfirmButton />
         </Card.Footer> : null}
     </Card>
   );

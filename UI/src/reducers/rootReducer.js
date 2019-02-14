@@ -7,12 +7,12 @@ import {
   SET_ACTIVE_MENTOR_APPROVAL_ID, SET_MATCHING_ID,
   SET_MENTEES, SET_MENTOR_RECOMMENDATIONS,
   SET_MENTORS,
-  SET_RELATIONSHIPS,
+  SET_RELATIONSHIPS, SHOW_MATCHING_CONFIRMATION,
   STORE_PICTURE_CROPPED,
   STORE_PICTURE_TO_CROP, SWITCH_MATCHING_MODE,
-  TOGGLE_ADMIN_FETCHING,
+  TOGGLE_ADMIN_FETCHING, TOGGLE_MATCHING_CONFIRM,
   TOGGLE_PICTURE_PICKER,
-  TOGGLE_REGISTERING,
+  TOGGLE_REGISTERING, UNSET_MATCHING_CONFIRMATION,
   UPDATE_USER
 } from "../actions/actionTypes";
 import { combineReducers } from "redux";
@@ -121,7 +121,8 @@ function menteeAdmin(state = {
 function matching(state = {
   manualMode: false,
   activeId: null,
-  mentorRecommendations: []
+  mentorRecommendations: [],
+  showConfirm: null
 }, action) {
   switch (action.type) {
     case SET_MATCHING_ID:
@@ -130,6 +131,10 @@ function matching(state = {
       return {...state, mentorRecommendations: action.mentorRecommendations};
     case SWITCH_MATCHING_MODE:
       return {...state, manualMode: !state.manualMode};
+    case SHOW_MATCHING_CONFIRMATION:
+      return {...state, showConfirm: action.id};
+    case UNSET_MATCHING_CONFIRMATION:
+      return {...state, showConfirm: null};
     default:
       return state;
   }

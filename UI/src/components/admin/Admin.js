@@ -83,7 +83,7 @@ class Admin extends Component {
             }, dispatch => {
               return {
                 switchMatchingMode: () => dispatch(switchMatchingMode()),
-                changeMenteeBeingMatched: (id) => dispatch(changeMenteeBeingMatched(id))
+                changeMenteeBeingMatched: (id) => dispatch(changeMenteeBeingMatched(id)),
               };
             })(Matching)}/>
 

@@ -123,7 +123,7 @@ class Matching extends Component {
                         <LoadingCard/>
                       </CardDeck> :
                       <CardDeck>
-                        {mentorRecommendations.map(m => <UserCard mentorMode key={`${toMatch._id}-${m._id}`} {...m} matching/>)}
+                        {mentorRecommendations.map(m => <UserCard mentorMode key={m._id} menteeToMatch={toMatch._id} {...m} matching/>)}
                       </CardDeck>}
                   </div>
                   }

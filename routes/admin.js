@@ -6,4 +6,6 @@ router.post('/changeUserStatus', adminController.changeUserStatus);
 
 router.get('/matchingMentorRecommendations/:id', adminController.matchingMentorRecommendations);
 
+router.post('/createMatch', adminController.createMatch);
+
 module.exports = router;

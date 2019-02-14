@@ -8,13 +8,13 @@ import {
   SET_MATCHING_ID,
   SET_MENTEES,
   SET_MENTOR_RECOMMENDATIONS,
-  SET_MENTORS,
+  SET_MENTORS, SHOW_MATCHING_CONFIRMATION,
   STORE_PICTURE_CROPPED,
   STORE_PICTURE_TO_CROP,
   SWITCH_MATCHING_MODE,
-  TOGGLE_ADMIN_FETCHING,
+  TOGGLE_ADMIN_FETCHING, TOGGLE_MATCHING_CONFIRM,
   TOGGLE_PICTURE_PICKER,
-  TOGGLE_REGISTERING,
+  TOGGLE_REGISTERING, UNSET_MATCHING_CONFIRMATION,
   UPDATE_USER
 } from "./actionTypes";
 import * as api from "../api";
@@ -212,10 +212,23 @@ export const setMatchingActiveId = (id) => {
     id: id
   }
 };
+
 export const setMentorRecommendations = (mentorRecommendations) => {
   return {
     type: SET_MENTOR_RECOMMENDATIONS,
     mentorRecommendations: mentorRecommendations
+  }
+};
+
+export const showMatchingConfirmation = (id) => {
+  return {
+    type: SHOW_MATCHING_CONFIRMATION,
+    id: id,
+  }
+};
+export const unsetMatchingConfirmation = () => {
+  return {
+    type: UNSET_MATCHING_CONFIRMATION
   }
 };
 
@@ -227,6 +240,18 @@ export const fetchMentors = () => {
       if(r.success){
         dispatch(setMentors(r.payload));
         if(r.payload.filter(m => m.status === "requested").length > 0) dispatch(setActiveMentorApprovalId(r.payload.filter(m => m.status === "requested")[0]._id));
+      }
+    })
+  }
+};
+
+export const confirmMatch = (mentorId, menteeId) => {
+  return (dispatch) => {
+    dispatch(toggleAdminFetching());
+    return api.post("/api/admin/createMatch", {mentorId: mentorId, menteeId: menteeId}).then(r => {
+      dispatch(toggleAdminFetching());
+      if(r.success){
+        alert("Matched!")
       }
     })
   }

@@ -1,34 +1,26 @@
-import React, { Component } from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import React  from "react";
+import { Button, Card, Col, Row } from "react-bootstrap";
+import ReactLoading from "react-loading";
 
-class ConfirmMatchButton extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            confirm: false
-        }
-    }
+const ConfirmMatchButton = (props) => {
 
-    confirmMatch(){
-        alert("Will build matching!")
-    }
+    return (
+      <div>
+          {props.showConfirm ?
+            <Row>
+                <Col>
+                    <Button block variant="danger" onClick={props.unsetMatchingConfirmation}>Cancel</Button>
+                </Col>
+                <Col>
+                    <Button block variant="success" disabled={props.fetching}
+                            onClick={() => props.confirmMatch(props.mentorId, props.menteeToMatch)}>{props.fetching ?
+                      < ReactLoading type={"spin"} color={"#ffffff"} height={24} width={24}/> : "Confirm"}</Button>
+                </Col>
+            </Row>
+            : <Button block onClick={() => props.showConfirmation(props.mentorId)}>Match as Mentor</Button>}
+      </div>
+    );
 
-    render() {
-        return (
-            <div>
-                {this.state.confirm ?
-                    <Row>
-                        <Col>
-                            <Button block variant="danger" onClick={() => this.setState({confirm: false})}>Cancel</Button>
-                        </Col>
-                        <Col>
-                            <Button block variant="success" onClick={this.confirmMatch}>Confirm</Button>
-                        </Col>
-                    </Row>
-                : <Button block onClick={() => this.setState({confirm: true})}>Match as Mentor</Button>}
-            </div>
-        );
-    }
 };
 
 export default ConfirmMatchButton;
