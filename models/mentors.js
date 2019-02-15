@@ -14,7 +14,8 @@ const Mentor = mongoose.model('Mentor', new mongoose.Schema({
   area: String,
   pictureUrl: String,
   status: String,
-  firstName: String
+  firstName: String,
+  relationship: { type: Schema.Types.ObjectId, ref: 'Relationship' }
 }));
 
 module.exports = {Mentor};

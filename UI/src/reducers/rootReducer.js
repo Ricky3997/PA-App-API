@@ -118,6 +118,7 @@ function menteeAdmin(state = {
   }
 }
 
+
 function matching(state = {
   manualMode: false,
   activeId: null,
@@ -139,7 +140,6 @@ function matching(state = {
       return state;
   }
 }
-
 
 const app = combineReducers({
   user, settings, onboarding, admin, mentorAdmin, menteeAdmin, matching

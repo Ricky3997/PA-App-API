@@ -1,7 +1,7 @@
 const relationshipsService = require("../service/relationships");
 
-const getAll = (req,res) => {
-    const result = relationshipsService.getAll()
+const getAll = async (req,res) => {
+    const result = await relationshipsService.getAll()
     if(result) res.json(result)
     else res.sendStatus(400);
 };

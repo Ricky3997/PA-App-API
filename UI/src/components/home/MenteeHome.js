@@ -76,18 +76,17 @@ class MenteeHome extends Component {
 
   render() {
 
-
-
-
     return <Container fluid>
       <Row style={{ marginTop: "10px" }}>
-        <Col md={{offset:11, span: 1 }}>
+        <Col md={{span: 11 }}>
+          <h3>Welcome back, {this.props.user.firstName}! 🤗</h3>
+        </Col>
+        <Col md={{span: 1 }}>
           <Button onClick={() => this.props.refreshUser()}>
             <Icon name={"fas fa-refresh"}/>
           </Button>
         </Col>
       </Row>
-
 
       <Row>
         <Col md={2}>

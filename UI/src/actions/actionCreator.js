@@ -8,7 +8,7 @@ import {
   SET_MATCHING_ID,
   SET_MENTEES,
   SET_MENTOR_RECOMMENDATIONS,
-  SET_MENTORS, SHOW_MATCHING_CONFIRMATION,
+  SET_MENTORS, SET_RELATIONSHIPS, SHOW_MATCHING_CONFIRMATION,
   STORE_PICTURE_CROPPED,
   STORE_PICTURE_TO_CROP,
   SWITCH_MATCHING_MODE,
@@ -226,9 +226,17 @@ export const showMatchingConfirmation = (id) => {
     id: id,
   }
 };
+
 export const unsetMatchingConfirmation = () => {
   return {
     type: UNSET_MATCHING_CONFIRMATION
+  }
+};
+
+export const setRelationships = (relationships) => {
+  return {
+    type: SET_RELATIONSHIPS,
+    relationships: relationships
   }
 };
 
@@ -240,6 +248,18 @@ export const fetchMentors = () => {
       if(r.success){
         dispatch(setMentors(r.payload));
         if(r.payload.filter(m => m.status === "requested").length > 0) dispatch(setActiveMentorApprovalId(r.payload.filter(m => m.status === "requested")[0]._id));
+      }
+    })
+  }
+};
+
+export const fetchRelationships = () => {
+  return (dispatch) => {
+    dispatch(toggleAdminFetching());
+    return api.get("/api/relationships").then(r => {
+      dispatch(toggleAdminFetching());
+      if(r.success){
+        dispatch(setRelationships(r.payload));
       }
     })
   }

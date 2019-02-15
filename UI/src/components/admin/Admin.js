@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
-import Dashboard from "./dashboard/Dashboard";
+import DashboardComponent from "./dashboard/Dashboard";
 import Mentees from "./mentees/Mentees";
 import Mentors from "./mentors/Mentors";
 import { Route } from "react-router-dom";
@@ -23,6 +23,7 @@ class Admin extends Component {
     if(!this.props.admin.fetched) {
       this.props.fetchMentors();
       this.props.fetchMentees();
+      this.props.fetchRelationships();
     }
   }
 
@@ -33,14 +34,24 @@ class Admin extends Component {
   changeTab(key) {
     if (key === "refresh") {
       if( this.props.match.params.section === "mentors") this.props.fetchMentors();
-      if( this.props.match.params.section === "mentees") this.props.fetchMentees();
+      else if( this.props.match.params.section === "mentees") this.props.fetchMentees();
+      else this.props.fetchRelationships();
     }
     else this.props.history.push(`/admin/${key}`);
   }
 
+
+
   render() {
     const { fetching } = this.props.admin;
     const { section } = this.props.match.params;
+
+    const Dashboard = connect(({ admin }) => {
+      return { relationships: admin.relationships };
+    }, dispatch => {
+      return {
+      };
+    })(DashboardComponent);
 
     return (this.props.user && this.props.user.admin) ?
       <Container fluid>
@@ -48,7 +59,7 @@ class Admin extends Component {
               activeKey={this.validateTab(section)}
               onSelect={this.changeTab}>
           <Tab eventKey="dashboard" title="Dashboard">
-            <Dashboard relationships={[]}/>
+            <Dashboard/>
           </Tab>
           <Tab eventKey="mentors" title="Mentors">
             <Route path={"/admin/mentors/:section?"}

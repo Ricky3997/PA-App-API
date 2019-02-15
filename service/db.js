@@ -1,5 +1,6 @@
 const { Mentor } = require("../models/mentors");
 const { Mentee } = require("../models/mentees");
+const { Relationship } = require("../models/relationship");
 const { User } = require("../models/users");
 const assert = require("assert");
 const mongoose = require("mongoose");
@@ -13,8 +14,7 @@ const initDb = (callback) => {
     return callback(null, _db);
   }
 
-  console.log("Connecting to " + config.mongodb.URI);
-  mongoose.connect(config.mongodb.URI).then(async () => {
+  mongoose.connect(config.mongodb.URI, { useNewUrlParser: true }).then(async () => {
     _db = mongoose.connection;
     if (true ) { //TODO !config.PROD_MODE
       await clearDb();
@@ -653,6 +653,7 @@ const clearDb = async () => {
   await Mentor.deleteMany({});
   await Mentee.deleteMany({});
   await User.deleteMany({});
+  await Relationship.deleteMany({});
 };
 
 

@@ -18,7 +18,7 @@ import About from "./various/About";
 
 import {
   addOnboardingProperties, changeMenteeStatus, changeMentorStatus,
-  changeStage, fetchMentees, fetchMentors,
+  changeStage, fetchMentees, fetchMentors, fetchRelationships,
   getUser, registerMentee,
   registerMentor,
   removePictureToCrop,
@@ -91,6 +91,7 @@ class App extends Component {
             }, dispatch => {
               return {
                 fetchMentors: () => dispatch(fetchMentors()),
+                fetchRelationships: () => dispatch(fetchRelationships()),
                 fetchMentees: () => dispatch(fetchMentees())
               };
             })(Admin)}/>

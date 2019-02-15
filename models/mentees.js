@@ -20,10 +20,10 @@ const Mentee = mongoose.model('Mentee', new mongoose.Schema({
   city: String,
   gender: String,
   year: String,
-
   pictureUrl: String,
   status: String,
-  firstName: String
+  firstName: String,
+  relationship: { type: Schema.Types.ObjectId, ref: 'Relationship' }
 }));
 
 module.exports = {Mentee};
