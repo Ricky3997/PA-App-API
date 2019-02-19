@@ -49,16 +49,14 @@ class Database extends Component {
   render() {
 
     const ConnectedMentorProfile = connect(({ admin }) => {
-      console.log(admin.mentors);
-      return { mentor: admin.mentors.filter(m => m._id === this.props.id)[0]};
+      return { beadcrumbs: true, mentor: admin.mentors.filter(m => m._id === this.props.id)[0]};
     }, dispatch => {
       return {
       };
     })(MentorAdminprofile);
 
     const ConnectedMenteeProfile = connect(({ admin }) => {
-      console.log(admin.mentees);
-      return { mentee: admin.mentees.filter(m => m._id === this.props.id)[0]};
+      return { beadcrumbs: true, mentee: admin.mentees.filter(m => m._id === this.props.id)[0]};
     }, dispatch => {
       return {
       };

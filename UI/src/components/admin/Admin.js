@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
-import DashboardComponent from "./dashboard/Dashboard";
+import Dashboard from "./dashboard/Dashboard";
 import Mentees from "./mentees/Mentees";
 import Mentors from "./mentors/Mentors";
 import { Route } from "react-router-dom";
@@ -51,12 +51,6 @@ class Admin extends Component {
     const { fetching } = this.props.admin;
     const { section } = this.props.match.params;
 
-    const Dashboard = connect(({ admin }) => {
-      return { relationships: admin.relationships };
-    }, dispatch => {
-      return {
-      };
-    })(DashboardComponent);
 
     return (this.props.user && this.props.user.admin) ?
       <Container fluid>
@@ -64,7 +58,13 @@ class Admin extends Component {
               activeKey={this.validateTab(section)}
               onSelect={this.changeTab}>
           <Tab eventKey="dashboard" title="Dashboard">
-            <Dashboard/>
+            <Route path={"/admin/dashboard/:id?"}
+                   component={connect(({ admin }) => {
+                     return { relationships: admin.relationships };
+                   }, dispatch => {
+                     return {
+                     };
+                   })(Dashboard)} />
           </Tab>
           <Tab eventKey="mentors" title="Mentors">
             <Route path={"/admin/mentors/:section?"}

@@ -15,16 +15,16 @@ const MentorAdminProfile = (props) => {
   };
 
   return props.mentor ? <Container>
-      <Row>
-        <Breadcrumb>
-          <LinkContainer to={"/admin/mentors/database"}>
+      {props.beadcrumbs ? <Row>
+        < Breadcrumb>
+          < LinkContainer to={"/admin/mentors/database"}>
             <Breadcrumb.Item componentClass="div">Database</Breadcrumb.Item>
           </LinkContainer>
           <Breadcrumb.Item active href="#">{props.mentor.firstName}</Breadcrumb.Item>
         </Breadcrumb>
-      </Row>
+      </Row> : null}
       <Row>
-        <Col md={1}>
+        <Col md={2}>
           <ProfileIcon mentorMode pictureUrl={props.mentor.pictureUrl} size={"m"}/>
         </Col>
         <Col>
@@ -33,9 +33,8 @@ const MentorAdminProfile = (props) => {
       </Row>
       <Row>
         <Col>
-        </Col>
-        <Col>
-          {props.mentor.relationship.map(r => <span>{r.mentee.firstName}</span>)}
+          {props.mentor.relationship.length > 0 ? props.mentor.relationship.map(r =>
+            <span>{r.mentee.firstName}</span>) : "No Mentees"}
         </Col>
       </Row>
     </Container> :
