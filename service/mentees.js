@@ -11,7 +11,7 @@ const {Mentee} = require("./../models/mentees");
 const {User} = require("./../models/users");
 
 getAll = async () => {
-  return await Mentee.find();
+  return await Mentee.find().populate("relationship").exec().then(p => {return p});
 };
 
 const edit = async (id, data, file) => {

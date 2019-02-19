@@ -15,7 +15,7 @@ const Mentor = mongoose.model('Mentor', new mongoose.Schema({
   pictureUrl: String,
   status: String,
   firstName: String,
-  relationship: { type: Schema.Types.ObjectId, ref: 'Relationship' }
+  relationship: [{ type: Schema.Types.ObjectId, ref: 'Relationship' }]
 }));
 
 module.exports = {Mentor};

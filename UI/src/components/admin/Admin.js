@@ -35,6 +35,10 @@ class Admin extends Component {
     if (key === "refresh") {
       if( this.props.match.params.section === "mentors") this.props.fetchMentors();
       else if( this.props.match.params.section === "mentees") this.props.fetchMentees();
+      else if( this.props.match.params.section === "matching") {
+        this.props.fetchMentors();
+        this.props.fetchMentees();
+      }
       else this.props.fetchRelationships();
     }
     else this.props.history.push(`/admin/${key}`);
@@ -87,8 +91,8 @@ class Admin extends Component {
           <Tab eventKey="matching" title="Matching">
             <Route path={"/admin/matching"} component={connect(({ user, admin, matching }) => {
               return { user,
-                mentors: admin.mentors.filter(m => m.status = "approved"),
-                mentees: admin.mentees.filter(m => m.status = "approved"),
+                mentors: admin.mentors.filter(m => m.status === "approved"),
+                mentees: admin.mentees.filter(m => m.status === "approved" && !m.relationship),
                 matching
               };
             }, dispatch => {

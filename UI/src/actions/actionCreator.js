@@ -284,8 +284,9 @@ export const confirmMatch = (mentorId, menteeId) => {
         mentors.push(r.payload.mentor);
         dispatch(setMentors(mentors));
 
-        const menteeId = getState().admin.mentees.filter(m => m.status === "approved")[0]._id;
-        dispatch(changeMenteeBeingMatched(menteeId));
+        const menteesStillToMatch = getState().admin.mentees.filter(m => m.status === "approved" && !m.relationship);
+        const newMenteeMatchingId = (menteesStillToMatch.length > 0) ? menteesStillToMatch[0]._id : null;
+        dispatch(changeMenteeBeingMatched(newMenteeMatchingId));
       }
       return r
     })
@@ -310,12 +311,13 @@ export const fetchMentees = () => {
       dispatch(toggleAdminFetching());
       if(r.success){
         dispatch(setMentees(r.payload));
-        if(r.payload.filter(m => m.status === "approved").length > 0) {
-          const menteeId = r.payload.filter(m => m.status === "approved")[0]._id;
-          dispatch(changeMenteeBeingMatched(menteeId));
+        if(r.payload.filter(m => m.status === "approved" && !m.relationship).length > 0) {
+          const menteesStillToMatch = r.payload.filter(m => m.status === "approved" && !m.relationship);
+          const newMenteeMatchingId = (menteesStillToMatch.length > 0) ? menteesStillToMatch[0]._id : null;
+          dispatch(changeMenteeBeingMatched(newMenteeMatchingId));
         }
         if(r.payload.filter(m => m.status === "requested").length > 0) {
-          const menteeId = r.payload.filter(m => m.status === "requested")[0]._id;
+          const menteeId = r.payload.filter(m => m.status === "requested" && !m.relationship)[0]._id;
           dispatch(setActiveMenteeApprovalId(menteeId));
         }
       }
