@@ -9,11 +9,11 @@ const ep = new AWS.Endpoint("s3.eu-west-1.amazonaws.com");
 const s3 = new AWS.S3({ endpoint: ep });
 
 getAll = async () => {
-  return await Mentor.find().populate("relationship").exec().then(p => {return p});
+  return await Mentor.find().populate({ path: 'relationship', populate: { path: 'mentee' }}).exec().then(p => {return p});
 };
 
 const getById = async (id) => {
-  return await Mentor.findById(id).populate("relationship").exec().then(p => {return p});
+  return await Mentor.findById(id).populate({ path: 'relationship', populate: { path: 'mentee' }}).exec().then(p => {return p});
 };
 
 const registerNew = async (id, data) => {

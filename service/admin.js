@@ -32,8 +32,8 @@ const createMatch = async (mentorId, menteeId) => {
   await new Relationship({_id: id, mentee: menteeId, mentor: mentorId, status: "awaitingConfirmation"}).save();
   await Mentor.findByIdAndUpdate(mentorId, {$push: {relationship: id}}).exec();
   await Mentee.findByIdAndUpdate(menteeId, {relationship: id}).exec();
-  return Relationship.findById(id).populate({ path: 'mentee', populate: { path: 'relationship' }})
-    .populate({ path: 'mentor', populate: { path: 'relationship' }}).exec().then(p => { return p});
+  return Relationship.findById(id).populate({ path: 'mentee', populate: { path: 'relationship', populate : {path: "mentor"} }})
+    .populate({ path: 'mentor', populate: { path: 'relationship', populate: { path: "mentee"} }}).exec().then(p => { return p});
 };
 
 module.exports = { changeUserStatus, matchingMentorRecommendations, createMatch };

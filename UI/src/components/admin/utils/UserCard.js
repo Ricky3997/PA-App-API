@@ -6,6 +6,8 @@ import ProfileIcon from "../../various/ProfileIcon";
 import connect from "react-redux/es/connect/connect";
 import { confirmMatch, unsetMatchingConfirmation, showMatchingConfirmation } from "../../../actions/actionCreator";
 import "react-toastify/dist/ReactToastify.css";
+import { LinkContainer } from "react-router-bootstrap"
+import { Link } from "react-router-dom";
 
 const UserCard = (props) => {
 
@@ -18,11 +20,16 @@ const UserCard = (props) => {
   };
 
   const ConfirmButton = connect(({ admin, matching }) => {
-    return { fetching: admin.fetching, showConfirm: matching.showConfirm === props._id, menteeToMatch: props.menteeToMatch, mentorId: props._id};
+    return {
+      fetching: admin.fetching,
+      showConfirm: matching.showConfirm === props._id,
+      menteeToMatch: props.menteeToMatch,
+      mentorId: props._id
+    };
   }, dispatch => {
     return {
       confirmMatch: (mentorId, menteeeId) => dispatch(confirmMatch(mentorId, menteeeId)).then(p => {
-        if(p.success) props.successToast("Matched");
+        if (p.success) props.successToast("Matched");
       }),
       showConfirmation: (id) => dispatch(showMatchingConfirmation(id)),
       unsetMatchingConfirmation: () => dispatch(unsetMatchingConfirmation()),
@@ -36,9 +43,12 @@ const UserCard = (props) => {
       </Card.Header>
       <Card.Body>
         <Card.Title>
-          <span>
+          <Link to={`/admin/${props.mentorMode ? "mentors" : "mentees/"}/database/${props._id}`} style={{
+            textDecoration: 'underline', color: "blue",
+            cursor: "pointer"
+          }}>
             {props.firstName}
-            </span>
+          </Link>
           <span>
             {" "}
             </span>
@@ -48,13 +58,16 @@ const UserCard = (props) => {
         </Card.Title>
         {props.setFieldValue ?
           <Card.Text>
-            {props.mentorMode ? <span>
+            {props.mentorMode ? <div>
                <span onClick={() => props.setFieldValue("subject", [props.subject])}
                      style={{ color: "blue", cursor: "pointer" }}>{props.subject}</span>
             <span>{" at "}</span>
             <span onClick={() => props.setFieldValue("university", [props.university])}
                   style={{ color: "blue", cursor: "pointer" }}>{props.university}</span>
-            </span> :
+              <div>
+                 {`${props.relationship.length} mentee${props.relationship.length === 1 ? "" : "s"}`}
+               </div>
+            </div> :
               <span>
               {props.interestedIn.map((s, i) => <span onClick={() => props.setFieldValue("subject", [s])}
                                                       key={i}
@@ -70,7 +83,9 @@ const UserCard = (props) => {
                                                              color: "blue",
                                                              cursor: "pointer"
                                                            }}>{`${u}${i !== (props.unisApplyingFor.length - 1) ? ',' : ''} `}</span>)}
-            </span>}
+
+            </span>
+            }
 
           </Card.Text>
           : <Card.Text>
@@ -79,7 +94,7 @@ const UserCard = (props) => {
       </Card.Body>
       {props.matching ?
         <Card.Footer>
-          <ConfirmButton />
+          <ConfirmButton/>
         </Card.Footer> : null}
     </Card>
   );

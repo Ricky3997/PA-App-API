@@ -13,6 +13,11 @@ import * as _ from "lodash";
 import UserCard from "./UserCard";
 import { Field, Form as FormikForm, Formik } from "formik";
 import { Select } from "antd";
+import MentorProfile from "../../people/MentorTile";
+import connect from "react-redux/es/connect/connect";
+import { confirmMatch, showMatchingConfirmation, unsetMatchingConfirmation } from "../../../actions/actionCreator";
+import ConfirmMatchButton from "./ConfirmMatchButton";
+import MentorAdminprofile from "./MentorAdminProfile";
 
 const { Option } = Select;
 
@@ -42,9 +47,16 @@ class Database extends Component {
 
   render() {
 
-    return this.props.id ? <div>
-      Details about {this.props.id}
-    </div> : (
+    const ConnectedMentorProfile = connect(({ admin }) => {
+      console.log(admin.mentors);
+      return { mentor: admin.mentors.filter(m => m._id === this.props.id)[0]};
+    }, dispatch => {
+      return {
+    };
+    })(MentorAdminprofile);
+
+
+    return this.props.id ? <ConnectedMentorProfile /> : (
       <Formik
         render={({ values, setFieldValue }) => {
           const mentorMode = this.props.mode === "mentors";
@@ -148,7 +160,7 @@ class Database extends Component {
                   </Col>
                   <Col md={9}>
                     <CardColumns>
-                      {toRender.map(m => <UserCard mentorMode={mentorMode} {...m} key={m._id}
+                      {toRender.map(m => <UserCard history={this.props.history} mentorMode={mentorMode} {...m} key={m._id}
                                                    setFieldValue={setFieldValue}/>)}
                     </CardColumns>
                     {toRender.length === 0 && _.get(values, "search.length") > 0 ?

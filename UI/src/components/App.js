@@ -7,7 +7,7 @@ import Onboarding from "./onboarding/Onboarding";
 import Login from "./various/Login";
 import { Route, Switch } from "react-router-dom";
 import Confirm from "./various/Confirm";
-import MentorProfile from "./people/MentorProfile";
+import MentorProfile from "./people/MentorTile";
 import Call from "./call/Call";
 import Message from "./message/Message";
 import Admin from "./admin/Admin";
