@@ -11,7 +11,7 @@ const Footer = () => {
       </Badge>
     </Navbar.Brand>
     <Navbar.Text>
-      This is a work in progress, bear with us! V0.1.100219
+      This is a work in progress, bear with us! V0.1.2019-02-19
     </Navbar.Text>
     <Navbar.Collapse className="justify-content-end">
       <Navbar.Text>
