@@ -41,7 +41,10 @@ class Database extends Component {
   }
 
   render() {
-    return (
+
+    return this.props.id ? <div>
+      Details about {this.props.id}
+    </div> : (
       <Formik
         render={({ values, setFieldValue }) => {
           const mentorMode = this.props.mode === "mentors";

@@ -47,8 +47,8 @@ const Mentors = (props) => {
                           <Route path={"/admin/mentors/statistics"}
                                  render={() => <Statistics mentorMode mentors={mentors}/>}/>
 
-                          <Route path={["/admin/mentors/database", "/admin/mentors"]}
-                                 render={() => <Database mode="mentors" mentors={mentors}/>}/>
+                          <Route path={"/admin/mentors/database/:id?"}
+                                 render={({match}) => <Database id={match.params.id} match={match} mode="mentors" mentors={mentors}/>}/>
                       </Switch>
                   </Tab.Pane>
               </Tab.Content>

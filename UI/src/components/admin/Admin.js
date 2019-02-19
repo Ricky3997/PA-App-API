@@ -41,7 +41,8 @@ class Admin extends Component {
       }
       else this.props.fetchRelationships();
     }
-    else this.props.history.push(`/admin/${key}`);
+    else this.props.history.push(`/admin/${key}${(key === "mentors" || key === "mentees") ? "/database" : ""}`);
+
   }
 
 

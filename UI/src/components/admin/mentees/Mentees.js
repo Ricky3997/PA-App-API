@@ -42,7 +42,7 @@ const Mentees = (props) => {
                                                                                 adminChangeUserStatus={props.adminChangeUserStatus}
                                                                                 setActiveApprovalId={props.setActiveMenteeApprovalId}/>}/>
               <Route path={"/admin/mentees/statistics"} render={() => <Statistics mentees={mentees} />}/>
-              <Route path={["/admin/mentees/database", "/admin/mentees/"]}
+              <Route path={"/admin/mentees/database/:id?"}
                      render={() => <Database mode="mentees" mentees={mentees}/>}/>
             </Switch>
           </Tab.Pane>
