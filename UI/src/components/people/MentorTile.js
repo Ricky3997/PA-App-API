@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { Icon } from "react-fa";
+import ProfileIcon from "../various/ProfileIcon";
 
 const MentorTile = (props) => {
     return (
@@ -14,21 +15,23 @@ const MentorTile = (props) => {
                 </Col>
             </Row>
             <Row>
-                <Col md={3}>
-                    <img alt="mentor profile pic" width="150px" src={props.mentor.pictureUrl}/>
+                <Col md={4}>
+                    <ProfileIcon pictureUrl={props.mentor.pictureUrl} size={"l"} mentorMode/>
                 </Col>
-                <Col md={7}>
+                <Col md={6}>
                     <Row>
                         {props.mentor.firstName}
                     </Row>
                     <Row>
-                        {props.mentor.course}
+                        {props.mentor.subject}
                     </Row>
                     <Row>
                         {props.mentor.university}
                     </Row>
                 </Col>
-                <Col md={2}>
+            </Row>
+            <Row>
+                <Col>
                     <Row style={{marginTop: "10px"}}>
                         <LinkContainer to="/message">
                             <Button block><Icon name="fas fa-commenting"/> Message</Button>

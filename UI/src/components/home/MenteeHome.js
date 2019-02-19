@@ -3,8 +3,9 @@ import { Col, Row, Container, Button } from "react-bootstrap";
 import { Icon } from "react-fa";
 import ProgressionTimeline from "./ProgressionTimeline";
 import Milestone from "./Milestone";
-import MentorProfile from "../people/MentorTile";
+import MentorTile from "../people/MentorTile";
 import NoMentorYet from "./NoMentorYet";
+import * as _ from "lodash";
 
 class MenteeHome extends Component {
   constructor(props) {
@@ -95,7 +96,8 @@ class MenteeHome extends Component {
           <Milestone milestone={this.state.milestones.filter(m => m.id === this.state.active)[0]}/>
         </Col>
         <Col md={3}>
-          {this.props.mentor ? <MentorProfile mentor={this.props.mentor}/> : <NoMentorYet changeMenteeStatus={this.props.changeMenteeStatus} user={this.props.user}/>}
+          {_.get(this.props, "user.menteeProfile.relationship.mentor" ) ? <MentorTile mentor={this.props.user.menteeProfile.relationship.mentor}/>
+          : <NoMentorYet changeMenteeStatus={this.props.changeMenteeStatus} user={this.props.user}/>}
           <Row>
             {null}
           </Row>

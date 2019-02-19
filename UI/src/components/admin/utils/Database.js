@@ -18,6 +18,7 @@ import connect from "react-redux/es/connect/connect";
 import { confirmMatch, showMatchingConfirmation, unsetMatchingConfirmation } from "../../../actions/actionCreator";
 import ConfirmMatchButton from "./ConfirmMatchButton";
 import MentorAdminprofile from "./MentorAdminProfile";
+import MenteeAdminProfile from "./MenteeAdminProfile";
 
 const { Option } = Select;
 
@@ -52,11 +53,20 @@ class Database extends Component {
       return { mentor: admin.mentors.filter(m => m._id === this.props.id)[0]};
     }, dispatch => {
       return {
-    };
+      };
     })(MentorAdminprofile);
 
+    const ConnectedMenteeProfile = connect(({ admin }) => {
+      console.log(admin.mentees);
+      return { mentee: admin.mentees.filter(m => m._id === this.props.id)[0]};
+    }, dispatch => {
+      return {
+      };
+    })(MenteeAdminProfile);
 
-    return this.props.id ? <ConnectedMentorProfile /> : (
+    if(this.props.id && this.props.mode === "mentors") return <ConnectedMentorProfile />;
+    else if(this.props.id) return <ConnectedMenteeProfile />;
+    else return (
       <Formik
         render={({ values, setFieldValue }) => {
           const mentorMode = this.props.mode === "mentors";

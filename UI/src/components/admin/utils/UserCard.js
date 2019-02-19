@@ -43,7 +43,7 @@ const UserCard = (props) => {
       </Card.Header>
       <Card.Body>
         <Card.Title>
-          <Link to={`/admin/${props.mentorMode ? "mentors" : "mentees/"}/database/${props._id}`} style={{
+          <Link to={`/admin/${props.mentorMode ? "mentors" : "mentees"}/database/${props._id}`} style={{
             textDecoration: 'underline', color: "blue",
             cursor: "pointer"
           }}>

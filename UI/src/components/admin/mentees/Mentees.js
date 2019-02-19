@@ -43,7 +43,7 @@ const Mentees = (props) => {
                                                                                 setActiveApprovalId={props.setActiveMenteeApprovalId}/>}/>
               <Route path={"/admin/mentees/statistics"} render={() => <Statistics mentees={mentees} />}/>
               <Route path={"/admin/mentees/database/:id?"}
-                     render={() => <Database mode="mentees" mentees={mentees}/>}/>
+                     render={({match, history}) => <Database history={history} id={match.params.id} mode="mentees" mentees={mentees}/>}/>
             </Switch>
           </Tab.Pane>
         </Tab.Content>

@@ -10,7 +10,18 @@ const { User } = require("./../models/users");
 getProfile = async (id) => {
   let user = await User.findById(id);
   if (user.onboarded) {
-    user = await User.findById(id).populate(user.type === "mentor"? "mentorProfile" : "menteeProfile").exec().then(p => {return p});
+    user = await User.findById(id)
+      .populate()
+      .populate({
+        path: user.type === "mentor" ? "mentorProfile" : "menteeProfile",
+        populate: {
+          path: 'relationship',
+          populate: {
+            path: user.type === "mentor" ? 'mentee' : 'mentor' } }
+      })
+      .exec().then(p => {
+        return p
+      });
   }
   return user;
 };
@@ -37,7 +48,9 @@ editProfile = async (req, res) => {
 
       user = await User.findByIdAndUpdate(id, fieldsToUpdate, { new: true })
         .populate(user.type === "mentor" ? "mentorProfile" : "menteeProfile")
-        .exec().then(p => {return p});
+        .exec().then(p => {
+          return p
+        });
       res.json(user);
     } catch (error) {
       res.sendStatus(400)
