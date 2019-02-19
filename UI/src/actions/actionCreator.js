@@ -12,7 +12,7 @@ import {
   STORE_PICTURE_CROPPED,
   STORE_PICTURE_TO_CROP,
   SWITCH_MATCHING_MODE,
-  TOGGLE_ADMIN_FETCHING, TOGGLE_MATCHING_CONFIRM,
+  TOGGLE_ADMIN_FETCHING,
   TOGGLE_PICTURE_PICKER,
   TOGGLE_REGISTERING, UNSET_MATCHING_CONFIRMATION,
   UPDATE_USER
@@ -266,13 +266,28 @@ export const fetchRelationships = () => {
 };
 
 export const confirmMatch = (mentorId, menteeId) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch(toggleAdminFetching());
     return api.post("/api/admin/createMatch", {mentorId: mentorId, menteeId: menteeId}).then(r => {
       dispatch(toggleAdminFetching());
       if(r.success){
-        alert("Matched!")
+        let {relationships, mentees, mentors} = getState().admin;
+
+        relationships.push(r.payload);
+        dispatch(setRelationships(relationships));
+
+        mentees = mentees.filter(m => m._id !== menteeId);
+        mentees.push(r.payload.mentee);
+        dispatch(setMentees(mentees));
+
+        mentors = mentors.filter(m => m._id !== mentorId);
+        mentors.push(r.payload.mentor);
+        dispatch(setMentors(mentors));
+
+        const menteeId = getState().admin.mentees.filter(m => m.status === "approved")[0]._id;
+        dispatch(changeMenteeBeingMatched(menteeId));
       }
+      return r
     })
   }
 };

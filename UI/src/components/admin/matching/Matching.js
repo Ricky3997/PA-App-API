@@ -16,6 +16,7 @@ import * as JsSearch from "js-search";
 import ProfileIcon from "../../various/ProfileIcon";
 import { Field, Form as FormikForm, Formik } from "formik";
 import LoadingCard from "../utils/LoadingCard";
+import { toast, ToastContainer } from "react-toastify";
 
 class Matching extends Component {
   constructor(props) {
@@ -32,6 +33,8 @@ class Matching extends Component {
     const { mentors, mentees, switchMatchingMode, changeMenteeBeingMatched } = this.props;
 
     const toMatch = activeId ? mentees.filter(m => m._id === activeId)[0] : null;
+
+    const successToast = (message) => toast.success(message);
 
     return (
       <Row>
@@ -105,12 +108,10 @@ class Matching extends Component {
 
                               }}
                             />
-
                             <CardColumns>
-                              {mentorsToRender.map(m => <UserCard {...m} key={m._id} matching mentorMode
-                                                                  changeSearch={(p) => this.setState({ search: p })}/>)}
+                              {mentorsToRender.map(m => <UserCard successToast={successToast} {...m} key={m._id} matching mentorMode
+                                                                  changeSearch={(p) => setFieldValue("search", p)}/>)}
                             </CardColumns>
-
                           </div>
                         </FormikForm>
                       );
@@ -123,7 +124,7 @@ class Matching extends Component {
                         <LoadingCard/>
                       </CardDeck> :
                       <CardDeck>
-                        {mentorRecommendations.map(m => <UserCard mentorMode key={m._id} menteeToMatch={toMatch._id} {...m} matching/>)}
+                        {mentorRecommendations.map(m => <UserCard successToast={successToast} mentorMode key={m._id} menteeToMatch={toMatch._id} {...m} matching/>)}
                       </CardDeck>}
                   </div>
                   }
@@ -135,6 +136,7 @@ class Matching extends Component {
               <h3>There are currently no mentees to match</h3>
             </Container>}
         </Col>
+        <ToastContainer/>
       </Row>
     );
   }

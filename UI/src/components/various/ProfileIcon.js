@@ -8,7 +8,7 @@ const Footer = (props) => {
            style={{
              border: props.mentorMode ? "green 3px solid" : "blue 2px solid",
              marginLeft: props.shiftLeft ? "-15px" : null, width: props.size === "m" ? "50px" : "30px" }}/> :
-    <Icon name="fal fa-user" size={props.size === "m" ? "3x" : "1x"} />;
+    <Icon name="fal fa-user" size={props.size === "m" ? "3x" : "lg"} />;
 };
 
 export default Footer;

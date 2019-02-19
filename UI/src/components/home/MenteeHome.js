@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import NotReadyYet from "../various/NotReadyYet";
 import { Col, Row, Container, Button } from "react-bootstrap";
 import { Icon } from "react-fa";
-import JourneyHome from "../journey/JourneyHome";
 import ProgressionTimeline from "./ProgressionTimeline";
 import Milestone from "./Milestone";
 import MentorTile from "../people/MentorProfile";

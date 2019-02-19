@@ -1,10 +1,11 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import ConfirmMatchButton from "./ConfirmMatchButton";
 import { Icon } from "react-fa";
 import ProfileIcon from "../../various/ProfileIcon";
 import connect from "react-redux/es/connect/connect";
 import { confirmMatch, unsetMatchingConfirmation, showMatchingConfirmation } from "../../../actions/actionCreator";
+import "react-toastify/dist/ReactToastify.css";
 
 const UserCard = (props) => {
 
@@ -20,7 +21,9 @@ const UserCard = (props) => {
     return { fetching: admin.fetching, showConfirm: matching.showConfirm === props._id, menteeToMatch: props.menteeToMatch, mentorId: props._id};
   }, dispatch => {
     return {
-      confirmMatch: (mentorId, menteeeId) => dispatch(confirmMatch(mentorId, menteeeId)),
+      confirmMatch: (mentorId, menteeeId) => dispatch(confirmMatch(mentorId, menteeeId)).then(p => {
+        if(p.success) props.successToast("Matched");
+      }),
       showConfirmation: (id) => dispatch(showMatchingConfirmation(id)),
       unsetMatchingConfirmation: () => dispatch(unsetMatchingConfirmation()),
     };

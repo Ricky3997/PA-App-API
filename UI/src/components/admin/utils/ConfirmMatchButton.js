@@ -1,5 +1,5 @@
 import React  from "react";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import ReactLoading from "react-loading";
 
 const ConfirmMatchButton = (props) => {
