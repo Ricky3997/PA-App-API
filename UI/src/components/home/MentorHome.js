@@ -3,6 +3,7 @@ import { Col, Row, Container, Button } from "react-bootstrap";
 import NotReadyYet from "../various/NotReadyYet";
 import { Icon } from "react-fa";
 import * as _ from "lodash";
+import MenteeTile from "../people/MenteeTile";
 
 class MentorHome extends Component {
 
@@ -42,10 +43,10 @@ class MentorHome extends Component {
     return <Container fluid>
 
       <Row style={{ marginTop: "10px" }}>
-        <Col md={{span: 11 }}>
+        <Col md={{ span: 11 }}>
           <h3>Welcome back, {this.props.user.firstName}! 🤗</h3>
         </Col>
-        <Col md={{span: 1 }}>
+        <Col md={{ span: 1 }}>
           <Button onClick={() => this.props.refreshUser()}>
             <Icon name={"fas fa-refresh"}/>
           </Button>
@@ -57,7 +58,10 @@ class MentorHome extends Component {
           {toRender}
         </Col>
         <Col md={3}>
-          {_.get(this.props, "user.mentorProfile.relationship.length") > 0 ? <div>You have at least one mentee</div> : <div>No mentee yet</div>}
+          <h4>Your Mentees 😇 </h4>
+          {_.get(this.props, "user.mentorProfile.relationship.length") > 0 ?
+            this.props.user.mentorProfile.relationship.map(r => <MenteeTile key={r._id} mentee={r.mentee} />) :
+            <div>No mentee yet</div>}
           <Row>
             {null}
           </Row>
