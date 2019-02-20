@@ -55,7 +55,7 @@ const Header = (props) => {
             <Nav.Link>Call</Nav.Link>
           </LinkContainer> : null}
           {_.get(props, "user.admin") ?
-            <LinkContainer to="/admin">
+            <LinkContainer to="/admin/dashboard">
               <Nav.Link>Admin</Nav.Link>
             </LinkContainer>
             : null
