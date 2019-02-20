@@ -110,7 +110,7 @@ class Matching extends Component {
                             />
                             <CardColumns>
                               {mentorsToRender.map(m => <UserCard successToast={successToast} {...m} key={m._id} matching mentorMode
-                                                                  changeSearch={(p) => setFieldValue("search", p)}/>)}
+                                                                  menteeToMatch={toMatch._id} changeSearch={(p) => setFieldValue("search", p)}/>)}
                             </CardColumns>
                           </div>
                         </FormikForm>

@@ -299,6 +299,7 @@ export const changeMenteeBeingMatched = (id) => {
     return api.get(`/api/admin/matchingMentorRecommendations/${id}`).then(r => {
       if(r.success){
         dispatch(setMentorRecommendations(r.payload));
+        dispatch(showMatchingConfirmation(null));
       }
     })
   }

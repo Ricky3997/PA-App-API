@@ -82,10 +82,8 @@ const UserCard = (props) => {
                                                              color: "blue",
                                                              cursor: "pointer"
                                                            }}>{`${u}${i !== (props.unisApplyingFor.length - 1) ? ',' : ''} `}</span>)}
-
             </span>
             }
-
           </Card.Text>
           : <Card.Text>
             {props.mentorMode ? `${props.subject} at ${props.university}` : "mentee"}

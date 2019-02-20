@@ -637,7 +637,7 @@ const loadDevUser = async () => {
   const userProfile = {
     _id: id,
     firstName: "Riccardo",
-    type: "mentee",
+    type: "mentor",
     email: "riccardo@broggi.co.uk",
     emailConfirmed: true,
     onboarded: true,

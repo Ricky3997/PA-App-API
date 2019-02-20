@@ -11,7 +11,6 @@ getProfile = async (id) => {
   let user = await User.findById(id);
   if (user.onboarded) {
     user = await User.findById(id)
-      .populate()
       .populate({
         path: user.type === "mentor" ? "mentorProfile" : "menteeProfile",
         populate: {
@@ -20,7 +19,7 @@ getProfile = async (id) => {
             path: user.type === "mentor" ? 'mentee' : 'mentor' } }
       })
       .exec().then(p => {
-        return p
+          return p
       });
   }
   return user;
