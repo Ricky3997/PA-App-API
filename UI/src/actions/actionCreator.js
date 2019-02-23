@@ -1,8 +1,10 @@
 import {
+  ADD_MESSAGES_TO_CHAT,
+  ADD_MESSAGING_CHAT,
   ADD_ONBOARDING_PROPERTIES,
   CHANGE_STAGE,
   REMOVE_PICTURE_TO_CROP,
-  REMOVE_USER,
+  REMOVE_USER, SET_ACTIVE_CHAT,
   SET_ACTIVE_MENTEE_APPROVAL_ID,
   SET_ACTIVE_MENTOR_APPROVAL_ID,
   SET_MATCHING_ID,
@@ -213,9 +215,30 @@ export const setMatchingActiveId = (id) => {
   }
 };
 
+export const setActiveChat = (id) => {
+  return {
+    type: SET_ACTIVE_CHAT,
+    id: id
+  }
+};
+
 export const toggleMessagingConnected = () => {
   return {
     type: TOGGLE_MESSAGING_CONNECTED
+  }
+};
+
+export const addMessagingChat = (chat) => {
+  return {
+    type: ADD_MESSAGING_CHAT,
+    chat: chat
+  }
+};
+export const addMessagesToChat = (chatId, messages) => {
+  return {
+    type: ADD_MESSAGES_TO_CHAT,
+    chatId: chatId,
+    messages: messages
   }
 };
 

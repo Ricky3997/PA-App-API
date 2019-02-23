@@ -1,26 +1,13 @@
 import React, { Component } from "react";
 import {
-  AddIcon,
-  Avatar,
-  ChatList,
-  ChatListItem,
-  Column,
-  IconButton,
-  Message as UIKitMessage,
-  MessageGroup,
-  MessageList,
-  MessageText,
-  Row as ChatRow,
-  SendButton,
-  Subtitle,
-  TextComposer,
-  TextInput,
   ThemeProvider,
-  Title
 } from "@livechat/ui-kit";
 import { Col, Row } from "react-bootstrap";
 import SendBird from "sendbird";
-import LoadingChatList from "./LoadingChatList";
+import ListOfChats from "./ListOfChats";
+import OpenChat from "./OpenChat";
+import { connect } from "react-redux";
+import { addMessagesToChat, setActiveChat } from "../../actions/actionCreator";
 
 class Messaging extends Component {
   constructor(props) {
@@ -53,15 +40,31 @@ class Messaging extends Component {
       if (props.user.type === "mentor") {
         if (props.user.mentorProfile.relationship.length > 0) {
           props.user.mentorProfile.relationship.forEach(r => {
-            console.log(r.chatUrl);
             this.sb.GroupChannel.getChannel(r.chatUrl, (channel, error) => {
-              console.log(channel);
+              this.props.addMessagingChat({
+                id: r.chatUrl,
+                name: channel.name,
+                coverUrl: channel.coverUrl,
+                messages: []
+              });
+              this.props.setActiveChatId(r.chatUrl);
+
+              const messagesQuery = channel.createPreviousMessageListQuery();
+              messagesQuery.limit = 30;
+
+              messagesQuery.load((messages, error) => {
+                props.addMessagesToChat(r.chatUrl, messages);
+              });
+
+              // channel.sendUserMessage("Hello World", null, null, (message, error) =>{
+              //   console.log(message);
+              // });
             });
           });
         }
       } else {
         if (props.user.mentorProfile.relationship) {
-          alert("Will need to sign in");
+          alert("TODO");
         }
       }
     });
@@ -73,59 +76,29 @@ class Messaging extends Component {
     });
   }
 
-  //TODO https://docs.sendbird.com/javascript/quick_start
-
-  //Documentation: https://developers.livechatinc.com/docs/react-chat-ui-kit/
-
   render() {
-    const messages = [], chats = [], activeId = 12345;
+    const ListOfChatsComponent = connect(({ messaging }) => {
+      return { messaging };
+    }, dispatch => {
+      return {
+        setActiveChatId: (id) => dispatch(setActiveChat(id))
+      };
+    })(ListOfChats);
+
+    const OpenChatComponent = connect(({ messaging, user }) => {
+      return { messaging, user };
+    }, dispatch => {
+      return {};
+    })(OpenChat);
+
     return (
       <ThemeProvider theme={this.theme}>
         <Row>
           <Col md={3}>
-            <ChatList>
-
-
-              {!this.props.messaging.connected ? <LoadingChatList/> :
-                chats.map(chat => <ChatListItem active={chat.id === activeId}
-                                                onClick={() => this.setState({ active: chat.id })}>
-                    <Avatar imgUrl={chat.avatar || null} letter={chat.avatar ? null : chat.name[0]}/>
-                    <Column fill>
-                      <ChatRow justify>
-                        <Title ellipsis>{chat.name}</Title>
-                        <Subtitle nowrap>{chat.messages[chat.messages.length - 1].date}</Subtitle>
-                      </ChatRow>
-                      <Subtitle ellipsis>
-                        {`${chat.messages[chat.messages.length - 1].from} ${chat.messages[chat.messages.length - 1].content}`}
-                      </Subtitle>
-                    </Column>
-                  </ChatListItem>
-                )}
-
-            </ChatList>
+            <ListOfChatsComponent/>
           </Col>
-
           <Col md={9}>
-            <MessageList active style={{ height: "580px" }}>
-              {messages ? messages.map(message => {
-                return <MessageGroup avatar={message.from === "Me" ? null : message.avatar} onlyFirstWithMeta>
-                  <UIKitMessage date={message.date} authorName={message.from} isOwn={message.from === "Me"}>
-                    <MessageText>
-                      {message.content}
-                    </MessageText>
-                  </UIKitMessage>
-                </MessageGroup>;
-              }) : null}
-            </MessageList>
-            <TextComposer>
-              <ChatRow align="center">
-                <IconButton fit>
-                  <AddIcon/>
-                </IconButton>
-                <TextInput fill={"true"}/>
-                <SendButton fit/>
-              </ChatRow>
-            </TextComposer>
+            <OpenChatComponent/>
           </Col>
         </Row>
       </ThemeProvider>

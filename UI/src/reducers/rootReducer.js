@@ -1,8 +1,10 @@
 import {
+  ADD_MESSAGES_TO_CHAT,
+  ADD_MESSAGING_CHAT,
   ADD_ONBOARDING_PROPERTIES,
   CHANGE_STAGE,
   REMOVE_PICTURE_TO_CROP,
-  REMOVE_USER,
+  REMOVE_USER, SET_ACTIVE_CHAT,
   SET_ACTIVE_MENTEE_APPROVAL_ID,
   SET_ACTIVE_MENTOR_APPROVAL_ID, SET_MATCHING_ID,
   SET_MENTEES, SET_MENTOR_RECOMMENDATIONS,
@@ -142,11 +144,28 @@ function matching(state = {
 }
 
 function messaging(state = {
-  connected: false
+  connected: false,
+  chats: [],
+  activeChatId: null
 }, action) {
   switch (action.type) {
     case TOGGLE_MESSAGING_CONNECTED:
       return {...state, connected: !state.connected};
+    case SET_ACTIVE_CHAT:
+      return {...state, activeChatId: action.id};
+    case ADD_MESSAGING_CHAT:
+      const chats = state.chats;
+      chats.push(action.chat);
+      return {...state, chats: chats};
+    case ADD_MESSAGES_TO_CHAT:
+
+      const chat = state.chats.filter(c => c.id === action.chatId)[0];
+      chat.messages = [...chat.messages, ...action.messages];
+
+      const chatsUpdated = state.chats.filter(c => c.id !== action.chatId);
+      chatsUpdated.push(chat);
+
+      return {...state, chats: chatsUpdated};
     default:
       return state;
   }

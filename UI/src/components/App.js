@@ -17,12 +17,14 @@ import Home from "./home/Home";
 import About from "./various/About";
 
 import {
+  addMessagesToChat,
+  addMessagingChat,
   addOnboardingProperties, changeMenteeStatus, changeMentorStatus,
   changeStage, fetchMentees, fetchMentors, fetchRelationships,
   getUser, registerMentee,
   registerMentor,
   removePictureToCrop,
-  saveSettings,
+  saveSettings, setActiveChat,
   storePictureCropped,
   storePictureToCrop, toggleMessagingConnected,
   togglePicturePicker,
@@ -80,11 +82,14 @@ class App extends Component {
               };
             })(JourneyModule)}/>
 
-            <Route path={"/message"}  component={connect(({ user, messaging }) => {
-              return {  user, messaging };
+            <Route path={"/message"}  component={connect(({ user }) => {
+              return {  user };
             }, dispatch => {
               return {
-                toggleMessagingConnected: () => dispatch(toggleMessagingConnected())
+                toggleMessagingConnected: () => dispatch(toggleMessagingConnected()),
+                addMessagingChat: (chat) => dispatch(addMessagingChat(chat)),
+                addMessagesToChat: (chatId, messages) => dispatch(addMessagesToChat(chatId, messages)),
+                setActiveChatId: (id) => dispatch(setActiveChat(id))
               };
             })(Messaging)}/>
 
