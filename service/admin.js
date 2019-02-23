@@ -1,8 +1,10 @@
 require("dotenv").load();
 const _ = require("lodash");
+const request = require("request-promise-native");
 const { Mentor } = require("./../models/mentors");
 const { Mentee } = require("./../models/mentees");
 const { Relationship } = require("./../models/relationship");
+const config  = require("./../config");
 const mongoose = require("mongoose")
 
 const changeUserStatus = async (id, status, type) => {
@@ -30,10 +32,48 @@ const matchingMentorRecommendations = async (id) => {
 const createMatch = async (mentorId, menteeId) => {
   const id = new mongoose.Types.ObjectId();
   await new Relationship({_id: id, mentee: menteeId, mentor: mentorId, status: "awaitingConfirmation"}).save();
-  await Mentor.findByIdAndUpdate(mentorId, {$push: {relationship: id}}).exec();
-  await Mentee.findByIdAndUpdate(menteeId, {relationship: id}).exec();
+  const mentor = await Mentor.findByIdAndUpdate(mentorId, {$push: {relationship: id}}).exec().then(p => { return p});
+  const mentee = await Mentee.findByIdAndUpdate(menteeId, {relationship: id}).exec().then(p => { return p});
+
+  await createSendBirdChatUser(mentor);
+  await createSendBirdChatUser(mentee);
+  const sendBirdResponse = await createSendBirdChat(mentor, mentee);
+
+  await Relationship.findByIdAndUpdate(id, {chatUrl: sendBirdResponse.channel_url}).exec();
   return Relationship.findById(id).populate({ path: 'mentee', populate: { path: 'relationship', populate : {path: "mentor"} }})
     .populate({ path: 'mentor', populate: { path: 'relationship', populate: { path: "mentee"} }}).exec().then(p => { return p});
+};
+
+const createSendBirdChatUser = async (user) => {
+  await request({
+    method: 'post',
+    body: {
+      "user_id": user._id.toString(),
+      "nickname": user.firstName,
+      "profile_url": user.pictureUrl || ""
+    },
+    json: true,
+    url: "https://api.sendbird.com/v3/users",
+    headers: {
+      'Content-Type': 'application/json',
+      'Api-Token': config.sendbird.API_TOKEN
+    }});
+};
+const createSendBirdChat = async (mentor, mentee) => {
+  const body = {
+    'name': `${mentor.firstName} and ${mentee.firstName}`,
+    'user_ids': [mentor._id.toString(), mentee._id.toString()],
+    'invitation_status[]': [`${mentor._id.toString()}:joined`,`${mentee._id.toString()}:joined`]
+  };
+  return request({
+    method: 'post',
+    body: body,
+    json: true,
+    url: "https://api.sendbird.com/v3/group_channels",
+    headers: {
+      'Content-Type': 'application/json',
+      'Api-Token': config.sendbird.API_TOKEN
+    }});
 };
 
 module.exports = { changeUserStatus, matchingMentorRecommendations, createMatch };

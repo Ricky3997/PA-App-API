@@ -12,7 +12,7 @@ import {
   STORE_PICTURE_CROPPED,
   STORE_PICTURE_TO_CROP,
   SWITCH_MATCHING_MODE,
-  TOGGLE_ADMIN_FETCHING,
+  TOGGLE_ADMIN_FETCHING, TOGGLE_MESSAGING_CONNECTED,
   TOGGLE_PICTURE_PICKER,
   TOGGLE_REGISTERING, UNSET_MATCHING_CONFIRMATION,
   UPDATE_USER
@@ -210,6 +210,12 @@ export const setMatchingActiveId = (id) => {
   return {
     type: SET_MATCHING_ID,
     id: id
+  }
+};
+
+export const toggleMessagingConnected = () => {
+  return {
+    type: TOGGLE_MESSAGING_CONNECTED
   }
 };
 

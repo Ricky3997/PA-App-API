@@ -10,7 +10,7 @@ import {
   SET_RELATIONSHIPS, SHOW_MATCHING_CONFIRMATION,
   STORE_PICTURE_CROPPED,
   STORE_PICTURE_TO_CROP, SWITCH_MATCHING_MODE,
-  TOGGLE_ADMIN_FETCHING,
+  TOGGLE_ADMIN_FETCHING, TOGGLE_MESSAGING_CONNECTED,
   TOGGLE_PICTURE_PICKER,
   TOGGLE_REGISTERING, UNSET_MATCHING_CONFIRMATION,
   UPDATE_USER
@@ -141,8 +141,19 @@ function matching(state = {
   }
 }
 
+function messaging(state = {
+  connected: false
+}, action) {
+  switch (action.type) {
+    case TOGGLE_MESSAGING_CONNECTED:
+      return {...state, connected: !state.connected};
+    default:
+      return state;
+  }
+}
+
 const app = combineReducers({
-  user, settings, onboarding, admin, mentorAdmin, menteeAdmin, matching
+  user, settings, onboarding, admin, mentorAdmin, menteeAdmin, matching, messaging
 });
 
 export default app;

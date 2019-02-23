@@ -13,10 +13,7 @@ import * as _ from "lodash";
 import UserCard from "./UserCard";
 import { Field, Form as FormikForm, Formik } from "formik";
 import { Select } from "antd";
-import MentorProfile from "../../people/MentorTile";
 import connect from "react-redux/es/connect/connect";
-import { confirmMatch, showMatchingConfirmation, unsetMatchingConfirmation } from "../../../actions/actionCreator";
-import ConfirmMatchButton from "./ConfirmMatchButton";
 import MentorAdminprofile from "./MentorAdminProfile";
 import MenteeAdminProfile from "./MenteeAdminProfile";
 

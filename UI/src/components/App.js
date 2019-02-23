@@ -9,7 +9,7 @@ import { Route, Switch } from "react-router-dom";
 import Confirm from "./various/Confirm";
 import MentorProfile from "./people/MentorTile";
 import Call from "./call/Call";
-import Message from "./message/Message";
+import Messaging from "./messaging/Messaging";
 import Admin from "./admin/Admin";
 import Settings from "./settings/Settings";
 import JourneyModule from "./journey/JourneyModule";
@@ -24,7 +24,7 @@ import {
   removePictureToCrop,
   saveSettings,
   storePictureCropped,
-  storePictureToCrop,
+  storePictureToCrop, toggleMessagingConnected,
   togglePicturePicker,
   updateUser
 } from "../actions/actionCreator";
@@ -80,7 +80,14 @@ class App extends Component {
               };
             })(JourneyModule)}/>
 
-            <Route path={"/message"} render={(props) => <Message user={user} {...props} />}/>
+            <Route path={"/message"}  component={connect(({ user, messaging }) => {
+              return {  user, messaging };
+            }, dispatch => {
+              return {
+                toggleMessagingConnected: () => dispatch(toggleMessagingConnected())
+              };
+            })(Messaging)}/>
+
             <Route path={"/call"} render={(props) => <Call user={user} {...props} />}/>
             <Route path={"/mentor/:id"} exact render={(props) => <MentorProfile {...props} />}/>
             <Route path={"/about"} component={About}/>

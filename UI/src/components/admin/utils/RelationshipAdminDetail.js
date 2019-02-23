@@ -1,7 +1,5 @@
 import React from "react";
 import { Col, Image, Row, Breadcrumb, Container } from "react-bootstrap";
-import { Icon } from "react-fa";
-import ProfileIcon from "../../various/ProfileIcon";
 import { LinkContainer } from "react-router-bootstrap";
 import MentorAdminProfile from "./MentorAdminProfile";
 import MenteeAdminProfile from "./MenteeAdminProfile";

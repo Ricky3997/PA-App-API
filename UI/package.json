@@ -40,6 +40,7 @@
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
+    "sendbird": "^3.0.96",
     "svg-country-flags": "^1.2.6",
     "yup": "^0.26.6"
   },

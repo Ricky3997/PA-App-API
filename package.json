@@ -33,6 +33,8 @@
     "multiparty": "^4.2.1",
     "passwordless": "^1.1.3",
     "passwordless-mongostore-bcrypt-node": "^0.1.1",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7",
     "short-uuid": "^3.0.1",
     "uuid": "^3.3.2"
   }

@@ -58,7 +58,7 @@ class MentorHome extends Component {
           {toRender}
         </Col>
         <Col md={3}>
-          <h4>Your Mentees 😇 </h4>
+          <h4>Your Mentees <span role="img" aria-labelledby={"angel emoji"}>😇</span> </h4>
           {_.get(this.props, "user.mentorProfile.relationship.length") > 0 ?
             this.props.user.mentorProfile.relationship.map(r => <MenteeTile key={r._id} mentee={r.mentee} />) :
             <div>No mentee yet</div>}

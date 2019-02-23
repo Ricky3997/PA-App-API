@@ -612,7 +612,7 @@ const loadDevUser = async () => {
     university: "Bath",
     subject: "Computer Science",
     city: "Milano",
-    status: "requested",
+    status: "approved",
     pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/t/5bb721a4e2c48357967f52fa/1538728361542/Riccardo.jpg?format=300w"
   };
   const menteeProfile = {

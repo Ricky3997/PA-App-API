@@ -7,10 +7,10 @@ import { LinkContainer } from "react-router-bootstrap";
 const MentorAdminProfile = (props) => {
 
   const statusToIcon = () => {
-    if (props.status === "notYetRequested") return <Icon name={`fas fa-newspaper-o`} style={{ color: "#03619b" }}/>;
-    else if (props.status === "approved") return <Icon name={`fas fa-check-circle`} style={{ color: "#289b00" }}/>;
-    else if (props.status === "requested") return <Icon name={`fas fa-hourglass`} style={{ color: "#c69200" }}/>;
-    else if (props.status === "rejected") return <Icon name={`fas fa-ban`} style={{ color: "#9b0014" }}/>;
+    if (props.mentor.status === "notYetRequested") return <Icon name={`fas fa-newspaper-o`} style={{ color: "#03619b" }}/>;
+    else if (props.mentor.status === "approved") return <Icon name={`fas fa-check-circle`} style={{ color: "#289b00" }}/>;
+    else if (props.mentor.status === "requested") return <Icon name={`fas fa-hourglass`} style={{ color: "#c69200" }}/>;
+    else if (props.mentor.status === "rejected") return <Icon name={`fas fa-ban`} style={{ color: "#9b0014" }}/>;
     else return null;
   };
 
@@ -26,6 +26,9 @@ const MentorAdminProfile = (props) => {
       <Row>
         <Col md={2}>
           <ProfileIcon mentorMode pictureUrl={props.mentor.pictureUrl} size={"m"}/>
+        </Col>
+        <Col>
+          {statusToIcon()}
         </Col>
         <Col>
           <h4>{props.mentor.firstName}</h4>
