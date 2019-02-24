@@ -2,6 +2,10 @@ const { Mentor } = require("../models/mentors");
 const { Mentee } = require("../models/mentees");
 const { Relationship } = require("../models/relationship");
 const { User } = require("../models/users");
+const request = require( "request");
+const MentorService = require("./mentors");
+const MenteeService = require("./mentees");
+const AuthService = require("./auth");
 const assert = require("assert");
 const mongoose = require("mongoose");
 const config = require("./../config");
@@ -16,11 +20,11 @@ const initDb = (callback) => {
 
   mongoose.connect(config.mongodb.URI, { useNewUrlParser: true }).then(async () => {
     _db = mongoose.connection;
-    if (true ) { //TODO !config.PROD_MODE
+    if (!config.PROD_MODE){
       await clearDb();
       await loadDummyMentors();
       await loadDummyMentees();
-      await loadDevUser();
+      await loadAdmin();
     }
     return callback(null, _db);
   }, (err) => {
@@ -46,6 +50,7 @@ const loadDummyMentors = async () => {
       university: "KCL",
       subject: "PPE",
       city: "Milano",
+      email: 'test1234565g43@notexistent.com',
       status: "requested",
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5a7c387b4192029bc4b0dd95/1538660326244/20247810_10211655657680787_3062606713295678620_o.jpg?format=500w"
     }, {
@@ -55,6 +60,7 @@ const loadDummyMentors = async () => {
       gender: "Male",
       year: "2",
       area: "Social Sciences",
+      email: 'test12345654g43@notexistent.com',
       firstName: "Nicole",
       subject: "International Relations",
       university: "LSE",
@@ -64,6 +70,7 @@ const loadDummyMentors = async () => {
     }, {
       level: "Masters",
       country: "Italy",
+      email: 'test12345ll6543@notexistent.com',
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -78,6 +85,7 @@ const loadDummyMentors = async () => {
       level: "Masters",
       country: "Italy",
       firstGenStudent: "Yes",
+      email: 'test123456543h@notexistent.com',
       gender: "Male",
       year: "2",
       area: "Business",
@@ -92,6 +100,7 @@ const loadDummyMentors = async () => {
       level: "Masters",
       country: "Italy",
       firstGenStudent: "Yes",
+      email: 'test12653456543@notexistent.com',
       gender: "Male",
       year: "2",
       area: "Social Sciences",
@@ -105,6 +114,7 @@ const loadDummyMentors = async () => {
     }, {
       level: "Masters",
       country: "Italy",
+      email: 'test12345654563@notexistent.com',
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -115,171 +125,12 @@ const loadDummyMentors = async () => {
       city: "Milano",
       status: "approved",
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb257eeec212d94bfb1ec35/1538415414370/27747541_865005767039622_4075308886654729626_o.jpg?format=500w"
-    }, {
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Engineering",
-      firstName: "Catriona",
-      subject: "Chemical Engineering",
-      university: "Brown",
-      emailAddress: "riccardo@broggi.co.uk",
-      city: "Milano",
-      status: "notYetRequested",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb2580eeef1a197ab25d9cf/1538659979387/LinkedIn+Headshot.png?format=500w"
-    }, {
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Business",
-      firstName: "Henning",
-      subject: "Economics & Management",
-      university: "Oxford",
-      emailAddress: "riccardo@broggi.co.uk",
-      city: "Milano",
-      status: "notYetRequested",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb259e28165f5a2736d1a0f/1538824695598/20840824_1472104999536081_8363351716822259875_n.jpg?format=500w"
-    }, {
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Social Sciences",
-      firstName: "Andreas",
-      subject: "PPE",
-      university: "LSE",
-      emailAddress: "riccardo@broggi.co.uk",
-      city: "Milano",
-      status: "notYetRequested",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb247c7e79c70440c674eec/1538667470758/14383474_1341206875897109_1207170910_n.jpg?format=500w"
-    }, {
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Social Sciences",
-      firstName: "Emil",
-      university: "KCL",
-      subject: "PPE",
-      city: "Milano",
-      status: "requested",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5a7c387b4192029bc4b0dd95/1538660326244/20247810_10211655657680787_3062606713295678620_o.jpg?format=500w"
-    }, {
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Social Sciences",
-      firstName: "Nicole",
-      subject: "International Relations",
-      university: "LSE",
-      city: "Singapore",
-      status: "notYetRequested",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb257a29140b75265e2b89e/1538667677946/0+%289%29.jpeg?format=500w"
-    }, {
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Social Sciences",
-      firstName: "Filip",
-      subject: "Mathematics",
-      university: "Oxford",
-      city: "Milano",
-      status: "notYetRequested",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb24fc6e4966bf3c9d5df59/1538412681321/33038092_1063433287139499_9178229761615331328_n.jpg?format=500w"
-    }, {
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Business",
-      firstName: "Raphael",
-      subject: "Economics",
-      university: "UCL",
-      city: "Milano",
-      status: "requested",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb24ac19140b713a2fe714c/1538411224076/Raphael.jpeg?format=500w"
-    },
-    {
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Social Sciences",
-      firstName: "Anna",
-      subject: "History",
-      university: "Oxford",
-      city: "Milano",
-      status: "approved",
-      emailAddress: "riccardo@broggi.co.uk",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5a7c3a6653450a8017a4dd11/1538511549752/Anna.jpg?format=500w"
-    }, {
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Humanities",
-      firstName: "Alexander",
-      subject: "PPE",
-      university: "KCL",
-      city: "Milano",
-      status: "approved",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb257eeec212d94bfb1ec35/1538415414370/27747541_865005767039622_4075308886654729626_o.jpg?format=500w"
-    }, {
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Engineering",
-      firstName: "Catriona",
-      subject: "Chemical Engineering",
-      university: "Brown",
-      emailAddress: "riccardo@broggi.co.uk",
-      city: "Milano",
-      status: "notYetRequested",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb2580eeef1a197ab25d9cf/1538659979387/LinkedIn+Headshot.png?format=500w"
-    }, {
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Natural Sciences",
-      firstName: "Johan",
-      subject: "Biology",
-      university: "Oxford",
-      emailAddress: "riccardo@broggi.co.uk",
-      city: "Milano",
-      status: "notYetRequested"
-    }, {
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Humanities",
-      firstName: "Andreas",
-      subject: "Philosophy",
-      university: "Harvard",
-      emailAddress: "riccardo@broggi.co.uk",
-      city: "Milano",
-      status: "rejected"
     }
   ];
-  await Mentor.insertMany(dummy);
+  dummy.forEach(async d => {
+    const res = await AuthService.register(d.email, d.firstName, "mentor");
+    await MentorService.registerNew(res.user._id.toString(), d);
+  });
 };
 const loadDummyMentees = async () => {
   const dummy = [
@@ -287,6 +138,7 @@ const loadDummyMentees = async () => {
       interestedIn: ["Natural Sciences", "Technology", "Humanities"],
       school: "StLouisSchool OF Milan",
       subjects: ["Biology"],
+      email: 'test123456543@notexistent.com',
       unisApplyingFor: ["LSE", "Oxford"],
       level: "Masters",
       country: "Italy",
@@ -307,6 +159,7 @@ const loadDummyMentees = async () => {
       unisApplyingFor: ["LSE", "Oxford"],
       level: "Masters",
       country: "Italy",
+      email: 'test1234565rr43@notexistent.com',
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -324,6 +177,7 @@ const loadDummyMentees = async () => {
       unisApplyingFor: ["LSE", "Oxford"],
       level: "Masters",
       country: "Italy",
+      email: 'test1234565rf43@notexistent.com',
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -341,6 +195,7 @@ const loadDummyMentees = async () => {
       unisApplyingFor: ["LSE", "Oxford"],
       level: "Masters",
       country: "Italy",
+      email: 'tesrrrt123456543@notexistent.com',
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -361,6 +216,7 @@ const loadDummyMentees = async () => {
       country: "Italy",
       firstGenStudent: "Yes",
       gender: "Male",
+      email: 'test1234ge56543@notexistent.com',
       year: "2",
       area: "Social Sciences",
       firstName: "Anna",
@@ -377,6 +233,7 @@ const loadDummyMentees = async () => {
       unisApplyingFor: ["LSE", "Oxford"],
       level: "Masters",
       country: "Italy",
+      email: 'test123456gg7643@notexistent.com',
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
@@ -387,218 +244,14 @@ const loadDummyMentees = async () => {
       city: "Milano",
       status: "approved",
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb257eeec212d94bfb1ec35/1538415414370/27747541_865005767039622_4075308886654729626_o.jpg?format=500w"
-    }, {
-      interestedIn: ["Natural Sciences", "Technology", "Humanities"],
-      school: "StLouisSchool OF Milan",
-      subjects: ["Biology"],
-      unisApplyingFor: ["LSE", "Oxford"],
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Social Sciences",
-      firstName: "Jonathan",
-      city: "Copenhagen",
-      status: "requested",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5a7c387b4192029bc4b0dd95/1538660326244/20247810_10211655657680787_3062606713295678620_o.jpg?format=500w"
-    }, {
-      interestedIn: ["Natural Sciences", "Technology", "Humanities"],
-      school: "StLouisSchool OF Milan",
-      subjects: ["Biology"],
-      unisApplyingFor: ["LSE", "Oxford"],
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      firstName: "Elisa",
-      university: "LSE",
-      city: "Singapore",
-      status: "notYetRequested",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb257a29140b75265e2b89e/1538667677946/0+%289%29.jpeg?format=500w"
-    }, {
-      interestedIn: ["Natural Sciences", "Technology", "Humanities"],
-      school: "StLouisSchool OF Milan",
-      subjects: ["Biology"],
-      unisApplyingFor: ["LSE", "Oxford"],
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Social Sciences",
-      firstName: "Federic",
-      subject: "Mathematics",
-      university: "Oxford",
-      city: "Milano",
-      status: "rejected",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb24fc6e4966bf3c9d5df59/1538412681321/33038092_1063433287139499_9178229761615331328_n.jpg?format=500w"
-    }, {
-      interestedIn: ["Natural Sciences", "Technology", "Humanities"],
-      school: "StLouisSchool OF Milan",
-      subjects: ["Biology"],
-      unisApplyingFor: ["LSE", "Oxford"],
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Business",
-      firstName: "Vittorio",
-      subject: "Economics",
-      university: "UCL",
-      city: "Milano",
-      status: "requested",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb24ac19140b713a2fe714c/1538411224076/Raphael.jpeg?format=500w"
-    },
-    {
-      interestedIn: ["Natural Sciences", "Technology", "Humanities"],
-      school: "StLouisSchool OF Milan",
-      subjects: ["Biology"],
-      unisApplyingFor: ["LSE", "Oxford"],
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Humanities",
-      firstName: "Andrea",
-      subject: "PPE",
-      university: "KCL",
-      city: "Milano",
-      status: "approved",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb257eeec212d94bfb1ec35/1538415414370/27747541_865005767039622_4075308886654729626_o.jpg?format=500w"
-    }, {
-      interestedIn: ["Natural Sciences", "Technology", "Humanities"],
-      school: "StLouisSchool OF Milan",
-      subjects: ["Biology"],
-      unisApplyingFor: ["LSE", "Oxford"],
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Engineering",
-      firstName: "Catriona",
-      subject: "Chemical Engineering",
-      university: "Brown",
-      emailAddress: "riccardo@broggi.co.uk",
-      city: "Milano",
-      status: "rejected",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb2580eeef1a197ab25d9cf/1538659979387/LinkedIn+Headshot.png?format=500w"
-    }, {
-      interestedIn: ["Natural Sciences", "Technology", "Humanities"],
-      school: "StLouisSchool OF Milan",
-      subjects: ["Biology"],
-      unisApplyingFor: ["LSE", "Oxford"],
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Business",
-      firstName: "Henning",
-      subject: "Economics & Management",
-      university: "Oxford",
-      emailAddress: "riccardo@broggi.co.uk",
-      city: "Milano",
-      status: "rejected",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb259e28165f5a2736d1a0f/1538824695598/20840824_1472104999536081_8363351716822259875_n.jpg?format=500w"
-    }, {
-      interestedIn: ["Natural Sciences", "Technology", "Humanities"],
-      school: "StLouisSchool OF Milan",
-      subjects: ["Biology"],
-      unisApplyingFor: ["LSE", "Oxford"],
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Social Sciences",
-      firstName: "Andreas",
-      subject: "PPE",
-      university: "LSE",
-      emailAddress: "riccardo@broggi.co.uk",
-      city: "Milano",
-      status: "notYetRequested",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb247c7e79c70440c674eec/1538667470758/14383474_1341206875897109_1207170910_n.jpg?format=500w"
-    },
-    {
-      interestedIn: ["Natural Sciences", "Technology", "Humanities"],
-      school: "StLouisSchool OF Milan",
-      subjects: ["Biology"],
-      unisApplyingFor: ["LSE", "Oxford"],
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Social Sciences",
-      firstName: "Anna",
-      subject: "History",
-      university: "Oxford",
-      city: "Milano",
-      status: "approved",
-      emailAddress: "riccardo@broggi.co.uk",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5a7c3a6653450a8017a4dd11/1538511549752/Anna.jpg?format=500w"
-    }, {
-      interestedIn: ["Natural Sciences", "Technology", "Humanities"],
-      school: "StLouisSchool OF Milan",
-      subjects: ["Biology"],
-      unisApplyingFor: ["LSE", "Oxford"],
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Engineering",
-      firstName: "Catriona",
-      subject: "Chemical Engineering",
-      university: "Brown",
-      emailAddress: "riccardo@broggi.co.uk",
-      city: "Milano",
-      status: "notYetRequested",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb2580eeef1a197ab25d9cf/1538659979387/LinkedIn+Headshot.png?format=500w"
-    }, {
-      interestedIn: ["Natural Sciences", "Technology", "Humanities"],
-      school: "StLouisSchool OF Milan",
-      subjects: ["Biology"],
-      unisApplyingFor: ["LSE", "Oxford"],
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Natural Sciences",
-      firstName: "Johan",
-      subject: "Biology",
-      university: "Oxford",
-      emailAddress: "riccardo@broggi.co.uk",
-      city: "Milano",
-      status: "notYetRequested"
-    }, {
-      interestedIn: ["Natural Sciences", "Technology", "Humanities"],
-      school: "Collegio OF Milan",
-      subjects: ["Computer Science"],
-      unisApplyingFor: ["Harvard", "Cambridge"],
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Humanities",
-      firstName: "Andreas",
-      subject: "Philosophy",
-      university: "Harvard",
-      emailAddress: "riccardo@broggi.co.uk",
-      city: "Milano",
-      status: "rejected"
     }
   ];
-  await Mentee.insertMany(dummy);
+  dummy.forEach(async d => {
+    const res = await AuthService.register(d.email, d.firstName, "mentee");
+    await MenteeService.registerNew(res.user._id.toString(), d);
+  });
 };
-const loadDevUser = async () => {
+const loadAdmin = async () => {
   const id = new mongoose.Types.ObjectId();
   const mentorProfile = {
     _id: id,
@@ -633,7 +286,7 @@ const loadDevUser = async () => {
 
   };
   await new Mentor(mentorProfile).save();
-  await new Mentee(menteeProfile).save();
+  //await new Mentee(menteeProfile).save();
   const userProfile = {
     _id: id,
     firstName: "Riccardo",
@@ -645,6 +298,19 @@ const loadDevUser = async () => {
     mentorProfile: id,
     menteeProfile: id,
   };
+  await request({
+    method: 'post',
+    body: {
+      "user_id": id,
+      "nickname": userProfile.firstName,
+      "profile_url": ""
+    },
+    json: true,
+    url: "https://api.sendbird.com/v3/users",
+    headers: {
+      'Content-Type': 'application/json',
+      'Api-Token': config.sendbird.API_TOKEN
+    }});
   await new User(userProfile).save();
 
 };

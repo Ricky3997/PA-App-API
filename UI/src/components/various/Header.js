@@ -49,7 +49,9 @@ const Header = (props) => {
         <Nav className="mr-auto">
 
           {props.user ? <LinkContainer to={"/message"}>
-            <Nav.Link>Messages <Badge variant="light">3</Badge></Nav.Link>
+            <Nav.Link>Messages
+              {/*<Badge variant="light">3</Badge>*/}
+            </Nav.Link>
           </LinkContainer> : null}
           {props.user ? <LinkContainer to={"/call"}>
             <Nav.Link>Call</Nav.Link>

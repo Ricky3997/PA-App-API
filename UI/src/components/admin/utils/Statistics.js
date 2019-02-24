@@ -49,8 +49,6 @@ const Statistics = (props) => {
     }, []);
   }
 
-  console.log(data);
-
   return (
     <Container fluid>
       <DataVisHeatMap xDomain={xDomain} yDomain={yDomain} data={data}/>

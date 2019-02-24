@@ -24,10 +24,12 @@ const OpenChat = (props) => {
   else {
     const activeChat = props.messaging.chats.filter(c => c.id === props.messaging.activeChatId)[0];
     return <div>
-      {activeChat ? <MessageList active style={{ height: "580px" }}>
+      {activeChat ? <div>
+        <MessageList active style={{ height: "580px" }}>
         {activeChat.messages.map(m => {
-            return <Message date={makeDateEllipsis(new Date(m.createdAt))}
-                            authorName={m._sender.nickname}
+            return <Message key={m.messageId}
+                            date={makeDateEllipsis(new Date(m.createdAt))}
+                            authorName={m._sender.userId === props.user._id ? 'You' : m._sender.nickname}
                             isOwn={m._sender.userId === props.user._id}>
               <MessageText>
                 {m.message}
@@ -35,16 +37,17 @@ const OpenChat = (props) => {
             </Message>;
           }
         )}
-      </MessageList> : null}
-      <TextComposer>
-        <ChatRow align="center">
-          <IconButton fit>
-            <AddIcon/>
-          </IconButton>
-          <TextInput fill={"true"}/>
-          <SendButton fit/>
-        </ChatRow>
-      </TextComposer>
+        </MessageList>
+        <TextComposer onSend={(message) => props.sendMessageInChat(activeChat.id, message)}>
+          <ChatRow align="center">
+            <IconButton fit>
+              <AddIcon/>
+            </IconButton>
+            <TextInput fill={"true"} placeholder={"Type a message"}/>
+            <SendButton fit />
+          </ChatRow>
+        </TextComposer>
+      </div> : null}
     </div>;
   }
 };

@@ -25,7 +25,7 @@ const ListOfChats = (props) => {
               <Subtitle nowrap>{chat.messages.length === 0 ? null : makeDateEllipsis(new Date(chat.messages[chat.messages.length-1].createdAt))}</Subtitle>
             </ChatRow>
             <Subtitle ellipsis>
-              {`${chat.messages.length === 0 ? null : chat.messages[chat.messages.length-1]._sender.nickname}: ${chat.messages.length === 0 ? null : chat.messages[chat.messages.length-1].message}`}
+              {`${chat.messages.length === 0 ? 'No messages yet' : chat.messages[chat.messages.length-1]._sender.nickname}${chat.messages.length === 0 ? '' : ': ' + chat.messages[chat.messages.length-1].message}`}
             </Subtitle>
           </Column>
         </ChatListItem>

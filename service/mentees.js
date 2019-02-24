@@ -1,4 +1,5 @@
 require("dotenv").load();
+const request = require( "request");
 const _ = require("lodash");
 const AWS = require("aws-sdk");
 const config = require("../config.js");
@@ -49,6 +50,19 @@ const registerNew = async (id, data) => {
     status: "notYetRequested",
     firstName: user.firstName
   }).save();
+  await request({
+    method: 'post',
+    body: {
+      "user_id": id,
+      "nickname": user.firstName,
+      "profile_url": ""
+    },
+    json: true,
+    url: "https://api.sendbird.com/v3/users",
+    headers: {
+      'Content-Type': 'application/json',
+      'Api-Token': config.sendbird.API_TOKEN
+    }});
   return await User.findByIdAndUpdate(id, { onboarded: true, menteeProfile: id}, { new: true }).populate("menteeProfile").exec().then(p => { return p});
 
 };
