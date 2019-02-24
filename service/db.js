@@ -20,11 +20,12 @@ const initDb = (callback) => {
 
   mongoose.connect(config.mongodb.URI, { useNewUrlParser: true }).then(async () => {
     _db = mongoose.connection;
+
+    await clearDb();
+    await loadAdmin();
     if (!config.PROD_MODE){
-      await clearDb();
-      await loadDummyMentors();
-      await loadDummyMentees();
-      await loadAdmin();
+      // await loadDummyMentors();
+      // await loadDummyMentees();
     }
     return callback(null, _db);
   }, (err) => {

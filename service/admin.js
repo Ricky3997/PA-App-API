@@ -35,8 +35,6 @@ const createMatch = async (mentorId, menteeId) => {
   const mentor = await Mentor.findByIdAndUpdate(mentorId, {$push: {relationship: id}}).exec().then(p => { return p});
   const mentee = await Mentee.findByIdAndUpdate(menteeId, {relationship: id}).exec().then(p => { return p});
 
-  await createSendBirdChatUser(mentor);
-  await createSendBirdChatUser(mentee);
   const sendBirdResponse = await createSendBirdChat(mentor, mentee);
 
   await Relationship.findByIdAndUpdate(id, {chatUrl: sendBirdResponse.channel_url}).exec();
@@ -44,21 +42,6 @@ const createMatch = async (mentorId, menteeId) => {
     .populate({ path: 'mentor', populate: { path: 'relationship', populate: { path: "mentee"} }}).exec().then(p => { return p});
 };
 
-const createSendBirdChatUser = async (user) => {
-  await request({
-    method: 'post',
-    body: {
-      "user_id": user._id.toString(),
-      "nickname": user.firstName,
-      "profile_url": user.pictureUrl || ""
-    },
-    json: true,
-    url: "https://api.sendbird.com/v3/users",
-    headers: {
-      'Content-Type': 'application/json',
-      'Api-Token': config.sendbird.API_TOKEN
-    }});
-};
 const createSendBirdChat = async (mentor, mentee) => {
   const body = {
     'name': `${mentor.firstName} and ${mentee.firstName}`,
