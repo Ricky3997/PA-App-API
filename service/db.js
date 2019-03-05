@@ -24,8 +24,8 @@ const initDb = (callback) => {
     await clearDb();
     await loadAdmin();
     if (!config.PROD_MODE){
-      // await loadDummyMentors();
-      // await loadDummyMentees();
+      //await loadDummyMentors();
+      //await loadDummyMentees();
     }
     return callback(null, _db);
   }, (err) => {
@@ -295,7 +295,7 @@ const loadAdmin = async () => {
     email: "riccardo@broggi.co.uk",
     emailConfirmed: true,
     onboarded: true,
-    admin: true,
+    admin: 'Italy',
     mentorProfile: id,
     menteeProfile: id,
   };

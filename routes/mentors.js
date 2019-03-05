@@ -1,9 +1,9 @@
+const authService = require("../service/auth");
 const express = require('express');
 const router = express.Router();
 const mentorsController = require("../controller/mentors");
 
-
-router.get('/', mentorsController.getAll);
+router.get('/', authService.checkAdmin, mentorsController.getAll);
 
 router.get('/:id', mentorsController.getById);
 

@@ -62,10 +62,12 @@ const checkToken = (req, res, next) => {
 };
 
 const checkAdmin = async (req, res, next) => {
-  //if(process.env.NODE_ENV !== 'production') next(); //TODO
   const {id} = req.decoded;
   const user = await User.findById(id);
-  if (user && user.admin) next();
+  if (user && user.admin) {
+    req.admin = user;
+    next();
+  }
   else return res.sendStatus(401);
 };
 

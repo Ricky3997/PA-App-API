@@ -9,8 +9,12 @@ const fileType = require("file-type");
 const ep = new AWS.Endpoint("s3.eu-west-1.amazonaws.com");
 const s3 = new AWS.S3({ endpoint: ep });
 
-getAll = async () => {
-  return await Mentor.find().populate({ path: 'relationship', populate: { path: 'mentee' }}).exec().then(p => {return p});
+getAll = async (admin) => {
+  let criteria;
+  if(!admin) return [];
+  else if(admin === "superadmin") criteria = {};
+  else criteria = {country: admin};
+  return await Mentor.find(criteria).populate({ path: 'relationship', populate: { path: 'mentee' }}).exec().then(p => {return p});
 };
 
 const getById = async (id) => {

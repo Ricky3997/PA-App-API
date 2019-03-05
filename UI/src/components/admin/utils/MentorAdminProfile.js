@@ -6,6 +6,8 @@ import { LinkContainer } from "react-router-bootstrap";
 
 const MentorAdminProfile = (props) => {
 
+  console.log(props);
+
   const statusToIcon = () => {
     if (props.mentor.status === "notYetRequested") return <Icon name={`fas fa-newspaper-o`} style={{ color: "#03619b" }}/>;
     else if (props.mentor.status === "approved") return <Icon name={`fas fa-check-circle`} style={{ color: "#289b00" }}/>;

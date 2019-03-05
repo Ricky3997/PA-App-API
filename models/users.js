@@ -11,7 +11,7 @@ const User = mongoose.model('User', new mongoose.Schema({
     unique: true,
     required: true
   },
-  admin: Boolean,
+  admin: String,
   onboarded: Boolean,
   status: String,
   mentorProfile: { type: Schema.Types.ObjectId, ref: 'Mentor' },
