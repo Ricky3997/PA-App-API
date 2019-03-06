@@ -19,6 +19,8 @@ const matchingMentorRecommendations = async (id) => {
 
   const mentorRecommendations = new Array(3);
 
+  //TODO consider mentor.maxNumberOfMentees and only suggest mentors that have capacity to mentor
+
   mentorRecommendations[0] = _.sample(mentors);
   mentors = mentors.filter(m => m._id !== mentorRecommendations[0]._id);
   mentorRecommendations[1] = _.sample(mentors);

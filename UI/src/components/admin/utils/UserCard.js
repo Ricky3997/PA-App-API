@@ -31,7 +31,7 @@ const UserCard = (props) => {
         if (p.success) props.successToast("Matched");
       }),
       showConfirmation: (id) => dispatch(showMatchingConfirmation(id)),
-      unsetMatchingConfirmation: () => dispatch(unsetMatchingConfirmation()),
+      unsetMatchingConfirmation: () => dispatch(unsetMatchingConfirmation())
     };
   })(ConfirmMatchButton);
 
@@ -43,7 +43,7 @@ const UserCard = (props) => {
       <Card.Body>
         <Card.Title>
           <Link to={`/admin/${props.mentorMode ? "mentors" : "mentees"}/database/${props._id}`} style={{
-            textDecoration: 'underline', color: "blue",
+            textDecoration: "underline", color: "blue",
             cursor: "pointer"
           }}>
             {props.firstName}
@@ -60,20 +60,20 @@ const UserCard = (props) => {
             {props.mentorMode ? <div>
                <span onClick={() => props.setFieldValue("subject", [props.subject])}
                      style={{ color: "blue", cursor: "pointer" }}>{props.subject}</span>
-            <span>{" at "}</span>
-            <span onClick={() => props.setFieldValue("university", [props.university])}
-                  style={{ color: "blue", cursor: "pointer" }}>{props.university}</span>
-              <div>
-                 {`${props.relationship.length} mentee${props.relationship.length === 1 ? "" : "s"}; max ${props.maxNumberOfMentees}`}
-               </div>
-            </div> :
+                <span>{" at "}</span>
+                <span onClick={() => props.setFieldValue("university", [props.university])}
+                      style={{ color: "blue", cursor: "pointer" }}>{props.university}</span>
+                <div>
+                  {`${props.relationship.length} mentee${props.relationship.length === 1 ? "" : "s"}; max ${props.maxNumberOfMentees}`}
+                </div>
+              </div> :
               <span>
               {props.interestedIn.map((s, i) => <span onClick={() => props.setFieldValue("subject", [s])}
                                                       key={i}
                                                       style={{
                                                         color: "blue",
                                                         cursor: "pointer"
-                                                      }}>{`${s}${i !== (props.interestedIn.length - 1) ? ',' : ''} `}</span>)}
+                                                      }}>{`${s}${i !== (props.interestedIn.length - 1) ? "," : ""} `}</span>)}
 
                 <span>{" at "}</span>
                 {props.unisApplyingFor.map((u, i) => <span onClick={() => props.setFieldValue("university", [u])}
@@ -81,12 +81,19 @@ const UserCard = (props) => {
                                                            style={{
                                                              color: "blue",
                                                              cursor: "pointer"
-                                                           }}>{`${u}${i !== (props.unisApplyingFor.length - 1) ? ',' : ''} `}</span>)}
+                                                           }}>{`${u}${i !== (props.unisApplyingFor.length - 1) ? "," : ""} `}</span>)}
             </span>
             }
           </Card.Text>
           : <Card.Text>
-            {props.mentorMode ? `${props.subject} at ${props.university}` : "mentee"}
+            {props.mentorMode ? <div>
+              <div>
+                {`${props.subject} at ${props.university}`}
+              </div>
+              <div>
+                 {`${props.relationship.length} mentee${props.relationship.length === 1 ? "" : "s"}; max ${props.maxNumberOfMentees}`}
+              </div>
+            </div> : "mentee"}
           </Card.Text>}
       </Card.Body>
       {props.matching ?

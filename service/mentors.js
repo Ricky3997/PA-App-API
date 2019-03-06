@@ -37,6 +37,7 @@ const registerNew = async (id, data) => {
     status: data.status || "notYetRequested",
     maxNumberOfMentees: 3,
     firstName: user.firstName,
+    relationship: [],
     pictureUrl: data.pictureUrl || null
   }).save();
   await request({
