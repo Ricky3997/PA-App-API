@@ -18,7 +18,7 @@ const initDb = (callback) => {
     return callback(null, _db);
   }
 
-  mongoose.connect(config.mongodb.URI, { useNewUrlParser: true }).then(async () => {
+  mongoose.connect(config.mongodb.URI, { useNewUrlParser: true , useFindAndModify: false, useCreateIndex: true }).then(async () => {
     _db = mongoose.connection;
 
     await clearDb();

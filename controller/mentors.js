@@ -27,6 +27,4 @@ const changeStatus = async (req,res) => {
     else res.sendStatus(400);
 };
 
-
-
 module.exports = {getAll, getById, registerNew, changeStatus};

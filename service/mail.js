@@ -1,5 +1,8 @@
 const email   = require("emailjs");
 const config = require("../config");
+const pug = require('pug');
+
+const loginTemplate = pug.compileFile('util/login_email.pug', {});
 
 const smtpServer  = email.server.connect(config.email);
 
@@ -13,8 +16,17 @@ const sendAuthToken = (to, token) => {
     send({
         to: to,
         from: "auth@projectaccess.org",
-        subject: "Your login link",
-        text: `http://${config.UI_URL}/login?token=${token}`
+        subject: "Magic sign-in link for Project Access Mentor",
+        text: 'Text of the email',
+        attachment: [
+            {
+                data: loginTemplate({
+                    userFirstName: 'Riccardo',
+                    signInLink: `http://${config.UI_URL}/login?token=${token}`
+                }),
+                alternative: true
+            },
+        ],
     })
 };
 

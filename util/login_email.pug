@@ -1,0 +1,33 @@
+html
+    head
+        title Magic sign-in link for Project Access Mentor
+        link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css", integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T", crossorigin="anonymous")
+        style(type='text/css').
+            .main_container {
+                background-color: white;
+            }
+            .hello {
+                color: rgb(101,179,136);
+            }
+            .orLink{
+                font-size: small;
+            }
+    body.main_container
+        header
+            h3.hello Hello, #{userFirstName}!
+        section
+            p.
+                You asked us to send you a magic link for quickly sign in to Project Access Mentore. Your wish is our command! ✨
+
+            a(href=`${signInLink}`, target="_blank", class="btn btn-success") Sign in to Project Access Mentor
+
+            p.orLink You may copy/paste this link into your browser:
+            a(href=`${signInLink}`, target="_blank").orLink #{signInLink}
+
+            p.
+                Note: Your magic link will expire in 24 hours, and can only be used one time.
+                See you soon!
+            |
+            p.
+                Cheers,
+                The team at Project Access
