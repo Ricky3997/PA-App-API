@@ -81,7 +81,7 @@ const generateLoginToken = async (email) => {
 };
 
 const createToken = (email, id) => {
-  return jwt.sign({ email: email, id: id }, config.JWT_SECRET, { expiresIn: "24h" });
+  return jwt.sign({ email: email, id: id }, config.JWT_SECRET, { expiresIn: "168h" });
 };
 
 module.exports = { register, confirm, checkToken, checkAdmin, createToken, generateLoginToken, validateToken };

@@ -4,7 +4,7 @@ import {
   ADD_ONBOARDING_PROPERTIES,
   CHANGE_STAGE,
   REMOVE_PICTURE_TO_CROP,
-  REMOVE_USER, SET_ACTIVE_CHAT,
+  REMOVE_USER, SENT_LOGIN_EMAIL, SET_ACTIVE_CHAT,
   SET_ACTIVE_MENTEE_APPROVAL_ID,
   SET_ACTIVE_MENTOR_APPROVAL_ID,
   SET_MATCHING_ID,
@@ -16,10 +16,11 @@ import {
   SWITCH_MATCHING_MODE,
   TOGGLE_ADMIN_FETCHING, TOGGLE_MESSAGING_CONNECTED,
   TOGGLE_PICTURE_PICKER,
-  TOGGLE_REGISTERING, UNSET_MATCHING_CONFIRMATION,
+  TOGGLE_REGISTERING, UNSET_LOGIN_EMAIL, UNSET_MATCHING_CONFIRMATION,
   UPDATE_USER
 } from "./actionTypes";
 import * as api from "../api";
+import { toast } from "react-toastify";
 
 export const updateUser = (user) => {
   return {
@@ -266,6 +267,30 @@ export const setRelationships = (relationships) => {
   return {
     type: SET_RELATIONSHIPS,
     relationships: relationships
+  }
+};
+
+export const setEmailLoginSent = (email) => {
+  return {
+    type: SENT_LOGIN_EMAIL,
+    email: email
+  }
+};
+
+export const unsetLoginEmailSent = () => {
+  return {
+    type: UNSET_LOGIN_EMAIL
+  }
+};
+
+
+export const sendLoginEmail = (email) => {
+  return (dispatch) => {
+    return api.get(`/auth/login?email=${email}`).then(r => {
+      if (r.success) dispatch(setEmailLoginSent(email));
+      else toast.error("There was an error requesting your magic link, sorry");
+      return r;
+    });
   }
 };
 

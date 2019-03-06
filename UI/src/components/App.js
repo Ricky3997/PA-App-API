@@ -24,10 +24,10 @@ import {
   getUser, registerMentee,
   registerMentor,
   removePictureToCrop,
-  saveSettings, setActiveChat,
+  saveSettings, sendLoginEmail, setActiveChat,
   storePictureCropped,
   storePictureToCrop, toggleMessagingConnected,
-  togglePicturePicker,
+  togglePicturePicker, unsetLoginEmailSent,
   updateUser
 } from "../actions/actionCreator";
 import Footer from "./various/Footer";
@@ -43,10 +43,14 @@ class App extends Component {
         <Container fluid id="root_container">
           <Switch>
 
-            <Route path={"/login"} component={connect(({ user }) => {
-              return { user };
+            <Route path={"/login"} component={connect(({ user, login }) => {
+              return { user, login };
             }, dispatch => {
-              return { login: () => dispatch(getUser()) };
+              return {
+                sendLoginEmail: (email) => dispatch(sendLoginEmail(email)),
+                getUser: () => dispatch(getUser()),
+                unsetLoginEmailSent: () => dispatch(unsetLoginEmailSent()),
+              };
             })(Login)}/>
 
             <Route path={"/settings"} component={connect(({ settings, user }) => {

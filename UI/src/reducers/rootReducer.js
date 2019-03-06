@@ -4,7 +4,7 @@ import {
   ADD_ONBOARDING_PROPERTIES,
   CHANGE_STAGE,
   REMOVE_PICTURE_TO_CROP,
-  REMOVE_USER, SET_ACTIVE_CHAT,
+  REMOVE_USER, SENT_LOGIN_EMAIL, SET_ACTIVE_CHAT,
   SET_ACTIVE_MENTEE_APPROVAL_ID,
   SET_ACTIVE_MENTOR_APPROVAL_ID, SET_MATCHING_ID,
   SET_MENTEES, SET_MENTOR_RECOMMENDATIONS,
@@ -14,7 +14,7 @@ import {
   STORE_PICTURE_TO_CROP, SWITCH_MATCHING_MODE,
   TOGGLE_ADMIN_FETCHING, TOGGLE_MESSAGING_CONNECTED,
   TOGGLE_PICTURE_PICKER,
-  TOGGLE_REGISTERING, UNSET_MATCHING_CONFIRMATION,
+  TOGGLE_REGISTERING, UNSET_LOGIN_EMAIL, UNSET_MATCHING_CONFIRMATION,
   UPDATE_USER
 } from "../actions/actionTypes";
 import { combineReducers } from "redux";
@@ -25,6 +25,20 @@ function user(state = JSON.parse(window.localStorage.getItem("user")) || null, a
       return action.user;
     case (REMOVE_USER):
       return null;
+    default:
+      return state;
+  }
+}
+
+function login(state = {
+  emailSent: true,
+  emailSentTo: "riccardo@broggi.co.uk"
+}, action) {
+  switch (action.type) {
+    case (SENT_LOGIN_EMAIL):
+      return {...state, emailSent: true, emailSentTo: action.email };
+    case (UNSET_LOGIN_EMAIL):
+      return {...state, emailSent: false, emailSentTo: null };
     default:
       return state;
   }
@@ -172,7 +186,7 @@ function messaging(state = {
 }
 
 const app = combineReducers({
-  user, settings, onboarding, admin, mentorAdmin, menteeAdmin, matching, messaging
+  user, settings, onboarding, admin, mentorAdmin, menteeAdmin, matching, messaging, login
 });
 
 export default app;
