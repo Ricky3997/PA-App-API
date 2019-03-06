@@ -43,7 +43,9 @@ const MentorSettings = (props) => {
         city: Yup.string()
           .required("City is required."),
         gender: Yup.string()
-          .required("Gender is required.")
+          .required("Gender is required."),
+        maxNumberOfMentees: Yup.number()
+          .required("MaxNumberOfMentees is required."),
 
       })}
       initialValues={{ email: user.email, firstName: user.firstName, ...user.mentorProfile }}
@@ -156,7 +158,16 @@ const MentorSettings = (props) => {
 
           <br/>
           <Row>
-            <Col md={{ size: 2, offset: 8 }}>
+
+            <Col md={{ size: 4 }}>
+              <Field name="maxNumberOfMentees"
+                     render={({ field, form: { touched, errors } }) => <TextFieldWithLabel
+                       label="How many mentees can you help?" field={field} touched={touched}
+                       errors={errors}/>}
+
+              />
+            </Col>
+            <Col md={{ size: 2, offset: 4 }}>
               <Button variant="secondary" block onClick={() => history.push("/")}>
                 Cancel
               </Button>

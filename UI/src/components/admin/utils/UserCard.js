@@ -64,7 +64,7 @@ const UserCard = (props) => {
             <span onClick={() => props.setFieldValue("university", [props.university])}
                   style={{ color: "blue", cursor: "pointer" }}>{props.university}</span>
               <div>
-                 {`${props.relationship.length} mentee${props.relationship.length === 1 ? "" : "s"}`}
+                 {`${props.relationship.length} mentee${props.relationship.length === 1 ? "" : "s"}; max ${props.maxNumberOfMentees}`}
                </div>
             </div> :
               <span>

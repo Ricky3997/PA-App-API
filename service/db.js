@@ -24,8 +24,8 @@ const initDb = (callback) => {
     await clearDb();
     await loadAdmin();
     if (!config.PROD_MODE){
-      //await loadDummyMentors();
-      //await loadDummyMentees();
+      await loadDummyMentors();
+      await loadDummyMentees();
     }
     return callback(null, _db);
   }, (err) => {
@@ -253,7 +253,7 @@ const loadDummyMentees = async () => {
   });
 };
 const loadAdmin = async () => {
-  const id = new mongoose.Types.ObjectId();
+  const id = mongoose.Types.ObjectId('4edd40c86762e0fb12000003'); // new mongoose.Types.ObjectId();
   const mentorProfile = {
     _id: id,
     level: "Masters",
@@ -267,6 +267,7 @@ const loadAdmin = async () => {
     subject: "Computer Science",
     city: "Milano",
     status: "approved",
+    maxNumberOfMentees: 3,
     pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/t/5bb721a4e2c48357967f52fa/1538728361542/Riccardo.jpg?format=300w"
   };
   const menteeProfile = {

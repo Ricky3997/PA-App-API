@@ -34,8 +34,10 @@ const registerNew = async (id, data) => {
     gender: data.gender,
     year: data.year,
     area: data.area,
-    status: "notYetRequested",
-    firstName: user.firstName
+    status: data.status || "notYetRequested",
+    maxNumberOfMentees: 3,
+    firstName: user.firstName,
+    pictureUrl: data.pictureUrl || null
   }).save();
   await request({
     method: 'post',

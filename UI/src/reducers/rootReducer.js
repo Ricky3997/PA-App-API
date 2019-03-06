@@ -31,8 +31,8 @@ function user(state = JSON.parse(window.localStorage.getItem("user")) || null, a
 }
 
 function login(state = {
-  emailSent: true,
-  emailSentTo: "riccardo@broggi.co.uk"
+  emailSent: false,
+  emailSentTo: null
 }, action) {
   switch (action.type) {
     case (SENT_LOGIN_EMAIL):

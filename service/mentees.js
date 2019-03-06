@@ -47,8 +47,9 @@ const registerNew = async (id, data) => {
     city: data.city,
     gender: data.gender,
     year: data.year,
-    status: "notYetRequested",
-    firstName: user.firstName
+    status: data.status || "notYetRequested",
+    firstName: user.firstName,
+    pictureUrl: data.pictureUrl || null
   }).save();
   await request({
     method: 'post',
