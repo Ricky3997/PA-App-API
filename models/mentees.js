@@ -23,6 +23,15 @@ const Mentee = mongoose.model('Mentee', new mongoose.Schema({
   pictureUrl: String,
   status: String,
   firstName: String,
+  journey: [{
+    title: String,
+    description: String,
+    progress: Number,
+    date: String,
+    completed: Date,
+    ready: Boolean,
+    typeformID: String
+  }],
   relationship: { type: Schema.Types.ObjectId, ref: 'Relationship' }
 }));
 

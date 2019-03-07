@@ -33,6 +33,60 @@ const edit = async (id, data, file) => {
   return await Mentee.findByIdAndUpdate(id, data, { new: true }).exec().then(p => { return p});
 };
 
+const generateJourney = () => {
+  return [{
+    title: "Subject choice",
+    description: "The choice of a subject bla bla bla",
+    progress: 10,
+    date: "June/July",
+    completed: new Date(),
+    ready: true,
+    typeformID: "MDHUre"
+  }, {
+    title: "Personal Statement",
+    description: "Preparing your personal statement involves bla bla",
+    progress: 30,
+    date: "September",
+    completed: null,
+    ready: true,
+    typeformID: "MDHUre"
+
+  }, {
+    title: "Oxbridge deadline",
+    description: "The deadline for Obridge bla bla bla",
+    progress: 50,
+    date: "15 October",
+    completed: null,
+    ready: false,
+    typeformID: "MDHUre"
+
+  }, {
+    title: "Interviews",
+    description: "Preparing your interviews bla bla",
+    progress: 70,
+    date: "December",
+    completed: null,
+    ready: false,
+    typeformID: "MDHUre"
+  }, {
+    title: "Offer",
+    description: "Receiving the offer bla bla bla",
+    progress: 90,
+    date: "January",
+    completed: null,
+    ready: false,
+    typeformID: "MDHUre"
+  }, {
+    title: "Ready, start!",
+    description: "Ready to start bla bla",
+    progress: 100,
+    date: "September",
+    completed: null,
+    ready: false,
+    typeformID: "MDHUre"
+  }]
+};
+
 const registerNew = async (id, data) => {
   const user = await User.findById(id);
   await new Mentee({
@@ -49,7 +103,8 @@ const registerNew = async (id, data) => {
     year: data.year,
     status: data.status || "notYetRequested",
     firstName: user.firstName,
-    pictureUrl: data.pictureUrl || null
+    pictureUrl: data.pictureUrl || null,
+    journey: generateJourney()
   }).save();
   await request({
     method: 'post',

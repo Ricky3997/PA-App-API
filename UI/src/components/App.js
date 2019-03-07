@@ -118,8 +118,8 @@ class App extends Component {
               };
             })(Admin)}/>
 
-            <Route component={connect(({ user }) => {
-              return { user };
+            <Route component={connect(({ user, journey }) => {
+              return { user, journey };
             }, dispatch => {
               return {
                 changeMentorStatus: (status) => dispatch(changeMentorStatus(status)),

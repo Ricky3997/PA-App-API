@@ -5,25 +5,25 @@ import { Icon } from "react-fa";
 
 const ModuleBox = (props) => {
         return (
-            <Container className="journey-module-box" style={{backgroundColor: props.milestone.completed ? "#4f84bc" : "#d64f29"}}>
+            <Container className="journey-module-box" style={{backgroundColor: props.module.completed ? "#4f84bc" : "#d64f29"}}>
                 <Row>
                     <Col md={7}>
-                        <h5> Module {props.milestone.id} | {props.milestone.title}
+                        <h5> Module {props.module.id} | {props.module.title}
                         </h5>
                         <p>
-                            {props.milestone.description}
+                            {props.module.description}
                         </p>
                     </Col>
                     <Col md={5}>
-                        {props.milestone.ready ?
+                        {props.module.ready ?
                             <Container>
                                 <b>
-                                    {props.milestone.completed ? `✅ Completed on ${props.milestone.completed} 🎉` : "Take the next step! 🚀"}
+                                    {props.module.completed ? `✅ Completed on ${props.module.completed} 🎉` : "Take the next step! 🚀"}
                                 </b>
-                                <LinkContainer to={`/journey/${props.milestone.id}`} disabled={!props.milestone.ready}
+                                <LinkContainer to={`/journey/${props.module.id}`} disabled={!props.module.ready}
                                                className="pa_orange_link">
                                     <Button block style={{"backgroundColor": "#eb9d26"}}>
-                                        {props.milestone.completed ? "Take again!" : "Start now!"}
+                                        {props.module.completed ? "Take again!" : "Start now!"}
                                     </Button>
                                 </LinkContainer>
                             </Container> :

@@ -6,7 +6,7 @@ import {
   REMOVE_PICTURE_TO_CROP,
   REMOVE_USER, SENT_LOGIN_EMAIL, SET_ACTIVE_CHAT,
   SET_ACTIVE_MENTEE_APPROVAL_ID,
-  SET_ACTIVE_MENTOR_APPROVAL_ID, SET_MATCHING_ID,
+  SET_ACTIVE_MENTOR_APPROVAL_ID, SET_JOURNEY_MODULES, SET_MATCHING_ID,
   SET_MENTEES, SET_MENTOR_RECOMMENDATIONS,
   SET_MENTORS,
   SET_RELATIONSHIPS, SHOW_MATCHING_CONFIRMATION,
@@ -185,8 +185,22 @@ function messaging(state = {
   }
 }
 
+function journey(state = {
+  active: null,
+  modules: []
+}, action) {
+  switch (action.type) {
+    case SET_JOURNEY_MODULES:
+      return {...state, modules: action.modules};
+    default:
+      return state;
+  }
+}
+
+
+
 const app = combineReducers({
-  user, settings, onboarding, admin, mentorAdmin, menteeAdmin, matching, messaging, login
+  user, settings, onboarding, admin, mentorAdmin, menteeAdmin, matching, messaging, login, journey
 });
 
 export default app;
