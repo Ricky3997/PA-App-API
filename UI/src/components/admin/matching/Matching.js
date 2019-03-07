@@ -13,11 +13,10 @@ import {
 import UserCard from "../utils/UserCard";
 import { Icon } from "react-fa";
 import * as JsSearch from "js-search";
-import * as _ from "lodash";
 import ProfileIcon from "../../various/ProfileIcon";
 import { Field, Form as FormikForm, Formik } from "formik";
 import LoadingCard from "../utils/LoadingCard";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 class Matching extends Component {
   constructor(props) {
@@ -138,7 +137,6 @@ class Matching extends Component {
               <h3>There are currently no mentees to match</h3>
             </Container>}
         </Col>
-        <ToastContainer/>
       </Row>
     );
   }

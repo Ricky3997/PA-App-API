@@ -2,16 +2,16 @@ require("dotenv").load();
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const mailService = require("./mail");
+const userService = require("./users");
 const config = require("./../config");
 const { User } = require("../models/users");
-const { Mentor } = require("../models/mentors");
 
 
-const confirm = async (email, id, token) => {
-  if (id === extractIdFromToken(token)) {
+const confirm = async (id, token) => {
+    if (id === extractIdFromToken(token)) {
     await User.update({ _id: id }, { emailConfirmed: true });
-    return { success: true };
-  } else return { error: "Id provided does not match authentication token" };
+    return await userService.getProfile(id);
+  } else return { error: "ID provided does not match authentication token" };
 };
 
 const register = async (email, firstName, type) => {

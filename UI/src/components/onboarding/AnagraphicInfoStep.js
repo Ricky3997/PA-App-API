@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import * as Yup from "yup";
-import "react-toastify/dist/ReactToastify.css";
 import { Field, Form as FormikForm, Formik } from "formik";
 import * as _ from "lodash";
 import CountryPicker from "../various/forms/CountryPicker";

@@ -1,0 +1,33 @@
+html
+    head
+        title Confirm your email for Project Access Mentor
+        link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css", integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T", crossorigin="anonymous")
+        style(type='text/css').
+            .main_container {
+                background-color: white;
+            }
+            .hello {
+                color: rgb(101,179,136);
+            }
+            .orLink{
+                font-size: small;
+            }
+    body.main_container
+        header
+            h3.hello Hello, #{userFirstName}!
+        section
+            p.
+                Welcome to Project Access Mentor, we're super excited to have you joining us! ✨
+                We just need you to confirm your email now because, you know, we want to make sure you're always able to log back in! 🤗
+
+            a(href=`${confirmationLink}`, target="_blank", class="btn btn-success") Click here to confirm your email
+
+            p.orLink You may copy/paste this link into your browser:
+            a(href=`${confirmationLink}`, target="_blank").orLink #{confirmationLink}
+
+            p.
+                See you soon!
+            |
+            p.
+                Cheers,
+                The team at Project Access

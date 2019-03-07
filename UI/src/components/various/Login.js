@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import Loader from "react-loader-spinner";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import * as queryString from "query-string";
 import * as _ from "lodash";
 import { Redirect } from "react-router-dom";
@@ -13,7 +11,7 @@ import LoginEmailSent from "./../../assets/emailSent.png";
 
 class Login extends Component {
   componentDidMount() {
-    const qs = queryString.parse(window.location.search);
+    const qs = queryString.parse(this.props.location.search);
     if (qs.token) {
       window.localStorage.setItem("token", qs.token);
       this.props.getUser();
@@ -89,7 +87,6 @@ class Login extends Component {
             </div>}
           </Col>
         </Row>
-        <ToastContainer/>
       </Container>
     );
   }

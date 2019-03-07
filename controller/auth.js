@@ -8,8 +8,8 @@ const login = async (req,res) => {
 };
 
 const confirm = async (req,res) => {
-    const {id, token, email} = req.query ;
-    const result = await authService.confirm(email, id, token).catch(catchError);
+    const {id, token} = req.query ;
+    const result = await authService.confirm(id, token).catch(catchError);
     if(result) res.json(result);
     else res.sendStatus(400);
 };

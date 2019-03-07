@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { Container } from "react-bootstrap";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import RegisterNewUser from "./RegisterNewUser";
 import MentorOnboarding from "./MentorOnboarding";
 import MenteeOnboarding from "./MenteeOnboarding";
@@ -31,7 +29,6 @@ class Onboarding extends Component {
         <Container className="onboarding">
           {step}
         </Container>
-        <ToastContainer/>
       </Container>
     );
   }

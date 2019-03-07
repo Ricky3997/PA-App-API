@@ -6,8 +6,7 @@ import * as _ from "lodash";
 import { Field, Form as FormikForm, Formik } from "formik";
 import Loader from "react-loader-spinner";
 import ProfilePicture from "./ProfilePicture";
-import "react-toastify/dist/ReactToastify.css";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import CountryPicker from "../various/forms/CountryPicker";
 import TextFieldWithLabel from "../various/forms/TextFieldWithLabel";
 import AreaOfDegreePicker from "../various/forms/AreaOfDegreePicker";
@@ -15,6 +14,7 @@ import DegreeLevelPicker from "../various/forms/DegreeLevelPicker";
 import YearPicker from "../various/forms/YearPicker";
 import FirstGenerationStudentPicker from "../various/forms/FirstGenerationStudentPicker";
 import GenderPicker from "../various/forms/GenderPicker";
+import { Icon } from "react-fa";
 
 const MentorSettings = (props) => {
   const { user, settings, togglePicturePicker, storePictureToCrop, removePictureToCrop, storePictureCropped, history } = props;
@@ -84,8 +84,13 @@ const MentorSettings = (props) => {
               <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
               </Form.Text>
-              <span>{user.emailConfirmed ? "Email Confirmed" : "Email Not Confirmed"}</span>
-              {/*TODO Handle email confimed API call and not updating local storage user object*/}
+
+
+              <span style={{ color: user.emailConfirmed ? "green" : "red", fontSize: "18px"}}>
+                <Icon name="fas fa-envelope"/>
+                {user.emailConfirmed ? " Email Confirmed" : " Email Not Confirmed"}
+              </span>
+
             </Col>
           </Row>
           <br/>
@@ -181,7 +186,6 @@ const MentorSettings = (props) => {
         </FormikForm>
       )}
     />
-    <ToastContainer/>
   </div>;
 
 };

@@ -15,12 +15,13 @@ import Settings from "./settings/Settings";
 import JourneyModule from "./journey/JourneyModule";
 import Home from "./home/Home";
 import About from "./various/About";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
   addMessagesToChat,
   addMessagingChat,
   addOnboardingProperties, changeMenteeStatus, changeMentorStatus,
-  changeStage, fetchMentees, fetchMentors, fetchRelationships,
+  changeStage, confirmEmailAddress, fetchMentees, fetchMentors, fetchRelationships,
   getUser, registerMentee,
   registerMentor,
   removePictureToCrop,
@@ -32,6 +33,7 @@ import {
 } from "../actions/actionCreator";
 import Footer from "./various/Footer";
 import { Container } from "react-bootstrap";
+import { ToastContainer } from "react-toastify";
 
 class App extends Component {
 
@@ -78,7 +80,6 @@ class App extends Component {
               };
             })(Onboarding)}/>
 
-            <Route path={"/confirm"} render={(props) => <Confirm/>}/>
             <Route path={"/journey/:id"} component={connect(({ user }) => {
               return {  user };
             }, dispatch => {
@@ -100,6 +101,11 @@ class App extends Component {
             <Route path={"/call"} render={(props) => <Call user={user} {...props} />}/>
             <Route path={"/mentor/:id"} exact render={(props) => <MentorProfile {...props} />}/>
             <Route path={"/about"} component={About}/>
+            <Route path={"/confirm"} component={connect(null, dispatch => {
+              return {
+                confirmEmailAddress: (token, id) => dispatch(confirmEmailAddress(token, id))
+              };
+            })(Confirm)}/>
 
 
             <Route path={"/admin/:section?"} component={connect(({ user, admin }) => {
@@ -123,6 +129,7 @@ class App extends Component {
             })(Home)}/>
 
           </Switch>
+          <ToastContainer/>
         </Container>
         <Footer history={history}/>
       </div>

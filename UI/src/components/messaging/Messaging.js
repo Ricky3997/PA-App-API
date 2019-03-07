@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {
   ThemeProvider
 } from "@livechat/ui-kit";
-import { Button, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import SendBird from "sendbird";
 import ListOfChats from "./ListOfChats";
 import OpenChat from "./OpenChat";

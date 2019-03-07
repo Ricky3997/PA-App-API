@@ -35,6 +35,17 @@ export const removeUser = () => {
   }
 };
 
+export const confirmEmailAddress = (token, id) => {
+  return (dispatch) => {
+    return api.get(`/auth/confirm?token=${token}&id=${id}`).then(r => {
+      if(r.success) {
+        window.localStorage.setItem("user", JSON.stringify(r.payload));
+        dispatch(updateUser(r.payload));
+      }
+      return r;
+    })
+  }
+};
 
 export const getUser = () => {
   return (dispatch) => {

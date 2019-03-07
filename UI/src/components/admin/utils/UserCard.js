@@ -5,7 +5,6 @@ import { Icon } from "react-fa";
 import ProfileIcon from "../../various/ProfileIcon";
 import connect from "react-redux/es/connect/connect";
 import { confirmMatch, unsetMatchingConfirmation, showMatchingConfirmation } from "../../../actions/actionCreator";
-import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 
 const UserCard = (props) => {

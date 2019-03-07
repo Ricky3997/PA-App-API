@@ -6,14 +6,13 @@ import { Field, Form as FormikForm, Formik } from "formik";
 import * as _ from "lodash";
 import Loader from "react-loader-spinner";
 import * as api from "../../api";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import * as queryString from "query-string";
 import { Icon } from "react-fa";
 
 const RegisterNewUser = (props) => {
 
-  const qs = queryString.parse(window.location.search);
+  const qs = queryString.parse(this.props.location.search);
   let typeFromUrl;
   if (qs.type) {
     if (qs.type === "mentee") typeFromUrl = "Student Looking for Help";
@@ -132,7 +131,6 @@ const RegisterNewUser = (props) => {
         />
         <Button block style={{color: "white"}} variant="link" onClick={() => props.history.push("/login")}>Already registered? Sign in instead</Button>
       </Col>
-      <ToastContainer/>
     </Row>
   );
 };
