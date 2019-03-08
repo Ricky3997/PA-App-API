@@ -20,7 +20,7 @@ import "react-toastify/dist/ReactToastify.css";
 import {
   addMessagesToChat,
   addMessagingChat,
-  addOnboardingProperties, changeMenteeStatus, changeMentorStatus,
+  addOnboardingProperties, changeActiveJourneyModule, changeMenteeStatus, changeMentorStatus,
   changeStage, confirmEmailAddress, fetchMentees, fetchMentors, fetchRelationships,
   getUser, registerMentee,
   registerMentor,
@@ -124,7 +124,8 @@ class App extends Component {
               return {
                 changeMentorStatus: (status) => dispatch(changeMentorStatus(status)),
                 changeMenteeStatus: (status) => dispatch(changeMenteeStatus(status)),
-                refreshUser: () => dispatch(getUser())
+                refreshUser: () => dispatch(getUser()),
+                changeActiveJourneyModule: (id) => dispatch(changeActiveJourneyModule(id))
               };
             })(Home)}/>
 

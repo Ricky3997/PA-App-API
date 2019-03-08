@@ -254,6 +254,18 @@ const loadDummyMentees = async () => {
 };
 const loadAdmin = async () => {
   const id = mongoose.Types.ObjectId('4edd40c86762e0fb12000003'); // new mongoose.Types.ObjectId();
+  const userProfile = {
+    _id: id,
+    firstName: "Riccardo",
+    type: "mentee",
+    email: "riccardo@broggi.co.uk",
+    emailConfirmed: true,
+    onboarded: true,
+    admin: 'Italy',
+    mentorProfile: id,
+    menteeProfile: id,
+  };
+  await new User(userProfile).save();
   const mentorProfile = {
     _id: id,
     level: "Masters",
@@ -287,19 +299,8 @@ const loadAdmin = async () => {
     pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/t/5bb721a4e2c48357967f52fa/1538728361542/Riccardo.jpg?format=300w"
 
   };
-  await new Mentor(mentorProfile).save();
-  //await new Mentee(menteeProfile).save();
-  const userProfile = {
-    _id: id,
-    firstName: "Riccardo",
-    type: "mentor",
-    email: "riccardo@broggi.co.uk",
-    emailConfirmed: true,
-    onboarded: true,
-    admin: 'Italy',
-    mentorProfile: id,
-    menteeProfile: id,
-  };
+  //await new Mentor(mentorProfile).save();
+  await MenteeService.registerNew(id, menteeProfile);
   await request({
     method: 'post',
     body: {
@@ -313,7 +314,6 @@ const loadAdmin = async () => {
       'Content-Type': 'application/json',
       'Api-Token': config.sendbird.API_TOKEN
     }});
-  await new User(userProfile).save();
 
 };
 

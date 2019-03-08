@@ -41,7 +41,7 @@ const generateJourney = () => {
     date: "June/July",
     completed: new Date(),
     ready: true,
-    typeformID: "MDHUre"
+    typeformID: "oybn"
   }, {
     title: "Personal Statement",
     description: "Preparing your personal statement involves bla bla",
@@ -58,7 +58,7 @@ const generateJourney = () => {
     date: "15 October",
     completed: null,
     ready: false,
-    typeformID: "MDHUre"
+    typeformID: "xoxoox"
 
   }, {
     title: "Interviews",
@@ -67,7 +67,7 @@ const generateJourney = () => {
     date: "December",
     completed: null,
     ready: false,
-    typeformID: "MDHUre"
+    typeformID: "ohbh"
   }, {
     title: "Offer",
     description: "Receiving the offer bla bla bla",
@@ -75,7 +75,7 @@ const generateJourney = () => {
     date: "January",
     completed: null,
     ready: false,
-    typeformID: "MDHUre"
+    typeformID: "xxxxX"
   }, {
     title: "Ready, start!",
     description: "Ready to start bla bla",
@@ -83,7 +83,7 @@ const generateJourney = () => {
     date: "September",
     completed: null,
     ready: false,
-    typeformID: "MDHUre"
+    typeformID: "oiuyu"
   }]
 };
 

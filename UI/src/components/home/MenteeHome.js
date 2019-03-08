@@ -23,11 +23,11 @@ class MenteeHome extends Component {
 
       <Row>
         <Col md={2}>
-          <ProgressionTimeline modules={this.props.journey.modules} active={this.props.journey.active}
-                               changeSection={(m) => alert({ active: m.id })}/>
+          <ProgressionTimeline modules={this.props.user.menteeProfile.journey} activeId={this.props.journey.activeId}
+                               changeSection={(m) => this.props.changeActiveJourneyModule( m.typeformID )}/>
         </Col>
         <Col md={7}>
-          <Module module={this.props.journey.modules.filter(m => m.id === this.props.journey.active)[0]}/>
+          <Module module={this.props.user.menteeProfile.journey.filter(m => m.typeformID === this.props.journey.activeId)[0]}/>
         </Col>
         <Col md={3}>
           {_.get(this.props, "user.menteeProfile.relationship.mentor") ?

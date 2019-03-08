@@ -3,10 +3,11 @@ import { Bookmark, Timeline } from "react-vertical-timeline";
 import "react-vertical-timeline/style.css";
 
 const ProgressionTimeline = (props) => {
-    return  props.modules.length > 0 ? (
-        <Timeline height={550} progress={props.modules.filter(m => m.id === props.active)[0].progress} onSelect={props.changeSection}>
+    const activeModule = props.modules.filter(m => m.typeformID === props.activeId)[0];
+    return (
+        <Timeline height={550} progress={activeModule ? activeModule.progress : 0} onSelect={props.changeSection}>
             {props.modules.map(m =>
-                <Bookmark key={m.id} progress={m.progress} onSelect={() => props.changeSection(m)}>
+                <Bookmark key={m.typeformID} progress={m.progress} onSelect={() => props.changeSection(m)}>
                     <div style={{cursor: 'pointer'}}>
                         <i>
                             {m.date}
@@ -18,7 +19,7 @@ const ProgressionTimeline = (props) => {
                     </div>
                 </Bookmark>)}
         </Timeline>
-    ) : null;
+    );
 };
 
 export default ProgressionTimeline;

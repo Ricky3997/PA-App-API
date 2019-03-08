@@ -12,13 +12,12 @@ import { Icon } from "react-fa";
 
 const RegisterNewUser = (props) => {
 
-  const qs = queryString.parse(this.props.location.search);
+  const qs = queryString.parse(props.location.search);
   let typeFromUrl;
   if (qs.type) {
     if (qs.type === "mentee") typeFromUrl = "Student Looking for Help";
     if (qs.type === "mentor") typeFromUrl = "University Student looking to help";
   }
-
 
   return (
     <Row>

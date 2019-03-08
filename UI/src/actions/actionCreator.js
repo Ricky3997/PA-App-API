@@ -4,7 +4,7 @@ import {
   ADD_ONBOARDING_PROPERTIES,
   CHANGE_STAGE,
   REMOVE_PICTURE_TO_CROP,
-  REMOVE_USER, SENT_LOGIN_EMAIL, SET_ACTIVE_CHAT,
+  REMOVE_USER, SENT_LOGIN_EMAIL, SET_ACTIVE_CHAT, SET_ACTIVE_JOURNEY_MODULE,
   SET_ACTIVE_MENTEE_APPROVAL_ID,
   SET_ACTIVE_MENTOR_APPROVAL_ID,
   SET_MATCHING_ID,
@@ -85,6 +85,14 @@ export const storePictureCropped = (pictureCropped) => {
   return {
     type: STORE_PICTURE_CROPPED,
     pictureCropped
+  }
+};
+
+
+export const changeActiveJourneyModule = (id) => {
+  return {
+    type: SET_ACTIVE_JOURNEY_MODULE,
+    id: id
   }
 };
 
