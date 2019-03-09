@@ -1,9 +1,9 @@
 import React from "react";
 import SelectWithLabel from "./SelectWithLabel";
+import defaults from "./../../../defaults/defaults.json";
 
 const GenderPicker = (props) => {
-  const options = ["Female", "Male", "Prefer not to say"];
-  return <SelectWithLabel {...props} label="What's your gender?" options={options}
+  return <SelectWithLabel {...props} label="What's your gender?" options={defaults.gender}
                           placeholder="Select your gender"/>;
 };
 

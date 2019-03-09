@@ -1,11 +1,17 @@
 import React from "react";
-import { Badge, Button, Col, Form, Row } from "react-bootstrap";
+import { Badge, Button, Col, Form, Image, ProgressBar, Row } from "react-bootstrap";
 import Loader from "react-loader-spinner";
 import { Icon } from "react-fa";
+import countries from "svg-country-flags/countries";
+import defaults from "./../../defaults/defaults.json";
 
 const MentorConfirm = (props) => {
-  return <div>
-
+  let flagIndex = "";
+  Object.entries(countries).forEach((a) => {
+    if (props.onboarding.country === a[1]) flagIndex = a[0];
+  });
+  const flag = require(`svg-country-flags/svg/${flagIndex.toLowerCase()}.svg`);
+  return <div style={{ fontSize: "16px" }}>
     <Row style={{ paddingTop: "80px" }}>
       <Col md={{ span: 6, offset: 3 }}>
         <p>
@@ -15,40 +21,91 @@ const MentorConfirm = (props) => {
       </Col>
     </Row>
 
-    <Row>
-      <Col md={{ span: 4, offset: 2 }}>
-        <Badge variant="info">{"You are"}</Badge>
-        <Form.Label>{`${props.onboarding.gender} and ${props.onboarding.firstGenStudent ? "First Generation" : "Not First Generation"}`} </Form.Label>
-      </Col>
 
-      <Col md={4}>
-        <Badge variant="info">{"You are from"}</Badge>
-        <Form.Label>{`${props.onboarding.city}, ${props.onboarding.country}`} </Form.Label>
+    <Row>
+      <Col md={{ span: 2, offset: 3 }}>
+
+        <Badge variant="info">{"From"}</Badge>
+      </Col>
+      <Col md={{ span: 3 }}>
+        <Form.Label>{`${props.onboarding.city}, ${props.onboarding.country}`} <img alt={props.onboarding.country}
+                                                                                   width="15px" src={flag}/>
+        </Form.Label>
       </Col>
     </Row>
+
     <Row>
-      <Col md={{ span: 4, offset: 2 }}>
+      <Col md={{ span: 2, offset: 3 }}>
+        <Badge variant="info">{"Gender Identity"}</Badge>
+      </Col>
+      <Col md={{ span: 3 }}>
+        <Form.Label>{`${props.onboarding.gender}`} </Form.Label>
+      </Col>
+    </Row>
+
+    <Row>
+      <Col md={{ span: 2, offset: 3 }}>
+        <Badge variant="info">{"First Generation"}</Badge>
+      </Col>
+      <Col md={{ span: 1 }}>
+        <Form.Label>{`${props.onboarding.firstGenStudent ? "Yes" : "No"}`} </Form.Label>
+      </Col>
+    </Row>
+
+    <Row>
+      <Col md={{ span: 2, offset: 3 }}>
         <Badge variant="info">{"Currently studying"}</Badge>
-        <Form.Label>{`${props.onboarding.subject} at ${props.onboarding.university}`}</Form.Label>
-      </Col>
-
-      <Col md={4}>
-        <Badge variant="info">{"In Year"}</Badge>
-        <Form.Label>{`${props.onboarding.year} of your ${props.onboarding.level} degree`} </Form.Label>
-      </Col>
-    </Row>
-
-    <Row>
-      <Col md={{ span: 4, offset: 2 }}>
-        <Button block onClick={() => props.changeStage(3)}>
-          <span><Icon name="fas fa-arrow-left" />{" Previous"}  </span>
-        </Button>
       </Col>
       <Col md={{ span: 4 }}>
+        <Form.Label>{`${props.onboarding.subject}`}</Form.Label>
+      </Col>
+    </Row>
+
+    <Row>
+      <Col md={{ span: 2, offset: 3 }}>
+        <Badge variant="info">{"University"}</Badge>
+      </Col>
+      <Col md={{ span: 3 }}>
+        <Image
+          src={[...defaults.universities.US, ...defaults.universities.UK].filter(u => u.name === props.onboarding.university)[0].logo}
+          style={{ maxHeight: "60px", maxWidth: "130px" }}/>
+      </Col>
+    </Row>
+
+    <Row>
+      <Col md={{ span: 2, offset: 3 }}>
+        <Badge variant="info">{"Level"}</Badge>
+      </Col>
+      <Col md={{ span: 3 }}>
+        <Form.Label>{`${props.onboarding.level}`}</Form.Label>
+      </Col>
+    </Row>
+
+    <Row>
+      <Col md={{ span: 2, offset: 3 }}>
+        <Badge variant="info">{"Year"}</Badge>
+      </Col>
+      <Col md={{ span: 3 }}>
+        <Form.Label>{`${props.onboarding.year}`}</Form.Label>
+      </Col>
+    </Row>
+
+
+    <Row>
+      <Col md={{ span: 2, offset: 3 }}>
+        <Button block onClick={() => props.changeStage(3)}>
+          <span><Icon name="fas fa-arrow-left"/>{" Previous"}  </span>
+        </Button>
+      </Col>
+      <Col md={{ span: 2 }} style={{ paddingTop: "10px" }}>
+        <ProgressBar striped now={100} label={`${100}%`}/>
+      </Col>
+      <Col md={{ span: 2 }}>
         <Button variant="success" block disabled={props.onboarding.registering} onClick={() => {
           props.registerMentor();
         }}>
-          {props.onboarding.registering ? <Loader type="Oval" color="#ffffff" width="20" height="20"/> : <span>Looks good, let's go!</span>}
+          {props.onboarding.registering ? <Loader type="Oval" color="#ffffff" width="20" height="20"/> :
+            <span>Perfect, let's go!</span>}
         </Button>
       </Col>
     </Row>

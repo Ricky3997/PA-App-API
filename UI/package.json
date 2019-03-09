@@ -14,6 +14,7 @@
     "d3-scale": "latest",
     "formik": "^1.4.0",
     "js-search": "^1.4.2",
+    "moment": "^2.24.0",
     "prettier": "latest",
     "query-string": "^6.2.0",
     "react": "^16.6.3",

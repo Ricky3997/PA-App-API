@@ -9,14 +9,15 @@ import * as api from "../../api";
 import { toast } from "react-toastify";
 import * as queryString from "query-string";
 import { Icon } from "react-fa";
+import defaults  from "./../../defaults/defaults.json";
 
 const RegisterNewUser = (props) => {
 
   const qs = queryString.parse(props.location.search);
   let typeFromUrl;
   if (qs.type) {
-    if (qs.type === "mentee") typeFromUrl = "Student Looking for Help";
-    if (qs.type === "mentor") typeFromUrl = "University Student looking to help";
+    if (qs.type === "mentee") typeFromUrl = defaults.onboarding.mentee;
+    if (qs.type === "mentor") typeFromUrl = defaults.onboarding.mentor;
   }
 
   return (
@@ -72,8 +73,8 @@ const RegisterNewUser = (props) => {
                                   isInvalid={touched[field.name] && errors[field.name]}
                                   as="select"
                     >
-                      <option>Student Looking for Help</option>
-                      <option>University Student looking to help</option>
+                      <option>{defaults.onboarding.mentee}</option>
+                      <option>{defaults.onboarding.mentor}</option>
                     </Form.Control>
                     {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
                   </div>;
@@ -102,7 +103,7 @@ const RegisterNewUser = (props) => {
 
                   return <div>
                     <Form.Label>
-                      <span>Your <b>{values.userType === "Student Looking for Help" ? "" : "University"}</b> {"Email Address "}</span>
+                      <span>Your <b>{values.userType === defaults.onboarding.mentee ? "" : "University"}</b> {"Email Address "}</span>
                       {values.userType === "Student Looking for Help" ? null :
                         <OverlayTrigger placement="bottom"
                                         overlay={<Tooltip placement="bottoom" className="in">We need
@@ -123,7 +124,7 @@ const RegisterNewUser = (props) => {
               <br />
               <Button block type="submit" variant="success" disabled={isSubmitting || !_.isEmpty(errors)}>
                 {isSubmitting ? <Loader type="Oval" color="#ffffff" width="20" height="20"/> :
-                  (values.userType === "Student Looking for Help" ? "Find your mentor!" : "Help a mentee!")}
+                  (values.userType === defaults.onboarding.mentee ? "Find your mentor!" : "Help a mentee!")}
               </Button>
             </FormikForm>
           )}

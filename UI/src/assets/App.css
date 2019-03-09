@@ -1,3 +1,5 @@
+
+
 .pa_orange_text{
     color: #eb9d26;
 }
@@ -83,7 +85,8 @@
 }
 
 #root_div{
-    height: 100vh
+    height: 100vh;
+    font-size: 16px;
 }
 #root_container{
     min-height: 95vh;

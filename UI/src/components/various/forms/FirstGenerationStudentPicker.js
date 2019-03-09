@@ -14,7 +14,7 @@ const FirstGenerationStudentPicker = (props) => {
                         "Knowing whether your parents went to University will help us find a younger student needing your help who, coming from your same background, will be able to relate to you better!!"}
                     </Tooltip>}>
                                     <Badge pill variant="info">
-                                        <Icon style={{ color: "white" }} name="fas fa-info-circle"/> Why?
+                                        <Icon style={{ color: "white" }} name="fas fa-info-circle"/>
                                     </Badge>
                                 </OverlayTrigger>
                     </span>;

@@ -54,11 +54,6 @@ const SubjectsInSchoolPicker = ({field, touched, errors, setFieldValue}) => {
         <Option value="Dance">Dance</Option>
       </OptGroup>
 
-
-
-
-
-
     </Select>
     {touched[field.name] && errors[field.name] ?
       <p style={{ color: "red" }}>{errors[field.name]}</p> : null}

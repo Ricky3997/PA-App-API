@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, Col, ProgressBar, Row } from "react-bootstrap";
 import * as Yup from "yup";
 import { Field, Form as FormikForm, Formik } from "formik";
 import * as _ from "lodash";
@@ -11,7 +11,12 @@ import { Icon } from "react-fa";
 
 
 const AnagraphicInfoStep = (props) => {
-  const {user} = props;
+
+  const calculateProgressBar = (values) => {
+    return 30 + (values.country ? 7 : 0) +(values.city ? 7 : 0) +(values.gender ? 8 : 0) +(values.firstGenStudent ? 8 : 0);
+  };
+
+  const { user } = props;
   return <Formik
     validationSchema={Yup.object().shape({
       country: Yup.string()
@@ -52,28 +57,37 @@ const AnagraphicInfoStep = (props) => {
           </Col>
           <Col md={{ span: 3 }}>
             <Field name="city" render={({ field, form: { touched, errors } }) =>
-              <TextFieldWithLabel label="What city are you from?" field={field} touched={touched} errors={errors} />}
+              <TextFieldWithLabel label="What city are you from?" field={field} touched={touched} errors={errors}/>}
             />
           </Col>
         </Row>
         <Row>
           <Col md={{ span: 3, offset: 3 }}>
             <Field name="gender" render={({ field, form: { touched, errors } }) =>
-              <GenderPicker setFieldValue={setFieldValue} field={field} touched={touched} errors={errors} />}
+              <GenderPicker setFieldValue={setFieldValue} field={field} touched={touched} errors={errors}/>}
             />
           </Col>
           <Col md={{ span: 3 }}>
             <Field name="firstGenStudent" render={({ field, form: { touched, errors } }) =>
-              <FirstGenerationStudentPicker user={user} setFieldValue={setFieldValue} field={field} touched={touched} errors={errors} />}
+              <FirstGenerationStudentPicker user={user} setFieldValue={setFieldValue} field={field} touched={touched}
+                                            errors={errors}/>}
             />
           </Col>
         </Row>
 
-        <br />
+        <br/>
         <Row>
-          <Col md={{ span: 6, offset: 3 }}>
+          <Col md={{ span: 2, offset: 3 }}>
+            <Button disabled block onClick={() => props.changeStage(2)}>
+              <span><Icon name="fas fa-arrow-left"/>{" Previous"}  </span>
+            </Button>
+          </Col>
+          <Col md={{ span: 2 }} style={{ paddingTop: "10px" }}>
+            <ProgressBar striped now={calculateProgressBar(values)} label={`${calculateProgressBar(values)}%`}/>
+          </Col>
+          <Col md={{ span: 2 }}>
             <Button block type="submit" variant="success" disabled={isSubmitting || !_.isEmpty(errors)}>
-              <span>{"Next "} <Icon name="fas fa-arrow-right" /> </span>
+              <span>{"Next "} <Icon name="fas fa-arrow-right"/> </span>
             </Button>
           </Col>
         </Row>

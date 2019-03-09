@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, Col, ProgressBar, Row } from "react-bootstrap";
 import * as _ from "lodash";
 import { Field, Form as FormikForm, Formik } from "formik";
 import * as Yup from "yup";
@@ -8,8 +8,14 @@ import AreaOfDegreePicker from "../various/forms/AreaOfDegreePicker";
 import DegreeLevelPicker from "../various/forms/DegreeLevelPicker";
 import YearPicker from "../various/forms/YearPicker";
 import { Icon } from "react-fa";
+import UniversityPicker from "../various/forms/UniversityPicker";
 
 const MentorAcademicBackground = (props) => {
+
+  const calculateProgressBar = (values) => {
+    return 60 + (values.university ? 7 : 0) +(values.subject ? 7 : 0) +(values.level ? 7 : 0) +(values.area ? 7 : 0) +(values.year ? 7 : 0);
+  };
+
   return <Formik
     validationSchema={Yup.object().shape({
       university: Yup.string()
@@ -39,7 +45,7 @@ const MentorAcademicBackground = (props) => {
         <Row style={{ paddingTop: "80px" }}>
           <Col md={{ span: 3, offset: 3 }}>
             <Field name="university" render={({ field, form: { touched, errors } }) =>
-              <TextFieldWithLabel label="Your current University" field={field} touched={touched} errors={errors}/>}
+              <UniversityPicker setFieldValue={setFieldValue} field={field} touched={touched} errors={errors}/>}
             />
           </Col>
           <Col md={{ span: 3 }}>
@@ -65,16 +71,19 @@ const MentorAcademicBackground = (props) => {
             />
           </Col>
         </Row>
-        <br />
+        <br/>
         <Row>
-          < Col md={{ span: 3, offset: 3 }}>
+          <Col md={{ span: 2, offset: 3 }}>
             <Button block onClick={() => props.changeStage(2)}>
-              <span><Icon name="fas fa-arrow-left" />{" Previous"}  </span>
+              <span><Icon name="fas fa-arrow-left"/>{" Previous"}  </span>
             </Button>
           </Col>
-          <Col md={{ span: 3 }}>
+          <Col md={{ span: 2 }} style={{ paddingTop: "10px" }}>
+            <ProgressBar striped now={calculateProgressBar(values)} label={`${calculateProgressBar(values)}%`}/>
+          </Col>
+          <Col md={{ span: 2 }}>
             <Button block type="submit" variant="success" disabled={isSubmitting || !_.isEmpty(errors)}>
-              <span>{"Next "} <Icon name="fas fa-arrow-right" /> </span>
+              <span>{"Next "} <Icon name="fas fa-arrow-right"/> </span>
             </Button>
           </Col>
         </Row>

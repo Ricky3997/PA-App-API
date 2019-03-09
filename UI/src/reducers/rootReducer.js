@@ -64,10 +64,10 @@ function settings(state = {
 }
 
 function onboarding(state = {
-  step: 1,
+  step: 4,
   country: "Italy",
   city: "Milan",
-  university: "University of Bath",
+  university: "University of Oxford",
   school: "Collegio San Carlo",
   subject: "Computer Science",
   subjects: ['Maths', 'Economics', 'Phylosophy', 'Italian', 'Biology', 'English'],
@@ -185,8 +185,17 @@ function messaging(state = {
   }
 }
 
+const getInitialJourneyState = () => {
+  try{
+    const journey = JSON.parse(window.localStorage.getItem("user")).menteeProfile.journey;
+    return journey.filter(m => !m.completed && m.ready)[0].typeformID
+  } catch(e) {
+    return null;
+  }
+}
+
 function journey(state = {
-  activeId: null
+  activeId: getInitialJourneyState()
 }, action) {
   switch (action.type) {
     case SET_ACTIVE_JOURNEY_MODULE:

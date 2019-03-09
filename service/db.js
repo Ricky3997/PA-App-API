@@ -253,7 +253,7 @@ const loadDummyMentees = async () => {
   });
 };
 const loadAdmin = async () => {
-  const id = mongoose.Types.ObjectId('4edd40c86762e0fb12000003'); // new mongoose.Types.ObjectId();
+  const id = mongoose.Types.ObjectId('4edd40c86762e0fb12000003');
   const userProfile = {
     _id: id,
     firstName: "Riccardo",
