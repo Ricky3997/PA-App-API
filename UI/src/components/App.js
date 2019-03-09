@@ -25,7 +25,7 @@ import {
   getUser, registerMentee,
   registerMentor,
   removePictureToCrop,
-  saveSettings, sendLoginEmail, setActiveChat,
+  saveSettings, sendLoginEmail, setActiveChat, setMentorHomeProgress,
   storePictureCropped,
   storePictureToCrop, toggleMessagingConnected,
   togglePicturePicker, unsetLoginEmailSent,
@@ -118,14 +118,15 @@ class App extends Component {
               };
             })(Admin)}/>
 
-            <Route component={connect(({ user, journey }) => {
-              return { user, journey };
+            <Route component={connect(({ user, journey, mentorHome }) => {
+              return { user, journey, mentorHome };
             }, dispatch => {
               return {
                 changeMentorStatus: (status) => dispatch(changeMentorStatus(status)),
                 changeMenteeStatus: (status) => dispatch(changeMenteeStatus(status)),
                 refreshUser: () => dispatch(getUser()),
-                changeActiveJourneyModule: (id) => dispatch(changeActiveJourneyModule(id))
+                changeActiveJourneyModule: (id) => dispatch(changeActiveJourneyModule(id)),
+                setMentorHomeProgress: (progress) => dispatch(setMentorHomeProgress(progress)),
               };
             })(Home)}/>
 

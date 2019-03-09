@@ -15,7 +15,7 @@ import {
   TOGGLE_ADMIN_FETCHING, TOGGLE_MESSAGING_CONNECTED,
   TOGGLE_PICTURE_PICKER,
   TOGGLE_REGISTERING, UNSET_LOGIN_EMAIL, UNSET_MATCHING_CONFIRMATION,
-  UPDATE_USER
+  UPDATE_USER, SET_MENTOR_HOME_PROGRESS
 } from "../actions/actionTypes";
 import { combineReducers } from "redux";
 
@@ -36,9 +36,9 @@ function login(state = {
 }, action) {
   switch (action.type) {
     case (SENT_LOGIN_EMAIL):
-      return {...state, emailSent: true, emailSentTo: action.email };
+      return { ...state, emailSent: true, emailSentTo: action.email };
     case (UNSET_LOGIN_EMAIL):
-      return {...state, emailSent: false, emailSentTo: null };
+      return { ...state, emailSent: false, emailSentTo: null };
     default:
       return state;
   }
@@ -70,14 +70,14 @@ function onboarding(state = {
   university: "University of Oxford",
   school: "Collegio San Carlo",
   subject: "Computer Science",
-  subjects: ['Maths', 'Economics', 'Phylosophy', 'Italian', 'Biology', 'English'],
+  subjects: ["Maths", "Economics", "Phylosophy", "Italian", "Biology", "English"],
   level: "Undergraduate",
   area: "Technology",
   year: "4",
   gender: "Male",
   firstGenStudent: "No",
-  interestedIn: ['Maths', 'PPE', 'Computer Science', 'Economics'],
-  unisApplyingFor: ['LSE', 'UCL', 'Oxford', 'Bath', 'Southampton'],
+  interestedIn: ["Maths", "PPE", "Computer Science", "Economics"],
+  unisApplyingFor: ["LSE", "UCL", "Oxford", "Bath", "Southampton"],
   registering: false
 }, action) {
   switch (action.type) {
@@ -101,23 +101,24 @@ function admin(state = {
 }, action) {
   switch (action.type) {
     case SET_RELATIONSHIPS:
-      return {...state, relationships: action.relationships};
+      return { ...state, relationships: action.relationships };
     case SET_MENTEES:
-      return {...state, mentees: action.mentees};
+      return { ...state, mentees: action.mentees };
     case SET_MENTORS:
-      return {...state, mentors: action.mentors};
+      return { ...state, mentors: action.mentors };
     case TOGGLE_ADMIN_FETCHING:
-      return {...state, fetching: !state.fetching, fetched: true};
+      return { ...state, fetching: !state.fetching, fetched: true };
     default:
       return state;
   }
 }
+
 function mentorAdmin(state = {
   activeApprovalId: null
 }, action) {
   switch (action.type) {
     case SET_ACTIVE_MENTOR_APPROVAL_ID:
-      return {...state, activeApprovalId: action.id};
+      return { ...state, activeApprovalId: action.id };
     default:
       return state;
   }
@@ -128,12 +129,34 @@ function menteeAdmin(state = {
 }, action) {
   switch (action.type) {
     case SET_ACTIVE_MENTEE_APPROVAL_ID:
-      return {...state, activeApprovalId: action.id};
+      return { ...state, activeApprovalId: action.id };
     default:
       return state;
   }
 }
 
+function mentorHome(state = {
+  progress: getInitialMentorHomeProgress()
+}, action) {
+  switch (action.type) {
+    case SET_MENTOR_HOME_PROGRESS:
+      return { ...state, progress: action.progress };
+    default:
+      return state;
+  }
+}
+
+const getInitialMentorHomeProgress = () => {
+  try {
+    const user = JSON.parse(window.localStorage.getItem("user"));
+    let baseline = 10;
+    if (user.emailConfirmed) baseline = baseline + 30;
+    if (user.mentorProfile.status === "requested") baseline = baseline + 30;
+    return baseline;
+  } catch (e) {
+    return null;
+  }
+};
 
 function matching(state = {
   manualMode: false,
@@ -143,15 +166,15 @@ function matching(state = {
 }, action) {
   switch (action.type) {
     case SET_MATCHING_ID:
-      return {...state, activeId: action.id, mentorRecommendations: []};
+      return { ...state, activeId: action.id, mentorRecommendations: [] };
     case SET_MENTOR_RECOMMENDATIONS:
-      return {...state, mentorRecommendations: action.mentorRecommendations};
+      return { ...state, mentorRecommendations: action.mentorRecommendations };
     case SWITCH_MATCHING_MODE:
-      return {...state, manualMode: !state.manualMode};
+      return { ...state, manualMode: !state.manualMode };
     case SHOW_MATCHING_CONFIRMATION:
-      return {...state, showConfirm: action.id};
+      return { ...state, showConfirm: action.id };
     case UNSET_MATCHING_CONFIRMATION:
-      return {...state, showConfirm: null};
+      return { ...state, showConfirm: null };
     default:
       return state;
   }
@@ -164,13 +187,13 @@ function messaging(state = {
 }, action) {
   switch (action.type) {
     case TOGGLE_MESSAGING_CONNECTED:
-      return {...state, connected: !state.connected};
+      return { ...state, connected: !state.connected };
     case SET_ACTIVE_CHAT:
-      return {...state, activeChatId: action.id};
+      return { ...state, activeChatId: action.id };
     case ADD_MESSAGING_CHAT:
       const chats = state.chats;
       chats.push(action.chat);
-      return {...state, chats: chats};
+      return { ...state, chats: chats };
     case ADD_MESSAGES_TO_CHAT:
 
       const chat = state.chats.filter(c => c.id === action.chatId)[0];
@@ -179,34 +202,35 @@ function messaging(state = {
       const chatsUpdated = state.chats.filter(c => c.id !== action.chatId);
       chatsUpdated.push(chat);
 
-      return {...state, chats: chatsUpdated};
+      return { ...state, chats: chatsUpdated };
     default:
       return state;
   }
 }
 
 const getInitialJourneyState = () => {
-  try{
+  try {
     const journey = JSON.parse(window.localStorage.getItem("user")).menteeProfile.journey;
-    return journey.filter(m => !m.completed && m.ready)[0].typeformID
-  } catch(e) {
+    return journey.filter(m => !m.completed && m.ready)[0].typeformID;
+  } catch (e) {
     return null;
   }
-}
+};
+
 
 function journey(state = {
   activeId: getInitialJourneyState()
 }, action) {
   switch (action.type) {
     case SET_ACTIVE_JOURNEY_MODULE:
-      return {...state, activeId: action.id};
+      return { ...state, activeId: action.id };
     default:
       return state;
   }
 }
 
 const app = combineReducers({
-  user, settings, onboarding, admin, mentorAdmin, menteeAdmin, matching, messaging, login, journey
+  user, settings, onboarding, admin, mentorAdmin, menteeAdmin, matching, messaging, login, journey, mentorHome
 });
 
 export default app;

@@ -8,7 +8,7 @@ import {
   SET_ACTIVE_MENTEE_APPROVAL_ID,
   SET_ACTIVE_MENTOR_APPROVAL_ID,
   SET_MATCHING_ID,
-  SET_MENTEES,
+  SET_MENTEES, SET_MENTOR_HOME_PROGRESS,
   SET_MENTOR_RECOMMENDATIONS,
   SET_MENTORS, SET_RELATIONSHIPS, SHOW_MATCHING_CONFIRMATION,
   STORE_PICTURE_CROPPED,
@@ -93,6 +93,13 @@ export const changeActiveJourneyModule = (id) => {
   return {
     type: SET_ACTIVE_JOURNEY_MODULE,
     id: id
+  }
+};
+
+export const setMentorHomeProgress = (progress) => {
+  return {
+    type: SET_MENTOR_HOME_PROGRESS,
+    progress: progress
   }
 };
 

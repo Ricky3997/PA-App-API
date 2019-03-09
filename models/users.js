@@ -13,6 +13,7 @@ const User = mongoose.model('User', new mongoose.Schema({
   },
   admin: String,
   onboarded: Boolean,
+  signedUpOn: Date,
   status: String,
   mentorProfile: { type: Schema.Types.ObjectId, ref: 'Mentor' },
   menteeProfile: { type: Schema.Types.ObjectId, ref: 'Mentee' },

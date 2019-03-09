@@ -11,7 +11,7 @@ const ModuleBox = (props) => {
                style={{ backgroundColor: props.module.completed ? "#4f84bc" : "#d64f29" }}>
       <Row>
         <Col md={7}>
-          <h5> Module {props.module.id} | {props.module.title}
+          <h5> {props.module.title}
           </h5>
           <p>
             {props.module.description}
@@ -21,14 +21,14 @@ const ModuleBox = (props) => {
           {props.module.ready ?
             <Container>
               <b>
-                {props.module.completed ? `✅ Completed on ${moment(props.module.completed).format("MMM Do YYYY")} 🎉` : "Take the next step! 🚀"}
+                {props.module.completed ? `✅ Completed ${props.module.typeformID ? `on ${moment(props.module.completed).format("MMM Do YYYY")}` : ''} 🎉` : "Take the next step! 🚀"}
               </b>
-              <LinkContainer to={`/journey/${props.module.typeformID}`} disabled={!props.module.ready}
+              {props.module.typeformID ? <LinkContainer to={`/journey/${props.module.typeformID}`} disabled={!props.module.ready}
                              className="pa_orange_link">
                 <Button block style={{ "backgroundColor": "#eb9d26" }}>
                   {props.module.completed ? "Take again!" : "Start now!"}
                 </Button>
-              </LinkContainer>
+              </LinkContainer> : null}
             </Container> :
             <OverlayTrigger placement="bottom" overlay={
               <Tooltip placement="bottoom" className="in">

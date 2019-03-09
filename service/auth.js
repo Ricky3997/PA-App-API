@@ -23,6 +23,7 @@ const register = async (email, firstName, type) => {
       firstName: firstName,
       type: type,
       email: email,
+      signedUpOn: new Date(),
       emailConfirmed: false,
       onboarded: false
     }).save();
