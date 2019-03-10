@@ -30,7 +30,8 @@ const register = async (email, firstName, type) => {
     mailService.sendConfirmationToken(email, id, token);
     return { user, id, token };
   } catch (e) {
-    return null;
+    if(e.code === 11000) return {error: 11000}
+    else return null;
   }
 
 };

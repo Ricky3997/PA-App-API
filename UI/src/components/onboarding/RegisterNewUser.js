@@ -41,19 +41,23 @@ const RegisterNewUser = (props) => {
               .required("First name is required."),
             userType: Yup.string()
           })}
-          initialValues={{ email: "", firstName: "", userType: typeFromUrl || "Student Looking for Help" }}
+          initialValues={{ email: "", firstName: "", userType: typeFromUrl || defaults.onboarding.mentee }}
           onSubmit={({ email, userType, firstName }, { setSubmitting }) => {
 
             api.post("/auth/register", {
               email: email,
               firstName: firstName,
-              type: userType === "Student Looking for Help" ? "mentee" : "mentor"
+              type: userType === defaults.onboarding.mentee ? "mentee" : "mentor"
             }).then(r => {
-              if (r.success) {
+
+              if (r.success && !r.payload.error) {
                 window.localStorage.setItem("token", r.payload.token);
                 window.localStorage.setItem("user", JSON.stringify(r.payload.user));
                 props.updateUser(r.payload.user);
                 props.changeStage(2);
+              } else if(r.success && r.payload.error === 11000) {
+                toast.error("User with that email exists already");
+                props.history.push('/login')
               } else toast.error("There was an error requesting your magic link, sorry");
               setSubmitting(false);
             });
@@ -104,7 +108,7 @@ const RegisterNewUser = (props) => {
                   return <div>
                     <Form.Label>
                       <span>Your <b>{values.userType === defaults.onboarding.mentee ? "" : "University"}</b> {"Email Address "}</span>
-                      {values.userType === "Student Looking for Help" ? null :
+                      {values.userType === defaults.onboarding.mentee ? null :
                         <OverlayTrigger placement="bottom"
                                         overlay={<Tooltip placement="bottoom" className="in">We need
                                           this to verify the university you attend!</Tooltip>}>

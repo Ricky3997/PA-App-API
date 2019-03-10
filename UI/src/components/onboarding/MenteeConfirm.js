@@ -1,9 +1,18 @@
 import React from "react";
-import { Badge, Button, Col, Form, Row } from "react-bootstrap";
+import { Badge, Button, Col, Form, Image, ProgressBar, Row } from "react-bootstrap";
 import Loader from "react-loader-spinner";
 import { Icon } from "react-fa";
+import defaults from "../../defaults/defaults";
+import countries from "svg-country-flags/countries";
 
 const MenteeConfirm = (props) => {
+
+  let flagIndex = "";
+  Object.entries(countries).forEach((a) => {
+    if (props.onboarding.country === a[1]) flagIndex = a[0];
+  });
+  const flag = require(`svg-country-flags/svg/${flagIndex.toLowerCase()}.svg`);
+
   return <div>
     <Row style={{ paddingTop: "80px" }}>
       <Col md={{ span: 6, offset: 3 }}>
@@ -13,51 +22,110 @@ const MenteeConfirm = (props) => {
         </p>
       </Col>
     </Row>
-    <Row>
-      <Col md={{ span: 4, offset: 2 }}>
-        <Badge variant="info">{"You are"}</Badge>
-        <Form.Label>{`${props.onboarding.gender} and ${props.onboarding.firstGenStudent ? "First Generation" : "Not First Generation"}`} </Form.Label>
-      </Col>
 
-      <Col md={4}>
-        <Badge variant="info">{"You are from"}</Badge>
-        <Form.Label>{`${props.onboarding.city}, ${props.onboarding.country}`} </Form.Label>
+    <Row>
+      <Col md={{ span: 2, offset: 3 }}>
+
+        <Badge variant="info">{"From"}</Badge>
+      </Col>
+      <Col md={{ span: 4 }}>
+        <Form.Label>{`${props.onboarding.city}, ${props.onboarding.country}`} <img alt={props.onboarding.country}
+                                                                                   width="15px" src={flag}/>
+        </Form.Label>
       </Col>
     </Row>
-    <Row>
-      <Col md={{ span: 4, offset: 2 }}>
-        <Badge variant="info">{"Currently in year"}</Badge>
-        <Form.Label>{`${props.onboarding.year} at ${props.onboarding.school}`}</Form.Label>
-      </Col>
 
-      <Col md={4}>
+    <Row>
+      <Col md={{ span: 2, offset: 3 }}>
+        <Badge variant="info">{"Gender Identity"}</Badge>
+      </Col>
+      <Col md={{ span: 4 }}>
+        <Form.Label>{`${props.onboarding.gender}`} </Form.Label>
+      </Col>
+    </Row>
+
+    <Row>
+      <Col md={{ span: 2, offset: 3 }}>
+        <Badge variant="info">{"First Generation"}</Badge>
+      </Col>
+      <Col md={{ span: 4 }}>
+        <Form.Label>{`${props.onboarding.firstGenStudent ? "Yes" : "No"}`} </Form.Label>
+      </Col>
+    </Row>
+
+
+    <Row>
+      <Col md={{ span: 2, offset: 3 }}>
+        <Badge variant="info">{"Current school"}</Badge>
+      </Col>
+      <Col md={{ span: 4 }}>
+        <Form.Label>{`${props.onboarding.school}`}</Form.Label>
+      </Col>
+    </Row>
+
+
+    <Row>
+      <Col md={{ span: 2, offset: 3 }}>
+        <Badge variant="info">{"Year"}</Badge>
+      </Col>
+      <Col md={{ span: 4 }}>
+        <Form.Label>{`${props.onboarding.year}`}</Form.Label>
+      </Col>
+    </Row>
+
+    <Row>
+      <Col md={{ span: 2, offset: 3 }}>
         <Badge variant="info">{"Currently studying"}</Badge>
-        <Form.Label>{`${props.onboarding.subjects.join(", ")}`} </Form.Label>
+      </Col>
+      <Col md={{ span: 4 }}>
+        <Form.Label>{`${props.onboarding.subjects.join(", ")}`}</Form.Label>
       </Col>
     </Row>
+
     <Row>
-      <Col md={{ span: 4, offset: 2 }}>
+      <Col md={{ span: 2, offset: 3 }}>
         <Badge variant="info">{"Applying for"}</Badge>
-        <Form.Label>{`${props.onboarding.interestedIn.join(", ")}`}</Form.Label>
       </Col>
+      <Col md={{ span: 4 }}>
+        {props.onboarding.unisApplyingFor.map(uAf => <Image key={uAf}
+          src={[...defaults.universities.US, ...defaults.universities.UK].filter(u => u.name === uAf)[0].logo}
+          style={{ maxHeight: "60px", maxWidth: "130px" }}/>)}
+      </Col>
+    </Row>
 
-      <Col md={4}>
-        <Badge variant="info">{"At"}</Badge>
-        <Form.Label>{`${props.onboarding.level} level`} </Form.Label>
+
+    <Row>
+      <Col md={{ span: 2, offset: 3 }}>
+        <Badge variant="info">{"Interested in"}</Badge>
+      </Col>
+      <Col md={{ span: 3 }}>
+        {props.onboarding.interestedIn.join(', ')}
       </Col>
     </Row>
 
     <Row>
-      <Col md={{ span: 4, offset: 2 }}>
+      <Col md={{ span: 2, offset: 3 }}>
+        <Badge variant="info">{"Level"}</Badge>
+      </Col>
+      <Col md={{ span: 4 }}>
+        <Form.Label>{`${props.onboarding.level}`}</Form.Label>
+      </Col>
+    </Row>
+
+    <Row>
+      <Col md={{ span: 2, offset: 3 }}>
         <Button block onClick={() => props.changeStage(3)}>
           <span><Icon name="fas fa-arrow-left" />{" Previous"}  </span>
         </Button>
       </Col>
-      <Col md={{ span: 4 }}>
+      <Col md={{ span: 2 }} style={{ paddingTop: "10px" }}>
+        <ProgressBar striped now={100} label={`${100}%`}/>
+      </Col>
+      <Col md={{ span: 2 }}>
         <Button variant="success" block disabled={props.onboarding.registering} onClick={() => {
           props.registerMentee();
         }}>
-          {props.onboarding.registering ? <Loader type="Oval" color="#ffffff" width="20" height="20"/> : <span>Looks good, let's go!</span>}
+          {props.onboarding.registering ? <Loader type="Oval" color="#ffffff" width="20" height="20"/> : <span>Perfect, let's go!</span>}
         </Button>
       </Col>
     </Row>

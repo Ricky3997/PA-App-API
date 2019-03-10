@@ -27,7 +27,7 @@ import {
   removePictureToCrop,
   saveSettings, sendLoginEmail, setActiveChat, setMentorHomeProgress,
   storePictureCropped,
-  storePictureToCrop, toggleMessagingConnected,
+  storePictureToCrop, toggleMentorHomeModal, toggleMessagingConnected,
   togglePicturePicker, unsetLoginEmailSent,
   updateUser
 } from "../actions/actionCreator";
@@ -127,6 +127,7 @@ class App extends Component {
                 refreshUser: () => dispatch(getUser()),
                 changeActiveJourneyModule: (id) => dispatch(changeActiveJourneyModule(id)),
                 setMentorHomeProgress: (progress) => dispatch(setMentorHomeProgress(progress)),
+                toggleMentorHomeModal: () => dispatch(toggleMentorHomeModal()),
               };
             })(Home)}/>
 

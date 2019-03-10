@@ -7,6 +7,7 @@ import MenteeTile from "../people/MenteeTile";
 import { Bookmark, Timeline } from "react-vertical-timeline";
 import ModuleBox from "../journey/ModuleBox";
 import { LinkContainer } from "react-router-bootstrap";
+import RequestApprovalModal from "./RequestApprovalModal";
 
 class MentorHome extends Component {
 
@@ -43,7 +44,9 @@ class MentorHome extends Component {
         <p>To be able to help a mentee, you first need to request approval
         </p>
 
-        {this.props.user.emailConfirmed ? <Button onClick={() => this.props.changeMentorStatus("requested")}>
+        {/*changeMentorStatus("requested")*/}
+
+        {this.props.user.emailConfirmed ? <Button onClick={() => this.props.toggleMentorHomeModal()}>
             Click here to request approval
           </Button> :
           <OverlayTrigger placement="bottom" trigger="hover"
@@ -122,6 +125,7 @@ class MentorHome extends Component {
               <div>{toRender}</div>
             </div>}
         </Col>
+        <RequestApprovalModal show={this.props.mentorHome.showModal} onHide={this.props.toggleMentorHomeModal}/>
       </Row>
     </Container>;
   }

@@ -33,8 +33,8 @@ const edit = async (id, data, file) => {
   return await Mentee.findByIdAndUpdate(id, data, { new: true }).exec().then(p => { return p});
 };
 
-const generateJourney = () => {
-  return [{
+const generateJourney = (unisApplyingFor) => {
+  let coreJourney = [{
     title: "Subject choice",
     description: "The choice of a subject bla bla bla",
     progress: 10,
@@ -50,15 +50,6 @@ const generateJourney = () => {
     completed: null,
     ready: true,
     typeformID: "MDHUre"
-
-  }, {
-    title: "Oxbridge deadline",
-    description: "The deadline for Obridge bla bla bla",
-    progress: 50,
-    date: "15 October",
-    completed: null,
-    ready: false,
-    typeformID: "xoxoox"
 
   }, {
     title: "Interviews",
@@ -84,7 +75,18 @@ const generateJourney = () => {
     completed: null,
     ready: false,
     typeformID: "oiuyu"
-  }]
+  }];
+  if(unisApplyingFor.indexOf('University of Cambridge') > 0 || unisApplyingFor.indexOf('University of Oxford') > 0  ) coreJourney.push({
+    title: "Oxbridge deadline",
+    description: "The deadline for Obridge bla bla bla",
+    progress: 50,
+    date: "15 October",
+    completed: null,
+    ready: false,
+    typeformID: "xoxoox"
+
+  });
+  return coreJourney;
 };
 
 const registerNew = async (id, data) => {
@@ -104,7 +106,7 @@ const registerNew = async (id, data) => {
     status: data.status || "notYetRequested",
     firstName: user.firstName,
     pictureUrl: data.pictureUrl || null,
-    journey: generateJourney()
+    journey: generateJourney(data.unisApplyingFor)
   }).save();
   await request({
     method: 'post',

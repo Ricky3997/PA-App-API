@@ -15,7 +15,7 @@ import {
   TOGGLE_ADMIN_FETCHING, TOGGLE_MESSAGING_CONNECTED,
   TOGGLE_PICTURE_PICKER,
   TOGGLE_REGISTERING, UNSET_LOGIN_EMAIL, UNSET_MATCHING_CONFIRMATION,
-  UPDATE_USER, SET_MENTOR_HOME_PROGRESS
+  UPDATE_USER, SET_MENTOR_HOME_PROGRESS, TOGGLE_MENTOR_HOME_MODAL
 } from "../actions/actionTypes";
 import { combineReducers } from "redux";
 
@@ -70,14 +70,14 @@ function onboarding(state = {
   university: "University of Oxford",
   school: "Collegio San Carlo",
   subject: "Computer Science",
-  subjects: ["Maths", "Economics", "Phylosophy", "Italian", "Biology", "English"],
+  subjects: ["Maths", "Economics", "Philosophy", "Italian", "Biology", "English"],
   level: "Undergraduate",
   area: "Technology",
-  year: "4",
+  year: "",
   gender: "Male",
   firstGenStudent: "No",
   interestedIn: ["Maths", "PPE", "Computer Science", "Economics"],
-  unisApplyingFor: ["LSE", "UCL", "Oxford", "Bath", "Southampton"],
+  unisApplyingFor: ["London School of Economics", "University of Oxford", "Harvard University"],
   registering: false
 }, action) {
   switch (action.type) {
@@ -136,11 +136,14 @@ function menteeAdmin(state = {
 }
 
 function mentorHome(state = {
-  progress: getInitialMentorHomeProgress()
+  progress: getInitialMentorHomeProgress(),
+  showModal: false,
 }, action) {
   switch (action.type) {
     case SET_MENTOR_HOME_PROGRESS:
       return { ...state, progress: action.progress };
+    case TOGGLE_MENTOR_HOME_MODAL:
+      return { ...state, showModal: !state.showModal };
     default:
       return state;
   }
@@ -154,7 +157,7 @@ const getInitialMentorHomeProgress = () => {
     if (user.mentorProfile.status === "requested") baseline = baseline + 30;
     return baseline;
   } catch (e) {
-    return null;
+    return 10;
   }
 };
 
