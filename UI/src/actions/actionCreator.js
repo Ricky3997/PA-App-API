@@ -8,7 +8,7 @@ import {
   SET_ACTIVE_MENTEE_APPROVAL_ID,
   SET_ACTIVE_MENTOR_APPROVAL_ID,
   SET_MATCHING_ID,
-  SET_MENTEES, SET_MENTOR_HOME_PROGRESS,
+  SET_MENTEES, SET_MENTOR_APPROVAL_PROPERTIES, SET_MENTOR_HOME_PROGRESS,
   SET_MENTOR_RECOMMENDATIONS,
   SET_MENTORS, SET_RELATIONSHIPS, SHOW_MATCHING_CONFIRMATION,
   STORE_PICTURE_CROPPED,
@@ -67,6 +67,13 @@ export const togglePicturePicker = () => {
   }
 };
 
+export const setMentorApprovalProperties = (properties) => {
+  return {
+    type: SET_MENTOR_APPROVAL_PROPERTIES,
+    properties: properties
+  }
+};
+
 export const storePictureToCrop = (pictureToCrop) => {
   return {
     type: STORE_PICTURE_TO_CROP,
@@ -122,9 +129,9 @@ export const toggleRegistering = () => {
   }
 };
 
-export const changeMentorStatus = (status) => {
+export const changeMentorStatus = (status, properties) => {
   return (dispatch, getState) => {
-    return api.post("/api/mentors/changeStatus", {status: status}).then(r => {
+    return api.post("/api/mentors/changeStatus", {status: status, ...properties}).then(r => {
       if(r.success) updateAndStoreUser(dispatch, r.payload);
       return r;
     })
@@ -145,6 +152,8 @@ const updateAndStoreUser = (dispatch, user ) => {
   dispatch(updateUser(user));
   if(user.type === "mentee") {
     dispatch(changeActiveJourneyModule(user.menteeProfile.journey.filter(m => !m.completed && m.ready)[0].typeformID));
+  } else {
+    dispatch(setMentorHomeProgress(user.mentorProfile.status === "requested" ? 70 : 40));
   }
 };
 

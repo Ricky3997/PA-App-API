@@ -8,6 +8,7 @@ import { Bookmark, Timeline } from "react-vertical-timeline";
 import ModuleBox from "../journey/ModuleBox";
 import { LinkContainer } from "react-router-bootstrap";
 import RequestApprovalModal from "./RequestApprovalModal";
+import { toast } from "react-toastify";
 
 class MentorHome extends Component {
 
@@ -43,8 +44,6 @@ class MentorHome extends Component {
       toRender = <div>
         <p>To be able to help a mentee, you first need to request approval
         </p>
-
-        {/*changeMentorStatus("requested")*/}
 
         {this.props.user.emailConfirmed ? <Button onClick={() => this.props.toggleMentorHomeModal()}>
             Click here to request approval
@@ -125,7 +124,19 @@ class MentorHome extends Component {
               <div>{toRender}</div>
             </div>}
         </Col>
-        <RequestApprovalModal user={this.props.user} show={this.props.mentorHome.showModal} onHide={this.props.toggleMentorHomeModal}/>
+        <RequestApprovalModal user={this.props.user} show={this.props.mentorHome.showModal}
+                              mentorHome={this.props.mentorHome}
+                              onSubmit={(properties) => this.props.changeMentorStatus("requested", properties).then(r => {
+                                if (r.success) {
+                                  this.props.toggleMentorHomeModal();
+                                  toast.success("Request sent");
+                                }
+                              })
+                              }
+                              onHide={(properties) => {
+                                this.props.setMentorApprovalProperties(properties);
+                                this.props.toggleMentorHomeModal();
+                              }}/>
       </Row>
     </Container>;
   }

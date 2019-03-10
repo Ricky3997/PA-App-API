@@ -16,7 +16,29 @@ const Mentor = mongoose.model('Mentor', new mongoose.Schema({
   status: String,
   firstName: String,
   maxNumberOfMentees: Number,
-  relationship: [{ type: Schema.Types.ObjectId, ref: 'Relationship' }]
+  relationship: [{ type: Schema.Types.ObjectId, ref: 'Relationship' }],
+
+  linkedinUrl: String,
+  ethnicBackground: String,
+  typeOfHighSchool: String,
+  fromThreeLargestCity: Boolean,
+  subjectsInSchool: [{
+    type: String
+  }],
+  hobbiesAndInterests: [{
+    type: String
+  }],
+  careerInterests: [{
+    type: String
+  }],
+  offersFromUnis: [{
+    type: String
+  }],
+  yearBorn: String,
+  yearGraduation: String,
+  referral: [{
+    type: String
+  }]
 }));
 
 module.exports = {Mentor};

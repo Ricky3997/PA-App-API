@@ -15,7 +15,7 @@ import {
   TOGGLE_ADMIN_FETCHING, TOGGLE_MESSAGING_CONNECTED,
   TOGGLE_PICTURE_PICKER,
   TOGGLE_REGISTERING, UNSET_LOGIN_EMAIL, UNSET_MATCHING_CONFIRMATION,
-  UPDATE_USER, SET_MENTOR_HOME_PROGRESS, TOGGLE_MENTOR_HOME_MODAL
+  UPDATE_USER, SET_MENTOR_HOME_PROGRESS, TOGGLE_MENTOR_HOME_MODAL, SET_MENTOR_APPROVAL_PROPERTIES
 } from "../actions/actionTypes";
 import { combineReducers } from "redux";
 
@@ -64,7 +64,7 @@ function settings(state = {
 }
 
 function onboarding(state = {
-  step: 2,
+  step: 1,
   country: "Italy",
   city: "Milan",
   university: "University of Oxford",
@@ -76,7 +76,7 @@ function onboarding(state = {
   year: "",
   gender: "Male",
   firstGenStudent: "No",
-  interestedIn: ["Maths", "PPE", "Computer Science", "Economics"],
+  interestedIn: ["Computer Science"],
   unisApplyingFor: ["London School of Economics", "University of Oxford", "Harvard University"],
   registering: false
 }, action) {
@@ -138,12 +138,39 @@ function menteeAdmin(state = {
 function mentorHome(state = {
   progress: getInitialMentorHomeProgress(),
   showModal: true,
+  // linkedinUrl: '',
+  // ethnicBackground: '',
+  // typeOfHighSchool: '',
+  // fromThreeLargestCity: '',
+  // subjectsInSchool: [],
+  // hobbiesAndInterests: [],
+  // careerInterests: [],
+  // offersFromUnis: [],
+  // yearBorn: '',
+  // yearGraduation: '',
+  // referral: [],
+  // referral: [],
+  careerInterests: ["Creative Arts and Design"],
+  confirmCommittment: true,
+  ethnicBackground: "Mixed / multiple ethnic groups",
+  fromThreeLargestCity: 1,
+  hobbiesAndInterests: ["Professional Sports"],
+  linkedinUrl: "riccardo",
+  offersFromUnis: ["London School of Economics"],
+  referral: ["Project Access Mentor", "Friends"],
+  subjectsInSchool: ["French"],
+  typeOfHighSchool: "Independent",
+  yearBorn: 1991,
+  yearGraduation: 2020,
+
 }, action) {
   switch (action.type) {
     case SET_MENTOR_HOME_PROGRESS:
       return { ...state, progress: action.progress };
     case TOGGLE_MENTOR_HOME_MODAL:
       return { ...state, showModal: !state.showModal };
+    case SET_MENTOR_APPROVAL_PROPERTIES:
+      return { ...state, ...action.properties };
     default:
       return state;
   }

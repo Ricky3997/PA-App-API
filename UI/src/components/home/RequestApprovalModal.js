@@ -15,8 +15,31 @@ const RequestApprovalModal = (props) => {
     validationSchema={Yup.object().shape({
       confirmCommittment: Yup.mixed().oneOf([true])
         .required("Commitment is required."),
+
+      linkedinUrl: Yup.string()
+        .required("linkedinUrl is required."),
+      ethnicBackground: Yup.string()
+        .required("ethnicBackground is required."),
+      typeOfHighSchool: Yup.string()
+        .required("typeOfHighSchool is required."),
+      fromThreeLargestCity: Yup.number()
+        .required("fromThreeLargestCity is required."),
+      subjectsInSchool:Yup.array()
+        .required('subjectsInSchool required'),
+      hobbiesAndInterests: Yup.array()
+        .required('hobbiesAndInterests required'),
+      careerInterests: Yup.array()
+        .required('careerInterests required'),
+      offersFromUnis: Yup.array()
+      .required('offersFromUnis required'),
+      yearBorn: Yup.string()
+        .required("yearBorn is required."),
+      yearGraduation: Yup.string()
+      .required("yearGraduation is required."),
+      referral: Yup.array()
+      .required('referral required'),
     })}
-    initialValues={{confirmCommittment: false }}
+    initialValues={{confirmCommittment: false, ...props.mentorHome }}
     onSubmit={(values, { setSubmitting }) => {
       setSubmitting(false);
     }}
@@ -28,7 +51,7 @@ const RequestApprovalModal = (props) => {
           centered
           backdrop="static"
           show={props.show}
-          onHide={props.onHide}
+          onHide={() => props.onHide(values)}
         >
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
@@ -42,7 +65,7 @@ const RequestApprovalModal = (props) => {
               <Col>
                 <h6>Do you want to link to your LinkedIn profile?</h6>
 
-                <Field name="linkedin" render={({ field, form: { touched, errors } }) => <InputGroup className="md-6">
+                <Field name="linkedinUrl" render={({ field, form: { touched, errors } }) => <InputGroup className="md-6">
                   <InputGroup.Prepend>
                     <InputGroup.Text><Image src={'http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c528.png'} style={{maxHeight: '16px'}} /></InputGroup.Text>
                   </InputGroup.Prepend>
@@ -62,7 +85,7 @@ const RequestApprovalModal = (props) => {
               <Col>
                 <h6>What's your ethnic background?</h6>
 
-                <Field name="ethnic_background" render={({ field, form: { touched, errors } }) => <Select showSearch
+                <Field name="ethnicBackground" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                  size={"large"}
                                                                                                  style={{ width: "100%" }}
                                                                                                  value={field.value}
@@ -83,7 +106,7 @@ const RequestApprovalModal = (props) => {
               <Col>
                 <h6>What type of high school did you attend? 🏫</h6>
 
-                <Field name="school_type" render={({ field, form: { touched, errors } }) => <Select showSearch
+                <Field name="typeOfHighSchool" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                           size={"large"}
                                                                                                           style={{ width: "100%" }}
                                                                                                           value={field.value}
@@ -99,7 +122,7 @@ const RequestApprovalModal = (props) => {
               <Col>
                 <h6>Are you from one of the 3 largest cities in {props.user.mentorProfile.country}?</h6>
 
-                <Field name="largestThreeCities" render={({ field, form: { touched, errors } }) => <Select showSearch
+                <Field name="fromThreeLargestCity" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                            size={"large"}
                                                                                                            style={{ width: "100%" }}
                                                                                                            value={field.value}
@@ -108,8 +131,8 @@ const RequestApprovalModal = (props) => {
                                                                                                            tokenSeparators={[",", ":"]}>
 
 
-                  <Option value={'true'}>Yes</Option>
-                  <Option value={'false'}>No</Option>
+                  <Option value={1}>Yes</Option>
+                  <Option value={0}>No</Option>
 
                 </Select> } />
               </Col>
@@ -132,7 +155,7 @@ const RequestApprovalModal = (props) => {
               <Col>
                 <h6>What are your hobbies?</h6>
 
-                <Field name="interestesAndHobbies" render={({ field, form: { touched, errors } }) => <Select showSearch
+                <Field name="hobbiesAndInterests" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                              size={"large"} mode="multiple"
                                                                                                              style={{ width: "100%" }}
                                                                                                              value={field.value}
@@ -174,7 +197,7 @@ const RequestApprovalModal = (props) => {
               <Col>
                 <h6>Congratulations on studying at {props.user.mentorProfile.university}! Besides that, what other universities did you successfully apply for?</h6>
 
-                <Field name="universitiesAppliedFor" render={({ field, form: { touched, errors } }) =>
+                <Field name="offersFromUnis" render={({ field, form: { touched, errors } }) =>
                   <UniversityPicker approval setFieldValue={setFieldValue} field={field} touched={touched} mentee multiple errors={errors}/>} />
               </Col>
             </Row>
@@ -201,7 +224,7 @@ const RequestApprovalModal = (props) => {
               <Col>
                 <h6>What year will you graduate (or graduated)? 🎓</h6>
 
-                <Field name="yearGraduate" render={({ field, form: { touched, errors } }) => <Select showSearch
+                <Field name="yearGraduation" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                  size={"large"}
                                                                                                  style={{ width: "100%" }}
                                                                                                  value={field.value}
@@ -222,19 +245,16 @@ const RequestApprovalModal = (props) => {
             {/*Not convinced we need, but have to check:
             1) Phone Number
             2) Poste Code
-            3) Year born
             4) High school diploma in what system
             5) Funny fact about you
             5) What made you interested in this subject in particular? What parts interest you within your discipline? This is our chance to learn more about what you care about in an informal wa*
-
-
             */}
 
             <Row>
               <Col>
                 <h6>Who referred you to us? Because we’d like to send them a thank you 🎁</h6>
 
-                <Field name="referrer" render={({ field, form: { touched, errors } }) => <Select showSearch
+                <Field name="referral" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                  mode={ "multiple"}
                                                                                                  size={"large"}
                                                                                                  style={{ width: "100%" }}
@@ -268,7 +288,7 @@ const RequestApprovalModal = (props) => {
 
           </Modal.Body>
           <Modal.Footer>
-            <Button type="submit" variant="success" disabled={isSubmitting || !_.isEmpty(errors)}>
+            <Button type="submit" onClick={() => props.onSubmit(values)} variant="success" disabled={isSubmitting || !_.isEmpty(errors)} >
               <span>{"Let's go "} <Icon name="fas fa-arrow-right"/> </span>
             </Button>
           </Modal.Footer>

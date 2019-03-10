@@ -76,7 +76,7 @@ const edit = async (id, data, file) => {
 
 const changeStatus = async (id, data) => {
   try {
-    await Mentor.findByIdAndUpdate(id, {status: data.status}).exec();
+    await Mentor.findByIdAndUpdate(id, {...data}).exec();
     return User.findById(id).populate("mentorProfile").exec().then(p => { return p});
   } catch (e) {
     return null;
