@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import NotReadyYet from "./MenteeHome";
 
 const NoMentorYet = (props) => {
@@ -37,7 +37,7 @@ const NoMentorYet = (props) => {
   } else toRender = <NotReadyYet/>;
 
     return (
-        <Container>
+        <div>
             <Row>
                 <Col>
                     <h4>
@@ -50,7 +50,7 @@ const NoMentorYet = (props) => {
                   {toRender}
                 </Col>
             </Row>
-        </Container>
+        </div>
     );
 };
 

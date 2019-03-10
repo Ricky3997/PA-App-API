@@ -19,23 +19,23 @@ const Mentor = mongoose.model('Mentor', new mongoose.Schema({
   relationship: [{ type: Schema.Types.ObjectId, ref: 'Relationship' }],
 
   linkedinUrl: String,
+  fromThreeLargestCity: Boolean,
   ethnicBackground: String,
   typeOfHighSchool: String,
-  fromThreeLargestCity: Boolean,
   subjectsInSchool: [{
-    type: String
-  }],
-  hobbiesAndInterests: [{
-    type: String
-  }],
-  careerInterests: [{
     type: String
   }],
   offersFromUnis: [{
     type: String
   }],
-  yearBorn: String,
   yearGraduation: String,
+  careerInterests: [{
+    type: String
+  }],
+  hobbiesAndInterests: [{
+    type: String
+  }],
+  yearBorn: String,
   referral: [{
     type: String
   }]

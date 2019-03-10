@@ -137,7 +137,7 @@ function menteeAdmin(state = {
 
 function mentorHome(state = {
   progress: getInitialMentorHomeProgress(),
-  showModal: true,
+  showModal: false,
   // linkedinUrl: '',
   // ethnicBackground: '',
   // typeOfHighSchool: '',
@@ -150,12 +150,13 @@ function mentorHome(state = {
   // yearGraduation: '',
   // referral: [],
   // referral: [],
+  maxNumberOfMentees: 3,
   careerInterests: ["Creative Arts and Design"],
   confirmCommittment: true,
   ethnicBackground: "Mixed / multiple ethnic groups",
   fromThreeLargestCity: 1,
   hobbiesAndInterests: ["Professional Sports"],
-  linkedinUrl: "riccardo",
+  linkedinUrl: "https://www.linkedin.com/in/riccardobroggi/",
   offersFromUnis: ["London School of Economics"],
   referral: ["Project Access Mentor", "Friends"],
   subjectsInSchool: ["French"],
@@ -189,7 +190,7 @@ const getInitialMentorHomeProgress = () => {
 };
 
 function matching(state = {
-  manualMode: false,
+  manualMode: true,
   activeId: null,
   mentorRecommendations: [],
   showConfirm: null

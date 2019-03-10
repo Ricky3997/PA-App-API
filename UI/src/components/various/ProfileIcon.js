@@ -6,6 +6,7 @@ const Footer = (props) => {
   let size;
   if(props.size === "m") size = "50px";
   else if(props.size === "l") size = "75px";
+  else if(props.size === "xl") size = "100px";
   else size = "30px";
 
   return props.pictureUrl ?

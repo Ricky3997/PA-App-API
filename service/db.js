@@ -257,7 +257,7 @@ const loadAdmin = async () => {
   const userProfile = {
     _id: id,
     firstName: "Riccardo",
-    type: "mentee",
+    type: "mentor",
     email: "riccardo@broggi.co.uk",
     emailConfirmed: true,
     onboarded: true,
@@ -275,10 +275,10 @@ const loadAdmin = async () => {
     year: "2",
     area: "Natural Sciences",
     firstName: "Riccardo",
-    university: "Bath",
+    university: "University of Oxford",
     subject: "Computer Science",
     city: "Milano",
-    status: "approved",
+    status: "notYetRequested",
     maxNumberOfMentees: 3,
     pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/t/5bb721a4e2c48357967f52fa/1538728361542/Riccardo.jpg?format=300w"
   };
@@ -299,7 +299,7 @@ const loadAdmin = async () => {
     pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/t/5bb721a4e2c48357967f52fa/1538728361542/Riccardo.jpg?format=300w"
 
   };
-  //await new Mentor(mentorProfile).save();
+  await MentorService.registerNew(id, mentorProfile);
   await MenteeService.registerNew(id, menteeProfile);
   await request({
     method: 'post',

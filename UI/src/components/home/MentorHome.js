@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col, Row, Container, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Col, Row, Container, Button, OverlayTrigger, Tooltip, Image } from "react-bootstrap";
 import NotReadyYet from "../various/NotReadyYet";
 import { Icon } from "react-fa";
 import * as _ from "lodash";
@@ -117,27 +117,37 @@ class MentorHome extends Component {
           {this.props.mentorHome.progress === 70 ? <ModuleBox module={this.uploadPersonalStatementModule}/> : null}
         </Col>
         <Col md={3}>
-          <h4>Your Mentees <span role="img" aria-labelledby={"angel emoji"}>😇</span></h4>
-          {_.get(this.props, "user.mentorProfile.relationship.length") > 0 ?
-            this.props.user.mentorProfile.relationship.map(r => <MenteeTile key={r._id} mentee={r.mentee}/>) :
-            <div>
-              <div>{toRender}</div>
-            </div>}
+          <Row>
+            <h4>Your Mentees <span role="img" aria-labelledby={"angel emoji"}>😇</span></h4>
+            {_.get(this.props, "user.mentorProfile.relationship.length") > 0 ?
+              this.props.user.mentorProfile.relationship.map(r => <MenteeTile key={r._id} mentee={r.mentee}/>) :
+              <div>
+                <div>{toRender}</div>
+              </div>}
+          </Row>
+          <br/>
+          <Row>
+            <h5>{"McKinsey & Co."} is Project Access {this.props.user.mentorProfile.country}'s Platinum Partner,
+              providing the essential financing to make this happen </h5>
+            <Image
+              src={"https://s1.ibtimes.com/sites/www.ibtimes.com/files/styles/lg/public/2014/05/28/mckinsey-logo.png"}
+              style={{ maxWidth: "300px", maxHeight: "150px" }}/>
+          </Row>
         </Col>
-        <RequestApprovalModal user={this.props.user} show={this.props.mentorHome.showModal}
-                              mentorHome={this.props.mentorHome}
-                              onSubmit={(properties) => this.props.changeMentorStatus("requested", properties).then(r => {
-                                if (r.success) {
-                                  this.props.toggleMentorHomeModal();
-                                  toast.success("Request sent");
-                                }
-                              })
-                              }
-                              onHide={(properties) => {
-                                this.props.setMentorApprovalProperties(properties);
-                                this.props.toggleMentorHomeModal();
-                              }}/>
       </Row>
+      <RequestApprovalModal user={this.props.user} show={this.props.mentorHome.showModal}
+                            mentorHome={this.props.mentorHome}
+                            onSubmit={(properties) => this.props.changeMentorStatus("requested", properties).then(r => {
+                              if (r.success) {
+                                this.props.toggleMentorHomeModal();
+                                toast.success("Request sent");
+                              }
+                            })
+                            }
+                            onHide={(properties) => {
+                              this.props.setMentorApprovalProperties(properties);
+                              this.props.toggleMentorHomeModal();
+                            }}/>
     </Container>;
   }
 }

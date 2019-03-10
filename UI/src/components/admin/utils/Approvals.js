@@ -1,10 +1,12 @@
 import React from "react";
 import { Button, Col, Container, ListGroup, Row } from "react-bootstrap";
 import ProfileIcon from "../../various/ProfileIcon";
+import MentorAdminprofile from "./MentorAdminProfile";
 
 const Approvals = (props) => {
     const { setActiveApprovalId, activeApprovalId } = props;
     const toApprove = activeApprovalId ? props[props.mentorMode ? "mentors" : "mentees"].filter(m => m._id === activeApprovalId)[0] : null;
+
     return (
       <Container fluid>
         <Row>
@@ -16,7 +18,7 @@ const Approvals = (props) => {
                     active={m._id === activeApprovalId}
                     onClick={() => setActiveApprovalId(m._id)}
                     style={{ cursor: "pointer" }}>
-                    <ProfileIcon pictureUrl={m.pictureUrl} size={"s"}/>
+                    <ProfileIcon pictureUrl={m.pictureUrl} size={"s"} mentorMode={props.mentorMode}/>
                     {`  ${m.firstName}`}
                   </ListGroup.Item>) :
                   <ListGroup.Item>
@@ -28,18 +30,9 @@ const Approvals = (props) => {
           </Col>
           <Col md={9}>{toApprove ?
             <Container fluid>
-              <Row>
-                <Col md={3}>
-                  <ProfileIcon pictureUrl={toApprove.pictureUrl} size={"m"}/>
-                </Col>
-                <Col md={9}>
-                  <h6>{`${toApprove.firstName}`}</h6>
-                  {props.mentorMode ? <h6>{`${toApprove.subject} at ${toApprove.university}`}</h6> :
-                    <h6>{`${toApprove.interestedIn} at ${toApprove.unisApplyingFor}`}</h6>}
 
-                  <h6>{`From ${toApprove.city}`}</h6>
-                </Col>
-              </Row>
+              <MentorAdminprofile approvalMode mentor={toApprove} breadcrumbs={false} />
+
               <Row>
                 <Col md={{ size: 2, offset: 8 }}>
                   <Button block variant="danger"

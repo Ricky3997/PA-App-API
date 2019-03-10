@@ -33,7 +33,7 @@ const matchingMentorRecommendations = async (id) => {
 
 const createMatch = async (mentorId, menteeId) => {
   const id = new mongoose.Types.ObjectId();
-  await new Relationship({_id: id, mentee: menteeId, mentor: mentorId, status: "awaitingConfirmation"}).save();
+  await new Relationship({_id: id, mentee: menteeId, mentor: mentorId, status: "awaitingConfirmation", matchedOn: new Date()}).save();
   const mentor = await Mentor.findByIdAndUpdate(mentorId, {$push: {relationship: id}}).exec().then(p => { return p});
   const mentee = await Mentee.findByIdAndUpdate(menteeId, {relationship: id}).exec().then(p => { return p});
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col, Row, Container, Button } from "react-bootstrap";
+import { Col, Row, Container, Button, Image } from "react-bootstrap";
 import { Icon } from "react-fa";
 import ProgressionTimeline from "./ProgressionTimeline";
 import Module from "./Module";
@@ -30,14 +30,19 @@ class MenteeHome extends Component {
           <Module module={this.props.user.menteeProfile.journey.filter(m => m.typeformID === this.props.journey.activeId)[0]}/>
         </Col>
         <Col md={3}>
+          <Row>
           {_.get(this.props, "user.menteeProfile.relationship.mentor") ?
             <MentorTile mentor={this.props.user.menteeProfile.relationship.mentor}/>
             : <NoMentorYet changeMenteeStatus={this.props.changeMenteeStatus} user={this.props.user}/>}
+          </Row>
+          <br />
           <Row>
-            {null}
+            <h5>{'McKinsey & Co.'} is Project Access {this.props.user.mentorProfile.country}'s Platinum Partner, providing the essential financing to make this happen </h5>
+            <Image src={'https://s1.ibtimes.com/sites/www.ibtimes.com/files/styles/lg/public/2014/05/28/mckinsey-logo.png'} style={{maxWidth: '300px', maxHeight: '150px'}} />
           </Row>
         </Col>
       </Row>
+
     </Container>;
   }
 }

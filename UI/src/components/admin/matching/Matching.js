@@ -39,6 +39,7 @@ class Matching extends Component {
     return (
       <Row>
         <Col md={3}>
+          <h5>Mentees to match </h5>
           <ListGroup>
             {mentees.length === 0 ?
               <ListGroup.Item active>No Mentees To Match</ListGroup.Item> : null}

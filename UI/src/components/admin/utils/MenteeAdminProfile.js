@@ -1,19 +1,10 @@
 import React from "react";
 import { Col, Image, Row, Breadcrumb, Container } from "react-bootstrap";
-import { Icon } from "react-fa";
 import ProfileIcon from "../../various/ProfileIcon";
 import { LinkContainer } from "react-router-bootstrap";
+import StatusIcon from "./StatusIcon";
 
 const MenteeAdminProfile = (props) => {
-
-  const statusToIcon = () => {
-    if (props.mentee.status === "notYetRequested") return <Icon name={`fas fa-newspaper-o`} style={{ color: "#03619b" }}/>;
-    else if (props.mentee.status === "approved") return <Icon name={`fas fa-check-circle`} style={{ color: "#289b00" }}/>;
-    else if (props.mentee.status === "requested") return <Icon name={`fas fa-hourglass`} style={{ color: "#c69200" }}/>;
-    else if (props.mentee.status === "rejected") return <Icon name={`fas fa-ban`} style={{ color: "#9b0014" }}/>;
-    else return null;
-  };
-
   return props.mentee ? <Container>
     {props.beadcrumbs ? <Row>
         <Breadcrumb>
@@ -28,7 +19,7 @@ const MenteeAdminProfile = (props) => {
           <ProfileIcon mentorMode pictureUrl={props.mentee.pictureUrl} size={"m"}/>
         </Col>
         <Col>
-          {statusToIcon()}
+          <StatusIcon status={props.mentee.status} />
         </Col>
         <Col>
           <h4>{props.mentee.firstName}</h4>

@@ -38,6 +38,8 @@ const RequestApprovalModal = (props) => {
       .required("yearGraduation is required."),
       referral: Yup.array()
       .required('referral required'),
+      maxNumberOfMentees: Yup.number()
+        .required('Max number of Mentees required')
     })}
     initialValues={{confirmCommittment: false, ...props.mentorHome }}
     onSubmit={(values, { setSubmitting }) => {
@@ -241,6 +243,24 @@ const RequestApprovalModal = (props) => {
 
             <br />
 
+            <Row>
+              <Col>
+                <h6>How may mentees do you think you can help? It takes on average an hour per month</h6>
+
+                <Field name="maxNumberOfMentees" render={({ field, form: { touched, errors } }) => <Select showSearch
+                                                                                                 size={"large"}
+                                                                                                 style={{ width: "100%" }}
+                                                                                                 value={field.value}
+                                                                                                 placeholder={'3'}
+                                                                                                 onChange={(o) => setFieldValue(field.name, o)}
+                                                                                                 tokenSeparators={[",", ":"]}>
+
+
+                  {[1,2,3,4,5,6].map(e => <Option key={e} value={e}>{e}</Option>)}
+
+                </Select> } />
+              </Col>
+            </Row>
 
             {/*Not convinced we need, but have to check:
             1) Phone Number
@@ -249,6 +269,8 @@ const RequestApprovalModal = (props) => {
             5) Funny fact about you
             5) What made you interested in this subject in particular? What parts interest you within your discipline? This is our chance to learn more about what you care about in an informal wa*
             */}
+
+            <br />
 
             <Row>
               <Col>
@@ -277,7 +299,7 @@ const RequestApprovalModal = (props) => {
               <Col>
                 <Field name="committment" render={({ field, form: { touched, errors } }) => <span>
                   <Checkbox checked={values.confirmCommittment} onChange={(e) => setFieldValue('confirmCommittment', e.target.checked)}/>
-                  <b>{' I am happy to dedicate one hour per month helping my mentee(s)'}</b>
+                  <b>{' I am happy to dedicate a couple of hours per month helping my mentee(s)'}</b>
                 </span>
                 }
                 />
