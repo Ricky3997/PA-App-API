@@ -22,13 +22,13 @@ const Mentees = (props) => {
         <Nav variant="pills" className="flex-column" activeKey={validateSection(props.match.params.section)}
              onSelect={(key) => props.history.push(`/admin/mentees/${key}`)}>
           <Nav.Item>
-            <Nav.Link eventKey="database">Database</Nav.Link>
+            <Nav.Link eventKey="database">All Mentees</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="approvals">Approvals</Nav.Link>
+            <Nav.Link eventKey="approvals">Mentees Pending Approval</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="statistics">Statistics</Nav.Link>
+            <Nav.Link eventKey="statistics">Data and Statistics</Nav.Link>
           </Nav.Item>
         </Nav>
       </Col>

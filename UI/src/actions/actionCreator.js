@@ -38,10 +38,7 @@ export const removeUser = () => {
 export const confirmEmailAddress = (token, id) => {
   return (dispatch) => {
     return api.get(`/auth/confirm?token=${token}&id=${id}`).then(r => {
-      if(r.success) {
-        window.localStorage.setItem("user", JSON.stringify(r.payload));
-        dispatch(updateUser(r.payload));
-      }
+      if(r.success) updateAndStoreUser(dispatch, r.payload);
       return r;
     })
   }
@@ -50,10 +47,7 @@ export const confirmEmailAddress = (token, id) => {
 export const getUser = () => {
   return (dispatch) => {
     return api.get("/api/users/profile").then(r => {
-      if(r.success) {
-        window.localStorage.setItem("user", JSON.stringify(r.payload));
-        dispatch(updateUser(r.payload));
-      }
+      if(r.success) updateAndStoreUser(dispatch, r.payload);
       else {
         window.localStorage.removeItem("token");
         window.localStorage.removeItem("user");
@@ -126,10 +120,7 @@ export const toggleRegistering = () => {
 export const changeMentorStatus = (status) => {
   return (dispatch, getState) => {
     return api.post("/api/mentors/changeStatus", {status: status}).then(r => {
-      if(r.success) {
-        window.localStorage.setItem("user", JSON.stringify(r.payload));
-        dispatch(updateUser(r.payload));
-      }
+      if(r.success) updateAndStoreUser(dispatch, r.payload);
       return r;
     })
   }
@@ -138,12 +129,17 @@ export const changeMentorStatus = (status) => {
 export const changeMenteeStatus = (status) => {
   return (dispatch, getState) => {
     return api.post("/api/mentees/changeStatus", {status: status}).then(r => {
-      if(r.success) {
-        window.localStorage.setItem("user", JSON.stringify(r.payload));
-        dispatch(updateUser(r.payload));
-      }
+      if(r.success) updateAndStoreUser(dispatch, r.payload);
       return r;
     })
+  }
+};
+
+const updateAndStoreUser = (dispatch, user ) => {
+  window.localStorage.setItem("user", JSON.stringify(user));
+  dispatch(updateUser(user));
+  if(user.type === "mentee") {
+    dispatch(changeActiveJourneyModule(user.menteeProfile.journey.filter(m => !m.completed && m.ready)[0].typeformID));
   }
 };
 
@@ -154,10 +150,7 @@ export const registerMentor = () => {
     const {onboarding} = getState();
     return api.post("/api/mentors/registerNew", onboarding).then(r => {
       dispatch(toggleRegistering());
-      if(r.success) {
-        window.localStorage.setItem("user", JSON.stringify(r.payload));
-        dispatch(updateUser(r.payload));
-      }
+      if(r.success) updateAndStoreUser(dispatch, r.payload);
       return r;
     })
   }
@@ -169,10 +162,7 @@ export const registerMentee = () => {
     const {onboarding} = getState();
     return api.post("/api/mentees/registerNew", onboarding).then(r => {
       dispatch(toggleRegistering());
-      if(r.success) {
-        window.localStorage.setItem("user", JSON.stringify(r.payload));
-        dispatch(updateUser(r.payload));
-      }
+      if(r.success) updateAndStoreUser(dispatch, r.payload);
       return r;
     })
   }
@@ -185,10 +175,7 @@ export const saveSettings = (values) => {
     if (pictureCropped) formData.append("file", pictureCropped);
     formData.append("data", JSON.stringify(values));
     return api.postForm("/api/users/edit", formData).then(r => {
-      if(r.success){
-        window.localStorage.setItem("user", JSON.stringify(r.payload));
-        dispatch(updateUser(r.payload));
-      }
+      if(r.success) updateAndStoreUser(dispatch, r.payload);
       return r;
     });
   }

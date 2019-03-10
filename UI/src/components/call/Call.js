@@ -3,6 +3,7 @@ import { Col, Row } from "react-bootstrap";
 import { ReactTypeformEmbed } from "react-typeform-embed";
 import AgoraRTC from "agora-rtc-sdk";
 import Button from "react-bootstrap/es/Button";
+import * as _ from "lodash";
 
 
 class Call extends Component {
@@ -110,7 +111,10 @@ class Call extends Component {
     render() {
         const typeformID = "MDHUre";
 
-        return (
+        if (!this.props.user.onboarded || (_.get(this.props.user, "mentorProfile.relationship.length") > 0) || (_.get(this.props.user, "mentorProfile.relationship"))) return <div>
+            Calling is only available once your mentoring relationship has started
+        </div>;
+        else return (
             <Row>
                 <Col md={8}>
 

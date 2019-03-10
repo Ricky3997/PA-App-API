@@ -104,18 +104,16 @@ class MentorHome extends Component {
             <Bookmark key={"ps"} progress={70} onSelect={() => this.props.setMentorHomeProgress(70)}>
               <h6 style={{ cursor: "pointer" }}>{this.uploadPersonalStatementModule.title}</h6>
             </Bookmark>
+            <Bookmark key={"mentee"} progress={100}>
+              <h6>Start mentoring!</h6>
+            </Bookmark>
           </Timeline>
         </Col>
         <Col md={7}>
-
           {this.props.mentorHome.progress === 10 ? <ModuleBox module={this.confirmEmailModule}/> : null}
           {this.props.mentorHome.progress === 40 ? <ModuleBox module={this.requestApprovallModule}/> : null}
           {this.props.mentorHome.progress === 70 ? <ModuleBox module={this.uploadPersonalStatementModule}/> : null}
-
-
         </Col>
-
-
         <Col md={3}>
           <h4>Your Mentees <span role="img" aria-labelledby={"angel emoji"}>😇</span></h4>
           {_.get(this.props, "user.mentorProfile.relationship.length") > 0 ?

@@ -7,6 +7,7 @@ import SendBird from "sendbird";
 import ListOfChats from "./ListOfChats";
 import OpenChat from "./OpenChat";
 import { connect } from "react-redux";
+import * as _  from "lodash";
 import { setActiveChat } from "../../actions/actionCreator";
 
 class Messaging extends Component {
@@ -94,7 +95,7 @@ class Messaging extends Component {
   };
 
   render() {
-    if (!this.props.user.onboarded || !this.props.user[this.props.user.type === "mentor" ? "mentorProfile" : "menteeProfile"].relationship) return <div>
+    if (!this.props.user.onboarded || (_.get(this.props.user, "mentorProfile.relationship.length") > 0) || (_.get(this.props.user, "mentorProfile.relationship"))) return <div>
       Messaging is only available once your mentoring relationship has started
     </div>;
     else {

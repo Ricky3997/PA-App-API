@@ -12,19 +12,19 @@ const uniToOption = (u) => {
                    style={{ maxHeight: "30px", maxWidth: "140px" }}
             />
           </span>
-  </Option>
-}
+  </Option>;
+};
 
-const UniversityPicker = ({ field, touched, errors, setFieldValue, mentee }) => {
+const UniversityPicker = ({ field, touched, errors, setFieldValue, multiple, mentee, admin }) => {
   const label = mentee ? "Applying for" : "Your current university";
   return <div>
-    <Form.Label>{label}</Form.Label>
+    {admin ? <Form.Label>{label}</Form.Label> : null}
     <Select showSearch
-            mode={mentee ? "multiple" : "default"}
+            mode={multiple ? "multiple" : "default"}
             size={"large"}
             style={{ width: "100%" }}
             value={field.value}
-            placeholder={label}
+            placeholder={admin ? 'University' : label}
             onChange={(o) => setFieldValue(field.name, o)}
             tokenSeparators={[",", ":"]}>
 
@@ -35,8 +35,6 @@ const UniversityPicker = ({ field, touched, errors, setFieldValue, mentee }) => 
       <OptGroup label="US">
         {defaults.universities.US.map(uniToOption)}
       </OptGroup>
-
-
     </Select>
     {touched[field.name] && errors[field.name] ?
       <p style={{ color: "red" }}>{errors[field.name]}</p> : null}

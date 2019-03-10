@@ -16,6 +16,7 @@ import { Select } from "antd";
 import connect from "react-redux/es/connect/connect";
 import MentorAdminprofile from "./MentorAdminProfile";
 import MenteeAdminProfile from "./MenteeAdminProfile";
+import UniversityPicker from "../../various/forms/UniversityPicker";
 
 const { Option } = Select;
 
@@ -27,11 +28,6 @@ class Database extends Component {
     if (props.mode === "mentors") this.search.addIndex("university");
     if (props.mode === "mentors") this.search.addIndex("subject");
     this.search.addDocuments(props.mode === "mentors" ? props.mentors : props.mentees);
-  }
-
-  createListOfUnisToFilter(mentorMode) {
-    if (mentorMode) return _.uniq(this.props.mentors.map(m => m.university));
-    else return _.uniq(this.props.mentees.flatMap(m => m.unisApplyingFor));
   }
 
   createListOfSubjectsToFilter(mentorMode) {
@@ -63,7 +59,7 @@ class Database extends Component {
     else if(this.props.id) return <ConnectedMenteeProfile />;
     else return (
       <Formik
-        render={({ values, setFieldValue }) => {
+        render={({ values, touched, errors, isSubmitting, setFieldValue }) => {
           const mentorMode = this.props.mode === "mentors";
           let toRender;
 
@@ -110,19 +106,13 @@ class Database extends Component {
                       }}
                     />
 
+                    <h5><Icon name="fas fa-filter"/> {' Filter'}</h5>
 
                     <Field
                       type="select"
                       name="university"
                       render={({ field }) => {
-                        return <Select allowClear size={"large"}
-                                       showSearch
-                                       mode="tags"
-                                       value={field.value}
-                                       placeholder={"University"}
-                                       onChange={(o) => setFieldValue(field.name, o)}>
-                          {this.createListOfUnisToFilter(mentorMode).map((v) => <Option key={v} value={v}>{v}</Option>)}
-                        </Select>;
+                        return <UniversityPicker admin setFieldValue={setFieldValue} field={field} touched={touched} errors={errors} multiple/>;
 
                       }}
                     />

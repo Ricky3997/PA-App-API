@@ -53,9 +53,15 @@ const Header = (props) => {
               {/*<Badge variant="light">3</Badge>*/}
             </Nav.Link>
           </LinkContainer> : null}
+
           {props.user ? <LinkContainer to={"/call"}>
             <Nav.Link>Call</Nav.Link>
           </LinkContainer> : null}
+
+          <LinkContainer to="/about">
+            <Nav.Link>How does it work?</Nav.Link>
+          </LinkContainer>
+
           {_.get(props, "user.admin") ?
             <LinkContainer to="/admin/dashboard">
               <Nav.Link>Admin</Nav.Link>

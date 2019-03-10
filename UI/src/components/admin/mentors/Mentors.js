@@ -24,13 +24,13 @@ const Mentors = (props) => {
                    activeKey={validateSection(props.match.params.section)}
                    onSelect={(key) => props.history.push(`/admin/mentors/${key}`)}>
                   <Nav.Item>
-                      <Nav.Link eventKey="database">Database</Nav.Link>
+                      <Nav.Link eventKey="database">All Mentors</Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                      <Nav.Link eventKey="approvals">Approvals</Nav.Link>
+                      <Nav.Link eventKey="approvals">Mentors Pending Approval</Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                      <Nav.Link eventKey="statistics">Statistics</Nav.Link>
+                      <Nav.Link eventKey="statistics">Data and Statistics</Nav.Link>
                   </Nav.Item>
               </Nav>
           </Col>

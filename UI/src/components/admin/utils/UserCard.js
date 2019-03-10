@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import { Badge, Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import ConfirmMatchButton from "./ConfirmMatchButton";
 import { Icon } from "react-fa";
 import ProfileIcon from "../../various/ProfileIcon";
@@ -10,10 +10,18 @@ import { Link } from "react-router-dom";
 const UserCard = (props) => {
 
   const statusToIcon = () => {
-    if (props.status === "notYetRequested") return <Icon name={`fas fa-newspaper-o`} style={{ color: "#03619b" }}/>;
-    else if (props.status === "approved") return <Icon name={`fas fa-check-circle`} style={{ color: "#289b00" }}/>;
-    else if (props.status === "requested") return <Icon name={`fas fa-hourglass`} style={{ color: "#c69200" }}/>;
-    else if (props.status === "rejected") return <Icon name={`fas fa-ban`} style={{ color: "#9b0014" }}/>;
+    if (props.status === "notYetRequested") return <OverlayTrigger placement="bottom" overlay={<Tooltip placement="bottoom" className="in">Not Yet Requested</Tooltip>}>
+      <Icon name={`fas fa-newspaper-o`} style={{ color: "#03619b" }}/>
+    </OverlayTrigger>;
+    else if (props.status === "approved") return <OverlayTrigger placement="bottom" overlay={<Tooltip placement="bottoom" className="in">Approved</Tooltip>}>
+      <Icon name={`fas fa-check-circle`} style={{ color: "#289b00" }}/>
+    </OverlayTrigger>;
+    else if (props.status === "requested") return <OverlayTrigger placement="bottom" overlay={<Tooltip placement="bottoom" className="in">Pending Approval</Tooltip>}>
+      <Icon name={`fas fa-hourglass`} style={{ color: "#c69200" }}/>
+    </OverlayTrigger>;
+    else if (props.status === "rejected") return <OverlayTrigger placement="bottom" overlay={<Tooltip placement="bottoom" className="in">Rejected</Tooltip>}>
+      <Icon name={`fas fa-ban`} style={{ color: "#9b0014" }}/>
+    </OverlayTrigger>;
     else return null;
   };
 
