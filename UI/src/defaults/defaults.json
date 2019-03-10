@@ -96,5 +96,203 @@
     "Genderqueer/Gender NonConforming",
     "Different Identity",
     "Prefer not to say"
+  ],
+  "school_subjects": {
+    "Languages": [
+      "English",
+      "French",
+      "Spanish",
+      "German",
+      "Chinese",
+      "Russian",
+      "Italian",
+      "Urdu",
+      "Hindi",
+      "Portugese",
+      "Marathi",
+      "Arabic",
+      "Afrikaans",
+      "Tamil",
+      "Telugu"
+    ],
+    "Sciences": [
+      "Marine Science",
+      "Environmental Science",
+      "Physics",
+      "Biology",
+      "Chemistry",
+      "Information Technology",
+      "Computer Science",
+      "Physical Education",
+      "Mathematics"
+    ],
+    "Humanities": [
+      "Sociology",
+      "Politics",
+      "History",
+      "Languages",
+      "Law",
+      "Art and Design",
+      "Classical Languages or Studies",
+      "Divinity",
+      "Music"
+    ],
+    "Social Sciences": [
+      "Anthropology",
+      "Archaeology",
+      "Geography",
+      "Psychology"
+    ],
+    "Business & Economics": [
+      "Accounting",
+      "Economics",
+      "Business"
+    ]
+  },
+  "uni_subjects": {
+    "Humanities": [
+      "Philosophy, Politcs & Economics",
+      "Art History",
+      "History",
+      "Philosophy",
+      "Classics",
+      "Archeology",
+      "Anthropology",
+      "Theology",
+      "Sociology",
+      "Oriental Studies",
+      "Human, Social and Political Sciences"
+    ],
+    "Languages": [
+      "European & Middle Eastern Languages",
+      "Modern Languages",
+      "Japanese",
+      "English",
+      "French",
+      "Spanish",
+      "German",
+      "Chinese",
+      "Russian",
+      "Italian",
+      "Urdu",
+      "Hindi",
+      "Portugese",
+      "Marathi",
+      "Arabic",
+      "Afrikaans",
+      "Tamil",
+      "Telugu"
+    ],
+    "Business, Economics & Law": [
+      "Economics",
+      "Management",
+      "Business",
+      "Finance",
+      "Law",
+      "Organisational Studies",
+      "Land Economy"
+    ],
+    "Medicine": [
+      "Medicine",
+      "Biomedical Sciences",
+      "Veterinary Medicine",
+      "Psychiatry"
+    ],
+    "Natural Sciences": [
+      "Biology",
+      "Chemistry",
+      "Physics",
+      "Biochemistry",
+      "Earth Sciences",
+      "Agriculture",
+      "Natural Sciences",
+      "Biological Natural Sciences",
+      "Physical Natural Sciences"
+    ],
+    "Engineering": [
+      "Engineering Science",
+      "Materials Science",
+      "Architecture & Design",
+      "Mechanical Engineering",
+      "Aerospace Engineering"
+    ],
+    "Formal Sciences": [
+      "Statistics",
+      "Mathematics & Statistics",
+      "Mathematics & Philosophy",
+      "Mathematics & Computer Science",
+      "Computer Science",
+      "Mathematics"
+    ],
+    "Social Sciences": [
+      "Psychological & Behavioural Sciences",
+      "International Relations",
+      "Education",
+      "Psychology, Philosophy & Linguistics",
+      "Sociology",
+      "Psychology",
+      "Political Science",
+      "Geography",
+      "Journalism, Media Studies and Communication"
+    ],
+    "Arts": [
+      "Literature",
+      "Fine Arts",
+      "Music",
+      "Design",
+      "Digital Arts"
+    ]
+  },
+  "interests_and_hobbies": [
+    "Volunteering and Activism",
+    "Academic Organisations",
+    "Music and Performing Arts",
+    "Recreational Sports",
+    "Professional Sports",
+    "Art",
+    "Business and Entrepreneurship",
+    "Media, Photography and Videography",
+    "Dance",
+    "Food & Cooking",
+    "Fashion",
+    "Literature",
+    "Student Representation & School Politics",
+    "Technology & Engineering",
+    "Debating",
+    "Politics",
+    "Foreign Languages",
+    "Community Clubs",
+    "LGBTQ+ Awareness"
+  ],
+  "career_interests" : [
+    "Accounting, Audit and Tax",
+    "Assett and Investment Management",
+    "Charity, NGO and Social Enterprise",
+    "Commercial Law",
+    "Consulting",
+    "Consumer and Retail",
+    "Creative Arts and Design",
+    "Education and Teaching",
+    "Energy and Infrastructure",
+    "Engineering",
+    "Entrepreneurship and Startups",
+    "Environment and Agriculture",
+    "Financial Services",
+    "Healthcare",
+    "Hospitality and Events Management",
+    "Insurance and Risk Management",
+    "Investment Management",
+    "Law",
+    "Management and Business",
+    "Marketing and PR",
+    "Media",
+    "Pharmaceuticals",
+    "Public Sector and Government",
+    "Recruitment and HR",
+    "Sales and Commercial",
+    "Technology: Consulting and Product Management",
+    "Technology: IT and Software Development",
+    "Transport and Logistics"
   ]
+
 }

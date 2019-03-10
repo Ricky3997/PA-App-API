@@ -64,15 +64,15 @@ function settings(state = {
 }
 
 function onboarding(state = {
-  step: 4,
+  step: 2,
   country: "Italy",
   city: "Milan",
   university: "University of Oxford",
   school: "Collegio San Carlo",
   subject: "Computer Science",
-  subjects: ["Maths", "Economics", "Philosophy", "Italian", "Biology", "English"],
+  subjects: ["Italian"],
   level: "Undergraduate",
-  area: "Technology",
+  area: "Formal Sciences",
   year: "",
   gender: "Male",
   firstGenStudent: "No",
@@ -137,7 +137,7 @@ function menteeAdmin(state = {
 
 function mentorHome(state = {
   progress: getInitialMentorHomeProgress(),
-  showModal: false,
+  showModal: true,
 }, action) {
   switch (action.type) {
     case SET_MENTOR_HOME_PROGRESS:

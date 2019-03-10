@@ -73,7 +73,7 @@ const MenteeAcademicBackground = (props) => {
 
           <Col md={{ span: 3 }}>
             <Field name="interestedIn" render={({ field, form: { touched, errors } }) =>
-              <AreaOfDegreePicker mode="multiple" setFieldValue={setFieldValue} field={field} touched={touched} errors={errors}/>}
+              <AreaOfDegreePicker multiple setFieldValue={setFieldValue} field={field} touched={touched} errors={errors}/>}
             />
           </Col>
         </Row>

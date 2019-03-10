@@ -9,6 +9,7 @@ import DegreeLevelPicker from "../various/forms/DegreeLevelPicker";
 import YearPicker from "../various/forms/YearPicker";
 import { Icon } from "react-fa";
 import UniversityPicker from "../various/forms/UniversityPicker";
+import CoursePicker from "../various/forms/CoursePicker";
 
 const MentorAcademicBackground = (props) => {
 
@@ -50,7 +51,7 @@ const MentorAcademicBackground = (props) => {
           </Col>
           <Col md={{ span: 3 }}>
             <Field name="subject" render={({ field, form: { touched, errors } }) =>
-              <TextFieldWithLabel label="Your subject" field={field} touched={touched} errors={errors}/>}
+              <CoursePicker field={field} touched={touched} errors={errors} setFieldValue={setFieldValue}/>}
             />
           </Col>
         </Row>
