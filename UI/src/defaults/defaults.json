@@ -293,6 +293,64 @@
     "Technology: Consulting and Product Management",
     "Technology: IT and Software Development",
     "Transport and Logistics"
+  ],
+  "referrer" : [
+    "Google Search",
+    "Facebook",
+    "Instagram",
+    "Friends",
+    "Conference/Event",
+    "Project Access Mentor",
+    "Project Access Mentee"
+  ],
+  "ethnic_background": [
+    "White",
+    "Mixed / multiple ethnic groups",
+    "Asian",
+    "Black African / Caribbean",
+    "Other"
+  ],
+  "school_type": [
+    "State selective",
+    "State non-selective",
+    "Independent",
+    "Other"
+  ],
+  "yearBorn": [
+    1987,
+    1988,
+    1989,
+    1990,
+    1991,
+    1992,
+    1993,
+    1994,
+    1995,
+    1996,
+    1997,
+    1998,
+    1999,
+    2000,
+    2001,
+    2002,
+    2003,
+    2004
+  ],
+  "yearGraduate": [
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026,
+    2027
   ]
 
 }

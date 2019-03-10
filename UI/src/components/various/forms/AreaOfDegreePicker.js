@@ -1,5 +1,4 @@
 import React from "react";
-import SelectWithLabel from "./SelectWithLabel";
 import { Form } from "react-bootstrap";
 import { Select } from "antd";
 import defaults from "../../../defaults/defaults";

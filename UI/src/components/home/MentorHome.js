@@ -125,7 +125,7 @@ class MentorHome extends Component {
               <div>{toRender}</div>
             </div>}
         </Col>
-        <RequestApprovalModal show={this.props.mentorHome.showModal} onHide={this.props.toggleMentorHomeModal}/>
+        <RequestApprovalModal user={this.props.user} show={this.props.mentorHome.showModal} onHide={this.props.toggleMentorHomeModal}/>
       </Row>
     </Container>;
   }

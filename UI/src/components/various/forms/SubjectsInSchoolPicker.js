@@ -5,9 +5,9 @@ import defaults from "../../../defaults/defaults.json";
 
 const { OptGroup, Option } = Select;
 
-const SubjectsInSchoolPicker = ({ field, touched, errors, setFieldValue }) => {
+const SubjectsInSchoolPicker = ({ field, touched, errors, setFieldValue, approval }) => {
   return <div>
-    <Form.Label>Subjects you study in school</Form.Label>
+    {approval ? null : <Form.Label>Subjects you study in school</Form.Label>}
     <Select mode="multiple" showSearch
             size={"large"}
             style={{ width: "100%" }}

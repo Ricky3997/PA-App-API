@@ -3,7 +3,6 @@ import { Button, Col, ProgressBar, Row } from "react-bootstrap";
 import * as _ from "lodash";
 import { Field, Form as FormikForm, Formik } from "formik";
 import * as Yup from "yup";
-import TextFieldWithLabel from "../various/forms/TextFieldWithLabel";
 import AreaOfDegreePicker from "../various/forms/AreaOfDegreePicker";
 import DegreeLevelPicker from "../various/forms/DegreeLevelPicker";
 import YearPicker from "../various/forms/YearPicker";
