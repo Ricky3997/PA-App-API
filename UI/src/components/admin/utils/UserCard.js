@@ -62,20 +62,20 @@ const UserCard = (props) => {
             {statusToIcon()}
           </span>
         </Card.Title>
-        {props.setFieldValue ?
+        {props.addFilterParam ?
           <Card.Text>
             {props.mentorMode ? <div>
-               <span onClick={() => props.setFieldValue("subject", [props.subject])}
+               <span onClick={() => props.addFilterParam("subject", props.subject)}
                      style={{ color: "blue", cursor: "pointer" }}>{props.subject}</span>
                 <span>{" at "}</span>
-                <span onClick={() => props.setFieldValue("university", [props.university])}
+                <span onClick={() => props.addFilterParam("university", props.university)}
                       style={{ color: "blue", cursor: "pointer" }}>{props.university}</span>
                 <div>
                   {`${props.relationship.length} mentee${props.relationship.length === 1 ? "" : "s"}; max ${props.maxNumberOfMentees}`}
                 </div>
               </div> :
               <span>
-              {props.interestedIn.map((s, i) => <span onClick={() => props.setFieldValue("subject", [s])}
+              {props.interestedIn.map((s, i) => <span onClick={() => props.addFilterParam("subject", s)}
                                                       key={i}
                                                       style={{
                                                         color: "blue",
@@ -83,7 +83,7 @@ const UserCard = (props) => {
                                                       }}>{`${s}${i !== (props.interestedIn.length - 1) ? "," : ""} `}</span>)}
 
                 <span>{" at "}</span>
-                {props.unisApplyingFor.map((u, i) => <span onClick={() => props.setFieldValue("university", [u])}
+                {props.unisApplyingFor.map((u, i) => <span onClick={() => props.addFilterParam("university", u)}
                                                            key={i}
                                                            style={{
                                                              color: "blue",

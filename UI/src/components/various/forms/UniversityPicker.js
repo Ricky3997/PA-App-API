@@ -18,7 +18,7 @@ const uniToOption = (u) => {
 const UniversityPicker = ({ field, touched, errors, setFieldValue, multiple, mentee, admin }) => {
   const label = mentee ? "Applying for" : "Your current university";
   return <div>
-    {admin ? <Form.Label>{label}</Form.Label> : null}
+    {admin ? ''  : <Form.Label>{label}</Form.Label>}
     <Select showSearch
             mode={multiple ? "multiple" : "default"}
             size={"large"}
