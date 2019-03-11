@@ -330,6 +330,7 @@ export const fetchMentors = () => {
         dispatch(setMentors(r.payload));
         if(r.payload.filter(m => m.status === "requested").length > 0) dispatch(setActiveMentorApprovalId(r.payload.filter(m => m.status === "requested")[0]._id));
       }
+      return r;
     })
   }
 };
@@ -342,6 +343,7 @@ export const fetchRelationships = () => {
       if(r.success){
         dispatch(setRelationships(r.payload));
       }
+      return r;
     })
   }
 };
@@ -403,6 +405,7 @@ export const fetchMentees = () => {
           dispatch(setActiveMenteeApprovalId(menteeId));
         }
       }
+      return r;
     })
   }
 };

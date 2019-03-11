@@ -12,6 +12,7 @@ import {
   setActiveMentorApprovalId, switchMatchingMode
 } from "../../actions/actionCreator";
 import connect from "react-redux/es/connect/connect";
+import { toast } from "react-toastify";
 
 class Admin extends Component {
   constructor(props) {
@@ -31,15 +32,19 @@ class Admin extends Component {
     return ["dashboard", "mentors", "mentees", "matching"].indexOf(tabKey) > -1 ? tabKey : "dashboard";
   }
 
+  refreshedToast(r, type) {
+    if(r.success) toast.success("Refreshed " + type);
+  }
+
   changeTab(key) {
     if (key === "refresh") {
-      if( this.props.match.params.section === "mentors") this.props.fetchMentors();
-      else if( this.props.match.params.section === "mentees") this.props.fetchMentees();
+      if( this.props.match.params.section === "mentors") this.props.fetchMentors().then(r => this.refreshedToast(r, "mentors"));
+      else if( this.props.match.params.section === "mentees") this.props.fetchMentees().then(r => this.refreshedToast(r, "mentees"));
       else if( this.props.match.params.section === "matching") {
         this.props.fetchMentors();
-        this.props.fetchMentees();
+        this.props.fetchMentees().then(r => this.refreshedToast(r, "mentors and mentees"));
       }
-      else this.props.fetchRelationships();
+      else this.props.fetchRelationships().then(r => this.refreshedToast(r, "relationships"));
     }
     else this.props.history.push(`/admin/${key}${(key === "mentors" || key === "mentees") ? "/database" : ""}`);
 
