@@ -9,12 +9,11 @@ import defaults from "../../defaults/defaults";
 const { Option } = Select;
 
 const RequestApprovalMenteeModal = (props) => {
-  const {showModal, ...initialValues} = props.menteeHome; //destrucutre props so you avoid passing down showModal to the values held in formik
+  const {showModal, ...initialValues} = props.menteeHome; //destructure props so you avoid passing down showModal to the values held in formik
   return <Formik
     validationSchema={Yup.object().shape({
       confirmCommittment: Yup.mixed().oneOf([true])
         .required("Commitment is required."),
-
       ethnicBackground: Yup.string()
         .required("ethnicBackground is required."),
       typeOfHighSchool: Yup.string()
@@ -25,12 +24,14 @@ const RequestApprovalMenteeModal = (props) => {
         .required('hobbiesAndInterests required'),
       careerInterests: Yup.array()
         .required('careerInterests required'),
-      yearBorn: Yup.string()
+      yearBorn: Yup.number()
         .required("yearBorn is required."),
+      yearStart: Yup.number()
+        .required("yearStart is required."),
       referral: Yup.array()
       .required('referral required'),
     })}
-    initialValues={{confirmCommittment: false, initialValues}}
+    initialValues={{confirmCommittment: false, ...initialValues}}
     onSubmit={(values, { setSubmitting }) => {
       setSubmitting(false);
     }}
@@ -133,23 +134,22 @@ const RequestApprovalMenteeModal = (props) => {
 
             <Row>
               <Col>
-                <h6>What are your career interests after studying at {props.user.menteeProfile.university}</h6>
+              <h6>What year do you expect to start University?</h6>
 
-                <Field name="careerInterests" render={({ field, form: { touched, errors } }) => <Select showSearch
-                                                                                                        size={"large"} mode="multiple"
-                                                                                                        style={{ width: "100%" }}
-                                                                                                        value={field.value}
-                                                                                                        placeholder={ 'Finance, engineering..'}
-                                                                                                        onChange={(o) => setFieldValue(field.name, o)}
-                                                                                                        tokenSeparators={[",", ":"]}>
+              <Field name="yearStart" render={({ field, form: { touched, errors } }) => <Select showSearch
+                                                                                               size={"large"}
+                                                                                               style={{ width: "100%" }}
+                                                                                               value={field.value}
+                                                                                               placeholder={ '1991,1997....'}
+                                                                                               onChange={(o) => setFieldValue(field.name, o)}
+                                                                                               tokenSeparators={[",", ":"]}>
 
 
-                  {defaults.career_interests.map(e => <Option key={e} value={e}>{e}</Option>)}
+                {defaults.yearGraduate.map(e => <Option key={e} value={e}>{e}</Option>)}
 
-                </Select> } />
+              </Select> } />
               </Col>
-
-              <Col md={4}>
+              <Col>
                 <h6>What year were you born? <span aria-labelledby={'newborn'} role={'img'}>🐣</span></h6>
 
                 <Field name="yearBorn" render={({ field, form: { touched, errors } }) => <Select showSearch
@@ -168,6 +168,8 @@ const RequestApprovalMenteeModal = (props) => {
 
             </Row>
 
+            <br />
+
             {/*Not convinced we need, but have to check:
             1) Phone Number
             2) Poste Code
@@ -176,6 +178,24 @@ const RequestApprovalMenteeModal = (props) => {
             5) What made you interested in this subject in particular? What parts interest you within your discipline? This is our chance to learn more about what you care about in an informal wa*
             */}
 
+            <Row>
+              <Col>
+                <h6>What are your career interests after studying at {props.user.menteeProfile.university}</h6>
+
+                <Field name="careerInterests" render={({ field, form: { touched, errors } }) => <Select showSearch
+                                                                                                        size={"large"} mode="multiple"
+                                                                                                        style={{ width: "100%" }}
+                                                                                                        value={field.value}
+                                                                                                        placeholder={ 'Finance, engineering..'}
+                                                                                                        onChange={(o) => setFieldValue(field.name, o)}
+                                                                                                        tokenSeparators={[",", ":"]}>
+
+
+                  {defaults.career_interests.map(e => <Option key={e} value={e}>{e}</Option>)}
+
+                </Select> } />
+              </Col>
+            </Row>
             <br />
 
             <Row>
@@ -212,6 +232,12 @@ const RequestApprovalMenteeModal = (props) => {
               </Col>
             </Row>
 
+            {/*NOT SURE OF:
+            1) What's the first thing that someone who's never met you should know about you?
+            2) ow let’s get into a bit more detail. What makes you interested in your preferred university course in particular? What are you particularly passionate about? Why are you particularly keen on studying at your first-choice university? This is your chance to demonstrate to us that you’ve done your reading beforehand, and that you’ll use the opportunity to get a mentor well. No need to write too much, but two paragraphs to answer one of these questions will be helpful for us to assess your eligibility.
+            3) First vs Second choice
+
+            */}
 
 
           </Modal.Body>

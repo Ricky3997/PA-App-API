@@ -128,7 +128,7 @@ const registerNew = async (id, data) => {
 
 const changeStatus = async (id, data) => {
   try {
-    await Mentee.findByIdAndUpdate(id, {status: data.status, ...data.properties, latestStatusChange: new Date()}).exec();
+    await Mentee.findByIdAndUpdate(id, {...data, latestStatusChange: new Date()}).exec();
     return User.findById(id).populate("menteeProfile").exec().then(p => { return p});
   } catch (e) {
     return null;

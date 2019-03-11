@@ -60,7 +60,6 @@ class MenteeHome extends Component {
                                     }
                                   })
                                   }
-
       />
     </Container>;
   }

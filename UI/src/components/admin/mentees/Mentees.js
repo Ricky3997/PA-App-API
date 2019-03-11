@@ -36,9 +36,9 @@ const Mentees = (props) => {
         <Tab.Content>
           <Tab.Pane active>
             <Switch>
-              <Route path={"/admin/mentees/approvals"} render={() => <Approvals activeApprovalId={activeApprovalId}
+              <Route path={"/admin/mentees/approvals/:id?"} render={({match}) => <Approvals activeApprovalId={activeApprovalId}
                                                                                 mentees={filterForApproval(mentees)}
-                                                                                mentorMode={false}
+                                                                                mentorMode={false} match={match}
                                                                                 adminChangeUserStatus={props.adminChangeUserStatus}
                                                                                 setActiveApprovalId={props.setActiveMenteeApprovalId}/>}/>
               <Route path={"/admin/mentees/statistics"} render={() => <Statistics mentees={mentees} />}/>

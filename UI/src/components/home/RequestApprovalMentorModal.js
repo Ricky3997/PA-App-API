@@ -33,9 +33,9 @@ const RequestApprovalMentorModal = (props) => {
         .required('careerInterests required'),
       offersFromUnis: Yup.array()
       .required('offersFromUnis required'),
-      yearBorn: Yup.string()
+      yearBorn: Yup.number()
         .required("yearBorn is required."),
-      yearGraduation: Yup.string()
+      yearGraduation: Yup.number()
       .required("yearGraduation is required."),
       referral: Yup.array()
       .required('referral required'),

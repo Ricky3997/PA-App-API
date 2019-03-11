@@ -44,7 +44,8 @@ const Mentee = mongoose.model('Mentee', new mongoose.Schema({
   hobbiesAndInterests: [{
     type: String
   }],
-  yearBorn: String,
+  yearBorn: Number,
+  yearStart: Number,
   referral: [{
     type: String
   }]

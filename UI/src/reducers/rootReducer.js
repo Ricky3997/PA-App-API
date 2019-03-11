@@ -29,7 +29,7 @@ import {
   SET_MENTOR_HOME_PROGRESS,
   TOGGLE_MENTOR_HOME_MODAL,
   SET_MENTOR_APPROVAL_PROPERTIES,
-  TOGGLE_MENTEE_HOME_MODAL
+  TOGGLE_MENTEE_HOME_MODAL, SET_MENTEE_APPROVAL_PROPERTIES
 } from "../actions/actionTypes";
 import { combineReducers } from "redux";
 
@@ -151,10 +151,22 @@ function menteeAdmin(state = {
 
 function menteeHome(state ={
   showModal: false,
+  maxNumberOfMentees: 3,
+  careerInterests: ["Creative Arts and Design"],
+  confirmCommittment: true,
+  ethnicBackground: "Mixed / multiple ethnic groups",
+  fromThreeLargestCity: 1,
+  hobbiesAndInterests: ["Professional Sports"],
+  referral: ["Project Access Mentor", "Friends"],
+  typeOfHighSchool: "Independent",
+  yearBorn: 1991,
+  yearStart: 2020
 }, action) {
   switch (action.type) {
     case TOGGLE_MENTEE_HOME_MODAL:
       return { ...state, showModal: !state.showModal };
+    case SET_MENTEE_APPROVAL_PROPERTIES:
+      return { ...state, ...action.properties };
     default:
       return state;
   }
@@ -175,7 +187,7 @@ function mentorHome(state = {
   subjectsInSchool: ["French"],
   typeOfHighSchool: "Independent",
   yearBorn: 1991,
-  yearGraduation: 2020,
+  yearGraduation: 2020
 
 }, action) {
   switch (action.type) {

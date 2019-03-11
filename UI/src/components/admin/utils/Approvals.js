@@ -3,6 +3,7 @@ import { Button, Col, Container, ListGroup, Row } from "react-bootstrap";
 import ProfileIcon from "../../various/ProfileIcon";
 import MentorAdminprofile from "./MentorAdminProfile";
 import { toast } from "react-toastify";
+import MenteeAdminProfile from "./MenteeAdminProfile";
 
 
 class Approvals extends Component {
@@ -42,7 +43,7 @@ class Approvals extends Component {
             <Container fluid>
 
               {props.mentorMode ? <MentorAdminprofile approvalMode mentor={toApprove} breadcrumbs={false}/> :
-                <div>Mentee Admin Profile</div>}
+                <MenteeAdminProfile approvalMode mentee={toApprove} breadcrumbs={false}/>}
 
               <Row>
                 <Col md={{ size: 2, offset: 8 }}>

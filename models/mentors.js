@@ -28,14 +28,14 @@ const Mentor = mongoose.model('Mentor', new mongoose.Schema({
   offersFromUnis: [{
     type: String
   }],
-  yearGraduation: String,
+  yearGraduation: Number,
   careerInterests: [{
     type: String
   }],
   hobbiesAndInterests: [{
     type: String
   }],
-  yearBorn: String,
+  yearBorn: Number,
   referral: [{
     type: String
   }]
