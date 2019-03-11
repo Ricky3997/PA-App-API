@@ -17,6 +17,8 @@ import StatusIcon from "./StatusIcon";
 import countries from "svg-country-flags/countries";
 import { Icon } from "react-fa";
 import moment from "moment";
+import defaults from "../../../defaults/defaults";
+
 
 const MenteeAdminProfile = (props) => {
 
@@ -71,12 +73,12 @@ const MenteeAdminProfile = (props) => {
           status={props.mentee.status}/> {props.mentee.latestStatusChange ? `since ${moment(props.mentee.latestStatusChange).format("Do MMM YY")}` : ""}
       </Col>
 
-      {/*<Col md={2}>*/}
-        {/*<Badge variant="info">{"TODO"}</Badge>*/}
-      {/*</Col>*/}
-      {/*<Col md={{ span: 3 }}>*/}
-        {/*<Form.Label>{`${'TODO'}`}</Form.Label>*/}
-      {/*</Col>*/}
+      <Col md={{span:2}}>
+        <Badge variant="info">{"Year of Birth"}</Badge>
+      </Col>
+      <Col md={{ span: 3 }}>
+        <Form.Label>{`${props.mentee.yearBorn}`}</Form.Label>
+      </Col>
     </Row>
 
     <Row>
@@ -105,30 +107,11 @@ const MenteeAdminProfile = (props) => {
       <Col md={{ span: 3 }}>
         <Form.Label>{`${props.mentee.gender}`} </Form.Label>
       </Col>
-      {/*<Col md={2}>*/}
-        {/*<Badge variant="info">*/}
-          {/*{"Ethnic Background"}*/}
-        {/*</Badge>*/}
-      {/*</Col>*/}
-      {/*<Col md={{ span: 3 }}>*/}
-        {/*{props.mentee.ethnicBackground}*/}
-      {/*</Col>*/}
-    </Row>
-
-    <Row>
       <Col md={2}>
         <Badge variant="info">{"First Generation"}</Badge>
       </Col>
       <Col md={{ span: 3 }}>
         <Form.Label>{`${props.mentee.firstGenStudent ? "Yes" : "No"}`} </Form.Label>
-      </Col>
-      <Col md={2}>
-        <Badge variant="info">
-          {"Type of High School"}
-        </Badge>
-      </Col>
-      <Col md={{ span: 3 }}>
-        {props.mentee.typeOfHighSchool}
       </Col>
     </Row>
 
@@ -139,12 +122,12 @@ const MenteeAdminProfile = (props) => {
       <Col md={{ span: 3 }}>
         <Form.Label>{`${props.mentee.subjects.join(', ')}`}</Form.Label>
       </Col>
-      {/*<Col md={2}>*/}
-        {/*<Badge variant="info">{"TODO"}</Badge>*/}
-      {/*</Col>*/}
-      {/*<Col md={{ span: 3 }}>*/}
-        {/*<Form.Label>{`${'TODO'}`}</Form.Label>*/}
-      {/*</Col>*/}
+      <Col md={2}>
+        <Badge variant="info">{"Year"}</Badge>
+      </Col>
+      <Col md={{ span: 3 }}>
+        <Form.Label>{`${props.mentee.year}`}</Form.Label>
+      </Col>
     </Row>
 
     <Row>
@@ -154,12 +137,14 @@ const MenteeAdminProfile = (props) => {
       <Col md={{ span: 3 }}>
         <Form.Label>{`${props.mentee.school}`}</Form.Label>
       </Col>
-      {/*<Col md={2}>*/}
-        {/*<Badge variant="info">{"TODO"}</Badge>*/}
-      {/*</Col>*/}
-      {/*<Col md={{ span: 3 }}>*/}
-        {/*<Form.Label>{`${'TODO'}`}</Form.Label>*/}
-      {/*</Col>*/}
+      <Col md={2}>
+        <Badge variant="info">
+          {"Type of High School"}
+        </Badge>
+      </Col>
+      <Col md={{ span: 3 }}>
+        {props.mentee.typeOfHighSchool}
+      </Col>
     </Row>
 
     <Row>
@@ -179,10 +164,10 @@ const MenteeAdminProfile = (props) => {
 
     <Row>
       <Col md={2}>
-        <Badge variant="info">{"Year"}</Badge>
+        <Badge variant="info">{"Expected Start"}</Badge>
       </Col>
       <Col md={{ span: 3 }}>
-        <Form.Label>{`${props.mentee.year}`}</Form.Label>
+        <Form.Label>{`${props.mentee.yearStart}`}</Form.Label>
       </Col>
       <Col md={2}>
         <Badge variant="info">{"Hobbies & Interests"}</Badge>
@@ -194,26 +179,23 @@ const MenteeAdminProfile = (props) => {
 
     <Row>
       <Col md={2}>
-        <Badge variant="info">{"Expected Start"}</Badge>
+        <Badge variant="info">{"Applying for"}</Badge>
       </Col>
       <Col md={{ span: 3 }}>
-        <Form.Label>{`${props.mentee.yearStart}`}</Form.Label>
+        <Form.Label>{`${props.mentee.interestedIn.join(", ")}`}</Form.Label>
       </Col>
-      <Col md={{span:2}}>
-        <Badge variant="info">{"Year of Birth"}</Badge>
+      <Col md={2}>
+        <Badge variant="info">{"Unis interested"}</Badge>
       </Col>
       <Col md={{ span: 3 }}>
-        <Form.Label>{`${props.mentee.yearBorn}`}</Form.Label>
+        {props.mentee.unisApplyingFor.map(uni => <Image
+            key={uni}
+            src={[...defaults.universities.US, ...defaults.universities.UK].filter(u => u.name === uni)[0].logo}
+            style={{ maxHeight: "60px", maxWidth: "130px" }}/>)}
       </Col>
     </Row>
 
     <Row>
-      {/*<Col md={2}>*/}
-        {/*<Badge variant="info">{"TODO"}</Badge>*/}
-      {/*</Col>*/}
-      {/*<Col md={{ span: 3 }}>*/}
-        {/*<Form.Label>{`${'TODO'}`}</Form.Label>*/}
-      {/*</Col>*/}
       <Col md={2}>
         <Badge variant="info">{"Referral"}</Badge>
       </Col>
