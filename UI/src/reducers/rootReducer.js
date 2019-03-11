@@ -4,18 +4,32 @@ import {
   ADD_ONBOARDING_PROPERTIES,
   CHANGE_STAGE,
   REMOVE_PICTURE_TO_CROP,
-  REMOVE_USER, SENT_LOGIN_EMAIL, SET_ACTIVE_CHAT,
+  REMOVE_USER,
+  SENT_LOGIN_EMAIL,
+  SET_ACTIVE_CHAT,
   SET_ACTIVE_MENTEE_APPROVAL_ID,
-  SET_ACTIVE_MENTOR_APPROVAL_ID, SET_ACTIVE_JOURNEY_MODULE, SET_MATCHING_ID,
-  SET_MENTEES, SET_MENTOR_RECOMMENDATIONS,
+  SET_ACTIVE_MENTOR_APPROVAL_ID,
+  SET_ACTIVE_JOURNEY_MODULE,
+  SET_MATCHING_ID,
+  SET_MENTEES,
+  SET_MENTOR_RECOMMENDATIONS,
   SET_MENTORS,
-  SET_RELATIONSHIPS, SHOW_MATCHING_CONFIRMATION,
+  SET_RELATIONSHIPS,
+  SHOW_MATCHING_CONFIRMATION,
   STORE_PICTURE_CROPPED,
-  STORE_PICTURE_TO_CROP, SWITCH_MATCHING_MODE,
-  TOGGLE_ADMIN_FETCHING, TOGGLE_MESSAGING_CONNECTED,
+  STORE_PICTURE_TO_CROP,
+  SWITCH_MATCHING_MODE,
+  TOGGLE_ADMIN_FETCHING,
+  TOGGLE_MESSAGING_CONNECTED,
   TOGGLE_PICTURE_PICKER,
-  TOGGLE_REGISTERING, UNSET_LOGIN_EMAIL, UNSET_MATCHING_CONFIRMATION,
-  UPDATE_USER, SET_MENTOR_HOME_PROGRESS, TOGGLE_MENTOR_HOME_MODAL, SET_MENTOR_APPROVAL_PROPERTIES
+  TOGGLE_REGISTERING,
+  UNSET_LOGIN_EMAIL,
+  UNSET_MATCHING_CONFIRMATION,
+  UPDATE_USER,
+  SET_MENTOR_HOME_PROGRESS,
+  TOGGLE_MENTOR_HOME_MODAL,
+  SET_MENTOR_APPROVAL_PROPERTIES,
+  TOGGLE_MENTEE_HOME_MODAL
 } from "../actions/actionTypes";
 import { combineReducers } from "redux";
 
@@ -135,21 +149,20 @@ function menteeAdmin(state = {
   }
 }
 
+function menteeHome(state ={
+  showModal: false,
+}, action) {
+  switch (action.type) {
+    case TOGGLE_MENTEE_HOME_MODAL:
+      return { ...state, showModal: !state.showModal };
+    default:
+      return state;
+  }
+}
+
 function mentorHome(state = {
   progress: getInitialMentorHomeProgress(),
   showModal: false,
-  // linkedinUrl: '',
-  // ethnicBackground: '',
-  // typeOfHighSchool: '',
-  // fromThreeLargestCity: '',
-  // subjectsInSchool: [],
-  // hobbiesAndInterests: [],
-  // careerInterests: [],
-  // offersFromUnis: [],
-  // yearBorn: '',
-  // yearGraduation: '',
-  // referral: [],
-  // referral: [],
   maxNumberOfMentees: 3,
   careerInterests: ["Creative Arts and Design"],
   confirmCommittment: true,
@@ -261,7 +274,7 @@ function journey(state = {
 }
 
 const app = combineReducers({
-  user, settings, onboarding, admin, mentorAdmin, menteeAdmin, matching, messaging, login, journey, mentorHome
+  user, settings, onboarding, admin, mentorAdmin, menteeAdmin, matching, messaging, login, journey, mentorHome, menteeHome
 });
 
 export default app;

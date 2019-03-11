@@ -257,9 +257,9 @@ const loadAdmin = async () => {
   const userProfile = {
     _id: id,
     firstName: "Riccardo",
-    type: "mentor",
+    type: "mentee",
     email: "riccardo@broggi.co.uk",
-    emailConfirmed: true,
+    emailConfirmed: false,
     onboarded: true,
     admin: 'Italy',
     mentorProfile: id,
@@ -285,7 +285,7 @@ const loadAdmin = async () => {
   const menteeProfile = {
     _id: id,
     city: "London",
-    country: "Antigua and Barbuda",
+    country: "Spain",
     firstGenStudent: "No",
     firstName: "Riccardo",
     gender: "Male",
@@ -295,7 +295,7 @@ const loadAdmin = async () => {
     subjects: ["Biology"],
     unisApplyingFor: ["London School of Economics", "University of Oxford"],
     year: "Gap Year",
-    status: "requested",
+    status: "notYetRequested",
     pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/t/5bb721a4e2c48357967f52fa/1538728361542/Riccardo.jpg?format=300w"
 
   };

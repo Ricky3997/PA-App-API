@@ -14,7 +14,7 @@ import DegreeLevelPicker from "../various/forms/DegreeLevelPicker";
 import YearPicker from "../various/forms/YearPicker";
 import FirstGenerationStudentPicker from "../various/forms/FirstGenerationStudentPicker";
 import GenderPicker from "../various/forms/GenderPicker";
-import { Icon } from "react-fa";
+import EmailConfirmed from "./EmailConfirmed";
 
 const MentorSettings = (props) => {
   const { user, settings, togglePicturePicker, storePictureToCrop, removePictureToCrop, storePictureCropped, history } = props;
@@ -85,11 +85,7 @@ const MentorSettings = (props) => {
                 We'll never share your email with anyone else.
               </Form.Text>
 
-
-              <span style={{ color: user.emailConfirmed ? "green" : "red", fontSize: "18px"}}>
-                <Icon name="fas fa-envelope"/>
-                {user.emailConfirmed ? " Email Confirmed" : " Email Not Confirmed"}
-              </span>
+              <EmailConfirmed user={props.user} sendEmailConfirmationAgain={props.sendEmailConfirmationAgain}/>
 
             </Col>
           </Row>

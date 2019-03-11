@@ -10,7 +10,7 @@ import SubjectsInSchoolPicker from "../various/forms/SubjectsInSchoolPicker";
 import UniversityPicker from "../various/forms/UniversityPicker";
 const { Option } = Select;
 
-const RequestApprovalModal = (props) => {
+const RequestApprovalMentorModal = (props) => {
   const {showModal, ...initialValues} = props.mentorHome; //destrucutre props so you avoid passing down showModal to the values held in formik
   return <Formik
     validationSchema={Yup.object().shape({
@@ -320,4 +320,4 @@ const RequestApprovalModal = (props) => {
     )}/>
 };
 
-export default RequestApprovalModal;
+export default RequestApprovalMentorModal;

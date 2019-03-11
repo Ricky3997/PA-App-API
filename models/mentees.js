@@ -32,7 +32,22 @@ const Mentee = mongoose.model('Mentee', new mongoose.Schema({
     ready: Boolean,
     typeformID: String
   }],
-  relationship: { type: Schema.Types.ObjectId, ref: 'Relationship' }
+  relationship: { type: Schema.Types.ObjectId, ref: 'Relationship' },
+
+  latestStatusChange: Date,
+  fromThreeLargestCity: Boolean,
+  ethnicBackground: String,
+  typeOfHighSchool: String,
+  careerInterests: [{
+    type: String
+  }],
+  hobbiesAndInterests: [{
+    type: String
+  }],
+  yearBorn: String,
+  referral: [{
+    type: String
+  }]
 }));
 
 module.exports = {Mentee};

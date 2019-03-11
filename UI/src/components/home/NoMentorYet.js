@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import NotReadyYet from "./MenteeHome";
 
 const NoMentorYet = (props) => {
@@ -14,9 +14,21 @@ const NoMentorYet = (props) => {
       <p>
         You can now request approval to have a mentor
       </p>
-      <Button onClick={() => props.changeMenteeStatus("requested")}>
-        Click here to request approval
-      </Button>
+
+      {props.user.emailConfirmed ? <Button onClick={() => props.toggleMenteeHomeModal() }>
+          Click here to request approval
+        </Button> :
+        <OverlayTrigger placement="bottom" trigger="hover"
+                        overlay={<Tooltip placement="bottom" className="in">You need to confirm your email
+                          first</Tooltip>}>
+            <span className="d-inline-block">
+              <Button disabled style={{ pointerEvents: "none" }}>
+                Click here to request approval
+              </Button>
+            </span>
+        </OverlayTrigger>
+      }
+
     </div>;
   } else if (props.user.menteeProfile.status === "requested") {
     toRender = <div>
@@ -41,7 +53,7 @@ const NoMentorYet = (props) => {
             <Row>
                 <Col>
                     <h4>
-                        You don't have a Mentor yet <span role="img" aria-label="time waiting">⏳</span>
+                        You don't have a mentor yet <span role="img" aria-label="time waiting">⏳</span>
                     </h4>
                 </Col>
             </Row>

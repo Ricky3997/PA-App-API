@@ -7,14 +7,14 @@ import {
   REMOVE_USER, SENT_LOGIN_EMAIL, SET_ACTIVE_CHAT, SET_ACTIVE_JOURNEY_MODULE,
   SET_ACTIVE_MENTEE_APPROVAL_ID,
   SET_ACTIVE_MENTOR_APPROVAL_ID,
-  SET_MATCHING_ID,
+  SET_MATCHING_ID, SET_MENTEE_APPROVAL_PROPERTIES,
   SET_MENTEES, SET_MENTOR_APPROVAL_PROPERTIES, SET_MENTOR_HOME_PROGRESS,
   SET_MENTOR_RECOMMENDATIONS,
   SET_MENTORS, SET_RELATIONSHIPS, SHOW_MATCHING_CONFIRMATION,
   STORE_PICTURE_CROPPED,
   STORE_PICTURE_TO_CROP,
   SWITCH_MATCHING_MODE,
-  TOGGLE_ADMIN_FETCHING, TOGGLE_MENTOR_HOME_MODAL, TOGGLE_MESSAGING_CONNECTED,
+  TOGGLE_ADMIN_FETCHING, TOGGLE_MENTEE_HOME_MODAL, TOGGLE_MENTOR_HOME_MODAL, TOGGLE_MESSAGING_CONNECTED,
   TOGGLE_PICTURE_PICKER,
   TOGGLE_REGISTERING, UNSET_LOGIN_EMAIL, UNSET_MATCHING_CONFIRMATION,
   UPDATE_USER
@@ -40,12 +40,24 @@ export const toggleMentorHomeModal = () => {
   }
 };
 
+export const toggleMenteeHomeModal = () => {
+  return {
+    type: TOGGLE_MENTEE_HOME_MODAL
+  }
+};
+
 export const confirmEmailAddress = (token, id) => {
   return (dispatch) => {
     return api.get(`/auth/confirm?token=${token}&id=${id}`).then(r => {
       if(r.success) updateAndStoreUser(dispatch, r.payload);
       return r;
     })
+  }
+};
+
+export const sendEmailConfirmationAgain = (id) => {
+  return () => {
+    return api.get(`/auth/sendConfirmation?id=${id}`);
   }
 };
 
@@ -70,6 +82,12 @@ export const togglePicturePicker = () => {
 export const setMentorApprovalProperties = (properties) => {
   return {
     type: SET_MENTOR_APPROVAL_PROPERTIES,
+    properties: properties
+  }
+};
+export const setMenteeApprovalProperties = (properties) => {
+  return {
+    type: SET_MENTEE_APPROVAL_PROPERTIES,
     properties: properties
   }
 };
@@ -138,9 +156,9 @@ export const changeMentorStatus = (status, properties) => {
   }
 };
 
-export const changeMenteeStatus = (status) => {
+export const changeMenteeStatus = (status, properties) => {
   return (dispatch, getState) => {
-    return api.post("/api/mentees/changeStatus", {status: status}).then(r => {
+    return api.post("/api/mentees/changeStatus", {status: status, ...properties}).then(r => {
       if(r.success) updateAndStoreUser(dispatch, r.payload);
       return r;
     })

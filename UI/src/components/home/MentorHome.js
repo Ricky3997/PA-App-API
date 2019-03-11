@@ -7,7 +7,7 @@ import MenteeTile from "../people/MenteeTile";
 import { Bookmark, Timeline } from "react-vertical-timeline";
 import ModuleBox from "../journey/ModuleBox";
 import { LinkContainer } from "react-router-bootstrap";
-import RequestApprovalModal from "./RequestApprovalModal";
+import RequestApprovalMentorModal from "./RequestApprovalMentorModal";
 import { toast } from "react-toastify";
 
 class MentorHome extends Component {
@@ -135,7 +135,7 @@ class MentorHome extends Component {
           </Row>
         </Col>
       </Row>
-      <RequestApprovalModal user={this.props.user} show={this.props.mentorHome.showModal}
+      <RequestApprovalMentorModal user={this.props.user} show={this.props.mentorHome.showModal}
                             mentorHome={this.props.mentorHome}
                             onSubmit={(properties) => this.props.changeMentorStatus("requested", properties).then(r => {
                               if (r.success) {

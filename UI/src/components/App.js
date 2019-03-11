@@ -20,15 +20,31 @@ import "react-toastify/dist/ReactToastify.css";
 import {
   addMessagesToChat,
   addMessagingChat,
-  addOnboardingProperties, changeActiveJourneyModule, changeMenteeStatus, changeMentorStatus,
-  changeStage, confirmEmailAddress, fetchMentees, fetchMentors, fetchRelationships,
-  getUser, registerMentee,
+  addOnboardingProperties,
+  changeActiveJourneyModule,
+  changeMenteeStatus,
+  changeMentorStatus,
+  changeStage,
+  confirmEmailAddress,
+  fetchMentees,
+  fetchMentors,
+  fetchRelationships,
+  getUser,
+  registerMentee,
   registerMentor,
   removePictureToCrop,
-  saveSettings, sendLoginEmail, setActiveChat, setMentorApprovalProperties, setMentorHomeProgress,
+  saveSettings,
+  sendEmailConfirmationAgain,
+  sendLoginEmail,
+  setActiveChat,
+  setMentorApprovalProperties,
+  setMentorHomeProgress,
   storePictureCropped,
-  storePictureToCrop, toggleMentorHomeModal, toggleMessagingConnected,
-  togglePicturePicker, unsetLoginEmailSent,
+  storePictureToCrop,
+  toggleMentorHomeModal,
+  toggleMessagingConnected,
+  togglePicturePicker,
+  unsetLoginEmailSent,
   updateUser
 } from "../actions/actionCreator";
 import Footer from "./various/Footer";
@@ -64,7 +80,8 @@ class App extends Component {
                 storePictureToCrop: (pictureToCrop) => dispatch(storePictureToCrop(pictureToCrop)),
                 removePictureToCrop: () => dispatch(removePictureToCrop()),
                 storePictureCropped: (pictureCropped) => dispatch(storePictureCropped(pictureCropped)),
-                saveSettings: (settings) => dispatch(saveSettings(settings))
+                saveSettings: (settings) => dispatch(saveSettings(settings)),
+                sendEmailConfirmationAgain: (settings) => dispatch(sendEmailConfirmationAgain(settings))
               };
             })(Settings)}/>
 

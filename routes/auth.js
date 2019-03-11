@@ -6,6 +6,8 @@ router.get('/login', controller.login);
 
 router.get('/confirm', controller.confirm);
 
+router.get('/sendConfirmation', controller.sendConfirmation);
+
 router.post('/validate', controller.validate);
 
 router.post('/register', controller.register);

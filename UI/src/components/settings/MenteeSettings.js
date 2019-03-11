@@ -16,7 +16,7 @@ import Loader from "react-loader-spinner";
 import SubjectsInSchoolPicker from "../various/forms/SubjectsInSchoolPicker";
 import UnisApplyingFor from "../various/forms/UnisApplyingFor";
 import * as _ from "lodash"
-import { Icon } from "react-fa";
+import EmailConfirmed from "./EmailConfirmed";
 
 const MenteeSettings = (props) => {
   const { user, settings, togglePicturePicker, storePictureToCrop, removePictureToCrop, storePictureCropped, history } = props;
@@ -87,11 +87,7 @@ const MenteeSettings = (props) => {
                 We'll never share your email with anyone else.
               </Form.Text>
 
-
-              <span style={{ color: user.emailConfirmed ? 'green' : 'red',  fontSize: "18px" }}>
-                <Icon name="fas fa-envelope"/>
-                {user.emailConfirmed ? ' Email Confirmed' : ' Email Not Confirmed'}
-              </span>
+              <EmailConfirmed user={props.user} sendEmailConfirmationAgain={props.sendEmailConfirmationAgain}/>
 
             </Col>
           </Row>

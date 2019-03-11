@@ -36,6 +36,13 @@ const register = async (email, firstName, type) => {
 
 };
 
+const sendConfirmation = async (id) => {
+  const user = await User.findById(id);
+  const token = createToken(user.email, id);
+  mailService.sendConfirmationToken(user.email, id, token);
+  return true;
+};
+
 const validateToken = (id, token) => {
   return extractIdFromToken(token) === id;
 };
@@ -86,4 +93,4 @@ const createToken = (email, id) => {
   return jwt.sign({ email: email, id: id }, config.JWT_SECRET, { expiresIn: "168h" });
 };
 
-module.exports = { register, confirm, checkToken, checkAdmin, createToken, generateLoginToken, validateToken };
+module.exports = { register, confirm, checkToken, checkAdmin, createToken, generateLoginToken, validateToken, sendConfirmation };

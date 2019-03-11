@@ -6,6 +6,8 @@ import Module from "./Module";
 import MentorTile from "../people/MentorTile";
 import NoMentorYet from "./NoMentorYet";
 import * as _ from "lodash";
+import RequestApprovalMenteeModal from "./RequestApprovalMenteeModal";
+import { toast } from "react-toastify";
 
 class MenteeHome extends Component {
   render() {
@@ -24,25 +26,42 @@ class MenteeHome extends Component {
       <Row>
         <Col md={2}>
           <ProgressionTimeline modules={this.props.user.menteeProfile.journey} activeId={this.props.journey.activeId}
-                               changeSection={(m) => this.props.changeActiveJourneyModule( m.typeformID )}/>
+                               changeSection={(m) => this.props.changeActiveJourneyModule(m.typeformID)}/>
         </Col>
         <Col md={7}>
-          <Module module={this.props.user.menteeProfile.journey.filter(m => m.typeformID === this.props.journey.activeId)[0]}/>
+          <Module
+            module={this.props.user.menteeProfile.journey.filter(m => m.typeformID === this.props.journey.activeId)[0]}/>
         </Col>
         <Col md={3}>
           <Row>
-          {_.get(this.props, "user.menteeProfile.relationship.mentor") ?
-            <MentorTile mentor={this.props.user.menteeProfile.relationship.mentor}/>
-            : <NoMentorYet changeMenteeStatus={this.props.changeMenteeStatus} user={this.props.user}/>}
+            {_.get(this.props, "user.menteeProfile.relationship.mentor") ?
+              <MentorTile mentor={this.props.user.menteeProfile.relationship.mentor}/>
+              : <NoMentorYet toggleMenteeHomeModal={this.props.toggleMenteeHomeModal}
+                             changeMenteeStatus={this.props.changeMenteeStatus} user={this.props.user}/>}
           </Row>
-          <br />
+          <br/>
           <Row>
-            <h5>{'McKinsey & Co.'} is Project Access {this.props.user.mentorProfile.country}'s Platinum Partner, providing the essential financing to make this happen </h5>
-            <Image src={'https://s1.ibtimes.com/sites/www.ibtimes.com/files/styles/lg/public/2014/05/28/mckinsey-logo.png'} style={{maxWidth: '300px', maxHeight: '150px'}} />
+            <h5>{"McKinsey & Co."} is Project Access {this.props.user.mentorProfile.country}'s Platinum Partner,
+              providing the essential financing to make this happen </h5>
+            <Image
+              src={"https://s1.ibtimes.com/sites/www.ibtimes.com/files/styles/lg/public/2014/05/28/mckinsey-logo.png"}
+              style={{ maxWidth: "300px", maxHeight: "150px" }}/>
           </Row>
         </Col>
       </Row>
+      <RequestApprovalMenteeModal show={this.props.menteeHome.showModal} user={this.props.user}
+                                  menteeHome={this.props.menteeHome} onHide={(properties) => {
+                                    this.props.setMenteeApprovalProperties(properties);
+                                    this.props.toggleMenteeHomeModal();
+                                  }} onSubmit={(properties) => this.props.changeMenteeStatus("requested", properties).then(r => {
+                                    if (r.success) {
+                                      this.props.toggleMenteeHomeModal();
+                                      toast.success("Request sent");
+                                    }
+                                  })
+                                  }
 
+      />
     </Container>;
   }
 }
