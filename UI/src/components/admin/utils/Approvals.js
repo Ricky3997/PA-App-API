@@ -1,9 +1,18 @@
-import React from "react";
+import React, { Component } from "react";
 import { Button, Col, Container, ListGroup, Row } from "react-bootstrap";
 import ProfileIcon from "../../various/ProfileIcon";
 import MentorAdminprofile from "./MentorAdminProfile";
+import { toast } from "react-toastify";
 
-const Approvals = (props) => {
+
+class Approvals extends Component {
+
+  componentDidMount() {
+    if(this.props.match.params.id) this.props.setActiveApprovalId(this.props.match.params.id);
+  }
+
+  render() {
+    const props = this.props;
     const { setActiveApprovalId, activeApprovalId } = props;
     const toApprove = activeApprovalId ? props[props.mentorMode ? "mentors" : "mentees"].filter(m => m._id === activeApprovalId)[0] : null;
 
@@ -16,6 +25,7 @@ const Approvals = (props) => {
                 props[props.mentorMode ? "mentors" : "mentees"].length > 0 ?
                   props[props.mentorMode ? "mentors" : "mentees"].map(m => <ListGroup.Item
                     active={m._id === activeApprovalId}
+                    key={m._id}
                     onClick={() => setActiveApprovalId(m._id)}
                     style={{ cursor: "pointer" }}>
                     <ProfileIcon pictureUrl={m.pictureUrl} size={"s"} mentorMode={props.mentorMode}/>
@@ -31,16 +41,21 @@ const Approvals = (props) => {
           <Col md={9}>{toApprove ?
             <Container fluid>
 
-              <MentorAdminprofile approvalMode mentor={toApprove} breadcrumbs={false} />
+              {props.mentorMode ? <MentorAdminprofile approvalMode mentor={toApprove} breadcrumbs={false}/> :
+                <div>Mentee Admin Profile</div>}
 
               <Row>
                 <Col md={{ size: 2, offset: 8 }}>
                   <Button block variant="danger"
-                          onClick={() => props.adminChangeUserStatus(toApprove._id, "rejected", props.mentorMode ? "mentor" : "mentee")}> Reject </Button>
+                          onClick={() => props.adminChangeUserStatus(toApprove._id, "rejected", props.mentorMode ? "mentor" : "mentee").then(r => {
+                            if(r.success) toast.success("Rejected");
+                          })}> Reject </Button>
                 </Col>
                 <Col md={{ size: 2 }}>
                   <Button block variant="success"
-                          onClick={() => props.adminChangeUserStatus(toApprove._id, "approved", props.mentorMode ? "mentor" : "mentee")}> Approve </Button>
+                          onClick={() => props.adminChangeUserStatus(toApprove._id, "approved", props.mentorMode ? "mentor" : "mentee").then(r => {
+                            if(r.success) toast.success("Approved");
+                          })}> Approve </Button>
                 </Col>
               </Row>
             </Container> : <div><h4>Nothing to approve</h4></div>}
@@ -49,7 +64,6 @@ const Approvals = (props) => {
       </Container>
     );
   }
-;
-
+}
 
 export default Approvals;

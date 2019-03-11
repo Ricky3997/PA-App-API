@@ -17,7 +17,7 @@ const Mentor = mongoose.model('Mentor', new mongoose.Schema({
   firstName: String,
   maxNumberOfMentees: Number,
   relationship: [{ type: Schema.Types.ObjectId, ref: 'Relationship' }],
-
+  latestStatusChange: Date,
   linkedinUrl: String,
   fromThreeLargestCity: Boolean,
   ethnicBackground: String,

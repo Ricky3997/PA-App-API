@@ -38,6 +38,7 @@ const registerNew = async (id, data) => {
     maxNumberOfMentees: 3,
     firstName: user.firstName,
     relationship: [],
+    latestStatusChange: new Date(),
     pictureUrl: data.pictureUrl || null
   }).save();
   await request({
@@ -76,7 +77,7 @@ const edit = async (id, data, file) => {
 
 const changeStatus = async (id, data) => {
   try {
-    await Mentor.findByIdAndUpdate(id, {...data}).exec();
+    await Mentor.findByIdAndUpdate(id, {...data, latestStatusChange:  new Date()}).exec();
     return User.findById(id).populate("mentorProfile").exec().then(p => { return p});
   } catch (e) {
     return null;

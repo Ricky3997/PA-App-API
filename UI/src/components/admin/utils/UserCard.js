@@ -48,7 +48,7 @@ const UserCard = (props) => {
           </span>
         </Card.Title>
         {props.addFilterParam ?
-          <Card.Text>
+          <div>
             {props.mentorMode ? <div>
                <span onClick={() => props.addFilterParam("subject", props.subject)}
                      style={{ color: "blue", cursor: "pointer" }}>{props.subject}</span>
@@ -76,8 +76,8 @@ const UserCard = (props) => {
                                                            }}>{`${u}${i !== (props.unisApplyingFor.length - 1) ? "," : ""} `}</span>)}
             </span>
             }
-          </Card.Text>
-          : <Card.Text>
+          </div>
+          : <div>
             {props.mentorMode ? <div>
               <div>
                 {`${props.subject} at ${props.university}`}
@@ -86,7 +86,7 @@ const UserCard = (props) => {
                  {`${props.relationship.length} mentee${props.relationship.length === 1 ? "" : "s"}; max ${props.maxNumberOfMentees}`}
               </div>
             </div> : "mentee"}
-          </Card.Text>}
+          </div>}
       </Card.Body>
       {props.matching ?
         <Card.Footer>

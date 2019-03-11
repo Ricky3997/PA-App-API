@@ -32,7 +32,7 @@ const MentorAdminProfile = (props) => {
     {props.beadcrumbs ? <Row>
       <Breadcrumb>
         <LinkContainer to={"/admin/mentors/database"}>
-          <Breadcrumb.Item componentClass="div">Database</Breadcrumb.Item>
+          <Breadcrumb.Item>Database</Breadcrumb.Item>
         </LinkContainer>
         <Breadcrumb.Item active href="#">{props.mentor.firstName}</Breadcrumb.Item>
       </Breadcrumb>
@@ -54,7 +54,11 @@ const MentorAdminProfile = (props) => {
         </LinkContainer>
             </span>
         </OverlayTrigger>
-
+      </Col>}
+      {props.approvalMode || props.mentor.status !== "requested" ? null : <Col md={2}>
+        <LinkContainer to={`/admin/mentors/approvals/${props.mentor._id}`}>
+          <Button block variant="warning"><Icon name="fas fa-balance-scale"/> Approve</Button>
+        </LinkContainer>
       </Col>}
     </Row>
 
@@ -65,7 +69,7 @@ const MentorAdminProfile = (props) => {
         <Badge variant="info">{"Status"}</Badge>
       </Col>
       <Col md={{ span: 3 }}>
-        <StatusIcon status={props.mentor.status}/>
+        <StatusIcon status={props.mentor.status}/> {props.mentor.latestStatusChange ? `since ${moment(props.mentor.latestStatusChange).format("Do MMM YY")}` : ''}
       </Col>
       <Col md={2}>
         <Badge variant="info">
@@ -163,6 +167,7 @@ const MentorAdminProfile = (props) => {
       </Col>
       <Col md={{ span: 3 }}>
         {props.mentor.offersFromUnis.map(uni => <Image
+          key={uni}
           src={[...defaults.universities.US, ...defaults.universities.UK].filter(u => u.name === uni)[0].logo}
           style={{ maxHeight: "60px", maxWidth: "130px" }}/>)
         }

@@ -415,7 +415,6 @@ export const adminChangeUserStatus = (id, status, type) => {
     dispatch(toggleAdminFetching());
     return api.post("/api/admin/changeUserStatus", {id: id, status: status, type: type}).then(r => {
       dispatch(toggleAdminFetching());
-
       if(type === "mentor"){
         let {mentors} = getState().admin;
         mentors = mentors.filter(m => m._id !==id);
@@ -435,6 +434,7 @@ export const adminChangeUserStatus = (id, status, type) => {
           if(mentees.filter(m => m.status === "requested").length > 0) dispatch(setActiveMenteeApprovalId(mentees.filter(m => m.status === "requested")[0]._id));
         }
       }
+      return r;
     })
   }
 };

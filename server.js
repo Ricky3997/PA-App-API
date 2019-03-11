@@ -31,6 +31,6 @@ app.use((err, req, res, next) => {
 });
 
 initDb(() => {
-  app.listen(port, () => console.log("App is listening on port " + port));
+  app.listen(port, () => console.log("App is listening on port " + port  + "; started at " + new Date().toString()));
 });
 

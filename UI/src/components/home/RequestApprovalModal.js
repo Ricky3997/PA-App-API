@@ -11,6 +11,7 @@ import UniversityPicker from "../various/forms/UniversityPicker";
 const { Option } = Select;
 
 const RequestApprovalModal = (props) => {
+  const {showModal, ...initialValues} = props.mentorHome; //destrucutre props so you avoid passing down showModal to the values held in formik
   return <Formik
     validationSchema={Yup.object().shape({
       confirmCommittment: Yup.mixed().oneOf([true])
@@ -41,7 +42,7 @@ const RequestApprovalModal = (props) => {
       maxNumberOfMentees: Yup.number()
         .required('Max number of Mentees required')
     })}
-    initialValues={{confirmCommittment: false, ...props.mentorHome }}
+    initialValues={{confirmCommittment: false, initialValues}}
     onSubmit={(values, { setSubmitting }) => {
       setSubmitting(false);
     }}
@@ -106,7 +107,7 @@ const RequestApprovalModal = (props) => {
 
             <Row>
               <Col>
-                <h6>What type of high school did you attend? 🏫</h6>
+                <h6>What type of high school did you attend? <span aria-labelledby={'school'} role={'img'}>🏫</span></h6>
 
                 <Field name="typeOfHighSchool" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                           size={"large"}
@@ -208,7 +209,7 @@ const RequestApprovalModal = (props) => {
 
             <Row>
               <Col>
-                <h6>What year were you born? 🐣</h6>
+                <h6>What year were you born? <span aria-labelledby={'newborn'} role={'img'}>🐣</span></h6>
 
                 <Field name="yearBorn" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                  size={"large"}
@@ -224,7 +225,7 @@ const RequestApprovalModal = (props) => {
                 </Select> } />
               </Col>
               <Col>
-                <h6>What year will you graduate (or graduated)? 🎓</h6>
+                <h6>What year will you graduate (or graduated)? <span aria-labelledby={'graduate'} role={'img'}>🎓</span></h6>
 
                 <Field name="yearGraduation" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                  size={"large"}
@@ -274,7 +275,7 @@ const RequestApprovalModal = (props) => {
 
             <Row>
               <Col>
-                <h6>Who referred you to us? Because we’d like to send them a thank you 🎁</h6>
+                <h6>Who referred you to us? Because we’d like to send them a thank you <span aria-labelledby={'gift'} role={'img'}>🎁</span></h6>
 
                 <Field name="referral" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                  mode={ "multiple"}
