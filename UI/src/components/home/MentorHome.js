@@ -91,7 +91,10 @@ class MentorHome extends Component {
           <h3>Welcome back, {this.props.user.firstName}! 🤗</h3>
         </Col>
         <Col md={{ span: 1 }}>
-          <Button onClick={() => this.props.refreshUser()}>
+          <Button onClick={() => this.props.refreshUser().then(r => {
+            if(r.success) toast.success('Refreshed');
+            else toast.error('Error refreshing');
+          })}>
             <Icon name={"fas fa-refresh"}/>
           </Button>
         </Col>

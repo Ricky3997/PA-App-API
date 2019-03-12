@@ -1,4 +1,4 @@
-import { Button, Col, Image, InputGroup, Modal, Row } from "react-bootstrap";
+import { Button, Col, Image, InputGroup, Row } from "react-bootstrap";
 import Form from "react-bootstrap/es/Form";
 import React from "react";
 import * as Yup from "yup";

@@ -92,17 +92,8 @@ const generateJourney = (unisApplyingFor) => {
 const registerNew = async (id, data) => {
   const user = await User.findById(id);
   await new Mentee({
+    ...data,
     _id: id,
-    unisApplyingFor: data.unisApplyingFor,
-    interestedIn: data.interestedIn,
-    subjects: data.subjects,
-    school: data.school,
-    level: data.level,
-    country: data.country,
-    firstGenStudent: data.firstGenStudent,
-    city: data.city,
-    gender: data.gender,
-    year: data.year,
     status: data.status || "notYetRequested",
     firstName: user.firstName,
     pictureUrl: data.pictureUrl || null,

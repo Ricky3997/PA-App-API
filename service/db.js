@@ -257,7 +257,7 @@ const loadAdmin = async () => {
   const userProfile = {
     _id: id,
     firstName: "Riccardo",
-    type: "mentor",
+    type: "mentee",
     email: "riccardo@broggi.co.uk",
     emailConfirmed: true,
     onboarded: true,
@@ -309,6 +309,15 @@ const loadAdmin = async () => {
     unisApplyingFor: ["London School of Economics", "University of Oxford"],
     year: "Gap Year",
     status: "notYetRequested",
+    careerInterests: ["Creative Arts and Design"],
+    ethnicBackground: "Mixed / multiple ethnic groups",
+    fromThreeLargestCity: false,
+    hobbiesAndInterests: ["Professional Sports"],
+    referral: ["Project Access Mentor", "Friends"],
+    typeOfHighSchool: "Independent",
+    yearBorn: 1991,
+    yearStart: 2020,
+    notes: 'Here are some notes',
     pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/t/5bb721a4e2c48357967f52fa/1538728361542/Riccardo.jpg?format=300w"
 
   };

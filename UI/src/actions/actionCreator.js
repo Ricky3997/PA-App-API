@@ -90,6 +90,7 @@ export const getUser = () => {
         window.localStorage.removeItem("token");
         window.localStorage.removeItem("user");
       }
+      return r;
     })
   }
 };
