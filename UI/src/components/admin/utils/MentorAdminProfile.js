@@ -45,7 +45,7 @@ const MentorAdminProfile = (props) => {
       <Col md={2}>
         <h4>{props.mentor.firstName}</h4>
       </Col>
-      {props.approvalMode ? null : <Col md={{ span: 2, offset: 1 }}>
+      {props.approvalMode || props.matching ? null : <Col md={{ span: 2, offset: 1 }}>
         <OverlayTrigger placement="bottom" trigger="hover"
                         overlay={<Tooltip placement="bottom" className="in">Feature not ready yet</Tooltip>}>
             <span className="d-inline-block">
@@ -55,7 +55,7 @@ const MentorAdminProfile = (props) => {
             </span>
         </OverlayTrigger>
       </Col>}
-      {props.approvalMode || props.mentor.status !== "requested" ? null : <Col md={2}>
+      {props.approvalMode || props.mentor.status !== "requested"|| props.matching ? null : <Col md={2}>
         <LinkContainer to={`/admin/mentors/approvals/${props.mentor._id}`}>
           <Button block variant="warning"><Icon name="fas fa-balance-scale"/> Approve</Button>
         </LinkContainer>
@@ -243,7 +243,7 @@ const MentorAdminProfile = (props) => {
       </Col>
     </Row>
 
-    {props.approvalMode ? null : <Row>
+    {props.approvalMode || props.matching ? null : <Row>
       <Col>
         {props.mentor.relationship.length > 0 ? <div>
           <h5>Mentees</h5>

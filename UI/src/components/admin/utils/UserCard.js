@@ -3,9 +3,15 @@ import { Card, ProgressBar } from "react-bootstrap";
 import ConfirmMatchButton from "./ConfirmMatchButton";
 import ProfileIcon from "../../various/ProfileIcon";
 import connect from "react-redux/es/connect/connect";
-import { confirmMatch, unsetMatchingConfirmation, showMatchingConfirmation } from "../../../actions/actionCreator";
+import {
+  confirmMatch,
+  unsetMatchingConfirmation,
+  showMatchingConfirmation,
+  toggleMatchingDetailsModal
+} from "../../../actions/actionCreator";
 import { Link } from "react-router-dom";
 import StatusIcon from "./StatusIcon";
+import MentorMatchingDetailsModal from "../matching/MentorMatchingDetailsModal";
 
 const UserCard = (props) => {
 
@@ -27,6 +33,17 @@ const UserCard = (props) => {
     };
   })(ConfirmMatchButton);
 
+  const ShowMentorMatchingDetailsModal = connect(({ matching }) => {
+    return {
+      mentor: {...props},
+      matching
+    };
+  }, dispatch => {
+    return {
+      toggleMatchingDetailsModal: () => dispatch(toggleMatchingDetailsModal())
+    };
+  })(MentorMatchingDetailsModal);
+
   const MenteeCapacityBar = (current, capacity) => <ProgressBar style={current === 0 ? {color: 'black' } : {}}
                                                                 variant={(current === 0) ? 'success' : (capacity - current) === 1 ? 'warning' : ''}
                                                                 now={current === 0 ? 100 : (100-(current/capacity*100))} label={`Mentees: ${current}/${capacity}`} />
@@ -41,8 +58,7 @@ const UserCard = (props) => {
           <Link to={`/admin/${props.mentorMode ? "mentors" : "mentees"}/database/${props._id}`} style={{
             textDecoration: "underline", color: "blue",
             cursor: "pointer"
-          }}>
-            {props.firstName}
+          }}>{props.firstName}
           </Link>
           <span>
             {" "}
@@ -50,6 +66,7 @@ const UserCard = (props) => {
           <span>
             <StatusIcon status={props.status}  reason={props.rejectionReason} />
           </span>
+          {props.matching? <ShowMentorMatchingDetailsModal /> : null}
         </Card.Title>
         {props.addFilterParam ?
           <div>

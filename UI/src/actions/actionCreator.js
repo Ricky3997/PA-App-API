@@ -28,7 +28,7 @@ import {
   TOGGLE_MENTOR_HOME_MODAL,
   TOGGLE_MESSAGING_CONNECTED,
   TOGGLE_PICTURE_PICKER,
-  TOGGLE_REGISTERING,
+  TOGGLE_REGISTERING, TOGGLE_SHOW_MATCHING_DETAILS_MODAL,
   UNSET_LOGIN_EMAIL,
   UNSET_MATCHING_CONFIRMATION,
   UPDATE_USER
@@ -51,6 +51,12 @@ export const removeUser = () => {
 export const toggleMentorHomeModal = () => {
   return {
     type: TOGGLE_MENTOR_HOME_MODAL
+  }
+};
+
+export const toggleMatchingDetailsModal = () => {
+  return {
+    type: TOGGLE_SHOW_MATCHING_DETAILS_MODAL
   }
 };
 

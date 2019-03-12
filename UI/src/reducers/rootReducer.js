@@ -29,7 +29,7 @@ import {
   SET_MENTOR_HOME_PROGRESS,
   TOGGLE_MENTOR_HOME_MODAL,
   SET_MENTOR_APPROVAL_PROPERTIES,
-  TOGGLE_MENTEE_HOME_MODAL, SET_MENTEE_APPROVAL_PROPERTIES, TOGGLE_ADMIN_MODAL
+  TOGGLE_MENTEE_HOME_MODAL, SET_MENTEE_APPROVAL_PROPERTIES, TOGGLE_ADMIN_MODAL, TOGGLE_SHOW_MATCHING_DETAILS_MODAL
 } from "../actions/actionTypes";
 import { combineReducers } from "redux";
 
@@ -223,6 +223,7 @@ function matching(state = {
   activeId: null,
   mentorRecommendations: [],
   showConfirm: null,
+  showDetailsModal: false
 }, action) {
   switch (action.type) {
     case SET_MATCHING_ID:
@@ -233,6 +234,8 @@ function matching(state = {
       return { ...state, manualMode: !state.manualMode };
     case SHOW_MATCHING_CONFIRMATION:
       return { ...state, showConfirm: action.id };
+    case TOGGLE_SHOW_MATCHING_DETAILS_MODAL:
+      return { ...state, showDetailsModal: !state.showDetailsModal };
     case UNSET_MATCHING_CONFIRMATION:
       return { ...state, showConfirm: null };
     default:
