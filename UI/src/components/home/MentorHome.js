@@ -73,7 +73,10 @@ class MentorHome extends Component {
       </div>;
     } else if (this.props.user.mentorProfile.status === "rejected") {
       toRender = <div>
-        You have been rejected to be a mentor, but you can still help like this
+        Unfortunately you have been rejected, and this was indicated as the reason:
+        <blockquote>
+          {this.props.user.mentorProfile.rejectionReason}
+        </blockquote>
       </div>;
     } else if (this.props.user.mentorProfile.status === "approved") {
       toRender = <div>
@@ -120,7 +123,7 @@ class MentorHome extends Component {
           <Row>
             <h4>Your Mentees <span role="img" aria-labelledby={"angel emoji"}>😇</span></h4>
             {_.get(this.props, "user.mentorProfile.relationship.length") > 0 ?
-              this.props.user.mentorProfile.relationship.map(r => <MenteeTile key={r._id} mentee={r.mentee}/>) :
+              this.props.user.mentorProfile.relationship.map(r => <MenteeTile key={r._id} {...r} />) :
               <div>
                 <div>{toRender}</div>
               </div>}

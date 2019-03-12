@@ -163,7 +163,8 @@ function menteeHome(state ={
   referral: ["Project Access Mentor", "Friends"],
   typeOfHighSchool: "Independent",
   yearBorn: 1991,
-  yearStart: 2020
+  yearStart: 2020,
+  notes: ''
 }, action) {
   switch (action.type) {
     case TOGGLE_MENTEE_HOME_MODAL:
@@ -190,8 +191,8 @@ function mentorHome(state = {
   subjectsInSchool: ["French"],
   typeOfHighSchool: "Independent",
   yearBorn: 1991,
-  yearGraduation: 2020
-
+  yearGraduation: 2020,
+  notes: ''
 }, action) {
   switch (action.type) {
     case SET_MENTOR_HOME_PROGRESS:

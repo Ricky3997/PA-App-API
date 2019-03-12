@@ -1,5 +1,5 @@
 import React from "react";
-import { Card} from "react-bootstrap";
+import { Card, ProgressBar } from "react-bootstrap";
 import ConfirmMatchButton from "./ConfirmMatchButton";
 import ProfileIcon from "../../various/ProfileIcon";
 import connect from "react-redux/es/connect/connect";
@@ -26,6 +26,10 @@ const UserCard = (props) => {
       unsetMatchingConfirmation: () => dispatch(unsetMatchingConfirmation())
     };
   })(ConfirmMatchButton);
+
+  const MenteeCapacityBar = (current, capacity) => <ProgressBar style={current === 0 ? {color: 'black' } : {}}
+                                                                variant={(current === 0) ? 'success' : (capacity - current) === 1 ? 'warning' : ''}
+                                                                now={current === 0 ? 100 : (100-(current/capacity*100))} label={`Mentees: ${current}/${capacity}`} />
 
   return (
     <Card className="text-center" key={props._id}>
@@ -56,7 +60,7 @@ const UserCard = (props) => {
                 <span onClick={() => props.addFilterParam("university", props.university)}
                       style={{ color: "blue", cursor: "pointer" }}>{props.university}</span>
                 <div>
-                  {`${props.relationship.length} mentee${props.relationship.length === 1 ? "" : "s"}; max ${props.maxNumberOfMentees}`}
+                  {MenteeCapacityBar(props.relationship.length, props.maxNumberOfMentees)}
                 </div>
               </div> :
               <span>
@@ -83,7 +87,7 @@ const UserCard = (props) => {
                 {`${props.subject} at ${props.university}`}
               </div>
               <div>
-                 {`${props.relationship.length} mentee${props.relationship.length === 1 ? "" : "s"}; max ${props.maxNumberOfMentees}`}
+                {MenteeCapacityBar(props.relationship.length, props.maxNumberOfMentees)}
               </div>
             </div> : "mentee"}
           </div>}

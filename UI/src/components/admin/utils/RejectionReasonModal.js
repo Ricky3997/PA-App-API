@@ -40,7 +40,7 @@ const RejectionReasonModal = (props) => {
 
                 <Field name="rejectionReason" render={({ field, form: { touched, errors } }) => <div>
 
-                  <Form.Control {...field} placeholder="The decision was taken because..."
+                  <Form.Control {...field} as="textarea" rows="3" placeholder="The decision was taken because..."
                                 isInvalid={touched[field.name] && errors[field.name]}/>
                   {touched[field.name] && errors[field.name] ?
                     <p style={{ color: "red" }}>{errors[field.name]}</p> : null}

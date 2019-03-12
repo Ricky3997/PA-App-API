@@ -257,7 +257,7 @@ const loadAdmin = async () => {
   const userProfile = {
     _id: id,
     firstName: "Riccardo",
-    type: "mentee",
+    type: "mentor",
     email: "riccardo@broggi.co.uk",
     emailConfirmed: true,
     onboarded: true,
@@ -278,7 +278,7 @@ const loadAdmin = async () => {
     university: "University of Oxford",
     subject: "Computer Science",
     city: "Milano",
-    status: "notYetRequested",
+    status: "approved",
     maxNumberOfMentees: 3,
     pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/t/5bb721a4e2c48357967f52fa/1538728361542/Riccardo.jpg?format=300w"
   };

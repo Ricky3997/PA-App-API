@@ -9,7 +9,7 @@ const mongoose = require("mongoose")
 
 const changeUserStatus = async (type, id, status, rejectionReason) => {
   if(type === "mentor") return await Mentor.findByIdAndUpdate(id, {status, rejectionReason}, {new: true}).exec().then(p => {return p});
-  else return await Mentee.findByIdAndUpdate(id, {status: status}, {new: true}).exec().then(p => {return p});
+  else return await Mentee.findByIdAndUpdate(id, {status, rejectionReason}, {new: true}).exec().then(p => {return p});
 };
 
 const matchingMentorRecommendations = async (id) => {

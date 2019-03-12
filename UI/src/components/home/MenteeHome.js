@@ -34,7 +34,7 @@ class MenteeHome extends Component {
         </Col>
         <Col md={3}>
           <Row>
-            {_.get(this.props, "user.menteeProfile.relationship.mentor") ?
+            {_.get(this.props, "user.menteeProfile.relationship.status") === "confirmed" ?
               <MentorTile mentor={this.props.user.menteeProfile.relationship.mentor}/>
               : <NoMentorYet toggleMenteeHomeModal={this.props.toggleMenteeHomeModal}
                              changeMenteeStatus={this.props.changeMenteeStatus} user={this.props.user}/>}

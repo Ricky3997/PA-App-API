@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Modal, Row } from "react-bootstrap";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { Formik, Form as FormikForm, Field } from "formik";
 import { Icon } from "react-fa";
 import * as Yup from "yup";
@@ -30,6 +30,7 @@ const RequestApprovalMenteeModal = (props) => {
         .required("yearStart is required."),
       referral: Yup.array()
       .required('referral required'),
+      notes: Yup.string()
     })}
     initialValues={{confirmCommittment: false, ...initialValues}}
     onSubmit={(values, { setSubmitting }) => {
@@ -219,6 +220,19 @@ const RequestApprovalMenteeModal = (props) => {
             </Row>
 
 
+            <br />
+            <Row>
+              <Col>
+                <h6>Anything else you might want to add?</h6>
+
+                <Field name="notes" render={({ field, form: { touched, errors } }) => <div>
+
+                  <Form.Control {...field} as="textarea" rows="3" placeholder="I also wanted to say that.."/>
+
+                </div>
+                }/>
+              </Col>
+            </Row>
 
             <br />
             <Row>

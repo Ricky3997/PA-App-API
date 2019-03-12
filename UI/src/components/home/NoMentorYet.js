@@ -15,7 +15,7 @@ const NoMentorYet = (props) => {
         You can now request approval to have a mentor
       </p>
 
-      {props.user.emailConfirmed ? <Button onClick={() => props.toggleMenteeHomeModal() }>
+      {props.user.emailConfirmed ? <Button onClick={() => props.toggleMenteeHomeModal()}>
           Click here to request approval
         </Button> :
         <OverlayTrigger placement="bottom" trigger="hover"
@@ -44,26 +44,35 @@ const NoMentorYet = (props) => {
     </div>;
   } else if (props.user.menteeProfile.status === "rejected") {
     toRender = <div>
-      You have been rejected to have a mentor, but you can still help like this
+      Unfortunately you have been rejected, and this was indicated as the reason:
+      <div>
+        <i>
+          {props.user.menteeProfile.rejectionReason}
+        </i>
+      </div>
+      If you disagree with the decision, you can re-apply making sure you explain why!
+      <Button onClick={() => props.toggleMenteeHomeModal()}>
+        Click here to reapply
+      </Button>
     </div>;
   } else toRender = <NotReadyYet/>;
 
-    return (
-        <div>
-            <Row>
-                <Col>
-                    <h4>
-                        You don't have a mentor yet <span role="img" aria-label="time waiting">⏳</span>
-                    </h4>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                  {toRender}
-                </Col>
-            </Row>
-        </div>
-    );
+  return (
+    <div>
+      <Row>
+        <Col>
+          <h4>
+            You don't have a mentor yet <span role="img" aria-label="time waiting">⏳</span>
+          </h4>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          {toRender}
+        </Col>
+      </Row>
+    </div>
+  );
 };
 
 export default NoMentorYet;

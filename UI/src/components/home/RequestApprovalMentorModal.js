@@ -40,7 +40,8 @@ const RequestApprovalMentorModal = (props) => {
       referral: Yup.array()
       .required('referral required'),
       maxNumberOfMentees: Yup.number()
-        .required('Max number of Mentees required')
+        .required('Max number of Mentees required'),
+      notes: Yup.string()
     })}
     initialValues={{confirmCommittment: false, initialValues}}
     onSubmit={(values, { setSubmitting }) => {
@@ -294,6 +295,18 @@ const RequestApprovalMentorModal = (props) => {
             </Row>
 
 
+            <Row>
+              <Col>
+                <h6>Anything else you might want to add?</h6>
+
+                <Field name="notes" render={({ field, form: { touched, errors } }) => <div>
+
+                  <Form.Control {...field} as="textarea" rows="3" placeholder="I also wanted to say that.."/>
+
+                </div>
+                }/>
+              </Col>
+            </Row>
 
             <br />
             <Row>

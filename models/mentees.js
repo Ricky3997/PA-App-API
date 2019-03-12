@@ -48,7 +48,8 @@ const Mentee = mongoose.model('Mentee', new mongoose.Schema({
   yearStart: Number,
   referral: [{
     type: String
-  }]
+  }],
+  notes: String
 }));
 
 module.exports = {Mentee};

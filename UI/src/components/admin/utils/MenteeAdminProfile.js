@@ -202,6 +202,12 @@ const MenteeAdminProfile = (props) => {
       <Col md={{ span: 3 }}>
         <Form.Label>{`${props.mentee.referral.join(", ")}`}</Form.Label>
       </Col>
+      <Col md={2}>
+        <Badge variant="info">{"Notes"}</Badge>
+      </Col>
+      <Col md={{ span: 3 }}>
+        <Form.Label>{`${props.mentee.notes}`}</Form.Label>
+      </Col>
     </Row>
 
     {props.approvalMode ? null : <Row>

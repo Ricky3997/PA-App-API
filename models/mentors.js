@@ -39,7 +39,8 @@ const Mentor = mongoose.model('Mentor', new mongoose.Schema({
   yearBorn: Number,
   referral: [{
     type: String
-  }]
+  }],
+  notes: String
 }));
 
 module.exports = {Mentor};

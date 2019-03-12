@@ -221,16 +221,25 @@ const MentorAdminProfile = (props) => {
 
     <Row>
       <Col md={2}>
-        <Badge variant="info">{"Max Mentees"}</Badge>
-      </Col>
-      <Col md={{ span: 3 }}>
-        <Form.Label>{`${props.mentor.maxNumberOfMentees}`}</Form.Label>
-      </Col>
-      <Col md={2}>
         <Badge variant="info">{"Referral"}</Badge>
       </Col>
       <Col md={{ span: 3 }}>
         <Form.Label>{`${props.mentor.referral.join(", ")}`}</Form.Label>
+      </Col>
+      <Col md={2}>
+        <Badge variant="info">{"Notes"}</Badge>
+      </Col>
+      <Col md={{ span: 3 }}>
+        <Form.Label>{`${props.mentor.notes}`}</Form.Label>
+      </Col>
+    </Row>
+
+    <Row>
+      <Col md={2}>
+        <Badge variant="info">{"Max Mentees"}</Badge>
+      </Col>
+      <Col md={{ span: 3 }}>
+        <Form.Label>{`${props.mentor.maxNumberOfMentees}`}</Form.Label>
       </Col>
     </Row>
 
