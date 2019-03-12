@@ -24,7 +24,7 @@ import {
   SWITCH_MATCHING_MODE,
   TOGGLE_ADMIN_FETCHING,
   TOGGLE_ADMIN_MODAL,
-  TOGGLE_MENTEE_HOME_MODAL,
+  TOGGLE_MENTEE_HOME_MODAL, TOGGLE_MENTOR_CONFIRM_DECISION,
   TOGGLE_MENTOR_HOME_MODAL,
   TOGGLE_MESSAGING_CONNECTED,
   TOGGLE_PICTURE_PICKER,
@@ -48,9 +48,17 @@ export const removeUser = () => {
     type: REMOVE_USER
   }
 };
+
 export const toggleMentorHomeModal = () => {
   return {
     type: TOGGLE_MENTOR_HOME_MODAL
+  }
+};
+
+export const toggleMentorConfirmDecision = (showConfirmDecision) => {
+  return {
+    type: TOGGLE_MENTOR_CONFIRM_DECISION,
+    showConfirmDecision: showConfirmDecision
   }
 };
 
@@ -478,6 +486,21 @@ export const adminChangeUserStatus = (type, id, status, rejectionReason) => {
           mentees = getState().admin.mentees;
           if(mentees.filter(m => m.status === "requested").length > 0) dispatch(setActiveMenteeApprovalId(mentees.filter(m => m.status === "requested")[0]._id));
         }
+      }
+      return r;
+    })
+  }
+};
+
+export const mentorDecisionRelationship = (relationshipId, accept) => {
+  return (dispatch, getState) => {
+    return api.post(`/api/relationships/mentorDecision/${relationshipId}`, {accept: accept}).then(r => {
+      if(r.success) {
+        const {user} = getState();
+        const rels = user.mentorProfile.relationship.filter(rel => rel._id !== relationshipId);
+        if(accept) rels.push(r.payload);
+        user.mentorProfile.relationship = rels;
+        updateAndStoreUser(dispatch, user);
       }
       return r;
     })

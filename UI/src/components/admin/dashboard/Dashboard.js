@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Container, Image, ProgressBar, Row } from "react-bootstrap";
+import { Badge, Card, Container, Image, ProgressBar, Row } from "react-bootstrap";
 import ProfileIcon from "../../various/ProfileIcon";
 import RelationshipAdminDetail from "../utils/RelationshipAdminDetail";
 import { Link } from "react-router-dom";
@@ -13,6 +13,7 @@ const Dashboard = (props) => {
                     <Card.Header>
                         <ProfileIcon pictureUrl={r.mentor.pictureUrl} size={"m"} mentorMode/>
                         <ProfileIcon pictureUrl={r.mentee.pictureUrl} size={"m"} shiftLeft/>
+                      {r.status === 'awaitingConfirmation' ? <Badge variant={'warning'}>pending</Badge> : null}
                     </Card.Header>
                     <Card.Body>
                         <Card.Title>

@@ -29,7 +29,11 @@ import {
   SET_MENTOR_HOME_PROGRESS,
   TOGGLE_MENTOR_HOME_MODAL,
   SET_MENTOR_APPROVAL_PROPERTIES,
-  TOGGLE_MENTEE_HOME_MODAL, SET_MENTEE_APPROVAL_PROPERTIES, TOGGLE_ADMIN_MODAL, TOGGLE_SHOW_MATCHING_DETAILS_MODAL
+  TOGGLE_MENTEE_HOME_MODAL,
+  SET_MENTEE_APPROVAL_PROPERTIES,
+  TOGGLE_ADMIN_MODAL,
+  TOGGLE_SHOW_MATCHING_DETAILS_MODAL,
+  TOGGLE_MENTOR_CONFIRM_DECISION
 } from "../actions/actionTypes";
 import { combineReducers } from "redux";
 
@@ -179,6 +183,7 @@ function menteeHome(state ={
 function mentorHome(state = {
   progress: getInitialMentorHomeProgress(),
   showModal: false,
+  showConfirmDecision: '',
   maxNumberOfMentees: 3,
   careerInterests: ["Creative Arts and Design"],
   confirmCommittment: true,
@@ -201,6 +206,8 @@ function mentorHome(state = {
       return { ...state, showModal: !state.showModal };
     case SET_MENTOR_APPROVAL_PROPERTIES:
       return { ...state, ...action.properties };
+    case TOGGLE_MENTOR_CONFIRM_DECISION:
+      return { ...state, showConfirmDecision: action.showConfirmDecision };
     default:
       return state;
   }

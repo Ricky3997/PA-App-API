@@ -252,6 +252,7 @@ const MentorAdminProfile = (props) => {
               <Card key={r.mentee._id} className="text-center" >
                 <Card.Header>
                   <ProfileIcon pictureUrl={r.mentee.pictureUrl} size={"l"} mentorMode/>
+                  {r.status === 'awaitingConfirmation' ? <Badge variant={'warning'}>pending</Badge> : null}
                 </Card.Header>
                 <Card.Body>
                   <LinkContainer to={`/admin/mentees/database/${r.mentee._id}`} style={{cursor: 'pointer', textDecoration: 'underline', color: 'blue'}}>

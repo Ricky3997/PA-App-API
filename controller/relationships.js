@@ -5,5 +5,13 @@ const getAll = async (req,res) => {
     if(result) res.json(result)
     else res.sendStatus(400);
 };
+const mentorDecision = async (req,res) => {
+    const {id} = req.decoded;
+    const {relationshipId} = req.params;
+    const {accept} = req.body;
+    const result = await relationshipsService.mentorDecision(relationshipId, id, accept)
+    if(result) res.json(result)
+    else res.sendStatus(400);
+};
 
-module.exports = {getAll};
+module.exports = {getAll, mentorDecision};

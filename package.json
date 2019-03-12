@@ -4,7 +4,7 @@
   "description": "Mentor Platform for Project Access",
   "main": "server.js",
   "scripts": {
-    "start-dev": "java -Djava.library.path=./localdb/DynamoDBLocal_lib -jar ./localdb/DynamoDBLocal.jar -help & node server.js &",
+    "live" : "nodemon server.js",
     "start": "node server.js"
   },
   "repository": {
