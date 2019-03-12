@@ -1,8 +1,8 @@
 const adminService = require("../service/admin");
 
 const changeUserStatus =  async (req,res) => {
-    const {status, id, type} = req.body;
-    const result = await adminService.changeUserStatus(id, status, type);
+    const {status, id, type, rejectionReason} = req.body;
+    const result = await adminService.changeUserStatus(type, id, status, rejectionReason);
     if(result) res.json(result);
     else res.sendStatus(400);
 };

@@ -12,7 +12,7 @@ const LoadingCard = (props) => {
   else if (props.status === "requested") return <OverlayTrigger placement="bottom" overlay={<Tooltip placement="bottoom" className="in">Pending Approval</Tooltip>}>
     <Icon name={`fas fa-hourglass`} style={{ color: "#c69200" }}/>
   </OverlayTrigger>;
-  else if (props.status === "rejected") return <OverlayTrigger placement="bottom" overlay={<Tooltip placement="bottoom" className="in">Rejected</Tooltip>}>
+  else if (props.status === "rejected") return <OverlayTrigger placement="bottom" overlay={<Tooltip placement="bottoom" className="in">Rejected {props.reason ? ` because: ${props.reason}` : ''}</Tooltip>}>
     <Icon name={`fas fa-ban`} style={{ color: "#9b0014" }}/>
   </OverlayTrigger>;
   else return null;

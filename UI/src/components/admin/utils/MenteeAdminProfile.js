@@ -70,7 +70,7 @@ const MenteeAdminProfile = (props) => {
       </Col>
       <Col md={{ span: 3 }}>
         <StatusIcon
-          status={props.mentee.status}/> {props.mentee.latestStatusChange ? `since ${moment(props.mentee.latestStatusChange).format("Do MMM YY")}` : ""}
+          status={props.mentee.status} reason={props.mentee.rejectionReason}/> {props.mentee.latestStatusChange ? `since ${moment(props.mentee.latestStatusChange).format("Do MMM YY")}` : ""}
       </Col>
 
       <Col md={{span:2}}>

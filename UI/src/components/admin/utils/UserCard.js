@@ -44,7 +44,7 @@ const UserCard = (props) => {
             {" "}
             </span>
           <span>
-            <StatusIcon status={props.status} />
+            <StatusIcon status={props.status}  reason={props.rejectionReason} />
           </span>
         </Card.Title>
         {props.addFilterParam ?

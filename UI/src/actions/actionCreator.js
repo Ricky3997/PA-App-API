@@ -4,19 +4,33 @@ import {
   ADD_ONBOARDING_PROPERTIES,
   CHANGE_STAGE,
   REMOVE_PICTURE_TO_CROP,
-  REMOVE_USER, SENT_LOGIN_EMAIL, SET_ACTIVE_CHAT, SET_ACTIVE_JOURNEY_MODULE,
+  REMOVE_USER,
+  SENT_LOGIN_EMAIL,
+  SET_ACTIVE_CHAT,
+  SET_ACTIVE_JOURNEY_MODULE,
   SET_ACTIVE_MENTEE_APPROVAL_ID,
   SET_ACTIVE_MENTOR_APPROVAL_ID,
-  SET_MATCHING_ID, SET_MENTEE_APPROVAL_PROPERTIES,
-  SET_MENTEES, SET_MENTOR_APPROVAL_PROPERTIES, SET_MENTOR_HOME_PROGRESS,
+  SET_MATCHING_ID,
+  SET_MENTEE_APPROVAL_PROPERTIES,
+  SET_MENTEES,
+  SET_MENTOR_APPROVAL_PROPERTIES,
+  SET_MENTOR_HOME_PROGRESS,
   SET_MENTOR_RECOMMENDATIONS,
-  SET_MENTORS, SET_RELATIONSHIPS, SHOW_MATCHING_CONFIRMATION,
+  SET_MENTORS,
+  SET_RELATIONSHIPS,
+  SHOW_MATCHING_CONFIRMATION,
   STORE_PICTURE_CROPPED,
   STORE_PICTURE_TO_CROP,
   SWITCH_MATCHING_MODE,
-  TOGGLE_ADMIN_FETCHING, TOGGLE_MENTEE_HOME_MODAL, TOGGLE_MENTOR_HOME_MODAL, TOGGLE_MESSAGING_CONNECTED,
+  TOGGLE_ADMIN_FETCHING,
+  TOGGLE_ADMIN_MODAL,
+  TOGGLE_MENTEE_HOME_MODAL,
+  TOGGLE_MENTOR_HOME_MODAL,
+  TOGGLE_MESSAGING_CONNECTED,
   TOGGLE_PICTURE_PICKER,
-  TOGGLE_REGISTERING, UNSET_LOGIN_EMAIL, UNSET_MATCHING_CONFIRMATION,
+  TOGGLE_REGISTERING,
+  UNSET_LOGIN_EMAIL,
+  UNSET_MATCHING_CONFIRMATION,
   UPDATE_USER
 } from "./actionTypes";
 import * as api from "../api";
@@ -76,6 +90,11 @@ export const getUser = () => {
 export const togglePicturePicker = () => {
   return {
     type: TOGGLE_PICTURE_PICKER
+  }
+};
+export const toggleAdminModal = () => {
+  return {
+    type: TOGGLE_ADMIN_MODAL
   }
 };
 
@@ -428,10 +447,10 @@ export const fetchMentees = () => {
   }
 };
 
-export const adminChangeUserStatus = (id, status, type) => {
+export const adminChangeUserStatus = (type, id, status, rejectionReason) => {
   return (dispatch, getState) => {
     dispatch(toggleAdminFetching());
-    return api.post("/api/admin/changeUserStatus", {id: id, status: status, type: type}).then(r => {
+    return api.post("/api/admin/changeUserStatus", {id, status, type, rejectionReason}).then(r => {
       dispatch(toggleAdminFetching());
       if(type === "mentor"){
         let {mentors} = getState().admin;

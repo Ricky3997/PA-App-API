@@ -4,12 +4,13 @@ import ProfileIcon from "../../various/ProfileIcon";
 import MentorAdminprofile from "./MentorAdminProfile";
 import { toast } from "react-toastify";
 import MenteeAdminProfile from "./MenteeAdminProfile";
+import RejectionReasonModal from "./RejectionReasonModal";
 
 
 class Approvals extends Component {
 
   componentDidMount() {
-    if(this.props.match.params.id) this.props.setActiveApprovalId(this.props.match.params.id);
+    if (this.props.match.params.id) this.props.setActiveApprovalId(this.props.match.params.id);
   }
 
   render() {
@@ -48,20 +49,20 @@ class Approvals extends Component {
               <Row>
                 <Col md={{ size: 2, offset: 8 }}>
                   <Button block variant="danger"
-                          onClick={() => props.adminChangeUserStatus(toApprove._id, "rejected", props.mentorMode ? "mentor" : "mentee").then(r => {
-                            if(r.success) toast.success("Rejected");
-                          })}> Reject </Button>
+                          onClick={props.toggleAdminModal}> Reject </Button>
                 </Col>
                 <Col md={{ size: 2 }}>
                   <Button block variant="success"
-                          onClick={() => props.adminChangeUserStatus(toApprove._id, "approved", props.mentorMode ? "mentor" : "mentee").then(r => {
-                            if(r.success) toast.success("Approved");
+                          onClick={() => props.changeStatus(toApprove._id, "approved").then(r => {
+                            if (r.success) toast.success("Approved");
                           })}> Approve </Button>
                 </Col>
               </Row>
             </Container> : <div><h4>Nothing to approve</h4></div>}
           </Col>
         </Row>
+        {toApprove ? <RejectionReasonModal showModal={props.showModal} name={toApprove.firstName} id={toApprove._id}
+                              onHide={props.toggleAdminModal} changeStatus={props.changeStatus} /> : null}
       </Container>
     );
   }

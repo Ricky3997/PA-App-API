@@ -22,6 +22,7 @@ const Mentor = mongoose.model('Mentor', new mongoose.Schema({
   fromThreeLargestCity: Boolean,
   ethnicBackground: String,
   typeOfHighSchool: String,
+  rejectionReason: String,
   subjectsInSchool: [{
     type: String
   }],

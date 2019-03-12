@@ -7,8 +7,8 @@ const { Relationship } = require("./../models/relationship");
 const config  = require("./../config");
 const mongoose = require("mongoose")
 
-const changeUserStatus = async (id, status, type) => {
-  if(type === "mentor") return await Mentor.findByIdAndUpdate(id, {status: status}, {new: true}).exec().then(p => {return p});
+const changeUserStatus = async (type, id, status, rejectionReason) => {
+  if(type === "mentor") return await Mentor.findByIdAndUpdate(id, {status, rejectionReason}, {new: true}).exec().then(p => {return p});
   else return await Mentee.findByIdAndUpdate(id, {status: status}, {new: true}).exec().then(p => {return p});
 };
 

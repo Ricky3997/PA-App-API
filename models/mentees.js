@@ -33,7 +33,7 @@ const Mentee = mongoose.model('Mentee', new mongoose.Schema({
     typeformID: String
   }],
   relationship: { type: Schema.Types.ObjectId, ref: 'Relationship' },
-
+  rejectionReason: String,
   latestStatusChange: Date,
   fromThreeLargestCity: Boolean,
   ethnicBackground: String,

@@ -7,9 +7,10 @@ import { Route } from "react-router-dom";
 import Matching from "./matching/Matching";
 import { Icon } from "react-fa";
 import {
-  adminChangeUserStatus, changeMenteeBeingMatched,
+  adminChangeUserStatus,
+  changeMenteeBeingMatched, changeMenteeStatus, changeMentorStatus,
   setActiveMenteeApprovalId,
-  setActiveMentorApprovalId, switchMatchingMode
+  setActiveMentorApprovalId, switchMatchingMode, toggleAdminModal
 } from "../../actions/actionCreator";
 import connect from "react-redux/es/connect/connect";
 import { toast } from "react-toastify";
@@ -78,7 +79,8 @@ class Admin extends Component {
                    }, dispatch => {
                      return {
                        setActiveMentorApprovalId: (id) => dispatch(setActiveMentorApprovalId(id)),
-                       adminChangeUserStatus: (id,status, type) => dispatch(adminChangeUserStatus(id,status, type))
+                       changeStatus: (id,status,rejectionReason) => dispatch(adminChangeUserStatus("mentor", id, status,rejectionReason)),
+                       toggleAdminModal: () => dispatch(toggleAdminModal())
                      };
                    })(Mentors)}/>
 
@@ -90,7 +92,8 @@ class Admin extends Component {
                    }, dispatch => {
                      return {
                        setActiveMenteeApprovalId: (id) => dispatch(setActiveMenteeApprovalId(id)),
-                       adminChangeUserStatus: (id,status, type) => dispatch(adminChangeUserStatus(id,status, type))
+                       changeStatus: (id, status,rejectionReason) => dispatch(adminChangeUserStatus("meentee", id, status,rejectionReason)),
+                       toggleAdminModal: () => dispatch(toggleAdminModal())
                      };
                    })(Mentees)}/>
           </Tab>

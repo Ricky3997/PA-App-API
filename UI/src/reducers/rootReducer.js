@@ -29,7 +29,7 @@ import {
   SET_MENTOR_HOME_PROGRESS,
   TOGGLE_MENTOR_HOME_MODAL,
   SET_MENTOR_APPROVAL_PROPERTIES,
-  TOGGLE_MENTEE_HOME_MODAL, SET_MENTEE_APPROVAL_PROPERTIES
+  TOGGLE_MENTEE_HOME_MODAL, SET_MENTEE_APPROVAL_PROPERTIES, TOGGLE_ADMIN_MODAL
 } from "../actions/actionTypes";
 import { combineReducers } from "redux";
 
@@ -111,7 +111,8 @@ function admin(state = {
   fetched: false,
   mentors: [],
   relationships: [],
-  mentees: []
+  mentees: [],
+  showModal: false
 }, action) {
   switch (action.type) {
     case SET_RELATIONSHIPS:
@@ -122,6 +123,8 @@ function admin(state = {
       return { ...state, mentors: action.mentors };
     case TOGGLE_ADMIN_FETCHING:
       return { ...state, fetching: !state.fetching, fetched: true };
+    case TOGGLE_ADMIN_MODAL:
+      return { ...state, showModal: !state.showModal };
     default:
       return state;
   }

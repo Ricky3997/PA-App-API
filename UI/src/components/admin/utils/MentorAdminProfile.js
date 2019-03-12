@@ -69,7 +69,7 @@ const MentorAdminProfile = (props) => {
         <Badge variant="info">{"Status"}</Badge>
       </Col>
       <Col md={{ span: 3 }}>
-        <StatusIcon status={props.mentor.status}/> {props.mentor.latestStatusChange ? `since ${moment(props.mentor.latestStatusChange).format("Do MMM YY")}` : ''}
+        <StatusIcon status={props.mentor.status} reason={props.mentor.rejectionReason}/> {props.mentor.latestStatusChange ? `since ${moment(props.mentor.latestStatusChange).format("Do MMM YY")}` : ''}
       </Col>
       <Col md={2}>
         <Badge variant="info">

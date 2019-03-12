@@ -36,14 +36,18 @@ const Mentees = (props) => {
         <Tab.Content>
           <Tab.Pane active>
             <Switch>
-              <Route path={"/admin/mentees/approvals/:id?"} render={({match}) => <Approvals activeApprovalId={activeApprovalId}
-                                                                                mentees={filterForApproval(mentees)}
-                                                                                mentorMode={false} match={match}
-                                                                                adminChangeUserStatus={props.adminChangeUserStatus}
-                                                                                setActiveApprovalId={props.setActiveMenteeApprovalId}/>}/>
-              <Route path={"/admin/mentees/statistics"} render={() => <Statistics mentees={mentees} />}/>
+              <Route path={"/admin/mentees/approvals/:id?"}
+                     render={({ match }) => <Approvals activeApprovalId={activeApprovalId}
+                                                       mentees={filterForApproval(mentees)}
+                                                       mentorMode={false} match={match}
+                                                       showModal={props.admin.showModal}
+                                                       toggleAdminModal={props.toggleAdminModal}
+                                                       changeStatus={props.changeStatus}
+                                                       setActiveApprovalId={props.setActiveMenteeApprovalId}/>}/>
+              <Route path={"/admin/mentees/statistics"} render={() => <Statistics mentees={mentees}/>}/>
               <Route path={"/admin/mentees/database/:id?"}
-                     render={({match, history}) => <Database history={history} id={match.params.id} mode="mentees" mentees={mentees}/>}/>
+                     render={({ match, history }) => <Database history={history} id={match.params.id} mode="mentees"
+                                                               mentees={mentees}/>}/>
             </Switch>
           </Tab.Pane>
         </Tab.Content>
