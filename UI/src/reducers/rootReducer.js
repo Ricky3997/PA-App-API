@@ -222,7 +222,7 @@ function matching(state = {
   manualMode: true,
   activeId: null,
   mentorRecommendations: [],
-  showConfirm: null
+  showConfirm: null,
 }, action) {
   switch (action.type) {
     case SET_MATCHING_ID:
