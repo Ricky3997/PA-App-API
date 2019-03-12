@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, ProgressBar } from "react-bootstrap";
+import { Card, Image, ProgressBar } from "react-bootstrap";
 import ConfirmMatchButton from "./ConfirmMatchButton";
 import ProfileIcon from "../../various/ProfileIcon";
 import connect from "react-redux/es/connect/connect";
@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import StatusIcon from "./StatusIcon";
 import MentorMatchingDetailsModal from "../matching/MentorMatchingDetailsModal";
+import countries from "svg-country-flags/countries";
 
 const UserCard = (props) => {
 
@@ -34,7 +35,7 @@ const UserCard = (props) => {
 
   const ShowMentorMatchingDetailsModal = connect(({ matching }) => {
     return {
-      mentor: {...props},
+      mentor: { ...props },
       matching
     };
   }, dispatch => {
@@ -43,17 +44,30 @@ const UserCard = (props) => {
     };
   })(MentorMatchingDetailsModal);
 
-  const MenteeCapacityBar = (current, capacity) => <ProgressBar style={current === 0 ? {color: 'black' } : {}}
-                                                                variant={(current === 0) ? 'success' : (capacity - current) === 1 ? 'warning' : ''}
-                                                                now={current === 0 ? 100 : (100-(current/capacity*100))} label={`Mentees: ${current}/${capacity}`} />
+  let flagIndex = "";
+  Object.entries(countries).forEach((a) => {
+    if (props.country === a[1]) flagIndex = a[0];
+  });
+  const flag = require(`svg-country-flags/svg/${flagIndex.toLowerCase()}.svg`);
+
+  const MenteeCapacityBar = (current, capacity) => <ProgressBar style={current === 0 ? { color: "black" } : {}}
+                                                                variant={(current === 0) ? "success" : (capacity - current) === 0 ? "danger" : ((capacity - current) === 1 ? "warning" : null)}
+                                                                now={current - capacity === 0 ? 100 : (100 - (current / capacity * 100))}
+                                                                label={`Mentees: ${current}/${capacity}`}/>;
 
   return (
     <Card className="text-center" key={props._id}>
       <Card.Header>
         <ProfileIcon mentorMode={props.mentorMode} pictureUrl={props.pictureUrl} size={"m"}/>
+        {props.mentorMode ? (props.relationship.length > 0 ? props.relationship.map(r => <ProfileIcon
+          pictureUrl={r.mentee.pictureUrl} size={"xs"}/>) : null) : (props.relationship ? <ProfileIcon
+          pictureUrl={props.relationship.mentor.pictureUrl} mentorMode size={"xs"}/> : null)}
       </Card.Header>
       <Card.Body>
         <Card.Title>
+          <Image alt={props.country}
+                 width="15px" src={flag}/>
+          <span>{" "}</span>
           <Link to={`/admin/${props.mentorMode ? "mentors" : "mentees"}/database/${props._id}`} style={{
             textDecoration: "underline", color: "blue",
             cursor: "pointer"
@@ -63,9 +77,9 @@ const UserCard = (props) => {
             {" "}
             </span>
           <span>
-            <StatusIcon status={props.status}  reason={props.rejectionReason} />
+            <StatusIcon status={props.status} reason={props.rejectionReason}/>
           </span>
-          {props.matching? <ShowMentorMatchingDetailsModal /> : null}
+          {props.matching ? <ShowMentorMatchingDetailsModal/> : null}
         </Card.Title>
         {props.addFilterParam ?
           <div>

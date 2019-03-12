@@ -4,6 +4,7 @@ import { Icon } from "react-fa";
 
 const Footer = (props) => {
   let size;
+  if(props.size === "xs") size = "20px";
   if(props.size === "m") size = "50px";
   else if(props.size === "l") size = "75px";
   else if(props.size === "xl") size = "100px";

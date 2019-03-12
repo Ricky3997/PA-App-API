@@ -214,7 +214,7 @@ const MenteeAdminProfile = (props) => {
       <Col>
         {props.mentee.relationship ? <div>
           <h5>Mentor</h5>
-          <Card>
+          <Card className="text-center" >
             <Card.Header>
               <ProfileIcon pictureUrl={props.mentee.relationship.mentor.pictureUrl} size={"l"}/>
             </Card.Header>

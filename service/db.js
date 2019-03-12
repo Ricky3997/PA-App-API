@@ -261,7 +261,7 @@ const loadAdmin = async () => {
     email: "riccardo@broggi.co.uk",
     emailConfirmed: true,
     onboarded: true,
-    admin: 'Italy',
+    admin: 'superadmin',
     mentorProfile: id,
     menteeProfile: id,
   };
@@ -279,7 +279,20 @@ const loadAdmin = async () => {
     subject: "Computer Science",
     city: "Milano",
     status: "approved",
-    maxNumberOfMentees: 3,
+    maxNumberOfMentees: 5,
+    careerInterests: ["Creative Arts and Design"],
+    confirmCommittment: true,
+    ethnicBackground: "Mixed / multiple ethnic groups",
+    fromThreeLargestCity: false,
+    hobbiesAndInterests: ["Professional Sports"],
+    linkedinUrl: "https://www.linkedin.com/in/riccardobroggi/",
+    offersFromUnis: ["London School of Economics"],
+    referral: ["Project Access Mentor", "Friends"],
+    subjectsInSchool: ["French"],
+    typeOfHighSchool: "Independent",
+    yearBorn: 1991,
+    yearGraduation: 2020,
+    notes: 'Here are some notes',
     pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/t/5bb721a4e2c48357967f52fa/1538728361542/Riccardo.jpg?format=300w"
   };
   const menteeProfile = {

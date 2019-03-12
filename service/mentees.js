@@ -12,7 +12,7 @@ const {Mentee} = require("./../models/mentees");
 const {User} = require("./../models/users");
 
 getAll = async () => {
-  return await Mentee.find().populate("relationship").exec().then(p => {return p});
+  return await Mentee.find().populate({ path: 'relationship', populate: { path: 'mentor' }}).exec().then(p => {return p});
 };
 
 const edit = async (id, data, file) => {

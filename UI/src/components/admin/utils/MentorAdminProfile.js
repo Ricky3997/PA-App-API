@@ -249,7 +249,7 @@ const MentorAdminProfile = (props) => {
           <h5>Mentees</h5>
           <CardColumns>
             {props.mentor.relationship.map(r =>
-              <Card key={r.mentee._id}>
+              <Card key={r.mentee._id} className="text-center" >
                 <Card.Header>
                   <ProfileIcon pictureUrl={r.mentee.pictureUrl} size={"l"} mentorMode/>
                 </Card.Header>
