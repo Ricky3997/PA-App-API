@@ -8,7 +8,7 @@ import Matching from "./matching/Matching";
 import { Icon } from "react-fa";
 import {
   adminChangeUserStatus,
-  changeMenteeBeingMatched, changeMenteeStatus, changeMentorStatus,
+  changeMenteeBeingMatched,
   setActiveMenteeApprovalId,
   setActiveMentorApprovalId, switchMatchingMode, toggleAdminModal
 } from "../../actions/actionCreator";

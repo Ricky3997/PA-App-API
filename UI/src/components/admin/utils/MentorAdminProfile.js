@@ -243,13 +243,13 @@ const MentorAdminProfile = (props) => {
       </Col>
     </Row>
 
-    {props.approvalMode || props.matching ? null : <Row>
+    {props.approvalMode ? null : <Row>
       <Col>
         {props.mentor.relationship.length > 0 ? <div>
           <h5>Mentees</h5>
           <CardColumns>
             {props.mentor.relationship.map(r =>
-              <Card>
+              <Card key={r.mentee._id}>
                 <Card.Header>
                   <ProfileIcon pictureUrl={r.mentee.pictureUrl} size={"l"} mentorMode/>
                 </Card.Header>

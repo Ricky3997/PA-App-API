@@ -216,19 +216,19 @@ const MenteeAdminProfile = (props) => {
           <h5>Mentor</h5>
           <Card>
             <Card.Header>
-              <ProfileIcon pictureUrl={props.meentee.relationship.mentor.pictureUrl} size={"l"}/>
+              <ProfileIcon pictureUrl={props.mentee.relationship.mentor.pictureUrl} size={"l"}/>
             </Card.Header>
             <Card.Body>
-              <LinkContainer to={`/admin/mentors/database/${props.meentee.relationship.mentor._id}`}
+              <LinkContainer to={`/admin/mentors/database/${props.mentee.relationship.mentor._id}`}
                              style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>
-                <Card.Title>{props.meentee.relationship.mentor.firstName}</Card.Title>
+                <Card.Title>{props.mentee.relationship.mentor.firstName}</Card.Title>
               </LinkContainer>
               <Card.Text>
                 Last message exchanged: TODO
               </Card.Text>
             </Card.Body>
             <Card.Footer>
-              <small className="text-muted">Matched on {moment(props.meentee.relationship.matchedOn).format("MMM Do YYYY")}</small>
+              <small className="text-muted">Matched on {moment(props.mentee.relationship.matchedOn).format("MMM Do YYYY")}</small>
             </Card.Footer>
           </Card>
         </div> : "No Mentor Yet"}

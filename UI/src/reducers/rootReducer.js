@@ -235,7 +235,7 @@ function matching(state = {
     case SHOW_MATCHING_CONFIRMATION:
       return { ...state, showConfirm: action.id };
     case TOGGLE_SHOW_MATCHING_DETAILS_MODAL:
-      return { ...state, showDetailsModal: !state.showDetailsModal };
+      return { ...state, showDetailsModal: action.id };
     case UNSET_MATCHING_CONFIRMATION:
       return { ...state, showConfirm: null };
     default:

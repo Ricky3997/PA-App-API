@@ -54,9 +54,10 @@ export const toggleMentorHomeModal = () => {
   }
 };
 
-export const toggleMatchingDetailsModal = () => {
+export const toggleMatchingDetailsModal = (id) => {
   return {
-    type: TOGGLE_SHOW_MATCHING_DETAILS_MODAL
+    type: TOGGLE_SHOW_MATCHING_DETAILS_MODAL,
+    id: id
   }
 };
 

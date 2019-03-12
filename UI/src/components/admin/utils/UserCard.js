@@ -15,7 +15,6 @@ import MentorMatchingDetailsModal from "../matching/MentorMatchingDetailsModal";
 
 const UserCard = (props) => {
 
-
   const ConfirmButton = connect(({ admin, matching }) => {
     return {
       fetching: admin.fetching,
@@ -40,7 +39,7 @@ const UserCard = (props) => {
     };
   }, dispatch => {
     return {
-      toggleMatchingDetailsModal: () => dispatch(toggleMatchingDetailsModal())
+      toggleMatchingDetailsModal: (id) => dispatch(toggleMatchingDetailsModal(id))
     };
   })(MentorMatchingDetailsModal);
 

@@ -40,7 +40,7 @@ const createMatch = async (mentorId, menteeId) => {
   const sendBirdResponse = await createSendBirdChat(mentor, mentee);
 
   await Relationship.findByIdAndUpdate(id, {chatUrl: sendBirdResponse.channel_url}).exec();
-  return Relationship.findById(id).populate({ path: 'mentee', populate: { path: 'relationship', populate : {path: "mentor"} }})
+  return await Relationship.findById(id).populate({ path: 'mentee', populate: { path: 'relationship', populate : {path: "mentor"} }})
     .populate({ path: 'mentor', populate: { path: 'relationship', populate: { path: "mentee"} }}).exec().then(p => { return p});
 };
 
