@@ -15,7 +15,7 @@ const changeUserStatus = async (type, id, status, rejectionReason) => {
 const matchingMentorRecommendations = async (id) => {
   const menteeProfile = await Mentee.findById(id).exec().then(p => {return p});
 
-  let mentors = await Mentor.find().exec().then(p => {return p});
+  let mentors = await Mentor.find().populate({ path: 'relationship', populate: { path: 'mentee' }}).exec().then(p => {return p});
 
   const mentorRecommendations = new Array(3);
 

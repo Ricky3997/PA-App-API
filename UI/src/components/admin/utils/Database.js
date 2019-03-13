@@ -48,7 +48,7 @@ class Database extends Component {
     })(MentorAdminprofile);
 
     const ConnectedMenteeProfile = connect(({ admin }) => {
-      return { beadcrumbs: true, mentee: admin.mentees.filter(m => m._id === this.props.id)[0] };
+      return { beadcrumbs: true, mentee: admin.mentees.filter(m => m._id === this.props.id)[0], details: true};
     }, dispatch => {
       return {};
     })(MenteeAdminProfile);

@@ -44,7 +44,7 @@ class Approvals extends Component {
             <Container fluid>
 
               {props.mentorMode ? <MentorAdminprofile approvalMode mentor={toApprove} breadcrumbs={false}/> :
-                <MenteeAdminProfile approvalMode mentee={toApprove} breadcrumbs={false}/>}
+                <MenteeAdminProfile approvalMode mentee={toApprove} breadcrumbs={false} />}
 
               <Row>
                 <Col md={{ size: 2, offset: 8 }}>

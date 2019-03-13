@@ -98,7 +98,7 @@ class Admin extends Component {
                    })(Mentees)}/>
           </Tab>
           <Tab eventKey="matching" title="Matching">
-            <Route path={"/admin/matching"} component={connect(({ user, admin, matching }) => {
+            <Route path={"/admin/matching/:id?"} component={connect(({ user, admin, matching }) => {
               return { user,
                 mentors: admin.mentors.filter(m => m.status === "approved"),
                 mentees: admin.mentees.filter(m => m.status === "approved" && !m.relationship),

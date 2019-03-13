@@ -55,25 +55,32 @@ const MenteeAdminProfile = (props) => {
             </span>
         </OverlayTrigger>
       </Col>}
-      {props.approvalMode || props.mentee.status !== "requested" ? null : <Col md={2}>
+      {props.approvalMode && props.mentee.status === "requested" ?  <Col md={2}>
         <LinkContainer to={`/admin/mentees/approvals/${props.mentee._id}`}>
           <Button block variant="warning"><Icon name="fas fa-balance-scale"/> Approve</Button>
         </LinkContainer>
-      </Col>}
+      </Col> : null }
+      {props.details && props.mentee.status === "approved" && !props.mentee.relationship ? <Col md={2}>
+        <LinkContainer to={`/admin/matching/${props.mentee._id}`}>
+          <Button block variant="info"><Icon name="fas fa-bullseye"/> Match</Button>
+        </LinkContainer>
+      </Col> : null }
     </Row>
 
     <br/>
 
     <Row>
+
       <Col md={2}>
         <Badge variant="info">{"Status"}</Badge>
       </Col>
       <Col md={{ span: 3 }}>
         <StatusIcon
-          status={props.mentee.status} reason={props.mentee.rejectionReason}/> {props.mentee.latestStatusChange ? `since ${moment(props.mentee.latestStatusChange).format("Do MMM YY")}` : ""}
+          status={props.mentee.status}
+          reason={props.mentee.rejectionReason}/> {props.mentee.latestStatusChange ? `since ${moment(props.mentee.latestStatusChange).format("Do MMM YY")}` : ""}
       </Col>
 
-      <Col md={{span:2}}>
+      <Col md={{ span: 2 }}>
         <Badge variant="info">{"Year of Birth"}</Badge>
       </Col>
       <Col md={{ span: 3 }}>
@@ -120,7 +127,7 @@ const MenteeAdminProfile = (props) => {
         <Badge variant="info">{"Currently studying"}</Badge>
       </Col>
       <Col md={{ span: 3 }}>
-        <Form.Label>{`${props.mentee.subjects.join(', ')}`}</Form.Label>
+        <Form.Label>{`${props.mentee.subjects.join(", ")}`}</Form.Label>
       </Col>
       <Col md={2}>
         <Badge variant="info">{"Year"}</Badge>
@@ -189,9 +196,9 @@ const MenteeAdminProfile = (props) => {
       </Col>
       <Col md={{ span: 3 }}>
         {props.mentee.unisApplyingFor.map(uni => <Image
-            key={uni}
-            src={[...defaults.universities.US, ...defaults.universities.UK].filter(u => u.name === uni)[0].logo}
-            style={{ maxHeight: "60px", maxWidth: "130px" }}/>)}
+          key={uni}
+          src={[...defaults.universities.US, ...defaults.universities.UK].filter(u => u.name === uni)[0].logo}
+          style={{ maxHeight: "60px", maxWidth: "130px" }}/>)}
       </Col>
     </Row>
 
@@ -214,7 +221,7 @@ const MenteeAdminProfile = (props) => {
       <Col>
         {props.mentee.relationship ? <div>
           <h5>Mentor</h5>
-          <Card className="text-center" >
+          <Card className="text-center">
             <Card.Header>
               <ProfileIcon pictureUrl={props.mentee.relationship.mentor.pictureUrl} size={"l"}/>
             </Card.Header>
@@ -226,12 +233,14 @@ const MenteeAdminProfile = (props) => {
               <Card.Text>
                 Last message exchanged: TODO
               </Card.Text>
-              <LinkContainer to={`/admin/dashboard/${props.mentee.relationship._id}`} style={{cursor: 'pointer', textDecoration: 'underline', color: 'blue'}}>
-                <Button variant={'light'}>Go to relationship</Button>
+              <LinkContainer to={`/admin/dashboard/${props.mentee.relationship._id}`}
+                             style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>
+                <Button variant={"light"}>Go to relationship</Button>
               </LinkContainer>
             </Card.Body>
             <Card.Footer>
-              <small className="text-muted">Matched on {moment(props.mentee.relationship.matchedOn).format("MMM Do YYYY")}</small>
+              <small className="text-muted">Matched
+                on {moment(props.mentee.relationship.matchedOn).format("MMM Do YYYY")}</small>
             </Card.Footer>
           </Card>
         </div> : "No Mentor Yet"}

@@ -17,6 +17,7 @@ import ProfileIcon from "../../various/ProfileIcon";
 import { Field, Form as FormikForm, Formik } from "formik";
 import LoadingCard from "../utils/LoadingCard";
 import { toast } from "react-toastify";
+import MenteeAdminProfile from "../utils/MenteeAdminProfile";
 
 class Matching extends Component {
   constructor(props) {
@@ -26,6 +27,10 @@ class Matching extends Component {
     this.search.addIndex("university");
     this.search.addIndex("subject");
     this.search.addDocuments(props.mentors);
+  }
+
+  componentDidMount() {
+    if (this.props.match.params.id) this.props.changeMenteeBeingMatched(this.props.match.params.id);
   }
 
   render() {
@@ -57,14 +62,8 @@ class Matching extends Component {
           {toMatch ?
             <Container fluid>
               <Row>
-                <Col md={2}>
-                  <ProfileIcon pictureUrl={toMatch.pictureUrl} size={"m"}/>
-                </Col>
-                <Col md={10}>
-                  <h4>{`${toMatch.firstName}`}</h4>
-                  <h6>{`From ${toMatch.city}`}</h6>
-                  <h6>{`Studying at ${toMatch.school}`}</h6>
-                  <h6>{`Subjects: ${toMatch.subjects.toString()}`}</h6>
+                <Col>
+                  <MenteeAdminProfile mentee={toMatch} />
                 </Col>
               </Row>
               <br/>
