@@ -7,10 +7,10 @@ import { Route } from "react-router-dom";
 import Matching from "./matching/Matching";
 import { Icon } from "react-fa";
 import {
-  adminChangeUserStatus,
+  adminChangeUserStatus, cancelRelationship,
   changeMenteeBeingMatched,
   setActiveMenteeApprovalId,
-  setActiveMentorApprovalId, switchMatchingMode, toggleAdminModal
+  setActiveMentorApprovalId, switchMatchingMode, toggleAdminModal, toggleDashboardConfirmation
 } from "../../actions/actionCreator";
 import connect from "react-redux/es/connect/connect";
 import { toast } from "react-toastify";
@@ -65,10 +65,12 @@ class Admin extends Component {
               onSelect={this.changeTab}>
           <Tab eventKey="dashboard" title="Dashboard">
             <Route path={"/admin/dashboard/:id?"}
-                   component={connect(({ admin }) => {
-                     return { relationships: admin.relationships };
+                   component={connect(({ admin, dashboard }) => {
+                     return { relationships: admin.relationships, dashboard };
                    }, dispatch => {
                      return {
+                       toggleDashboardConfirmation: () => dispatch(toggleDashboardConfirmation()),
+                       cancelRelationship: (relationshipId) => dispatch(cancelRelationship(relationshipId)),
                      };
                    })(Dashboard)} />
           </Tab>

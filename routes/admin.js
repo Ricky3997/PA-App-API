@@ -8,4 +8,6 @@ router.get('/matchingMentorRecommendations/:id', adminController.matchingMentorR
 
 router.post('/createMatch', adminController.createMatch);
 
+router.post('/cancelRelationship', adminController.cancelRelationship);
+
 module.exports = router;

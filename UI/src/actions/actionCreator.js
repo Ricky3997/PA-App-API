@@ -23,7 +23,7 @@ import {
   STORE_PICTURE_TO_CROP,
   SWITCH_MATCHING_MODE,
   TOGGLE_ADMIN_FETCHING,
-  TOGGLE_ADMIN_MODAL,
+  TOGGLE_ADMIN_MODAL, TOGGLE_DASHBOARD_CONFIRMATION,
   TOGGLE_MENTEE_HOME_MODAL, TOGGLE_MENTOR_CONFIRM_DECISION,
   TOGGLE_MENTOR_HOME_MODAL,
   TOGGLE_MESSAGING_CONNECTED,
@@ -108,6 +108,13 @@ export const togglePicturePicker = () => {
     type: TOGGLE_PICTURE_PICKER
   }
 };
+
+export const toggleDashboardConfirmation = () => {
+  return {
+    type: TOGGLE_DASHBOARD_CONFIRMATION
+  }
+};
+
 export const toggleAdminModal = () => {
   return {
     type: TOGGLE_ADMIN_MODAL
@@ -501,6 +508,19 @@ export const mentorDecisionRelationship = (relationshipId, accept) => {
         if(accept) rels.push(r.payload);
         user.mentorProfile.relationship = rels;
         updateAndStoreUser(dispatch, user);
+      }
+      return r;
+    })
+  }
+};
+
+export const cancelRelationship = (relationshipId) => {
+  return (dispatch, getState) => {
+    return api.post(`/api/admin/cancelRelationship`, {relationshipId}).then(r => {
+      if(r.success) {
+        const {admin} = getState();
+        const rels = admin.relationships.filter(rel => rel._id !== relationshipId);
+        dispatch(setRelationships(rels));
       }
       return r;
     })

@@ -3,23 +3,36 @@ const _ = require("lodash");
 const request = require("request-promise-native");
 const { Mentor } = require("./../models/mentors");
 const { Mentee } = require("./../models/mentees");
+const relationshipService = require("./relationships");
 const { Relationship } = require("./../models/relationship");
-const config  = require("./../config");
-const mongoose = require("mongoose")
+const config = require("./../config");
+const mongoose = require("mongoose");
 
 const changeUserStatus = async (type, id, status, rejectionReason) => {
-  if(type === "mentor") return await Mentor.findByIdAndUpdate(id, {status, rejectionReason}, {new: true}).exec().then(p => {return p});
-  else return await Mentee.findByIdAndUpdate(id, {status, rejectionReason}, {new: true}).exec().then(p => {return p});
+  if (type === "mentor") return await Mentor.findByIdAndUpdate(id, {
+    status,
+    rejectionReason
+  }, { new: true }).exec().then(p => {
+    return p;
+  });
+  else return await Mentee.findByIdAndUpdate(id, { status, rejectionReason }, { new: true }).exec().then(p => {
+    return p;
+  });
 };
 
 const matchingMentorRecommendations = async (id) => {
-  const menteeProfile = await Mentee.findById(id).exec().then(p => {return p});
+  const menteeProfile = await Mentee.findById(id).exec().then(p => {
+    return p;
+  });
 
-  let mentors = await Mentor.find().populate({ path: 'relationship', populate: { path: 'mentee' }}).exec().then(p => {return p});
+  let mentors = await Mentor.find().populate({ path: "relationship", populate: { path: "mentee" } }).exec().then(p => {
+    return p;
+  });
 
   const mentorRecommendations = new Array(3);
 
   //TODO consider mentor.maxNumberOfMentees and only suggest mentors that have capacity to mentor
+  //TODO consider mentor.mentorBlackList for mentors not to recommend
 
   mentorRecommendations[0] = _.sample(mentors);
   mentors = mentors.filter(m => m._id !== mentorRecommendations[0]._id);
@@ -33,32 +46,57 @@ const matchingMentorRecommendations = async (id) => {
 
 const createMatch = async (mentorId, menteeId) => {
   const id = new mongoose.Types.ObjectId();
-  await new Relationship({_id: id, mentee: menteeId, mentor: mentorId, status: "awaitingConfirmation", matchedOn: new Date()}).save();
-  const mentor = await Mentor.findByIdAndUpdate(mentorId, {$push: {relationship: id}}).exec().then(p => { return p});
-  const mentee = await Mentee.findByIdAndUpdate(menteeId, {relationship: id}).exec().then(p => { return p});
+  await new Relationship({
+    _id: id,
+    mentee: menteeId,
+    mentor: mentorId,
+    status: "awaitingConfirmation",
+    matchedOn: new Date()
+  }).save();
+  const mentor = await Mentor.findByIdAndUpdate(mentorId, { $push: { relationship: id } }).exec().then(p => {
+    return p;
+  });
+  const mentee = await Mentee.findByIdAndUpdate(menteeId, { relationship: id }).exec().then(p => {
+    return p;
+  });
 
   const sendBirdResponse = await createSendBirdChat(mentor, mentee);
 
-  await Relationship.findByIdAndUpdate(id, {chatUrl: sendBirdResponse.channel_url}).exec();
-  return await Relationship.findById(id).populate({ path: 'mentee', populate: { path: 'relationship', populate : {path: "mentor"} }})
-    .populate({ path: 'mentor', populate: { path: 'relationship', populate: { path: "mentee"} }}).exec().then(p => { return p});
+  await Relationship.findByIdAndUpdate(id, { chatUrl: sendBirdResponse.channel_url }).exec();
+  return await Relationship.findById(id).populate({
+    path: "mentee",
+    populate: { path: "relationship", populate: { path: "mentor" } }
+  })
+    .populate({ path: "mentor", populate: { path: "relationship", populate: { path: "mentee" } } }).exec().then(p => {
+      return p;
+    });
 };
 
 const createSendBirdChat = async (mentor, mentee) => {
   const body = {
-    'name': `${mentor.firstName} and ${mentee.firstName}`,
-    'user_ids': [mentor._id.toString(), mentee._id.toString()],
-    'invitation_status[]': [`${mentor._id.toString()}:joined`,`${mentee._id.toString()}:joined`]
+    "name": `${mentor.firstName} and ${mentee.firstName}`,
+    "user_ids": [mentor._id.toString(), mentee._id.toString()],
+    "invitation_status[]": [`${mentor._id.toString()}:joined`, `${mentee._id.toString()}:joined`]
   };
   return request({
-    method: 'post',
+    method: "post",
     body: body,
     json: true,
     url: "https://api.sendbird.com/v3/group_channels",
     headers: {
-      'Content-Type': 'application/json',
-      'Api-Token': config.sendbird.API_TOKEN
-    }});
+      "Content-Type": "application/json",
+      "Api-Token": config.sendbird.API_TOKEN
+    }
+  });
 };
 
-module.exports = { changeUserStatus, matchingMentorRecommendations, createMatch };
+
+const cancelMentoringRelationship = async (relationshipId) => {
+  const rel = await Relationship.findById(relationshipId);
+  if(!rel) return null;
+  await relationshipService.deleteRelationship(relationshipId, rel.mentor, rel.mentee);
+  return true;
+};
+
+
+module.exports = { changeUserStatus, matchingMentorRecommendations, createMatch, cancelMentoringRelationship };

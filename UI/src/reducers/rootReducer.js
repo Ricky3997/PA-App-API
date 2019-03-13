@@ -33,7 +33,7 @@ import {
   SET_MENTEE_APPROVAL_PROPERTIES,
   TOGGLE_ADMIN_MODAL,
   TOGGLE_SHOW_MATCHING_DETAILS_MODAL,
-  TOGGLE_MENTOR_CONFIRM_DECISION
+  TOGGLE_MENTOR_CONFIRM_DECISION, TOGGLE_DASHBOARD_CONFIRMATION
 } from "../actions/actionTypes";
 import { combineReducers } from "redux";
 
@@ -299,8 +299,19 @@ function journey(state = {
   }
 }
 
+function dashboard(state = {
+  showConfirmation: false
+}, action) {
+  switch (action.type) {
+    case TOGGLE_DASHBOARD_CONFIRMATION:
+      return { ...state, showConfirmation: !state.showConfirmation };
+    default:
+      return state;
+  }
+}
+
 const app = combineReducers({
-  user, settings, onboarding, admin, mentorAdmin, menteeAdmin, matching, messaging, login, journey, mentorHome, menteeHome
+  user, settings, onboarding, admin, mentorAdmin, menteeAdmin, matching, messaging, login, journey, mentorHome, menteeHome,dashboard
 });
 
 export default app;

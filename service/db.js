@@ -30,7 +30,7 @@ const initDb = (callback) => {
       await loadDummyMentees();
     }
     let rule = new scheduler.RecurrenceRule();
-    rule.minute = new scheduler.Range(0, 59, 5);
+    rule.minute = new scheduler.Range(0, 59, 20);
     scheduler.scheduleJob(rule, relationshipService.checkForElapsedMatches);
     return callback(null, _db);
   }, (err) => {

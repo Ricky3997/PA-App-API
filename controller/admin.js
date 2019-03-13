@@ -18,4 +18,11 @@ const createMatch =  async (req,res) => {
     else res.sendStatus(400);
 };
 
-module.exports = {changeUserStatus, matchingMentorRecommendations, createMatch};
+const cancelRelationship =  async (req,res) => {
+    const {relationshipId} = req.body;
+    const result = await adminService.cancelMentoringRelationship(relationshipId);
+    if(result) res.json(result);
+    else res.sendStatus(400);
+};
+
+module.exports = {changeUserStatus, matchingMentorRecommendations, createMatch, cancelRelationship};

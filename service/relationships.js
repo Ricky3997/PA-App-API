@@ -40,4 +40,4 @@ mentorDecision = async (relationshipId, mentorId, accept) => {
     }
 };
 
-module.exports = {getAll, mentorDecision, checkForElapsedMatches};
+module.exports = {getAll, mentorDecision, checkForElapsedMatches, deleteRelationship};
