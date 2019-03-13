@@ -64,7 +64,8 @@ const edit = async (id, data, file) => {
     if (picToDelete) await s3.deleteObject({ Bucket: config.s3.bucketName, Key: /[^/]*$/.exec(picToDelete)[0] }).promise();
     data.pictureUrl = picData.Location;
   }
-  return await Mentor.findByIdAndUpdate(id, data, { new: true }).exec().then(p => { return p});
+  await Mentor.findByIdAndUpdate(id, data, { new: true }).exec().then(p => { return p});
+  return Mentor.findById(id).populate({ path: 'relationship', populate: { path: 'mentee' }}).exec().then(p => {return p});
 };
 
 const changeStatus = async (id, data) => {

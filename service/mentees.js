@@ -12,7 +12,7 @@ const {Mentee} = require("./../models/mentees");
 const {User} = require("./../models/users");
 
 getAll = async () => {
-  return await Mentee.find().populate({ path: 'relationship', populate: { path: 'mentor' }}).exec().then(p => {return p});
+  return await Mentee.find().populate({ path: 'relationship', populate: { path: 'mentor' }}).populate({path: 'mentorBlacklist', populate: { path: 'mentor' }}).exec().then(p => {return p});
 };
 
 const edit = async (id, data, file) => {
@@ -30,7 +30,8 @@ const edit = async (id, data, file) => {
     if (picToDelete) await s3.deleteObject({ Bucket: config.s3.bucketName, Key: /[^/]*$/.exec(picToDelete)[0] }).promise();
     data.pictureUrl = picData.Location;
   }
-  return await Mentee.findByIdAndUpdate(id, data, { new: true }).exec().then(p => { return p});
+  const what = await Mentee.findByIdAndUpdate(id, data, { new: true }).exec().then(p => { return p});
+  return Mentee.findById(id).populate({ path: 'relationship', populate: { path: 'mentor' }}).populate({path: 'mentorBlacklist', populate: { path: 'mentor' }}).exec().then(p => {return p})
 };
 
 const generateJourney = (unisApplyingFor) => {

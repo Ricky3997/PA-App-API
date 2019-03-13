@@ -42,12 +42,14 @@ editProfile = async (req, res) => {
         mailService.sendConfirmationToken(changedUserData.email, id, newToken);  //TODO Return updated token and check unique
       }
 
-      if (user.type === "mentor" && user.onboarded) await mentorService.edit(id, changedUserData, files.file);
-      if (user.type === "mentee" && user.onboarded) await menteeService.edit(id, changedUserData, files.file);
+      let profile
+
+      if (user.type === "mentor" && user.onboarded) profile = await mentorService.edit(id, changedUserData, files.file);
+      if (user.type === "mentee" && user.onboarded) profile = await menteeService.edit(id, changedUserData, files.file);
 
       user = await User.findByIdAndUpdate(id, fieldsToUpdate, { new: true })
-        .populate(user.type === "mentor" ? "mentorProfile" : "menteeProfile")
         .exec().then(p => {
+          p[`${user.type}Profile`] = profile;
           return p
         });
       res.json(user);

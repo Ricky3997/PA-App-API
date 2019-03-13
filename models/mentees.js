@@ -49,7 +49,8 @@ const Mentee = mongoose.model('Mentee', new mongoose.Schema({
   referral: [{
     type: String
   }],
-  notes: String
+  notes: String,
+  mentorBlackList: [{ type: Schema.Types.ObjectId, ref: 'Mentor' }]
 }));
 
 module.exports = {Mentee};
