@@ -261,6 +261,9 @@ const MentorAdminProfile = (props) => {
                   <Card.Text>
                     Last message exchanged: TODO
                   </Card.Text>
+                  <LinkContainer to={`/admin/dashboard/${r._id}`} style={{cursor: 'pointer', textDecoration: 'underline', color: 'blue'}}>
+                    <Button variant={'light'}>Go to relationship</Button>
+                  </LinkContainer>
                 </Card.Body>
                 <Card.Footer>
                   <small className="text-muted">Matched on {moment(r.matchedOn).format("MMM Do YYYY")}</small>

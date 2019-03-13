@@ -3,6 +3,7 @@ import { Badge, Card, Container, Image, ProgressBar, Row } from "react-bootstrap
 import ProfileIcon from "../../various/ProfileIcon";
 import RelationshipAdminDetail from "../utils/RelationshipAdminDetail";
 import { Link } from "react-router-dom";
+import moment from 'moment';
 
 const Dashboard = (props) => {
     return (
@@ -23,6 +24,7 @@ const Dashboard = (props) => {
                         </Card.Title>
                     </Card.Body>
                     <Card.Footer>
+                        Matched on {moment(r.matchedOn).format("MMM do YY")}
                         <ProgressBar now={r.progress} label={`${"TODO"}%`} style={{ minWidth: "100px" }}/>
                     </Card.Footer>
                 </Card>) : <Container fluid>

@@ -1,6 +1,7 @@
 const { Mentor } = require("../models/mentors");
 const { Mentee } = require("../models/mentees");
 const { Relationship } = require("../models/relationship");
+const relationshipService  = require("../service/relationships");
 const { User } = require("../models/users");
 const request = require( "request");
 const MentorService = require("./mentors");
@@ -8,6 +9,7 @@ const MenteeService = require("./mentees");
 const AuthService = require("./auth");
 const assert = require("assert");
 const mongoose = require("mongoose");
+const scheduler = require("node-schedule");
 const config = require("./../config");
 
 let _db;
@@ -27,6 +29,7 @@ const initDb = (callback) => {
       await loadDummyMentors();
       await loadDummyMentees();
     }
+    scheduler.scheduleJob('* */1 * * *', relationshipService.checkForElapsedMatches());
     return callback(null, _db);
   }, (err) => {
     console.error(err);
