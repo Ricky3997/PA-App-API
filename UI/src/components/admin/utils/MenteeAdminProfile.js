@@ -224,6 +224,7 @@ const MenteeAdminProfile = (props) => {
           <Card className="text-center">
             <Card.Header>
               <ProfileIcon pictureUrl={props.mentee.relationship.mentor.pictureUrl} size={"l"}/>
+              {props.mentee.relationship.status === 'awaitingConfirmation' ? <Badge variant={'warning'}>pending</Badge> : null}
             </Card.Header>
             <Card.Body>
               <LinkContainer to={`/admin/mentors/database/${props.mentee.relationship.mentor._id}`}

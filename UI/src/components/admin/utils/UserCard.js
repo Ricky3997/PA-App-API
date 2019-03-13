@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Image, ProgressBar } from "react-bootstrap";
+import { Badge, Card, Image, ProgressBar } from "react-bootstrap";
 import ConfirmMatchButton from "./ConfirmMatchButton";
 import ProfileIcon from "../../various/ProfileIcon";
 import connect from "react-redux/es/connect/connect";
@@ -62,6 +62,9 @@ const UserCard = (props) => {
         {props.mentorMode ? (props.relationship.length > 0 ? props.relationship.map(r => <ProfileIcon
           pictureUrl={r.mentee.pictureUrl} size={"xs"}/>) : null) : (props.relationship ? <ProfileIcon
           pictureUrl={props.relationship.mentor.pictureUrl} mentorMode size={"xs"}/> : null)}
+
+        {props.mentorMode && props.relationship.length === 0 && props.status === 'approved' ? <Badge variant={'info'}>pending match</Badge> : null}
+        {!props.mentorMode && !props.relationship && props.status === 'approved' ? <Badge variant={'info'}>pending match</Badge> : null}
       </Card.Header>
       <Card.Body>
         <Card.Title>
