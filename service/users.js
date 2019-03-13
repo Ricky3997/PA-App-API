@@ -10,14 +10,26 @@ const { User } = require("./../models/users");
 getProfile = async (id) => {
   let user = await User.findById(id);
   if (user.onboarded) {
-    user = await User.findById(id)
+    if(user.type === "mentor") user = await User.findById(id)
       .populate({
-        path: user.type === "mentor" ? "mentorProfile" : "menteeProfile",
+        path:  "mentorProfile",
         populate: {
           path: 'relationship',
           populate: {
-            path: user.type === "mentor" ? 'mentee' : 'mentor' } }
+            path: 'mentee' } }
       })
+      .exec().then(p => {
+        return p
+      });
+    else user =  await User.findById(id)
+      .populate({
+        path: "menteeProfile",
+        populate: {
+          path: 'relationship',
+          populate: {
+            path: 'mentor' } }
+      })
+      .populate({path: 'mentorBlackList', populate: { path: 'mentor' }})
       .exec().then(p => {
           return p
       });

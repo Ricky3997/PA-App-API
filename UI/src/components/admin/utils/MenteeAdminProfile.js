@@ -7,9 +7,8 @@ import {
   Container,
   Badge,
   Form,
-  Card,
   Button,
-  Tooltip, OverlayTrigger
+  Tooltip, OverlayTrigger, Card
 } from "react-bootstrap";
 import ProfileIcon from "../../various/ProfileIcon";
 import { LinkContainer } from "react-router-bootstrap";
@@ -18,6 +17,7 @@ import countries from "svg-country-flags/countries";
 import { Icon } from "react-fa";
 import moment from "moment";
 import defaults from "../../../defaults/defaults";
+import MenteeProfileMentorTile from "./MenteeProfileMentorTile";
 
 
 const MenteeAdminProfile = (props) => {
@@ -43,9 +43,12 @@ const MenteeAdminProfile = (props) => {
         <ProfileIcon menteeMode pictureUrl={props.mentee.pictureUrl} size={"xl"}/>
       </Col>
       <Col md={2}>
-        <h4>{props.mentee.firstName}</h4>
+        {props.matching ? <LinkContainer to={`/admin/mentees/database/${props.mentee._id}`}
+                                             style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>
+          <h4>{props.mentee.firstName}</h4>
+        </LinkContainer> : <h4>{props.mentee.firstName}</h4>}
       </Col>
-      {props.approvalMode ? null : <Col md={{ span: 2, offset: 1 }}>
+      {props.approvalMode || props.matching ? null : <Col md={{ span: 2, offset: 1 }}>
         <OverlayTrigger placement="bottom" trigger="hover"
                         overlay={<Tooltip placement="bottom" className="in">Feature not ready yet</Tooltip>}>
             <span className="d-inline-block">
@@ -55,16 +58,16 @@ const MenteeAdminProfile = (props) => {
             </span>
         </OverlayTrigger>
       </Col>}
-      {props.approvalMode && props.mentee.status === "requested" ?  <Col md={2}>
+      {props.approvalMode && props.mentee.status === "requested" ? <Col md={2}>
         <LinkContainer to={`/admin/mentees/approvals/${props.mentee._id}`}>
           <Button block variant="warning"><Icon name="fas fa-balance-scale"/> Approve</Button>
         </LinkContainer>
-      </Col> : null }
+      </Col> : null}
       {props.details && props.mentee.status === "approved" && !props.mentee.relationship ? <Col md={2}>
         <LinkContainer to={`/admin/matching/${props.mentee._id}`}>
           <Button block variant="info"><Icon name="fas fa-bullseye"/> Match</Button>
         </LinkContainer>
-      </Col> : null }
+      </Col> : null}
     </Row>
 
     <br/>
@@ -217,34 +220,15 @@ const MenteeAdminProfile = (props) => {
       </Col>
     </Row>
 
-    {props.approvalMode ? null : <Row>
+    {props.approvalMode || props.matching ? null : <Row>
       <Col>
         {props.mentee.relationship ? <div>
           <h5>Mentor</h5>
-          <Card className="text-center">
-            <Card.Header>
-              <ProfileIcon pictureUrl={props.mentee.relationship.mentor.pictureUrl} size={"l"}/>
-              {props.mentee.relationship.status === 'awaitingConfirmation' ? <Badge variant={'warning'}>pending</Badge> : null}
-            </Card.Header>
-            <Card.Body>
-              <LinkContainer to={`/admin/mentors/database/${props.mentee.relationship.mentor._id}`}
-                             style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>
-                <Card.Title>{props.mentee.relationship.mentor.firstName}</Card.Title>
-              </LinkContainer>
-              <Card.Text>
-                Last message exchanged: TODO
-              </Card.Text>
-              <LinkContainer to={`/admin/dashboard/${props.mentee.relationship._id}`}
-                             style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>
-                <Button variant={"light"}>Go to relationship</Button>
-              </LinkContainer>
-            </Card.Body>
-            <Card.Footer>
-              <small className="text-muted">Matched
-                on {moment(props.mentee.relationship.matchedOn).format("MMM Do YYYY")}</small>
-            </Card.Footer>
-          </Card>
-        </div> : "No Mentor Yet"}
+          <MenteeProfileMentorTile mentee={props.mentee}/>
+        </div> : (!props.mentee.relationship && props.mentee.mentorBlackList.length > 0 ? <div>
+          <h5>Mentor(s) Blacklist</h5>
+          {props.mentee.mentorBlackList.map(m => <MenteeProfileMentorTile banned mentor={m}/>)}
+        </div> : "No Mentor Yet and No Blacklist")}
       </Col>
     </Row>}
   </Container>;

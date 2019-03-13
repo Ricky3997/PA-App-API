@@ -33,6 +33,7 @@ mentorDecision = async (relationshipId, mentorId, accept) => {
         //TODO Send email notification
     } else{
         await deleteRelationship(relationshipId, mentorId, rel.mentee);
+        await Mentee.findByIdAndUpdate(rel.mentee, {$push : {mentorBlackList: mentorId}}).exec();
         return true;
         //TODO ADD TO BLACKLIST
         //TODO Hourly check for this

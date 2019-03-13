@@ -13,6 +13,7 @@ import {
 import UserCard from "../utils/UserCard";
 import { Icon } from "react-fa";
 import * as JsSearch from "js-search";
+import * as _ from "lodash";
 import ProfileIcon from "../../various/ProfileIcon";
 import { Field, Form as FormikForm, Formik } from "formik";
 import LoadingCard from "../utils/LoadingCard";
@@ -63,7 +64,7 @@ class Matching extends Component {
             <Container fluid>
               <Row>
                 <Col>
-                  <MenteeAdminProfile mentee={toMatch} />
+                  <MenteeAdminProfile mentee={toMatch} matching/>
                 </Col>
               </Row>
               <br/>
@@ -90,6 +91,7 @@ class Matching extends Component {
 
                       let mentorsToRender = values.search.length > 0 ? this.search.search(values.search) : mentors;
                       mentorsToRender = mentorsToRender.filter(m => m.relationship.length < m.maxNumberOfMentees); // Only allow matching if has capacity
+                      if(toMatch.mentorBlackList.length > 0) mentorsToRender = mentorsToRender.filter(m => toMatch.mentorBlackList.map(me => me._id).indexOf(m._id) === -1);// Only allow matching if mentor not blacklisted
 
                       return (
                         <FormikForm>
