@@ -29,7 +29,7 @@ const initDb = (callback) => {
       await loadDummyMentors();
       await loadDummyMentees();
     }
-    scheduler.scheduleJob('* */1 * * *', relationshipService.checkForElapsedMatches());
+    scheduler.scheduleJob('* */1 * * *', relationshipService.checkForElapsedMatches);
     return callback(null, _db);
   }, (err) => {
     console.error(err);
