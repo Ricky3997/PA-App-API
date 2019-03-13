@@ -19,7 +19,7 @@ deleteRelationship = async (relationshipId, mentorId, menteeId) => {
 
 checkForElapsedMatches = async () => {
     const rels = await Relationship.find({matchedOn: {$lte: new moment().subtract('5', 'd').toDate()}});
-    console.log(`Checking elapsed matches, found ${rels.length}`);
+    console.log(`${moment().format('MMMM Do YYYY, h:mm:ss a')} - Checking elapsed matches, found ${rels.length}`);
     await rels.forEach(async r => await deleteRelationship(r._id, r.mentor, r.mentee));
 };
 

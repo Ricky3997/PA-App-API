@@ -29,7 +29,9 @@ const initDb = (callback) => {
       await loadDummyMentors();
       await loadDummyMentees();
     }
-    scheduler.scheduleJob('* */1 * * *', relationshipService.checkForElapsedMatches);
+    let rule = new scheduler.RecurrenceRule();
+    rule.minute = new scheduler.Range(0, 59, 5);
+    scheduler.scheduleJob(rule, relationshipService.checkForElapsedMatches);
     return callback(null, _db);
   }, (err) => {
     console.error(err);
