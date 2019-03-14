@@ -1,5 +1,4 @@
 require("dotenv").load();
-const dataForge = require('data-forge');
 const _ = require("lodash");
 const request = require("request-promise-native");
 const { Mentor } = require("./../models/mentors");
@@ -14,21 +13,19 @@ const changeUserStatus = async (type, id, status, rejectionReason) => {
   else return await Mentee.findByIdAndUpdate(id, {status, rejectionReason}, {new: true}).exec().then(p => {return p});
 };
 
-const matchingMentorRecommendations = async (id, noMentors = 3) => {
+const matchingMentorRecommendations = async (id) => {
   const menteeProfile = await Mentee.findById(id).exec().then(p => {return p});
 
   let mentors = await Mentor.find().exec().then(p => {return p});
-  const mentorRecommendations = new Array(noMentors);
 
-  //TODO make the configuration for the algo configurable for the admin team
+  //TODO make the configuration for the algo configurable for the admin teams
   //Get latest configuration
   const config = JSON.parse(fs.readFileSync("algoConfig.json"))
 
-  //TODO | DONE consider mentor.maxNumberOfMentees and only suggest mentors that have capacity to mentor
   //TODO make number of mentors to return configurable - include logic to handle cases where more
   //mentors are requested than available
   //TODO stress testing of algorithm and performance with, say, 500, 1000, 2000 and 5000 mentors.
-  //including different ways of iteresting, i.e. forEach, normal for-loop, and map
+  //including different ways of iterating, i.e. forEach, normal for-loop, and map
 
   const degreeLevelMentee = _.get(menteeProfile, "level")
 
@@ -98,18 +95,10 @@ const matchingMentorRecommendations = async (id, noMentors = 3) => {
       }
       return;
   })
-  scoredMentors.forEach((mentor) => {
-    console.log(mentor.firstName, mentor.score)
-  })
 
   let scoredMentorsSorted = scoredMentors.sort((a, b) => Number(b.score) - Number(a.score));
-
-  for(i = 0; i < noMentors; i++){
-    mentorRecommendations[i] = scoredMentorsSorted[i]
-  }
-  //TODO instead of return just the mentors, return an object with an error field to catch any errors in the
-  //matching process and display int the frontend
-  return mentorRecommendations;
+  
+  return scoredMentorsSorted;
 
 };
 
