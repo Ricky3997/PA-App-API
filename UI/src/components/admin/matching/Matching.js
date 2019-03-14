@@ -34,8 +34,8 @@ class Matching extends Component {
   }
 
   render() {
-    const { activeId, manualMode, mentorRecommendations } = this.props.matching;
-    const { mentors, mentees, switchMatchingMode, changeMenteeBeingMatched } = this.props;
+    const { activeId, mentorRecommendations } = this.props.matching;
+    const { mentees, changeMenteeBeingMatched } = this.props;
 
     const toMatch = activeId ? mentees.filter(m => m._id === activeId)[0] : null;
 
@@ -68,29 +68,18 @@ class Matching extends Component {
               </Row>
               <br/>
               <Row>
-                <Col md={4}>
-                  <h5>{manualMode ? "Manual Matching" : "Top 3 Recommended Matches"}</h5>
-                </Col>
-                <Col md={4}>
-                  <Button variant="secondary" block
-                          onClick={() => switchMatchingMode()}>
-                    {manualMode ?
-                      <span>Or See Automated Recommendations <Icon name="fas fa-magic"/></span>
-                      :
-                      <span> Or Manually Search for a Mentor <Icon name="fas fa-search"/></span>}
-                  </Button>
+                <Col>
+                  <h5>{"Matche with a mentor:"}</h5>
                 </Col>
               </Row>
               <br/>
               <Row>
                 <Col>
-                  {manualMode ? <Formik
+                  <Formik
                     initialValues={{ search: "" }}
                     render={({ values, setFieldValue }) => {
 
-                      let mentorsToRender = values.search.length > 0 ? this.search.search(values.search) : mentors;
-                      mentorsToRender = mentorsToRender.filter(m => m.relationship.length < m.maxNumberOfMentees); // Only allow matching if has capacity
-                      if(toMatch.mentorBlackList.length > 0) mentorsToRender = mentorsToRender.filter(m => toMatch.mentorBlackList.map(me => me._id).indexOf(m._id) === -1);// Only allow matching if mentor not blacklisted
+                      let mentorsToRender = values.search.length > 0 ? this.search.search(values.search) : mentorRecommendations;
 
                       return (
                         <FormikForm>
@@ -110,28 +99,23 @@ class Matching extends Component {
 
                               }}
                             />
-                            <CardColumns>
-                              {mentorsToRender.map(m => <UserCard successToast={successToast} {...m} key={m._id} matching mentorMode
-                                                                  menteeToMatch={toMatch._id} changeSearch={(p) => setFieldValue("search", p)}/>)}
-                            </CardColumns>
+                            {mentorRecommendations.length === 0
+                              ? <CardDeck>
+                                <LoadingCard/>
+                                <LoadingCard/>
+                                <LoadingCard/>
+                              </CardDeck> :
+                              <CardColumns>
+                                {mentorsToRender.map(m => <UserCard successToast={successToast} matching
+                                                                          mentorMode key={m._id}
+                                                                          menteeToMatch={toMatch._id} {...m}
+                                                                          changeSearch={(p) => setFieldValue("search", p)}/>)}
+                              </CardColumns>}
                           </div>
                         </FormikForm>
                       );
                     }}
-                  /> : <div>
-                    {mentorRecommendations.length === 0
-                      ? <CardDeck>
-                        <LoadingCard/>
-                        <LoadingCard/>
-                        <LoadingCard/>
-                      </CardDeck> :
-                      <CardDeck>
-                        {mentorRecommendations.map(m => <UserCard successToast={successToast} mentorMode key={m._id} menteeToMatch={toMatch._id} {...m} matching/>)}
-                      </CardDeck>}
-                  </div>
-                  }
-                  <br/>
-
+                  />
                 </Col>
               </Row>
             </Container> : <Container fluid>

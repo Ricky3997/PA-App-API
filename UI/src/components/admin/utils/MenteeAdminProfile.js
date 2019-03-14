@@ -58,7 +58,7 @@ const MenteeAdminProfile = (props) => {
             </span>
         </OverlayTrigger>
       </Col>}
-      {props.approvalMode && props.mentee.status === "requested" ? <Col md={2}>
+      {props.details && props.mentee.status === "requested" ? <Col md={2}>
         <LinkContainer to={`/admin/mentees/approvals/${props.mentee._id}`}>
           <Button block variant="warning"><Icon name="fas fa-balance-scale"/> Approve</Button>
         </LinkContainer>

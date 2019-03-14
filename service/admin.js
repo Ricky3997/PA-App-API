@@ -24,7 +24,9 @@ const changeUserStatus = async (type, id, status, rejectionReason) => {
 const matchingMentorRecommendations = async (id) => {
   const menteeProfile = await Mentee.findById(id).exec().then(p => {return p});
 
-  let mentors = await Mentor.find().exec().then(p => {return p});
+  let mentors = await Mentor.find().populate({ path: 'relationship', populate: { path: 'mentee' }}).exec().then(p => {return p});
+
+  //TODO Only pick mentors of that country
 
   //TODO make the configuration for the algo configurable for the admin teams
   //Get latest configuration
@@ -36,11 +38,13 @@ const matchingMentorRecommendations = async (id) => {
   //including different ways of iterating, i.e. forEach, normal for-loop, and map
 
   const degreeLevelMentee = _.get(menteeProfile, "level")
-  //TODO consider mentor.maxNumberOfMentees and only suggest mentors that have capacity to mentor
-  //TODO consider mentor.mentorBlackList for mentors not to recommend
 
-  let scoredMentors = mentors.map((mentor) => {
-    if(_.get(mentor, "relationship").length < _.get(mentor, "maxNumberOfMentees")){
+  let scoredMentors = mentors.filter(mentor => {
+    return _.get(mentor, "relationship").length < _.get(mentor, "maxNumberOfMentees") //Only propose mentors that have capacity
+  }).filter(mentor => {
+    if (menteeProfile.mentorBlackList.length === 0) return true;
+    else return menteeProfile.mentorBlackList.map(blackListedMentor => blackListedMentor._id.toString()).indexOf(mentor._id.toString()) === -1  // Only allow matching if mentor not blacklisted
+  }).map((mentor) => {
         let score = 0
         const degreeLevelMentor = _.get(mentor, "level")
         if(degreeLevelMentee === "Undergraduate"){
@@ -102,13 +106,10 @@ const matchingMentorRecommendations = async (id) => {
         else{
           //err, invalid degree type
         }
-      }
-      return;
+
   })
 
-  let scoredMentorsSorted = scoredMentors.sort((a, b) => Number(b.score) - Number(a.score));
-
-  return scoredMentorsSorted;
+  return scoredMentors.sort((a, b) => Number(b.score) - Number(a.score));
 
 };
 
