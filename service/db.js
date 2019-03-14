@@ -263,7 +263,7 @@ const loadAdmin = async () => {
     _id: id,
     firstName: "Riccardo",
     type: "mentor",
-    email: "riccardo@broggi.co.uk",
+    email: "gustavmgrimberg@gmail.com",
     emailConfirmed: true,
     onboarded: true,
     admin: 'superadmin',

@@ -7,6 +7,9 @@ const relationshipService = require("./relationships");
 const { Relationship } = require("./../models/relationship");
 const config = require("./../config");
 const mongoose = require("mongoose");
+const config  = require("./../config");
+const mongoose = require("mongoose")
+const fs = require("fs")
 
 const changeUserStatus = async (type, id, status, rejectionReason) => {
   if (type === "mentor") return await Mentor.findByIdAndUpdate(id, {
@@ -21,26 +24,93 @@ const changeUserStatus = async (type, id, status, rejectionReason) => {
 };
 
 const matchingMentorRecommendations = async (id) => {
-  const menteeProfile = await Mentee.findById(id).exec().then(p => {
-    return p;
-  });
+  const menteeProfile = await Mentee.findById(id).exec().then(p => {return p});
 
-  let mentors = await Mentor.find().populate({ path: "relationship", populate: { path: "mentee" } }).exec().then(p => {
-    return p;
-  });
+  let mentors = await Mentor.find().exec().then(p => {return p});
 
-  const mentorRecommendations = new Array(3);
+  //TODO make the configuration for the algo configurable for the admin teams
+  //Get latest configuration
+  const config = JSON.parse(fs.readFileSync("algoConfig.json"))
 
+  //TODO make number of mentors to return configurable - include logic to handle cases where more
+  //mentors are requested than available
+  //TODO stress testing of algorithm and performance with, say, 500, 1000, 2000 and 5000 mentors.
+  //including different ways of iterating, i.e. forEach, normal for-loop, and map
+
+  const degreeLevelMentee = _.get(menteeProfile, "level")
   //TODO consider mentor.maxNumberOfMentees and only suggest mentors that have capacity to mentor
   //TODO consider mentor.mentorBlackList for mentors not to recommend
 
-  mentorRecommendations[0] = _.sample(mentors);
-  mentors = mentors.filter(m => m._id !== mentorRecommendations[0]._id);
-  mentorRecommendations[1] = _.sample(mentors);
-  mentors = mentors.filter(m => m._id !== mentorRecommendations[1]._id);
-  mentorRecommendations[2] = _.sample(mentors);
+  let scoredMentors = mentors.map((mentor) => {
+    if(_.get(mentor, "relationship").length < _.get(mentor, "maxNumberOfMentees")){
+        let score = 0
+        const degreeLevelMentor = _.get(mentor, "level")
+        if(degreeLevelMentee === "Undergraduate"){
+          if(_.get(mentor, "level") === "Undergraduate"){
+            score += config["Undergraduate"][degreeLevelMentor]["degreePoints"];
+          }
+          if(_.get(menteeProfile, "unisApplyingFor").includes(_.get(mentor, "university"))){
+            score += config["Undergraduate"][degreeLevelMentor]["uniPoints"];
+          }
+          if(_.get(menteeProfile, "subjects").includes(_.get(mentor, "subject"))){
+            score += config["Undergraduate"][degreeLevelMentor]["subjectPoints"];
+          }
+          if(_.get(menteeProfile, "country") === _.get(mentor, "country")){
+            score += config["Undergraduate"][degreeLevelMentor]["countryPoints"];
+          }
+          if(_.get(menteeProfile, "firstGenStudent") === _.get(mentor, "firstGenStudent")){
+            score += config["Undergraduate"][degreeLevelMentor]["firstGenPoints"];
+          }
+          if(_.get(menteeProfile, "gender") === _.get(mentor, "gender")){
+            score += config["Undergraduate"][degreeLevelMentor]["genderIdentityPoints"];
+          }
+          if(_.get(menteeProfile, "ethnicBackground") === _.get(mentor, "ethnicBackground")){
+            score += config["Undergraduate"][degreeLevelMentor]["ethnicBackgroundPoints"];
+          }
+          if((_.get(mentor, "yearGraduation") - _.get(menteeProfile, "yearStart")) > 2){
+            score += config["Undergraduate"][degreeLevelMentor]["degreePoints"];
+          }
+          mentor.score = score;
+          return mentor;
+        }
+        else if (degreeLevelMentee === "Masters"){
+          if(_.get(mentor, "level") === "Masters"){
+            score += config["Masters"][degreeLevelMentor]["degreePoints"];
+          }
+          if(_.get(menteeProfile, "unisApplyingFor").includes(_.get(mentor, "university"))){
+            score += config["Masters"][degreeLevelMentor]["uniPoints"];
+          }
+          if(_.get(menteeProfile, "subjects").includes(_.get(mentor, "subject"))){
+            score += config["Masters"][degreeLevelMentor]["subjectPoints"];
+          }
+          if(_.get(menteeProfile, "country") === _.get(mentor, "country")){
+            score += config["Masters"][degreeLevelMentor]["countryPoints"];
+          }
+          if(_.get(menteeProfile, "firstGenStudent") === _.get(mentor, "firstGenStudent")){
+            score += config["Masters"][degreeLevelMentor]["firstGenPoints"];
+          }
+          if(_.get(menteeProfile, "gender") === _.get(mentor, "gender")){
+            score += config["Masters"][degreeLevelMentor]["genderIdentityPoints"];
+          }
+          if(_.get(menteeProfile, "ethnicBackground") === _.get(mentor, "ethnicBackground")){
+            score += config["Masters"][degreeLevelMentor]["ethnicBackgroundPoints"];
+          }
+          if((_.get(mentor, "yearGraduation") - _.get(menteeProfile, "yearStart")) > 2){
+            score += config["Masters"][degreeLevelMentor]["degreePoints"];
+          }
+          mentor.score = score;
+          return mentor;
+        }
+        else{
+          //err, invalid degree type
+        }
+      }
+      return;
+  })
 
-  return mentorRecommendations;
+  let scoredMentorsSorted = scoredMentors.sort((a, b) => Number(b.score) - Number(a.score));
+
+  return scoredMentorsSorted;
 
 };
 

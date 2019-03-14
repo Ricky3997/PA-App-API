@@ -1,0 +1,46 @@
+{
+  "Undergraduate": {
+    "Undergraduate": {
+      "degreePoints": 1,
+      "genderIdentityPoints": 1,
+      "countryPoints": 1,
+      "ethnicBackgroundPoints": 1,
+      "subjectPoints": 1,
+      "uniPoints": 1,
+      "firstGenPoints": 1,
+      "yearDiffPoints": 1
+    },
+    "Masters": {
+      "degreePoints": 1,
+      "genderIdentityPoints": 1,
+      "countryPoints": 1,
+      "ethnicBackgroundPoints": 1,
+      "subjectPoints": 1,
+      "uniPoints": 1,
+      "firstGenPoints": 1,
+      "yearDiffPoints": 1
+    }
+  },
+  "Masters": {
+    "Undergraduate": {
+      "degreePoints": 1,
+      "genderIdentityPoints": 1,
+      "countryPoints": 1,
+      "ethnicBackgroundPoints": 1,
+      "subjectPoints": 1,
+      "uniPoints": 1,
+      "firstGenPoints": 1,
+      "yearDiffPoints": 1
+    },
+    "Masters": {
+      "degreePoints": 1,
+      "genderIdentityPoints": 1,
+      "countryPoints": 1,
+      "ethnicBackgroundPoints": 1,
+      "subjectPoints": 1,
+      "uniPoints": 1,
+      "firstGenPoints": 1,
+      "yearDiffPoints": 1
+    }
+  }
+}
