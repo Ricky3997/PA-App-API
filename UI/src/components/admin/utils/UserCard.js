@@ -60,11 +60,14 @@ const UserCard = (props) => {
       <Card.Header>
         <ProfileIcon mentorMode={props.mentorMode} pictureUrl={props.pictureUrl} size={"m"}/>
         {props.mentorMode ? (props.relationship.length > 0 ? props.relationship.map(r => <ProfileIcon
+          key={r.mentee._id}
           pictureUrl={r.mentee.pictureUrl} size={"xs"}/>) : null) : (props.relationship ? <ProfileIcon
           pictureUrl={props.relationship.mentor.pictureUrl} mentorMode size={"xs"}/> : null)}
 
-        {props.mentorMode && props.relationship.length === 0 && props.status === 'approved' ? <Badge variant={'info'}>pending match</Badge> : null}
-        {!props.mentorMode && !props.relationship && props.status === 'approved' ? <Badge variant={'info'}>pending match</Badge> : null}
+        {props.mentorMode && props.relationship.length === 0 && props.status === "approved" ?
+          <Badge variant={"info"}>pending match</Badge> : null}
+        {!props.mentorMode && !props.relationship && props.status === "approved" ?
+          <Badge variant={"info"}>pending match</Badge> : null}
       </Card.Header>
       <Card.Body>
         <Card.Title>

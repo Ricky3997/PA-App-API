@@ -13,7 +13,6 @@ import {
 import UserCard from "../utils/UserCard";
 import { Icon } from "react-fa";
 import * as JsSearch from "js-search";
-import * as _ from "lodash";
 import ProfileIcon from "../../various/ProfileIcon";
 import { Field, Form as FormikForm, Formik } from "formik";
 import LoadingCard from "../utils/LoadingCard";

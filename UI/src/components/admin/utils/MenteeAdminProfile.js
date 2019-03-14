@@ -8,7 +8,7 @@ import {
   Badge,
   Form,
   Button,
-  Tooltip, OverlayTrigger, Card
+  Tooltip, OverlayTrigger
 } from "react-bootstrap";
 import ProfileIcon from "../../various/ProfileIcon";
 import { LinkContainer } from "react-router-bootstrap";

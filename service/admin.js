@@ -7,8 +7,6 @@ const relationshipService = require("./relationships");
 const { Relationship } = require("./../models/relationship");
 const config = require("./../config");
 const mongoose = require("mongoose");
-const config  = require("./../config");
-const mongoose = require("mongoose")
 const fs = require("fs")
 
 const changeUserStatus = async (type, id, status, rejectionReason) => {
@@ -70,7 +68,7 @@ const matchingMentorRecommendations = async (id) => {
           if((_.get(mentor, "yearGraduation") - _.get(menteeProfile, "yearStart")) > 2){
             score += config["Undergraduate"][degreeLevelMentor]["degreePoints"];
           }
-          mentor.score = score;
+          mentor._doc.score = score;
           return mentor;
         }
         else if (degreeLevelMentee === "Masters"){
@@ -98,7 +96,7 @@ const matchingMentorRecommendations = async (id) => {
           if((_.get(mentor, "yearGraduation") - _.get(menteeProfile, "yearStart")) > 2){
             score += config["Masters"][degreeLevelMentor]["degreePoints"];
           }
-          mentor.score = score;
+          mentor._doc.score = score;
           return mentor;
         }
         else{
