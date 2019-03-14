@@ -210,10 +210,12 @@ export const changeMenteeStatus = (status, properties) => {
 const updateAndStoreUser = (dispatch, user ) => {
   window.localStorage.setItem("user", JSON.stringify(user));
   dispatch(updateUser(user));
-  if(user.type === "mentee") {
-    dispatch(changeActiveJourneyModule(user.menteeProfile.journey.filter(m => !m.completed && m.ready)[0].typeformID));
-  } else {
-    dispatch(setMentorHomeProgress(user.mentorProfile.status === "requested" ? 70 : 40));
+  if(user.onboarded) {
+    if (user.type === "mentee") {
+      dispatch(changeActiveJourneyModule(user.menteeProfile.journey.filter(m => !m.completed && m.ready)[0].typeformID));
+    } else {
+      dispatch(setMentorHomeProgress(user.mentorProfile.status === "requested" ? 70 : 40));
+    }
   }
 };
 

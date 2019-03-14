@@ -18,8 +18,8 @@ class MenteeHome extends Component {
         </Col>
         <Col md={{ span: 1 }}>
           <Button onClick={() => this.props.refreshUser().then(r => {
-            if(r.success) toast.success('Refreshed');
-            else toast.error('Error refreshing');
+            if (r.success) toast.success("Refreshed");
+            else toast.error("Error refreshing");
           })}>
             <Icon name={"fas fa-refresh"}/>
           </Button>
@@ -28,12 +28,17 @@ class MenteeHome extends Component {
 
       <Row>
         <Col md={2}>
-          <ProgressionTimeline modules={this.props.user.menteeProfile.journey} activeId={this.props.journey.activeId}
-                               changeSection={(m) => this.props.changeActiveJourneyModule(m.typeformID)}/>
+          {this.props.user.onboarded ?
+            <ProgressionTimeline modules={this.props.user.menteeProfile.journey} activeId={this.props.journey.activeId}
+                                 changeSection={(m) => this.props.changeActiveJourneyModule(m.typeformID)}/>
+            : null}
         </Col>
+
         <Col md={7}>
-          <Module
-            module={this.props.user.menteeProfile.journey.filter(m => m.typeformID === this.props.journey.activeId)[0]}/>
+          {this.props.user.onboarded ?
+            <Module
+              module={this.props.user.menteeProfile.journey.filter(m => m.typeformID === this.props.journey.activeId)[0]}/>
+            : null}
         </Col>
         <Col md={3}>
           <Row>
@@ -44,7 +49,8 @@ class MenteeHome extends Component {
           </Row>
           <br/>
           <Row>
-            <h5>{"McKinsey & Co."} is Project Access {this.props.user.mentorProfile.country}'s Platinum Partner,
+            <h5>{"McKinsey & Co."} is Project
+              Access {this.props.user.onboarded ? `${this.props.user.menteeProfile.country}'s` : ""} Platinum Partner,
               providing the essential financing to make this happen </h5>
             <Image
               src={"https://s1.ibtimes.com/sites/www.ibtimes.com/files/styles/lg/public/2014/05/28/mckinsey-logo.png"}
@@ -52,18 +58,20 @@ class MenteeHome extends Component {
           </Row>
         </Col>
       </Row>
-      <RequestApprovalMenteeModal show={this.props.menteeHome.showModal} user={this.props.user}
-                                  menteeHome={this.props.menteeHome} onHide={(properties) => {
-                                    this.props.setMenteeApprovalProperties(properties);
-                                    this.props.toggleMenteeHomeModal();
-                                  }} onSubmit={(properties) => this.props.changeMenteeStatus("requested", properties).then(r => {
-                                    if (r.success) {
-                                      this.props.toggleMenteeHomeModal();
-                                      toast.success("Request sent");
-                                    }
-                                  })
-                                  }
-      />
+
+      {this.props.user.onboarded && this.props.user.emailConfirmed ?
+        <RequestApprovalMenteeModal show={this.props.menteeHome.showModal} user={this.props.user}
+                                    menteeHome={this.props.menteeHome} onHide={(properties) => {
+          this.props.setMenteeApprovalProperties(properties);
+          this.props.toggleMenteeHomeModal();
+        }} onSubmit={(properties) => this.props.changeMenteeStatus("requested", properties).then(r => {
+          if (r.success) {
+            this.props.toggleMenteeHomeModal();
+            toast.success("Request sent");
+          }
+        })
+        }
+        /> : null}
     </Container>;
   }
 }

@@ -20,9 +20,18 @@ import UniversityPicker from "../various/forms/UniversityPicker";
 import { Select } from "antd";
 import defaults from "../../defaults/defaults";
 import SubjectsInSchoolPicker from "../various/forms/SubjectsInSchoolPicker";
+import { LinkContainer } from "react-router-bootstrap";
 const { Option } = Select;
 
 const MentorSettings = (props) => {
+  if(!props.user.onboarded) return <div>
+    <h6>Looks like you are not onboarded, settings are only available when you are done with that!</h6>
+    <LinkContainer to={'/onboard'}>
+      <Button>
+        Go finish onboard
+      </Button>
+    </LinkContainer>
+  </div>
   const { user, settings, togglePicturePicker, storePictureToCrop, removePictureToCrop, storePictureCropped, history } = props;
   const { relationship, ...initialVals } = user.mentorProfile;
   return <div>
