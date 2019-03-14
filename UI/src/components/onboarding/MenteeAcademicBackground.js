@@ -10,6 +10,7 @@ import * as _ from "lodash";
 import SubjectsInSchoolPicker from "../various/forms/SubjectsInSchoolPicker";
 import { Icon } from "react-fa";
 import UniversityPicker from "./../various/forms/UniversityPicker";
+import CoursePicker from "../various/forms/CoursePicker";
 
 
 const MenteeAcademicBackground = (props) => {
@@ -28,6 +29,8 @@ const MenteeAcademicBackground = (props) => {
       year: Yup.string()
         .required("Year is required."),
       interestedIn: Yup.array()
+        .required('Area of degree required'),
+      coursesApplyingFor: Yup.array()
         .required('Courses required'),
       unisApplyingFor: Yup.array()
         .required("Unis required"),
@@ -72,17 +75,22 @@ const MenteeAcademicBackground = (props) => {
           </Col>
 
           <Col md={{ span: 3 }}>
-            <Field name="interestedIn" render={({ field, form: { touched, errors } }) =>
-              <AreaOfDegreePicker multiple setFieldValue={setFieldValue} field={field} touched={touched} errors={errors}/>}
+            <Field name="level" render={({ field, form: { touched, errors } }) =>
+              <DegreeLevelPicker mentee setFieldValue={setFieldValue} field={field} touched={touched} errors={errors}/>}
             />
           </Col>
         </Row>
 
         <Row>
-          <Col md={{ span: 6, offset: 3 }}>
-            <Field name="level" render={({ field, form: { touched, errors } }) =>
-            <DegreeLevelPicker mentee setFieldValue={setFieldValue} field={field} touched={touched} errors={errors}/>}
-          />
+          <Col md={{ span: 3, offset: 3 }}>
+            <Field name="interestedIn" render={({ field, form: { touched, errors } }) =>
+              <AreaOfDegreePicker multiple setFieldValue={setFieldValue} field={field} touched={touched} errors={errors}/>}
+            />
+          </Col>
+          <Col md={{ span: 3 }}>
+            <Field name="coursesApplyingFor" render={({ field, form: { touched, errors } }) =>
+              <CoursePicker multiple field={field} touched={touched} errors={errors} setFieldValue={setFieldValue}/>}
+            />
           </Col>
         </Row>
 

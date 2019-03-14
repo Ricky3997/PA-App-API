@@ -220,6 +220,15 @@ const MenteeAdminProfile = (props) => {
       </Col>
     </Row>
 
+    <Row>
+      <Col md={2}>
+        <Badge variant="info">{"Courses"}</Badge>
+      </Col>
+      <Col>
+        <Form.Label>{`${props.mentee.coursesApplyingFor.join(', ')}`}</Form.Label>
+      </Col>
+    </Row>
+
     {props.approvalMode || props.matching ? null : <Row>
       <Col>
         {props.mentee.relationship ? <div>

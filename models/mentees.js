@@ -10,6 +10,9 @@ const Mentee = mongoose.model('Mentee', new mongoose.Schema({
   interestedIn: [{
     type: String
   }],
+  coursesApplyingFor: [{
+    type: String
+  }],
   subjects: [{
     type: String
   }],

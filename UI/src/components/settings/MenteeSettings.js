@@ -20,6 +20,7 @@ import { Select } from "antd";
 import UniversityPicker from "../various/forms/UniversityPicker";
 import defaults from "../../defaults/defaults";
 import { LinkContainer } from "react-router-bootstrap";
+import CoursePicker from "../various/forms/CoursePicker";
 
 const { Option } = Select;
 
@@ -64,6 +65,8 @@ const MenteeSettings = (props) => {
         fromThreeLargestCity: Yup.number()
           .required("fromThreeLargestCity is required."),
         hobbiesAndInterests: Yup.array()
+          .required("hobbiesAndInterests required"),
+        coursesApplyingFor: Yup.array()
           .required("hobbiesAndInterests required"),
         careerInterests: Yup.array()
           .required("careerInterests required"),
@@ -280,6 +283,10 @@ const MenteeSettings = (props) => {
                     {defaults.career_interests.map(e => <Option key={e} value={e}>{e}</Option>)}
 
                   </Select>}/>
+                </Col>
+                <Col>
+                  <Field name="coursesApplyingFor" render={({ field, form: { touched, errors } }) =>
+                    <CoursePicker multiple field={field} touched={touched} errors={errors} setFieldValue={setFieldValue}/>}/>
                 </Col>
               </Row>
 

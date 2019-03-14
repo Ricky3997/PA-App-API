@@ -37,6 +37,9 @@ const matchingMentorRecommendations = async (id) => {
   //TODO stress testing of algorithm and performance with, say, 500, 1000, 2000 and 5000 mentors.
   //including different ways of iterating, i.e. forEach, normal for-loop, and map
 
+
+  //TODO Menteee.coursesApplyingFor available with an array of courses interested, chosen from the UI/src/defaults/defaults.json list
+
   const degreeLevelMentee = _.get(menteeProfile, "level")
 
   let scoredMentors = mentors.filter(mentor => {
