@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Tab, Tabs } from "react-bootstrap";
+import { Badge, Container, Nav, Tab, Tabs } from "react-bootstrap";
 import Dashboard from "./dashboard/Dashboard";
 import Mentees from "./mentees/Mentees";
 import Mentors from "./mentors/Mentors";
@@ -14,6 +14,7 @@ import {
 } from "../../actions/actionCreator";
 import connect from "react-redux/es/connect/connect";
 import { toast } from "react-toastify";
+import BadgePendingNumber from "./utils/BadgePendingNumber";
 
 class Admin extends Component {
   constructor(props) {
@@ -63,7 +64,7 @@ class Admin extends Component {
         <Tabs style={{ marginBottom: "10px" }}
               activeKey={this.validateTab(section)}
               onSelect={this.changeTab}>
-          <Tab eventKey="dashboard" title="Dashboard">
+          <Tab eventKey="dashboard" title={<span>{'Dashboard   '}</span>}>
             <Route path={"/admin/dashboard/:id?"}
                    component={connect(({ admin, dashboard }) => {
                      return { relationships: admin.relationships, dashboard };
@@ -74,7 +75,7 @@ class Admin extends Component {
                      };
                    })(Dashboard)} />
           </Tab>
-          <Tab eventKey="mentors" title="Mentors">
+          <Tab eventKey="mentors" title={<span>{'Mentors   '}<BadgePendingNumber pending={this.props.admin.mentors.filter(m => m.status === "requested")}/></span>}>
             <Route path={"/admin/mentors/:section?"}
                    component={connect(({ user, admin, mentorAdmin }) => {
                      return { user, admin, mentorAdmin };
@@ -87,7 +88,7 @@ class Admin extends Component {
                    })(Mentors)}/>
 
           </Tab>
-          <Tab eventKey="mentees" title="Mentees">
+          <Tab eventKey="mentees" title={<span>{'Mentees   '}<BadgePendingNumber pending={this.props.admin.mentees.filter(m => m.status === "requested")}/></span>}>
             <Route path={"/admin/mentees/:section?"}
                    component={connect(({ user, admin, menteeAdmin }) => {
                      return { user, admin, menteeAdmin };
@@ -99,7 +100,7 @@ class Admin extends Component {
                      };
                    })(Mentees)}/>
           </Tab>
-          <Tab eventKey="matching" title="Matching">
+          <Tab eventKey="matching" title={<span>{'Matching   '}<BadgePendingNumber pending={this.props.admin.mentees.filter(m => m.status === "approved" && !m.relationship)}/></span>}>
             <Route path={"/admin/matching/:id?"} component={connect(({ user, admin, matching }) => {
               return { user,
                 mentors: admin.mentors.filter(m => m.status === "approved"),

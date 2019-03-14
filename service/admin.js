@@ -27,16 +27,11 @@ const matchingMentorRecommendations = async (id) => {
   let mentors = await Mentor.find().populate({ path: 'relationship', populate: { path: 'mentee' }}).exec().then(p => {return p});
 
   //TODO Only pick mentors of that country
-
+  //TODO stress testing of algorithm and performance with, say, 500, 1000, 2000 and 5000 mentors.
+  //including different ways of iterating, i.e. forEach, normal for-loop, and map
   //TODO make the configuration for the algo configurable for the admin teams
   //Get latest configuration
   const config = JSON.parse(fs.readFileSync("algoConfig.json"))
-
-  //TODO make number of mentors to return configurable - include logic to handle cases where more
-  //mentors are requested than available
-  //TODO stress testing of algorithm and performance with, say, 500, 1000, 2000 and 5000 mentors.
-  //including different ways of iterating, i.e. forEach, normal for-loop, and map
-
 
   //TODO Menteee.coursesApplyingFor available with an array of courses interested, chosen from the UI/src/defaults/defaults.json list
 

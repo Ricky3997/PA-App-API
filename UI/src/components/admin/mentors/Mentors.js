@@ -4,6 +4,7 @@ import Database from "./../utils/Database";
 import Approvals from "./../utils/Approvals";
 import { Route, Switch } from "react-router-dom";
 import Statistics from "./../utils/Statistics";
+import BadgePendingNumber from "../utils/BadgePendingNumber";
 
 const Mentors = (props) => {
 
@@ -27,7 +28,8 @@ const Mentors = (props) => {
             <Nav.Link eventKey="database">All Mentors</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="approvals">Mentors Pending Approval</Nav.Link>
+            <Nav.Link eventKey="approvals"><span>{"Mentors Pending Approval "}<BadgePendingNumber
+              pending={props.admin.mentors.filter(m => m.status === "requested")}/></span></Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link eventKey="statistics">Data and Statistics</Nav.Link>
