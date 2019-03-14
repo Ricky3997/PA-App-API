@@ -69,10 +69,9 @@ class Matching extends Component {
               <br/>
               <Row>
                 <Col>
-                  <h5>{"Matche with a mentor:"}</h5>
+                  <h3>{"Match with a mentor:"}</h3>
                 </Col>
               </Row>
-              <br/>
               <Row>
                 <Col>
                   <Formik
@@ -106,7 +105,7 @@ class Matching extends Component {
                                 <LoadingCard/>
                               </CardDeck> :
                               <CardColumns>
-                                {mentorsToRender.map(m => <UserCard successToast={successToast} matching
+                                {mentorsToRender.sort((a, b) => Number(b.score) - Number(a.score)).map(m => <UserCard successToast={successToast} matching
                                                                           mentorMode key={m._id}
                                                                           menteeToMatch={toMatch._id} {...m}
                                                                           changeSearch={(p) => setFieldValue("search", p)}/>)}

@@ -40,6 +40,8 @@ const matchingMentorRecommendations = async (id) => {
   const degreeLevelMentee = _.get(menteeProfile, "level")
 
   let scoredMentors = mentors.filter(mentor => {
+    return mentor.status === "approved" //Only allow approved mentors to be matched
+  }).filter(mentor => {
     return _.get(mentor, "relationship").length < _.get(mentor, "maxNumberOfMentees") //Only propose mentors that have capacity
   }).filter(mentor => {
     if (menteeProfile.mentorBlackList.length === 0) return true;
@@ -107,9 +109,13 @@ const matchingMentorRecommendations = async (id) => {
           //err, invalid degree type
         }
 
-  })
+  });
 
-  return scoredMentors.sort((a, b) => Number(b.score) - Number(a.score));
+  const highestScore = Math.max(...scoredMentors.map(scoredMentor => scoredMentor._doc.score));
+  return scoredMentors.map(scoredMentor => {
+    scoredMentor._doc.score = scoredMentor._doc.score / highestScore * 100; //TODO For now scale highest to be 100% match and rest scaled, next look into proper fitness % score
+    return scoredMentor;
+  });
 
 };
 

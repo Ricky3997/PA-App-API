@@ -64,10 +64,11 @@ const UserCard = (props) => {
           pictureUrl={r.mentee.pictureUrl} size={"xs"}/>) : null) : (props.relationship ? <ProfileIcon
           pictureUrl={props.relationship.mentor.pictureUrl} mentorMode size={"xs"}/> : null)}
 
-        {props.mentorMode && props.relationship.length === 0 && props.status === "approved" ?
+        {!props.matching && props.mentorMode && props.relationship.length === 0 && props.status === "approved" ?
           <Badge variant={"info"}>pending match</Badge> : null}
-        {!props.mentorMode && !props.relationship && props.status === "approved" ?
+        {!props.matching && !props.mentorMode && !props.relationship && props.status === "approved" ?
           <Badge variant={"info"}>pending match</Badge> : null}
+        {props.matching && props.mentorMode ? <span>{'  '}<Badge style={{fontSize: '24px'}} variant={props.score > 80 ? 'success' : (props.score > 60 ? 'warning' : "danger")}>{Math.floor(props.score)}%</Badge></span>: null}
       </Card.Header>
       <Card.Body>
         <Card.Title>
