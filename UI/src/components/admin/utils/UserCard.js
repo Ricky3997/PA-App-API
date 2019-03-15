@@ -56,16 +56,16 @@ const UserCard = (props) => {
                                                                 label={`Mentees: ${current}/${capacity}`}/>;
 
   return (
-    <Card className="text-center" key={props._id}>
-      <Card.Header>
+    <Card className="text-center" key={props._id} >
+      <Card.Header style={props.status === 'requested' ? {backgroundColor:  '#ffde89'} :  {}}>
         <ProfileIcon mentorMode={props.mentorMode} pictureUrl={props.pictureUrl} size={"m"}/>
         {props.mentorMode ? (props.relationship.length > 0 ? props.relationship.map(r => <ProfileIcon
           key={r.mentee._id}
           pictureUrl={r.mentee.pictureUrl} size={"xs"}/>) : null) : (props.relationship ? <ProfileIcon
           pictureUrl={props.relationship.mentor.pictureUrl} mentorMode size={"xs"}/> : null)}
 
-        {!props.matching && props.mentorMode && props.relationship.length === 0 && props.status === "approved" ?
-          <Badge variant={"info"}>pending match</Badge> : null}
+        {!props.matching && props.status === "requested" ?
+          <Badge variant={"warning"}>pending approval</Badge> : null}
         {!props.matching && !props.mentorMode && !props.relationship && props.status === "approved" ?
           <Badge variant={"info"}>pending match</Badge> : null}
         {props.matching && props.mentorMode ? <span>{'  '}<Badge style={{fontSize: '24px'}} variant={props.score > 80 ? 'success' : (props.score > 60 ? 'warning' : "danger")}>{Math.floor(props.score)}%</Badge></span>: null}
@@ -75,7 +75,7 @@ const UserCard = (props) => {
           <Image alt={props.country}
                  width="15px" src={flag}/>
           <span>{" "}</span>
-          <Link to={`/admin/${props.mentorMode ? "mentors" : "mentees"}/database/${props._id}`} style={{
+          <Link to={`/admin/${props.mentorMode ? "mentors" : "mentees"}/${props._id}`} style={{
             textDecoration: "underline", color: "blue",
             cursor: "pointer"
           }}>{props.firstName}

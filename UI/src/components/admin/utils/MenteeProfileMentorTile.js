@@ -11,7 +11,7 @@ const MenteeProfileMentorTile = ({ mentee, banned, mentor }) => {
       <ProfileIcon pictureUrl={mentor.pictureUrl} size={"l"}/>
     </Card.Header>
     <Card.Body>
-      <LinkContainer to={`/admin/mentors/database/${mentor._id}`}
+      <LinkContainer to={`/admin/mentors/${mentor._id}`}
                      style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>
         <Card.Title>
           <Icon name='fas fa-ban' style={{ color: "#9b0014" }}/>
@@ -33,7 +33,7 @@ const MenteeProfileMentorTile = ({ mentee, banned, mentor }) => {
         <Badge variant={"warning"}>pending</Badge> : null}
     </Card.Header>
     <Card.Body>
-      <LinkContainer to={`/admin/mentors/database/${mentee.relationship.mentor._id}`}
+      <LinkContainer to={`/admin/mentors/${mentee.relationship.mentor._id}`}
                      style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>
         <Card.Title>{mentee.relationship.mentor.firstName}</Card.Title>
       </LinkContainer>

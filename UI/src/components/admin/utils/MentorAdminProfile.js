@@ -19,6 +19,8 @@ import defaults from "../../../defaults/defaults";
 import countries from "svg-country-flags/countries";
 import { Icon } from "react-fa";
 import moment from "moment";
+import RejectionReasonModal from "./RejectionReasonModal";
+import { toast } from "react-toastify";
 
 const MentorAdminProfile = (props) => {
 
@@ -31,7 +33,7 @@ const MentorAdminProfile = (props) => {
   return <Container>
     {props.beadcrumbs ? <Row>
       <Breadcrumb>
-        <LinkContainer to={"/admin/mentors/database"}>
+        <LinkContainer to={"/admin/mentors"}>
           <Breadcrumb.Item>Database</Breadcrumb.Item>
         </LinkContainer>
         <Breadcrumb.Item active href="#">{props.mentor.firstName}</Breadcrumb.Item>
@@ -56,9 +58,14 @@ const MentorAdminProfile = (props) => {
         </OverlayTrigger>
       </Col>}
       {props.approvalMode || props.mentor.status !== "requested"|| props.matching ? null : <Col md={2}>
-        <LinkContainer to={`/admin/mentors/approvals/${props.mentor._id}`}>
-          <Button block variant="warning"><Icon name="fas fa-balance-scale"/> Approve</Button>
-        </LinkContainer>
+        <Button block variant="danger"
+                onClick={props.toggleAdminModal}> Reject </Button>
+      </Col>}
+      {props.approvalMode || props.mentor.status !== "requested"|| props.matching ? null : <Col md={2}>
+        <Button block variant="success"
+                onClick={() => props.changeStatus(props.mentor._id, "approved").then(r => {
+                  if (r.success) toast.success("Approved");
+                })}> Approve </Button>
       </Col>}
     </Row>
 
@@ -255,7 +262,7 @@ const MentorAdminProfile = (props) => {
                   {r.status === 'awaitingConfirmation' ? <Badge variant={'warning'}>pending</Badge> : null}
                 </Card.Header>
                 <Card.Body>
-                  <LinkContainer to={`/admin/mentees/database/${r.mentee._id}`} style={{cursor: 'pointer', textDecoration: 'underline', color: 'blue'}}>
+                  <LinkContainer to={`/admin/mentees/${r.mentee._id}`} style={{cursor: 'pointer', textDecoration: 'underline', color: 'blue'}}>
                     <Card.Title>{r.mentee.firstName}</Card.Title>
                   </LinkContainer>
                   <Card.Text>
@@ -274,6 +281,9 @@ const MentorAdminProfile = (props) => {
         </div> : "No Mentees Yet"}
       </Col>
     </Row>}
+
+    <RejectionReasonModal showModal={props.showModal} name={props.mentor.firstName} id={props.mentor._id}
+                                       onHide={props.toggleAdminModal} changeStatus={props.changeStatus} />
   </Container>;
 };
 

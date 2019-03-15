@@ -1,20 +1,17 @@
 import React, { Component } from "react";
-import { Badge, Container, Nav, Tab, Tabs } from "react-bootstrap";
+import { Container, Tab, Tabs } from "react-bootstrap";
 import Dashboard from "./dashboard/Dashboard";
-import Mentees from "./mentees/Mentees";
-import Mentors from "./mentors/Mentors";
 import { Route } from "react-router-dom";
 import Matching from "./matching/Matching";
-import { Icon } from "react-fa";
-import {
-  adminChangeUserStatus, cancelRelationship,
-  changeMenteeBeingMatched,
-  setActiveMenteeApprovalId,
-  setActiveMentorApprovalId, switchMatchingMode, toggleAdminModal, toggleDashboardConfirmation
+import { cancelRelationship,
+  changeMenteeBeingMatched, toggleDashboardConfirmation
 } from "../../actions/actionCreator";
 import connect from "react-redux/es/connect/connect";
 import { toast } from "react-toastify";
 import BadgePendingNumber from "./utils/BadgePendingNumber";
+import Statistics from "./utils/Statistics";
+import Database from "./utils/Database";
+import { Icon } from "react-fa";
 
 class Admin extends Component {
   constructor(props) {
@@ -31,7 +28,7 @@ class Admin extends Component {
   }
 
   validateTab(tabKey) {
-    return ["dashboard", "mentors", "mentees", "matching"].indexOf(tabKey) > -1 ? tabKey : "dashboard";
+    return ["dashboard", "mentors", "mentees", "matching", 'data'].indexOf(tabKey) > -1 ? tabKey : "dashboard";
   }
 
   refreshedToast(r, type) {
@@ -42,29 +39,27 @@ class Admin extends Component {
     if (key === "refresh") {
       if( this.props.match.params.section === "mentors") this.props.fetchMentors().then(r => this.refreshedToast(r, "mentors"));
       else if( this.props.match.params.section === "mentees") this.props.fetchMentees().then(r => this.refreshedToast(r, "mentees"));
-      else if( this.props.match.params.section === "matching") {
+      else if( this.props.match.params.section === "matching" || this.props.match.params.section === "data") {
         this.props.fetchMentors();
         this.props.fetchMentees().then(r => this.refreshedToast(r, "mentors and mentees"));
       }
       else this.props.fetchRelationships().then(r => this.refreshedToast(r, "relationships"));
     }
-    else this.props.history.push(`/admin/${key}${(key === "mentors" || key === "mentees") ? "/database" : ""}`);
+    else this.props.history.push(`/admin/${key}`);
 
   }
 
 
 
   render() {
-    const { fetching } = this.props.admin;
     const { section } = this.props.match.params;
-
 
     return (this.props.user && this.props.user.admin) ?
       <Container fluid>
         <Tabs style={{ marginBottom: "10px" }}
               activeKey={this.validateTab(section)}
               onSelect={this.changeTab}>
-          <Tab eventKey="dashboard" title={<span>{'Dashboard   '}</span>}>
+          <Tab eventKey="dashboard" title={<span>{'Relationships   '}</span>}>
             <Route path={"/admin/dashboard/:id?"}
                    component={connect(({ admin, dashboard }) => {
                      return { relationships: admin.relationships, dashboard };
@@ -76,29 +71,17 @@ class Admin extends Component {
                    })(Dashboard)} />
           </Tab>
           <Tab eventKey="mentors" title={<span>{'Mentors   '}<BadgePendingNumber pending={this.props.admin.mentors.filter(m => m.status === "requested")}/></span>}>
-            <Route path={"/admin/mentors/:section?"}
-                   component={connect(({ user, admin, mentorAdmin }) => {
-                     return { user, admin, mentorAdmin };
-                   }, dispatch => {
-                     return {
-                       setActiveMentorApprovalId: (id) => dispatch(setActiveMentorApprovalId(id)),
-                       changeStatus: (id,status,rejectionReason) => dispatch(adminChangeUserStatus("mentor", id, status,rejectionReason)),
-                       toggleAdminModal: () => dispatch(toggleAdminModal())
-                     };
-                   })(Mentors)}/>
+            <Route path={"/admin/mentors/:id?"}
+                   component={connect(({ admin }) => {
+                     return { mentors: admin.mentors, mode: 'mentors' };
+                   }, null)(Database)}/>
 
           </Tab>
           <Tab eventKey="mentees" title={<span>{'Mentees   '}<BadgePendingNumber pending={this.props.admin.mentees.filter(m => m.status === "requested")}/></span>}>
-            <Route path={"/admin/mentees/:section?"}
-                   component={connect(({ user, admin, menteeAdmin }) => {
-                     return { user, admin, menteeAdmin };
-                   }, dispatch => {
-                     return {
-                       setActiveMenteeApprovalId: (id) => dispatch(setActiveMenteeApprovalId(id)),
-                       changeStatus: (id, status,rejectionReason) => dispatch(adminChangeUserStatus("meentee", id, status,rejectionReason)),
-                       toggleAdminModal: () => dispatch(toggleAdminModal())
-                     };
-                   })(Mentees)}/>
+            <Route path={"/admin/mentees/:id?"}
+                   component={connect(({ admin }) => {
+                     return { mentees: admin.mentees, mode: 'mentees' };
+                   }, null)(Database)}/>
           </Tab>
           <Tab eventKey="matching" title={<span>{'Matching   '}<BadgePendingNumber pending={this.props.admin.mentees.filter(m => m.status === "approved" && !m.relationship)}/></span>}>
             <Route path={"/admin/matching/:id?"} component={connect(({ user, admin, matching }) => {
@@ -109,14 +92,22 @@ class Admin extends Component {
               };
             }, dispatch => {
               return {
-                switchMatchingMode: () => dispatch(switchMatchingMode()),
                 changeMenteeBeingMatched: (id) => dispatch(changeMenteeBeingMatched(id)),
               };
             })(Matching)}/>
-
-
           </Tab>
-          <Tab eventKey="refresh" disabled={fetching} title={<Icon name={"fas fa-refresh"}/>}/>
+
+          <Tab eventKey="data" title={<span>{'Data & Statistics'}</span>}>
+            <Route path={"/admin/data"} component={connect(({ user, admin }) => {
+              return { user, mentors: admin.mentors, mentees: admin.mentees, mentorMode: true
+              };
+            }, dispatch => {
+              return {
+              };
+            })(Statistics)}/>
+          </Tab>
+          <Tab eventKey="refresh" disabled={this.props.fetching} title={<Icon name={"fas fa-refresh"}/>}/>
+
         </Tabs>
 
 

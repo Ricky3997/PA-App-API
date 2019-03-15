@@ -17,6 +17,7 @@ import connect from "react-redux/es/connect/connect";
 import MentorAdminprofile from "./MentorAdminProfile";
 import MenteeAdminProfile from "./MenteeAdminProfile";
 import UniversityPicker from "../../various/forms/UniversityPicker";
+import { adminChangeUserStatus, toggleAdminModal } from "../../../actions/actionCreator";
 
 const { Option } = Select;
 
@@ -42,19 +43,31 @@ class Database extends Component {
   render() {
 
     const ConnectedMentorProfile = connect(({ admin }) => {
-      return { beadcrumbs: true, mentor: admin.mentors.filter(m => m._id === this.props.id)[0] };
+      return { beadcrumbs: true,
+        showModal: admin.showModal,
+        mentor: admin.mentors.filter(m => m._id === this.props.match.params.id)[0] };
     }, dispatch => {
-      return {};
+      return {
+        changeStatus: (id,status,rejectionReason) => dispatch(adminChangeUserStatus("mentor", id, status,rejectionReason)),
+        toggleAdminModal: () => dispatch(toggleAdminModal())
+      };
     })(MentorAdminprofile);
 
     const ConnectedMenteeProfile = connect(({ admin }) => {
-      return { beadcrumbs: true, mentee: admin.mentees.filter(m => m._id === this.props.id)[0], details: true};
+      return { beadcrumbs: true,
+        showModal: admin.showModal,
+        mentee: admin.mentees.filter(m => m._id === this.props.match.params.id)[0], details: true};
     }, dispatch => {
-      return {};
+      return {
+        changeStatus: (id,status,rejectionReason) => dispatch(adminChangeUserStatus("mentee", id, status,rejectionReason)),
+        toggleAdminModal: () => dispatch(toggleAdminModal())
+      };
     })(MenteeAdminProfile);
 
-    if (this.props.id && this.props.mode === "mentors") return <ConnectedMentorProfile/>;
-    else if (this.props.id) return <ConnectedMenteeProfile/>;
+
+
+    if (this.props.match.params.id && this.props.mode === "mentors") return <ConnectedMentorProfile/>;
+    else if (this.props.match.params.id && this.props.mode === "mentees") return <ConnectedMenteeProfile/>;
     else return (
         <Formik
           render={({ values, touched, errors, isSubmitting, setFieldValue }) => {
@@ -86,8 +99,7 @@ class Database extends Component {
 
                 <Container fluid>
                   <Row>
-                    <Col md={3}>
-
+                    <Col md={5}>
                       <Field
                         type="select"
                         name="search"
@@ -103,9 +115,11 @@ class Database extends Component {
 
                         }}
                       />
-
+                    </Col>
+                    <Col md={1}>
                       <h5><Icon name="fas fa-filter"/> {" Filter"}</h5>
-
+                    </Col>
+                    <Col md={2}>
                       <Field
                         type="select"
                         name="university"
@@ -114,46 +128,47 @@ class Database extends Component {
                                                    errors={errors} multiple/>;
                         }}
                       />
-
-                      <br/>
-
-                      <Field
-                        type="select"
-                        name="subject"
-                        render={({ field }) => {
-                          return <Select allowClear size={"large"}
-                                         showSearch
-                                         mode="tags"
-                                         value={field.value}
-                                         placeholder={"Subject"}
-                                         onChange={(o) => setFieldValue(field.name, o)}>
-                            {this.createListOfSubjectsToFilter(mentorMode).map((v) => <Option key={v}
-                                                                                              value={v}>{v}</Option>)}
-                          </Select>;
-
-                        }}
-                      />
-
-                      <Field
-                        type="select"
-                        name="status"
-                        render={({ field }) => {
-                          return <Select allowClear size={"large"}
-                                         showSearch
-                                         mode="tags"
-                                         value={field.value}
-                                         placeholder={"Status"}
-                                         onChange={(o) => setFieldValue(field.name, o)}>
-                            {this.createListOfStatuses(mentorMode).map((v) => <Option key={v} value={v}>{v}</Option>)}
-                          </Select>;
-
-                        }}
-                      />
-
                     </Col>
-                    <Col md={9}>
+                    <Col  md={2}>
+                      <Field
+                      type="select"
+                      name="subject"
+                      render={({ field }) => {
+                        return <Select allowClear size={"large"}
+                                       showSearch
+                                       mode="tags"
+                                       value={field.value}
+                                       placeholder={"Subject"}
+                                       onChange={(o) => setFieldValue(field.name, o)}>
+                          {this.createListOfSubjectsToFilter(mentorMode).map((v) => <Option key={v}
+                                                                                            value={v}>{v}</Option>)}
+                        </Select>;
+
+                      }}
+                    />
+                    </Col>
+                    <Col md={2}>
+                      <Field
+                      type="select"
+                      name="status"
+                      render={({ field }) => {
+                        return <Select allowClear size={"large"}
+                                       showSearch
+                                       mode="tags"
+                                       value={field.value}
+                                       placeholder={"Status"}
+                                       onChange={(o) => setFieldValue(field.name, o)}>
+                          {this.createListOfStatuses(mentorMode).map((v) => <Option key={v} value={v}>{v}</Option>)}
+                        </Select>;
+
+                      }}
+                    />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col md={12}>
                       <CardColumns>
-                        {toRender.map(m => <UserCard history={this.props.history} mentorMode={mentorMode} {...m}
+                        {toRender.sort((a,b) => a.status === 'requested' ? (b.status ===  'requested' ? 0 : -1) : 1).map(m => <UserCard history={this.props.history} mentorMode={mentorMode} {...m}
                                                      key={m._id}
                                                      addFilterParam={(fieldName, param) => {
                                                        let newVals = [];

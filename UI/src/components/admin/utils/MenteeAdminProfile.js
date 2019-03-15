@@ -18,6 +18,8 @@ import { Icon } from "react-fa";
 import moment from "moment";
 import defaults from "../../../defaults/defaults";
 import MenteeProfileMentorTile from "./MenteeProfileMentorTile";
+import { toast } from "react-toastify";
+import RejectionReasonModal from "./RejectionReasonModal";
 
 
 const MenteeAdminProfile = (props) => {
@@ -31,7 +33,7 @@ const MenteeAdminProfile = (props) => {
   return <Container>
     {props.beadcrumbs ? <Row>
       <Breadcrumb>
-        <LinkContainer to={"/admin/mentees/database"}>
+        <LinkContainer to={"/admin/mentees"}>
           <Breadcrumb.Item>Database</Breadcrumb.Item>
         </LinkContainer>
         <Breadcrumb.Item active href="#">{props.mentee.firstName}</Breadcrumb.Item>
@@ -43,7 +45,7 @@ const MenteeAdminProfile = (props) => {
         <ProfileIcon menteeMode pictureUrl={props.mentee.pictureUrl} size={"xl"}/>
       </Col>
       <Col md={2}>
-        {props.matching ? <LinkContainer to={`/admin/mentees/database/${props.mentee._id}`}
+        {props.matching ? <LinkContainer to={`/admin/mentees/${props.mentee._id}`}
                                              style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>
           <h4>{props.mentee.firstName}</h4>
         </LinkContainer> : <h4>{props.mentee.firstName}</h4>}
@@ -58,11 +60,17 @@ const MenteeAdminProfile = (props) => {
             </span>
         </OverlayTrigger>
       </Col>}
-      {props.details && props.mentee.status === "requested" ? <Col md={2}>
-        <LinkContainer to={`/admin/mentees/approvals/${props.mentee._id}`}>
-          <Button block variant="warning"><Icon name="fas fa-balance-scale"/> Approve</Button>
-        </LinkContainer>
-      </Col> : null}
+
+      {props.approvalMode || props.mentee.status !== "requested"|| props.matching ? null : <Col md={2}>
+        <Button block variant="danger"
+                onClick={props.toggleAdminModal}> Reject </Button>
+      </Col>}
+      {props.approvalMode || props.mentee.status !== "requested"|| props.matching ? null : <Col md={2}>
+        <Button block variant="success"
+                onClick={() => props.changeStatus(props.mentor._id, "approved").then(r => {
+                  if (r.success) toast.success("Approved");
+                })}> Approve </Button>
+      </Col>}
       {props.details && props.mentee.status === "approved" && !props.mentee.relationship ? <Col md={2}>
         <LinkContainer to={`/admin/matching/${props.mentee._id}`}>
           <Button block variant="info"><Icon name="fas fa-bullseye"/> Match</Button>
@@ -240,6 +248,9 @@ const MenteeAdminProfile = (props) => {
         </div> : "No Mentor Yet and No Blacklist")}
       </Col>
     </Row>}
+
+    <RejectionReasonModal showModal={props.showModal} name={props.mentee.firstName} id={props.mentee._id}
+                          onHide={props.toggleAdminModal} changeStatus={props.changeStatus} />
   </Container>;
 };
 
