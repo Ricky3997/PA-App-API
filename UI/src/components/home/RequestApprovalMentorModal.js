@@ -43,7 +43,7 @@ const RequestApprovalMentorModal = (props) => {
         .required('Max number of Mentees required'),
       notes: Yup.string()
     })}
-    initialValues={{confirmCommittment: false, initialValues}}
+    initialValues={{confirmCommittment: false, ...initialValues}}
     onSubmit={(values, { setSubmitting }) => {
       setSubmitting(false);
     }}

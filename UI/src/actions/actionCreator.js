@@ -97,6 +97,7 @@ export const getUser = () => {
       else {
         window.localStorage.removeItem("token");
         window.localStorage.removeItem("user");
+        dispatch(removeUser());
       }
       return r;
     })
@@ -214,7 +215,7 @@ const updateAndStoreUser = (dispatch, user ) => {
     if (user.type === "mentee") {
       dispatch(changeActiveJourneyModule(user.menteeProfile.journey.filter(m => !m.completed && m.ready)[0].typeformID));
     } else {
-      dispatch(setMentorHomeProgress(user.mentorProfile.status === "requested" ? 70 : 40));
+      dispatch(setMentorHomeProgress(user.emailConfirmed  ? (user.mentorProfile.status === "requested" ? 70 : 40) : 10));
     }
   }
 };

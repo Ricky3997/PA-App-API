@@ -147,7 +147,8 @@ class MentorHome extends Component {
                               if (r.success) {
                                 this.props.toggleMentorHomeModal();
                                 toast.success("Request sent");
-                              }
+                              } else toast.error('Error ')
+
                             })
                             }
                             onHide={(properties) => {

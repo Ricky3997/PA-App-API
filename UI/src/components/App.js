@@ -52,7 +52,6 @@ import { Container } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 
 class App extends Component {
-
   render() {
     const { user, removeUser, history, location } = this.props;
     return (
