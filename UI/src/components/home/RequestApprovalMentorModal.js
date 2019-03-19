@@ -158,7 +158,8 @@ const RequestApprovalMentorModal = (props) => {
                 <h6>What are your hobbies?<span style={{color: 'red'}}>*</span></h6>
 
                 <Field name="hobbiesAndInterests" render={({ field, form: { touched, errors } }) => <Select showSearch
-                                                                                                            size={"large"} mode="multiple"
+                                                                                                            size={"large"}
+                                                                                                            mode="tags"
                                                                                                             style={{ width: "100%" }}
                                                                                                             value={field.value}
                                                                                                             placeholder={ 'Painting, running..'}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, Card, Image, ProgressBar } from "react-bootstrap";
+import { Badge, Button, Card, Image, OverlayTrigger, ProgressBar, Tooltip } from "react-bootstrap";
 import ConfirmMatchButton from "./ConfirmMatchButton";
 import ProfileIcon from "../../various/ProfileIcon";
 import connect from "react-redux/es/connect/connect";
@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import HoverForDetails from "../matching/HoverForDetails";
 import countries from "svg-country-flags/countries";
+import { LinkContainer } from "react-router-bootstrap";
 
 const UserCard = (props) => {
 
@@ -78,11 +79,16 @@ const UserCard = (props) => {
           <Image alt={props.country}
                  width="15px" src={flag}/>
           <span>{" "}</span>
-          <Link to={`/admin/${props.mentorMode ? "mentors" : "mentees"}/${props._id}`} style={{
-            textDecoration: "underline", color: "blue",
-            cursor: "pointer"
-          }}>{`${props.firstName} ${props.lastName}`}
-          </Link>
+          <OverlayTrigger placement="bottom" trigger="hover"
+                          overlay={<Tooltip placement="bottom" className="in">Go to profile</Tooltip>}>
+            <Link to={`/admin/${props.mentorMode ? "mentors" : "mentees"}/${props._id}`} style={{
+              textDecoration: "underline", color: "blue",
+              cursor: "pointer"
+            }}>
+              {`${props.firstName} ${props.lastName}`}
+            </Link>
+          </OverlayTrigger>
+
 
         </Card.Title>
 

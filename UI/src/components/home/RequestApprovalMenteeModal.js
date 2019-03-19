@@ -6,10 +6,11 @@ import * as Yup from "yup";
 import * as _ from "lodash";
 import { Checkbox, Select } from "antd";
 import defaults from "../../defaults/defaults";
+
 const { Option } = Select;
 
 const RequestApprovalMenteeModal = (props) => {
-  const {showModal, ...initialValues} = props.menteeHome; //destructure props so you avoid passing down showModal to the values held in formik
+  const { showModal, ...initialValues } = props.menteeHome; //destructure props so you avoid passing down showModal to the values held in formik
   return <Formik
     validationSchema={Yup.object().shape({
       confirmCommittment: Yup.mixed().oneOf([true])
@@ -21,18 +22,18 @@ const RequestApprovalMenteeModal = (props) => {
       fromThreeLargestCity: Yup.number()
         .required("fromThreeLargestCity is required."),
       hobbiesAndInterests: Yup.array()
-        .required('hobbiesAndInterests required'),
+        .required("hobbiesAndInterests required"),
       careerInterests: Yup.array()
-        .required('careerInterests required'),
+        .required("careerInterests required"),
       yearBorn: Yup.number()
         .required("yearBorn is required."),
       yearStart: Yup.number()
         .required("yearStart is required."),
       referral: Yup.array()
-      .required('referral required'),
+        .required("referral required"),
       notes: Yup.string()
     })}
-    initialValues={{confirmCommittment: false, ...initialValues}}
+    initialValues={{ confirmCommittment: false, ...initialValues }}
     onSubmit={(values, { setSubmitting }) => {
       setSubmitting(false);
     }}
@@ -58,118 +59,120 @@ const RequestApprovalMenteeModal = (props) => {
                 <h6>What's your ethnic background?</h6>
 
                 <Field name="ethnicBackground" render={({ field, form: { touched, errors } }) => <Select showSearch
-                                                                                                 size={"large"}
-                                                                                                 style={{ width: "100%" }}
-                                                                                                 value={field.value}
-                                                                                                 placeholder={ 'White, Black African, Mixed...'}
-                                                                                                 onChange={(o) => setFieldValue(field.name, o)}
-                                                                                                 tokenSeparators={[",", ":"]}>
+                                                                                                         size={"large"}
+                                                                                                         style={{ width: "100%" }}
+                                                                                                         value={field.value}
+                                                                                                         placeholder={"White, Black African, Mixed..."}
+                                                                                                         onChange={(o) => setFieldValue(field.name, o)}
+                                                                                                         tokenSeparators={[",", ":"]}>
 
 
                   {defaults.ethnic_background.map(e => <Option key={e} value={e}>{e}</Option>)}
 
-                </Select> } />
+                </Select>}/>
               </Col>
             </Row>
 
-            <br />
+            <br/>
 
             <Row>
               <Col>
-                <h6>What type of school is {props.user.menteeProfile.school}? <span aria-labelledby={'school'} role={'img'}>🏫</span></h6>
+                <h6>What type of school is {props.user.menteeProfile.school}? <span aria-labelledby={"school"}
+                                                                                    role={"img"}>🏫</span></h6>
 
                 <Field name="typeOfHighSchool" render={({ field, form: { touched, errors } }) => <Select showSearch
-                                                                                                          size={"large"}
-                                                                                                          style={{ width: "100%" }}
-                                                                                                          value={field.value}
-                                                                                                          placeholder={ 'State selective, State non selective...'}
-                                                                                                          onChange={(o) => setFieldValue(field.name, o)}
-                                                                                                          tokenSeparators={[",", ":"]}>
+                                                                                                         size={"large"}
+                                                                                                         style={{ width: "100%" }}
+                                                                                                         value={field.value}
+                                                                                                         placeholder={"State selective, State non selective..."}
+                                                                                                         onChange={(o) => setFieldValue(field.name, o)}
+                                                                                                         tokenSeparators={[",", ":"]}>
 
 
                   {defaults.school_type.map(e => <Option key={e} value={e}>{e}</Option>)}
 
-                </Select> } />
+                </Select>}/>
               </Col>
               <Col>
                 <h6>Are you from one of the 3 largest cities in {props.user.menteeProfile.country}?</h6>
 
                 <Field name="fromThreeLargestCity" render={({ field, form: { touched, errors } }) => <Select showSearch
-                                                                                                           size={"large"}
-                                                                                                           style={{ width: "100%" }}
-                                                                                                           value={field.value}
-                                                                                                           placeholder={ 'Yes, No'}
-                                                                                                           onChange={(o) => setFieldValue(field.name, o)}
-                                                                                                           tokenSeparators={[",", ":"]}>
+                                                                                                             size={"large"}
+                                                                                                             style={{ width: "100%" }}
+                                                                                                             value={field.value}
+                                                                                                             placeholder={"Yes, No"}
+                                                                                                             onChange={(o) => setFieldValue(field.name, o)}
+                                                                                                             tokenSeparators={[",", ":"]}>
 
 
                   <Option value={1}>Yes</Option>
                   <Option value={0}>No</Option>
 
-                </Select> } />
+                </Select>}/>
               </Col>
             </Row>
 
-            <br />
+            <br/>
 
             <Row>
               <Col>
                 <h6>What are your hobbies?</h6>
 
                 <Field name="hobbiesAndInterests" render={({ field, form: { touched, errors } }) => <Select showSearch
-                                                                                                             size={"large"} mode="multiple"
-                                                                                                             style={{ width: "100%" }}
-                                                                                                             value={field.value}
-                                                                                                             placeholder={ 'Painting, running..'}
-                                                                                                             onChange={(o) => setFieldValue(field.name, o)}
-                                                                                                             tokenSeparators={[",", ":"]}>
+                                                                                                            size={"large"}
+                                                                                                            mode="tags"
+                                                                                                            style={{ width: "100%" }}
+                                                                                                            value={field.value}
+                                                                                                            placeholder={"Painting, running.."}
+                                                                                                            onChange={(o) => setFieldValue(field.name, o)}
+                                                                                                            tokenSeparators={[",", ":"]}>
 
 
                   {defaults.interests_and_hobbies.map(e => <Option key={e} value={e}>{e}</Option>)}
 
-                </Select> } />
+                </Select>}/>
               </Col>
             </Row>
 
-            <br />
+            <br/>
 
             <Row>
               <Col>
-              <h6>What year do you expect to start University?</h6>
+                <h6>What year do you expect to start University?</h6>
 
-              <Field name="yearStart" render={({ field, form: { touched, errors } }) => <Select showSearch
-                                                                                               size={"large"}
-                                                                                               style={{ width: "100%" }}
-                                                                                               value={field.value}
-                                                                                               placeholder={ '1991,1997....'}
-                                                                                               onChange={(o) => setFieldValue(field.name, o)}
-                                                                                               tokenSeparators={[",", ":"]}>
+                <Field name="yearStart" render={({ field, form: { touched, errors } }) => <Select showSearch
+                                                                                                  size={"large"}
+                                                                                                  style={{ width: "100%" }}
+                                                                                                  value={field.value}
+                                                                                                  placeholder={"1991,1997...."}
+                                                                                                  onChange={(o) => setFieldValue(field.name, o)}
+                                                                                                  tokenSeparators={[",", ":"]}>
 
 
-                {defaults.yearGraduate.map(e => <Option key={e} value={e}>{e}</Option>)}
+                  {defaults.yearGraduate.map(e => <Option key={e} value={e}>{e}</Option>)}
 
-              </Select> } />
+                </Select>}/>
               </Col>
               <Col>
-                <h6>What year were you born? <span aria-labelledby={'newborn'} role={'img'}>🐣</span></h6>
+                <h6>What year were you born? <span aria-labelledby={"newborn"} role={"img"}>🐣</span></h6>
 
                 <Field name="yearBorn" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                  size={"large"}
                                                                                                  style={{ width: "100%" }}
                                                                                                  value={field.value}
-                                                                                                 placeholder={ '1991,1997....'}
+                                                                                                 placeholder={"1991,1997...."}
                                                                                                  onChange={(o) => setFieldValue(field.name, o)}
                                                                                                  tokenSeparators={[",", ":"]}>
 
 
                   {defaults.yearBorn.map(e => <Option key={e} value={e}>{e}</Option>)}
 
-                </Select> } />
+                </Select>}/>
               </Col>
 
             </Row>
 
-            <br />
+            <br/>
 
             {/*Not convinced we need, but have to check:
             1) Phone Number
@@ -184,43 +187,45 @@ const RequestApprovalMenteeModal = (props) => {
                 <h6>What are your career interests after studying at {props.user.menteeProfile.university}</h6>
 
                 <Field name="careerInterests" render={({ field, form: { touched, errors } }) => <Select showSearch
-                                                                                                        size={"large"} mode="multiple"
+                                                                                                        size={"large"}
+                                                                                                        mode="multiple"
                                                                                                         style={{ width: "100%" }}
                                                                                                         value={field.value}
-                                                                                                        placeholder={ 'Finance, engineering..'}
+                                                                                                        placeholder={"Finance, engineering.."}
                                                                                                         onChange={(o) => setFieldValue(field.name, o)}
                                                                                                         tokenSeparators={[",", ":"]}>
 
 
                   {defaults.career_interests.map(e => <Option key={e} value={e}>{e}</Option>)}
 
-                </Select> } />
+                </Select>}/>
               </Col>
             </Row>
-            <br />
+            <br/>
 
             <Row>
               <Col>
-                <h6>Who referred you to us? Because we’d like to send them a thank you <span aria-labelledby={'gift'} role={'img'}>🎁</span></h6>
+                <h6>Who referred you to us? Because we’d like to send them a thank you <span aria-labelledby={"gift"}
+                                                                                             role={"img"}>🎁</span></h6>
 
                 <Field name="referral" render={({ field, form: { touched, errors } }) => <Select showSearch
-                                                                                                 mode={ "multiple"}
+                                                                                                 mode={"multiple"}
                                                                                                  size={"large"}
                                                                                                  style={{ width: "100%" }}
                                                                                                  value={field.value}
-                                                                                                 placeholder={ 'Google, Instagram..'}
+                                                                                                 placeholder={"Google, Instagram.."}
                                                                                                  onChange={(o) => setFieldValue(field.name, o)}
                                                                                                  tokenSeparators={[",", ":"]}>
 
 
                   {defaults.referrer.map(e => <Option key={e} value={e}>{e}</Option>)}
 
-                </Select> } />
+                </Select>}/>
               </Col>
             </Row>
 
 
-            <br />
+            <br/>
             <Row>
               <Col>
                 <h6>Anything else you might want to add?</h6>
@@ -234,12 +239,13 @@ const RequestApprovalMenteeModal = (props) => {
               </Col>
             </Row>
 
-            <br />
+            <br/>
             <Row>
               <Col>
                 <Field name="committment" render={({ field, form: { touched, errors } }) => <span>
-                  <Checkbox checked={values.confirmCommittment} onChange={(e) => setFieldValue('confirmCommittment', e.target.checked)}/>
-                  <b>{' I am committing to being an active mentee and make sure I make the most of my mentor\'s  help'}</b>
+                  <Checkbox checked={values.confirmCommittment}
+                            onChange={(e) => setFieldValue("confirmCommittment", e.target.checked)}/>
+                  <b>{" I am committing to being an active mentee and make sure I make the most of my mentor's  help"}</b>
                 </span>
                 }
                 />
@@ -256,13 +262,14 @@ const RequestApprovalMenteeModal = (props) => {
 
           </Modal.Body>
           <Modal.Footer>
-            <Button type="submit" onClick={() => props.onSubmit(values)} variant="success" disabled={isSubmitting || !_.isEmpty(errors)} >
+            <Button type="submit" onClick={() => props.onSubmit(values)} variant="success"
+                    disabled={isSubmitting || !_.isEmpty(errors)}>
               <span>{"Let's go "} <Icon name="fas fa-arrow-right"/> </span>
             </Button>
           </Modal.Footer>
         </Modal>
       </FormikForm>
-    )}/>
+    )}/>;
 };
 
 export default RequestApprovalMenteeModal;

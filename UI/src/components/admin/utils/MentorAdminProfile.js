@@ -65,6 +65,7 @@ const MentorAdminProfile = (props) => {
         <Button block variant="success"
                 onClick={() => props.changeStatus(props.mentor._id, "approved").then(r => {
                   if (r.success) toast.success("Approved");
+                  props.history.push('/admin/mentors')
                 })}> Approve </Button>
       </Col>}
     </Row>

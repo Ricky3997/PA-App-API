@@ -43,27 +43,32 @@ class Database extends Component {
   render() {
 
     const ConnectedMentorProfile = connect(({ admin }) => {
-      return { beadcrumbs: true,
+      return {
+        beadcrumbs: true,
         showModal: admin.showModal,
-        mentor: admin.mentors.filter(m => m._id === this.props.match.params.id)[0] };
+        history: this.props.history,
+        mentor: admin.mentors.filter(m => m._id === this.props.match.params.id)[0]
+      };
     }, dispatch => {
       return {
-        changeStatus: (id,status,rejectionReason) => dispatch(adminChangeUserStatus("mentor", id, status,rejectionReason)),
+        changeStatus: (id, status, rejectionReason) => dispatch(adminChangeUserStatus("mentor", id, status, rejectionReason)),
         toggleAdminModal: () => dispatch(toggleAdminModal())
       };
     })(MentorAdminprofile);
 
     const ConnectedMenteeProfile = connect(({ admin }) => {
-      return { beadcrumbs: true,
+      return {
+        beadcrumbs: true,
         showModal: admin.showModal,
-        mentee: admin.mentees.filter(m => m._id === this.props.match.params.id)[0], details: true};
+        history: this.props.history,
+        mentee: admin.mentees.filter(m => m._id === this.props.match.params.id)[0], details: true
+      };
     }, dispatch => {
       return {
-        changeStatus: (id,status,rejectionReason) => dispatch(adminChangeUserStatus("mentee", id, status,rejectionReason)),
+        changeStatus: (id, status, rejectionReason) => dispatch(adminChangeUserStatus("mentee", id, status, rejectionReason)),
         toggleAdminModal: () => dispatch(toggleAdminModal())
       };
     })(MenteeAdminProfile);
-
 
 
     if (this.props.match.params.id && this.props.mode === "mentors") return <ConnectedMentorProfile/>;
@@ -129,54 +134,48 @@ class Database extends Component {
                         }}
                       />
                     </Col>
-                    <Col  md={2}>
+                    <Col md={2}>
                       <Field
-                      type="select"
-                      name="subject"
-                      render={({ field }) => {
-                        return <Select allowClear size={"large"}
-                                       showSearch
-                                       mode="tags"
-                                       value={field.value}
-                                       placeholder={"Subject"}
-                                       onChange={(o) => setFieldValue(field.name, o)}>
-                          {this.createListOfSubjectsToFilter(mentorMode).map((v) => <Option key={v}
-                                                                                            value={v}>{v}</Option>)}
-                        </Select>;
+                        type="select"
+                        name="subject"
+                        render={({ field }) => {
+                          return <Select allowClear size={"large"}
+                                         showSearch
+                                         mode="tags"
+                                         value={field.value}
+                                         placeholder={"Subject"}
+                                         onChange={(o) => setFieldValue(field.name, o)}>
+                            {this.createListOfSubjectsToFilter(mentorMode).map((v) => <Option key={v}
+                                                                                              value={v}>{v}</Option>)}
+                          </Select>;
 
-                      }}
-                    />
+                        }}
+                      />
                     </Col>
                     <Col md={2}>
                       <Field
-                      type="select"
-                      name="status"
-                      render={({ field }) => {
-                        return <Select allowClear size={"large"}
-                                       showSearch
-                                       mode="tags"
-                                       value={field.value}
-                                       placeholder={"Status"}
-                                       onChange={(o) => setFieldValue(field.name, o)}>
-                          {this.createListOfStatuses(mentorMode).map((v) => <Option key={v} value={v}>{v}</Option>)}
-                        </Select>;
+                        type="select"
+                        name="status"
+                        render={({ field }) => {
+                          return <Select allowClear size={"large"}
+                                         showSearch
+                                         mode="tags"
+                                         value={field.value}
+                                         placeholder={"Status"}
+                                         onChange={(o) => setFieldValue(field.name, o)}>
+                            {this.createListOfStatuses(mentorMode).map((v) => <Option key={v} value={v}>{v}</Option>)}
+                          </Select>;
 
-                      }}
-                    />
+                        }}
+                      />
                     </Col>
                   </Row>
                   <Row>
                     <Col md={12}>
                       <CardDeck>
-                        {toRender.sort((a,b) => a.status === 'requested' ? (b.status ===  'requested' ? 0 : -1) : 1).map(m => <UserCard history={this.props.history} mentorMode={mentorMode} {...m}
-                                                     key={m._id}
-                                                     addFilterParam={(fieldName, param) => {
-                                                       let newVals = [];
-                                                       if (!values[fieldName]) newVals.push(param);
-                                                       else if (values[fieldName].filter(f => f === param).length === 0) newVals = [...values[fieldName], param];
-                                                       else return;
-                                                       setFieldValue(fieldName, newVals);
-                                                     }}/>)}
+                        {toRender.sort((a, b) => a.status === "requested" ? (b.status === "requested" ? 0 : -1) : 1).map(m =>
+                          <UserCard history={this.props.history} mentorMode={mentorMode} {...m}
+                                    key={m._id}/>)}
                       </CardDeck>
                       {toRender.length === 0 && _.get(values, "search.length") > 0 ?
                         <div>
