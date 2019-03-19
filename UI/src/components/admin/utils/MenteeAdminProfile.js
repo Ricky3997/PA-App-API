@@ -67,7 +67,7 @@ const MenteeAdminProfile = (props) => {
       </Col>}
       {props.approvalMode || props.mentee.status !== "requested"|| props.matching ? null : <Col md={2}>
         <Button block variant="success"
-                onClick={() => props.changeStatus(props.mentor._id, "approved").then(r => {
+                onClick={() => props.changeStatus(props.mentee._id, "approved").then(r => {
                   if (r.success) toast.success("Approved");
                 })}> Approve </Button>
       </Col>}

@@ -26,6 +26,7 @@ const Mentee = mongoose.model('Mentee', new mongoose.Schema({
   pictureUrl: String,
   status: String,
   firstName: String,
+  lastName: String,
   journey: [{
     title: String,
     description: String,

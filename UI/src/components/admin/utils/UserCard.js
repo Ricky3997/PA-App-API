@@ -10,8 +10,7 @@ import {
   toggleMatchingDetailsModal
 } from "../../../actions/actionCreator";
 import { Link } from "react-router-dom";
-import StatusIcon from "./StatusIcon";
-import MentorMatchingDetailsModal from "../matching/MentorMatchingDetailsModal";
+import HoverForDetails from "../matching/HoverForDetails";
 import countries from "svg-country-flags/countries";
 
 const UserCard = (props) => {
@@ -33,16 +32,18 @@ const UserCard = (props) => {
     };
   })(ConfirmMatchButton);
 
-  const ShowMentorMatchingDetailsModal = connect(({ matching }) => {
+  const ConnectedHoverForDetails = connect(({ matching }) => {
     return {
       mentor: { ...props },
+      mentee: { ...props },
+      mentorMode: props.mentorMode,
       matching
     };
   }, dispatch => {
     return {
       toggleMatchingDetailsModal: (id) => dispatch(toggleMatchingDetailsModal(id))
     };
-  })(MentorMatchingDetailsModal);
+  })(HoverForDetails);
 
   let flagIndex = "";
   Object.entries(countries).forEach((a) => {
@@ -56,8 +57,9 @@ const UserCard = (props) => {
                                                                 label={`Mentees: ${current}/${capacity}`}/>;
 
   return (
-    <Card className="text-center" key={props._id} style={{minWidth: '200px', maxWidth: '200px', marginBottom: '20px'}} >
-      <Card.Header style={props.status === 'requested' ? {backgroundColor:  '#ffde89'} :  {}}>
+    <Card className="text-center" key={props._id}
+          style={{ minWidth: "200px", maxWidth: "200px", marginBottom: "20px" }}>
+      <Card.Header style={props.status === "requested" ? { backgroundColor: "#ffde89" } : {}}>
         <ProfileIcon mentorMode={props.mentorMode} pictureUrl={props.pictureUrl} size={"m"}/>
         {props.mentorMode ? (props.relationship.length > 0 ? props.relationship.map(r => <ProfileIcon
           key={r.mentee._id}
@@ -68,7 +70,8 @@ const UserCard = (props) => {
           <Badge variant={"warning"}>pending approval</Badge> : null}
         {!props.matching && !props.mentorMode && !props.relationship && props.status === "approved" ?
           <Badge variant={"info"}>pending match</Badge> : null}
-        {props.matching && props.mentorMode ? <span>{'  '}<Badge style={{fontSize: '24px'}} variant={props.score > 80 ? 'success' : (props.score > 60 ? 'warning' : "danger")}>{Math.floor(props.score)}%</Badge></span>: null}
+        {props.matching && props.mentorMode ? <span>{"  "}<Badge style={{ fontSize: "20px" }}
+                                                                 variant={props.score > 80 ? "success" : (props.score > 60 ? "warning" : "danger")}>{Math.floor(props.score)}%</Badge></span> : null}
       </Card.Header>
       <Card.Body>
         <Card.Title>
@@ -78,56 +81,15 @@ const UserCard = (props) => {
           <Link to={`/admin/${props.mentorMode ? "mentors" : "mentees"}/${props._id}`} style={{
             textDecoration: "underline", color: "blue",
             cursor: "pointer"
-          }}>{props.firstName}
+          }}>{`${props.firstName} ${props.lastName}`}
           </Link>
-          <span>
-            {" "}
-            </span>
-          <span>
-            <StatusIcon status={props.status} reason={props.rejectionReason}/>
-          </span>
-          {props.matching ? <ShowMentorMatchingDetailsModal/> : null}
-        </Card.Title>
-        {props.addFilterParam ?
-          <div>
-            {props.mentorMode ? <div>
-               <span onClick={() => props.addFilterParam("subject", props.subject)}
-                     style={{ color: "blue", cursor: "pointer" }}>{props.subject}</span>
-                <span>{" at "}</span>
-                <span onClick={() => props.addFilterParam("university", props.university)}
-                      style={{ color: "blue", cursor: "pointer" }}>{props.university}</span>
-                <div>
-                  {MenteeCapacityBar(props.relationship.length, props.maxNumberOfMentees)}
-                </div>
-              </div> :
-              <span>
-              {props.interestedIn.map((s, i) => <span onClick={() => props.addFilterParam("subject", s)}
-                                                      key={i}
-                                                      style={{
-                                                        color: "blue",
-                                                        cursor: "pointer"
-                                                      }}>{`${s}${i !== (props.interestedIn.length - 1) ? "," : ""} `}</span>)}
 
-                <span>{" at "}</span>
-                {props.unisApplyingFor.map((u, i) => <span onClick={() => props.addFilterParam("university", u)}
-                                                           key={i}
-                                                           style={{
-                                                             color: "blue",
-                                                             cursor: "pointer"
-                                                           }}>{`${u}${i !== (props.unisApplyingFor.length - 1) ? "," : ""} `}</span>)}
-            </span>
-            }
-          </div>
-          : <div>
-            {props.mentorMode ? <div>
-              <div>
-                {`${props.subject} at ${props.university}`}
-              </div>
-              <div>
-                {MenteeCapacityBar(props.relationship.length, props.maxNumberOfMentees)}
-              </div>
-            </div> : "mentee"}
-          </div>}
+        </Card.Title>
+
+        <ConnectedHoverForDetails/>
+
+        {props.mentorMode ? MenteeCapacityBar(props.relationship.length, props.maxNumberOfMentees) : null}
+
       </Card.Body>
       {props.matching ?
         <Card.Footer>

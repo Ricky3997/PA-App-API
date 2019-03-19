@@ -78,7 +78,7 @@ const AnagraphicInfoStep = (props) => {
         <br/>
         <Row>
           <Col md={{ span: 2, offset: 3 }}>
-            <Button disabled block onClick={() => props.changeStage(2)}>
+            <Button disabled block>
               <span><Icon name="fas fa-arrow-left"/>{" Previous"}  </span>
             </Button>
           </Col>

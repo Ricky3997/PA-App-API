@@ -26,11 +26,15 @@ class Matching extends Component {
     this.search.addIndex("firstName");
     this.search.addIndex("university");
     this.search.addIndex("subject");
-    this.search.addDocuments(props.mentors);
+    this.search.addDocuments(props.matching.mentorRecommendations);
   }
 
   componentDidMount() {
     if (this.props.match.params.id) this.props.changeMenteeBeingMatched(this.props.match.params.id);
+  }
+
+  componentWillReceiveProps(nextProps, nextContext) {
+    this.search.addDocuments(nextProps.matching.mentorRecommendations);
   }
 
   render() {
@@ -43,7 +47,7 @@ class Matching extends Component {
 
     return (
       <Row>
-        <Col md={3}>
+        <Col md={2}>
           <h5>Mentees to match </h5>
           <ListGroup>
             {mentees.length === 0 ?
@@ -58,7 +62,7 @@ class Matching extends Component {
             )}
           </ListGroup>
         </Col>
-        <Col md={9}>
+        <Col md={10}>
           {toMatch ?
             <Container fluid>
               <Row>
@@ -104,12 +108,13 @@ class Matching extends Component {
                                 <LoadingCard/>
                                 <LoadingCard/>
                               </CardDeck> :
-                              <CardColumns>
-                                {mentorsToRender.sort((a, b) => Number(b.score) - Number(a.score)).map(m => <UserCard successToast={successToast} matching
-                                                                          mentorMode key={m._id}
-                                                                          menteeToMatch={toMatch._id} {...m}
-                                                                          changeSearch={(p) => setFieldValue("search", p)}/>)}
-                              </CardColumns>}
+                              <CardDeck>
+                                {mentorsToRender.sort((a, b) => Number(b.score) - Number(a.score)).map(m => <UserCard
+                                  successToast={successToast} matching
+                                  mentorMode key={m._id}
+                                  menteeToMatch={toMatch._id} {...m}
+                                />)}
+                              </CardDeck>}
                           </div>
                         </FormikForm>
                       );

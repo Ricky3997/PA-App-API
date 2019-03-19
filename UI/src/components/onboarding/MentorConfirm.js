@@ -90,7 +90,6 @@ const MentorConfirm = (props) => {
       </Col>
     </Row>
 
-
     <Row>
       <Col md={{ span: 2, offset: 3 }}>
         <Button block onClick={() => props.changeStage(3)}>

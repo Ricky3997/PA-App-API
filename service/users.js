@@ -51,7 +51,7 @@ editProfile = async (req, res) => {
         fieldsToUpdate.email = changedUserData.email;
         fieldsToUpdate.emailConfirmed = false;
         const newToken = authService.createToken(changedUserData.email, id);
-        mailService.sendConfirmationToken(changedUserData.email, id, newToken);  //TODO Return updated token and check unique
+        mailService.sendConfirmationToken(changedUserData.firstName, changedUserData.email, id, newToken);  //TODO Return updated token and check unique
       }
 
       let profile

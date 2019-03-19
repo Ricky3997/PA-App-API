@@ -14,20 +14,21 @@ const confirm = async (id, token) => {
   } else return { error: "ID provided does not match authentication token" };
 };
 
-const register = async (email, firstName, type) => {
+const register = async (email, firstName, lastName, type) => {
   try {
     const id = new mongoose.Types.ObjectId();
     const token = createToken(email, id);
     const user = await new User({
       _id: id,
       firstName: firstName,
+      lastName: lastName,
       type: type,
       email: email,
       signedUpOn: new Date(),
       emailConfirmed: false,
       onboarded: false
     }).save();
-    mailService.sendConfirmationToken(email, id, token);
+    mailService.sendConfirmationToken(firstName, email, id, token);
     return { user, id, token };
   } catch (e) {
     if(e.code === 11000) return {error: 11000}
@@ -39,7 +40,7 @@ const register = async (email, firstName, type) => {
 const sendConfirmation = async (id) => {
   const user = await User.findById(id);
   const token = createToken(user.email, id);
-  mailService.sendConfirmationToken(user.email, id, token);
+  mailService.sendConfirmationToken(user.firstName, user.email, id, token);
   return true;
 };
 
@@ -84,7 +85,7 @@ const generateLoginToken = async (email) => {
   const user = await User.findOne({ email: email }).exec();
   if (user) {
     const token = createToken(email, user._id);
-    mailService.sendAuthToken(email, token);
+    mailService.sendAuthToken(user.firstName, email, token);
     return { success: true };
   } else return { success: false, error: "Email address does not exist" };
 };

@@ -27,8 +27,8 @@ const validate = (req,res) => {
 };
 
 const register = async (req,res) => {
-    const {email, firstName, type} = req.body;
-    const result = await authService.register(email, firstName, type).catch(catchError);
+    const {email, firstName, type, lastName} = req.body;
+    const result = await authService.register(email, firstName, lastName, type).catch(catchError);
     if(result) res.json(result);
     else res.sendStatus(400);
 };

@@ -1,14 +1,17 @@
 import React from "react";
-import { Button, Col, ProgressBar, Row } from "react-bootstrap";
+import { Button, Col, ProgressBar, Row, Form } from "react-bootstrap";
 import * as _ from "lodash";
 import { Field, Form as FormikForm, Formik } from "formik";
 import * as Yup from "yup";
-import AreaOfDegreePicker from "../various/forms/AreaOfDegreePicker";
 import DegreeLevelPicker from "../various/forms/DegreeLevelPicker";
 import YearPicker from "../various/forms/YearPicker";
 import { Icon } from "react-fa";
 import UniversityPicker from "../various/forms/UniversityPicker";
 import CoursePicker from "../various/forms/CoursePicker";
+import { Select } from "antd";
+import defaults from "../../defaults/defaults";
+const {Option} = Select;
+
 
 const MentorAcademicBackground = (props) => {
 
@@ -27,9 +30,8 @@ const MentorAcademicBackground = (props) => {
       level: Yup.string()
         .min(3)
         .required("Level is required."),
-      area: Yup.string()
-        .min(3)
-        .required("Area is required."),
+      yearGraduation: Yup.number()
+        .required("Graduation year is required."),
       year: Yup.string()
         .min(1)
         .required("Year is required.")
@@ -66,15 +68,27 @@ const MentorAcademicBackground = (props) => {
             />
           </Col>
           <Col md={{ span: 2 }}>
-            <Field name="area" render={({ field, form: { touched, errors } }) =>
-              <AreaOfDegreePicker setFieldValue={setFieldValue} field={field} touched={touched} errors={errors}/>}
-            />
+            <Form.Label>Graduation year</Form.Label>
+            <Field name="yearGraduation" render={({ field, form: { touched, errors } }) => <Select showSearch
+                                                                                                   size={"large"}
+                                                                                                   style={{ width: "100%" }}
+                                                                                                   value={field.value}
+                                                                                                   placeholder={ '2017, 2019..'}
+                                                                                                   onChange={(o) => setFieldValue(field.name, o)}
+                                                                                                   tokenSeparators={[",", ":"]}>
+
+
+              {defaults.yearGraduate.map(e => <Option key={e} value={e}>{e}</Option>)}
+            </Select> } />
           </Col>
         </Row>
         <br/>
         <Row>
           <Col md={{ span: 2, offset: 3 }}>
-            <Button block onClick={() => props.changeStage(2)}>
+            <Button block onClick={() => {
+              props.addOnboardingProperties(values);
+              props.changeStage(2)
+            }}>
               <span><Icon name="fas fa-arrow-left"/>{" Previous"}  </span>
             </Button>
           </Col>

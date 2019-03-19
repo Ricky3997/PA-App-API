@@ -97,7 +97,10 @@ const MenteeAcademicBackground = (props) => {
         <br />
         <Row>
           < Col md={{ span: 2, offset: 3 }}>
-            <Button block onClick={() => props.changeStage(2)}>
+            <Button block onClick={() => {
+              props.addOnboardingProperties(values);
+              props.changeStage(2)
+            }}>
               <span><Icon name="fas fa-arrow-left" />{" Previous"}  </span>
             </Button>
           </Col>

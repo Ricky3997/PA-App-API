@@ -35,8 +35,6 @@ const RequestApprovalMentorModal = (props) => {
       .required('offersFromUnis required'),
       yearBorn: Yup.number()
         .required("yearBorn is required."),
-      yearGraduation: Yup.number()
-      .required("yearGraduation is required."),
       referral: Yup.array()
       .required('referral required'),
       maxNumberOfMentees: Yup.number()
@@ -59,35 +57,24 @@ const RequestApprovalMentorModal = (props) => {
         >
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
-              We just need a couple more questions
+              A couple more details!
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
 
-
             <Row>
               <Col>
-                <h6>Do you want to link to your LinkedIn profile?</h6>
-
-                <Field name="linkedinUrl" render={({ field, form: { touched, errors } }) => <InputGroup className="md-6">
-                  <InputGroup.Prepend>
-                    <InputGroup.Text><Image src={'http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c528.png'} style={{maxHeight: '16px'}} /></InputGroup.Text>
-                  </InputGroup.Prepend>
-                  <div>
-                    <Form.Control {...field} placeholder="www.linkedin.com/in/amazingmentor"
-                                  isInvalid={touched[field.name] && errors[field.name]}/>
-                    {touched[field.name] && errors[field.name] ?
-                      <p style={{ color: "red" }}>{errors[field.name]}</p> : null}
-                  </div>
-                </InputGroup> } />
+                <p>
+                  Thanks for volunteering to help! We just need to ask a couple more questions so we can best match you with a mentee!
+                </p>
               </Col>
             </Row>
 
-            <br />
+            <br/>
 
             <Row>
               <Col>
-                <h6>What's your ethnic background?</h6>
+                <h6>What's your ethnic background?<span style={{color: 'red'}}>*</span></h6>
 
                 <Field name="ethnicBackground" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                  size={"large"}
@@ -102,13 +89,29 @@ const RequestApprovalMentorModal = (props) => {
 
                 </Select> } />
               </Col>
+              <Col>
+                <h6>What year were you born?<span style={{color: 'red'}}>*</span> <span aria-labelledby={'newborn'} role={'img'}>🐣</span></h6>
+
+                <Field name="yearBorn" render={({ field, form: { touched, errors } }) => <Select showSearch
+                                                                                                 size={"large"}
+                                                                                                 style={{ width: "100%" }}
+                                                                                                 value={field.value}
+                                                                                                 placeholder={ '1991,1997....'}
+                                                                                                 onChange={(o) => setFieldValue(field.name, o)}
+                                                                                                 tokenSeparators={[",", ":"]}>
+
+
+                  {defaults.yearBorn.map(e => <Option key={e} value={e}>{e}</Option>)}
+
+                </Select> } />
+              </Col>
             </Row>
 
             <br />
 
             <Row>
               <Col>
-                <h6>What type of high school did you attend? <span aria-labelledby={'school'} role={'img'}>🏫</span></h6>
+                <h6>What type of high school did you attend?<span style={{color: 'red'}}>*</span> <span aria-labelledby={'school'} role={'img'}>🏫</span></h6>
 
                 <Field name="typeOfHighSchool" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                           size={"large"}
@@ -124,7 +127,7 @@ const RequestApprovalMentorModal = (props) => {
                 </Select> } />
               </Col>
               <Col>
-                <h6>Are you from one of the 3 largest cities in {props.user.mentorProfile.country}?</h6>
+                <h6>Are you from one of the 3 largest cities in {props.user.mentorProfile.country}?<span style={{color: 'red'}}>*</span></h6>
 
                 <Field name="fromThreeLargestCity" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                            size={"large"}
@@ -146,26 +149,21 @@ const RequestApprovalMentorModal = (props) => {
 
             <Row>
               <Col>
-                <h6>What subjects did you study in school?</h6>
+                <h6>What subjects did you study in school?<span style={{color: 'red'}}>*</span></h6>
 
                 <Field name="subjectsInSchool" render={({ field, form: { touched, errors } }) =>
                   <SubjectsInSchoolPicker approval setFieldValue={setFieldValue} field={field} touched={touched} errors={errors} multiple/> } />
               </Col>
-            </Row>
-
-            <br />
-
-            <Row>
               <Col>
-                <h6>What are your hobbies?</h6>
+                <h6>What are your hobbies?<span style={{color: 'red'}}>*</span></h6>
 
                 <Field name="hobbiesAndInterests" render={({ field, form: { touched, errors } }) => <Select showSearch
-                                                                                                             size={"large"} mode="multiple"
-                                                                                                             style={{ width: "100%" }}
-                                                                                                             value={field.value}
-                                                                                                             placeholder={ 'Painting, running..'}
-                                                                                                             onChange={(o) => setFieldValue(field.name, o)}
-                                                                                                             tokenSeparators={[",", ":"]}>
+                                                                                                            size={"large"} mode="multiple"
+                                                                                                            style={{ width: "100%" }}
+                                                                                                            value={field.value}
+                                                                                                            placeholder={ 'Painting, running..'}
+                                                                                                            onChange={(o) => setFieldValue(field.name, o)}
+                                                                                                            tokenSeparators={[",", ":"]}>
 
 
                   {defaults.interests_and_hobbies.map(e => <Option key={e} value={e}>{e}</Option>)}
@@ -178,7 +176,7 @@ const RequestApprovalMentorModal = (props) => {
 
             <Row>
               <Col>
-                <h6>What are your career interests after studying at {props.user.mentorProfile.university}</h6>
+                <h6>Do you have any career interests yet?<span style={{color: 'red'}}>*</span></h6>
 
                 <Field name="careerInterests" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                         size={"large"} mode="multiple"
@@ -193,6 +191,21 @@ const RequestApprovalMentorModal = (props) => {
 
                 </Select> } />
               </Col>
+              <Col>
+                <h6>Do you want to link to your LinkedIn profile?</h6>
+
+                <Field name="linkedinUrl" render={({ field, form: { touched, errors } }) => <InputGroup className="md-6">
+                  <InputGroup.Prepend>
+                    <InputGroup.Text><Image src={'http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c528.png'} style={{maxHeight: '16px'}} /></InputGroup.Text>
+                  </InputGroup.Prepend>
+                  <div>
+                    <Form.Control {...field} placeholder="www.linkedin.com/in/amazingmentor"
+                                  isInvalid={touched[field.name] && errors[field.name]}/>
+                    {touched[field.name] && errors[field.name] ?
+                      <p style={{ color: "red" }}>{errors[field.name]}</p> : null}
+                  </div>
+                </InputGroup> } />
+              </Col>
             </Row>
 
             <br />
@@ -204,65 +217,9 @@ const RequestApprovalMentorModal = (props) => {
                 <Field name="offersFromUnis" render={({ field, form: { touched, errors } }) =>
                   <UniversityPicker approval setFieldValue={setFieldValue} field={field} touched={touched} mentee multiple errors={errors}/>} />
               </Col>
+
             </Row>
 
-            <br />
-
-            <Row>
-              <Col>
-                <h6>What year were you born? <span aria-labelledby={'newborn'} role={'img'}>🐣</span></h6>
-
-                <Field name="yearBorn" render={({ field, form: { touched, errors } }) => <Select showSearch
-                                                                                                 size={"large"}
-                                                                                                 style={{ width: "100%" }}
-                                                                                                 value={field.value}
-                                                                                                 placeholder={ '1991,1997....'}
-                                                                                                 onChange={(o) => setFieldValue(field.name, o)}
-                                                                                                 tokenSeparators={[",", ":"]}>
-
-
-                  {defaults.yearBorn.map(e => <Option key={e} value={e}>{e}</Option>)}
-
-                </Select> } />
-              </Col>
-              <Col>
-                <h6>What year will you graduate (or graduated)? <span aria-labelledby={'graduate'} role={'img'}>🎓</span></h6>
-
-                <Field name="yearGraduation" render={({ field, form: { touched, errors } }) => <Select showSearch
-                                                                                                 size={"large"}
-                                                                                                 style={{ width: "100%" }}
-                                                                                                 value={field.value}
-                                                                                                 placeholder={ '2017, 2019..'}
-                                                                                                 onChange={(o) => setFieldValue(field.name, o)}
-                                                                                                 tokenSeparators={[",", ":"]}>
-
-
-                  {defaults.yearGraduate.map(e => <Option key={e} value={e}>{e}</Option>)}
-
-                </Select> } />
-              </Col>
-            </Row>
-
-            <br />
-
-            <Row>
-              <Col>
-                <h6>How may mentees do you think you can help? It takes on average an hour per month</h6>
-
-                <Field name="maxNumberOfMentees" render={({ field, form: { touched, errors } }) => <Select showSearch
-                                                                                                 size={"large"}
-                                                                                                 style={{ width: "100%" }}
-                                                                                                 value={field.value}
-                                                                                                 placeholder={'3'}
-                                                                                                 onChange={(o) => setFieldValue(field.name, o)}
-                                                                                                 tokenSeparators={[",", ":"]}>
-
-
-                  {[1,2,3,4,5,6].map(e => <Option key={e} value={e}>{e}</Option>)}
-
-                </Select> } />
-              </Col>
-            </Row>
 
             {/*Not convinced we need, but have to check:
             1) Phone Number
@@ -275,6 +232,22 @@ const RequestApprovalMentorModal = (props) => {
             <br />
 
             <Row>
+              <Col>
+                <h6>How may mentees do you think you can help? It takes on average an hour per month</h6>
+
+                <Field name="maxNumberOfMentees" render={({ field, form: { touched, errors } }) => <Select showSearch
+                                                                                                           size={"large"}
+                                                                                                           style={{ width: "100%" }}
+                                                                                                           value={field.value}
+                                                                                                           placeholder={'3'}
+                                                                                                           onChange={(o) => setFieldValue(field.name, o)}
+                                                                                                           tokenSeparators={[",", ":"]}>
+
+
+                  {[1,2,3,4,5,6].map(e => <Option key={e} value={e}>{e}</Option>)}
+
+                </Select> } />
+              </Col>
               <Col>
                 <h6>Who referred you to us? Because we’d like to send them a thank you <span aria-labelledby={'gift'} role={'img'}>🎁</span></h6>
 
@@ -294,6 +267,7 @@ const RequestApprovalMentorModal = (props) => {
               </Col>
             </Row>
 
+            <br />
 
             <Row>
               <Col>

@@ -9,7 +9,7 @@ import * as api from "../../api";
 import { toast } from "react-toastify";
 import * as queryString from "query-string";
 import { Icon } from "react-fa";
-import defaults  from "./../../defaults/defaults.json";
+import defaults from "./../../defaults/defaults.json";
 
 const RegisterNewUser = (props) => {
 
@@ -39,14 +39,18 @@ const RegisterNewUser = (props) => {
             firstName: Yup.string()
               .min(3)
               .required("First name is required."),
+            lastName: Yup.string()
+              .min(3)
+              .required("Last name is required."),
             userType: Yup.string()
           })}
-          initialValues={{ email: "", firstName: "", userType: typeFromUrl || defaults.onboarding.mentee }}
+          initialValues={{ email: "", firstName: "", lastName: '', userType: typeFromUrl || defaults.onboarding.mentee }}
           onSubmit={({ email, userType, firstName }, { setSubmitting }) => {
 
             api.post("/auth/register", {
               email: email,
               firstName: firstName,
+              lastName: firstName,
               type: userType === defaults.onboarding.mentee ? "mentee" : "mentor"
             }).then(r => {
 
@@ -55,9 +59,9 @@ const RegisterNewUser = (props) => {
                 window.localStorage.setItem("user", JSON.stringify(r.payload.user));
                 props.updateUser(r.payload.user);
                 props.changeStage(2);
-              } else if(r.success && r.payload.error === 11000) {
+              } else if (r.success && r.payload.error === 11000) {
                 toast.error("User with that email exists already");
-                props.history.push('/login')
+                props.history.push("/login");
               } else toast.error("There was an error requesting your magic link, sorry");
               setSubmitting(false);
             });
@@ -70,62 +74,90 @@ const RegisterNewUser = (props) => {
                 name="userType"
                 render={({ field, form: { touched, errors } }) => {
 
-                  return <div>
-                    <Form.Label>Your are a</Form.Label>
-                    <Form.Control {...field}
+                  return <Row>
+                    <Col>
+                      <Form.Label>Your are a</Form.Label>
+                      <Form.Control {...field}
 
-                                  isInvalid={touched[field.name] && errors[field.name]}
-                                  as="select"
-                    >
-                      <option>{defaults.onboarding.mentee}</option>
-                      <option>{defaults.onboarding.mentor}</option>
-                    </Form.Control>
-                    {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
-                  </div>;
+                                    isInvalid={touched[field.name] && errors[field.name]}
+                                    as="select"
+                      >
+                        <option>{defaults.onboarding.mentee}</option>
+                        <option>{defaults.onboarding.mentor}</option>
+                      </Form.Control>
+                      {touched[field.name] && errors[field.name] ?
+                        <p style={{ color: "red" }}>{errors[field.name]}</p> : null}
+                    </Col>
+                  </Row>;
                 }}
               />
 
-              <Field
-                type="text"
-                name="firstName"
-                render={({ field, form: { touched, errors } }) => {
+              <Row>
+                <Col>
+                  <Field
+                    type="text"
+                    name="firstName"
+                    render={({ field, form: { touched, errors } }) => {
 
-                  return <div>
-                    <Form.Label>Your First Name</Form.Label>
-                    <Form.Control {...field}
+                      return <div>
+                        <Form.Label>Your First Name</Form.Label>
+                        <Form.Control {...field}
 
-                                  isInvalid={touched[field.name] && errors[field.name]}/>
-                    {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
-                  </div>;
-                }}
-              />
+                                      isInvalid={touched[field.name] && errors[field.name]}/>
+                        {touched[field.name] && errors[field.name] ?
+                          <p style={{ color: "red" }}>{errors[field.name]}</p> : null}
+                      </div>;
+                    }}
+                  />
+                </Col>
+                <Col>
+                  <Field
+                    type="text"
+                    name="lastName"
+                    render={({ field, form: { touched, errors } }) => {
+
+                      return <div>
+                        <Form.Label>Your Last Name</Form.Label>
+                        <Form.Control {...field}
+
+                                      isInvalid={touched[field.name] && errors[field.name]}/>
+                        {touched[field.name] && errors[field.name] ?
+                          <p style={{ color: "red" }}>{errors[field.name]}</p> : null}
+                      </div>;
+                    }}
+                  />
+                </Col>
+              </Row>
 
               <Field
                 type="email"
                 name="email"
                 render={({ field, form: { touched, errors } }) => {
 
-                  return <div>
-                    <Form.Label>
-                      <span>Your <b>{values.userType === defaults.onboarding.mentee ? "" : "University"}</b> {"Email Address "}</span>
-                      {values.userType === defaults.onboarding.mentee ? null :
-                        <OverlayTrigger placement="bottom"
-                                        overlay={<Tooltip placement="bottoom" className="in">We need
-                                          this to verify the university you attend!</Tooltip>}>
-                          <Badge pill variant="info">
-                            <span><Icon style={{color: "white"}} name="fas fa-info-circle"/>{" Why?"}</span>
-                          </Badge>
-                        </OverlayTrigger>
-                      }
-                    </Form.Label>
-                    <Form.Control {...field}
+                  return <Row>
+                    <Col>
+                      <Form.Label>
+                        <span>Your <b>{values.userType === defaults.onboarding.mentee ? "" : "University"}</b> {"Email Address "}</span>
+                        {values.userType === defaults.onboarding.mentee ? null :
+                          <OverlayTrigger placement="bottom"
+                                          overlay={<Tooltip placement="bottoom" className="in">We need
+                                            this to verify the university you attend!</Tooltip>}>
+                            <Badge pill variant="info">
+                              <span><Icon style={{ color: "white" }} name="fas fa-info-circle"/>{" Why?"}</span>
+                            </Badge>
+                          </OverlayTrigger>
+                        }
+                      </Form.Label>
+                      <Form.Control {...field}
 
-                                  isInvalid={touched[field.name] && errors[field.name]}/>
-                    {touched[field.name] && errors[field.name] ? <p style={{color: "red"}}>{errors[field.name]}</p> : null}
-                  </div>;
+                                    isInvalid={touched[field.name] && errors[field.name]}/>
+                      {touched[field.name] && errors[field.name] ?
+                        <p style={{ color: "red" }}>{errors[field.name]}</p> : null}
+                    </Col>
+                  </Row>;
                 }}
               />
-              <br />
+              <br/>
               <Button block type="submit" variant="success" disabled={isSubmitting || !_.isEmpty(errors)}>
                 {isSubmitting ? <Loader type="Oval" color="#ffffff" width="20" height="20"/> :
                   (values.userType === defaults.onboarding.mentee ? "Find your mentor!" : "Help a mentee!")}
@@ -133,7 +165,8 @@ const RegisterNewUser = (props) => {
             </FormikForm>
           )}
         />
-        <Button block style={{color: "white"}} variant="link" onClick={() => props.history.push("/login")}>Already registered? Sign in instead</Button>
+        <Button block style={{ color: "white" }} variant="link" onClick={() => props.history.push("/login")}>Already
+          registered? Sign in instead</Button>
       </Col>
     </Row>
   );
