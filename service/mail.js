@@ -1,50 +1,45 @@
-const email = require("emailjs");
 const config = require("../config");
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(config.SENDGRID_API_KEY);
+const msg = {
+  to: "test@example.com",
+  from: "test@example.com",
+  subject: "Sending with SendGrid is Fun",
+  text: "and easy to do anywhere, even with Node.js",
+  html: "<strong>and easy to do anywhere, even with Node.js</strong>"
+};
+sgMail.send(msg);
+
+
 const pug = require("pug");
 
 const loginTemplate = pug.compileFile("util/login_email.pug", {});
 const confirmationTemplate = pug.compileFile("util/confirmation_email.pug", {});
 
-const smtpServer = email.server.connect(config.email);
 
-const send = (options) => {
-  if (config.EMAIL_ON) smtpServer.send(options, (err, msg) => {
-    if (err) console.log(err);
-  });
+const send = (message) => {
+  if (config.EMAIL_ON) sgMail.send(message);
 };
 
 const sendAuthToken = (to, token) => {
   send({
     to: to,
-    from: "Anna from Project Access",
+    from: "Anna from Project Access <tech@projectaccess.org>",
     subject: "Magic sign-in link for Project Access Mentor",
     text: "Sign in link",
-    attachment: [
-      {
-        data: loginTemplate({
-          userFirstName: "Riccardo",
-          signInLink: `http://${config.UI_URL}/login?token=${token}`
-        }),
-        alternative: true
-      }
-    ]
+    html: loginTemplate({ userFirstName: "Riccardo", signInLink: `http://${config.UI_URL}/login?token=${token}` })
   });
 };
 
 const sendConfirmationToken = (to, id, token) => {
   send({
     to: to,
-    from: "Anna from Project Access",
+    from: { email: "tech@projectaccess.org", name: "Anna from Project Access" },
     subject: "Your confirmation link",
-    attachment: [
-      {
-        data: confirmationTemplate({
-          userFirstName: "Riccardo",
-          confirmationLink: `http://${config.UI_URL}/confirm?email=${to}&id=${id}&token=${token}`
-        }),
-        alternative: true
-      }
-    ],
+    html: confirmationTemplate({
+      userFirstName: "Riccardo",
+      confirmationLink: `http://${config.UI_URL}/confirm?email=${to}&id=${id}&token=${token}`
+    })
   });
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import * as _ from "lodash";
 import DataVisHeatMap from "../../various/DataVisHeatMap";
 
@@ -51,7 +51,19 @@ const Statistics = (props) => {
 
   return (
     <Container fluid>
-      <DataVisHeatMap xDomain={xDomain} yDomain={yDomain} data={data}/>
+      <Row>
+        <Col>
+          <h4>
+            Mentors
+            <DataVisHeatMap xDomain={xDomain} yDomain={yDomain} data={data}/>
+          </h4>
+        </Col>
+        <Col>
+          <h4>
+            Mentees
+          </h4>
+        </Col>
+      </Row>
     </Container>
   );
 

@@ -46,10 +46,7 @@ class Admin extends Component {
       else this.props.fetchRelationships().then(r => this.refreshedToast(r, "relationships"));
     }
     else this.props.history.push(`/admin/${key}`);
-
   }
-
-
 
   render() {
     const { section } = this.props.match.params;
@@ -59,7 +56,7 @@ class Admin extends Component {
         <Tabs style={{ marginBottom: "10px" }}
               activeKey={this.validateTab(section)}
               onSelect={this.changeTab}>
-          <Tab eventKey="dashboard" title={<span>{'Relationships   '}</span>}>
+          <Tab eventKey="dashboard" title={<span><Icon name='fas fa-handshake-o' />{'  Relationships   '}</span>}>
             <Route path={"/admin/dashboard/:id?"}
                    component={connect(({ admin, dashboard }) => {
                      return { relationships: admin.relationships, dashboard };
@@ -70,20 +67,20 @@ class Admin extends Component {
                      };
                    })(Dashboard)} />
           </Tab>
-          <Tab eventKey="mentors" title={<span>{'Mentors   '}<BadgePendingNumber pending={this.props.admin.mentors.filter(m => m.status === "requested")}/></span>}>
+          <Tab eventKey="mentors" title={<span><Icon name='fas fa-graduation-cap' />{'  Mentors   '}<BadgePendingNumber pending={this.props.admin.mentors.filter(m => m.status === "requested")}/></span>}>
             <Route path={"/admin/mentors/:id?"}
                    component={connect(({ admin }) => {
                      return { mentors: admin.mentors, mode: 'mentors' };
                    }, null)(Database)}/>
 
           </Tab>
-          <Tab eventKey="mentees" title={<span>{'Mentees   '}<BadgePendingNumber pending={this.props.admin.mentees.filter(m => m.status === "requested")}/></span>}>
+          <Tab eventKey="mentees" title={<span><Icon name='fas fa-user' />{'  Mentees   '}<BadgePendingNumber pending={this.props.admin.mentees.filter(m => m.status === "requested")}/></span>}>
             <Route path={"/admin/mentees/:id?"}
                    component={connect(({ admin }) => {
                      return { mentees: admin.mentees, mode: 'mentees' };
                    }, null)(Database)}/>
           </Tab>
-          <Tab eventKey="matching" title={<span>{'Matching   '}<BadgePendingNumber pending={this.props.admin.mentees.filter(m => m.status === "approved" && !m.relationship)}/></span>}>
+          <Tab eventKey="matching" title={<span><Icon name='fas fa-bullseye' />{'  Matching   '}<BadgePendingNumber pending={this.props.admin.mentees.filter(m => m.status === "approved" && !m.relationship)}/></span>}>
             <Route path={"/admin/matching/:id?"} component={connect(({ user, admin, matching }) => {
               return { user,
                 mentors: admin.mentors.filter(m => m.status === "approved"),
@@ -96,8 +93,7 @@ class Admin extends Component {
               };
             })(Matching)}/>
           </Tab>
-
-          <Tab eventKey="data" title={<span>{'Data & Statistics'}</span>}>
+          <Tab eventKey="data" title={<span><Icon name='fas fa-bar-chart' />{'  Statistics'}</span>}>
             <Route path={"/admin/data"} component={connect(({ user, admin }) => {
               return { user, mentors: admin.mentors, mentees: admin.mentees, mentorMode: true
               };
@@ -107,10 +103,7 @@ class Admin extends Component {
             })(Statistics)}/>
           </Tab>
           <Tab eventKey="refresh" disabled={this.props.fetching} title={<Icon name={"fas fa-refresh"}/>}/>
-
         </Tabs>
-
-
       </Container>
       : <div>Not Logged In</div>;
   }

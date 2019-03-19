@@ -24,24 +24,28 @@ const DataVisHeatMap = (props) => {
       .range(["red", "orange", "green"]);
 
     return (
-      <Container fluid>
+      <div>
         <XYPlot
+          style={{textSize: '8px'}}
           xType="ordinal"
           xDomain={props.xDomain}
           yType="ordinal"
           yDomain={props.yDomain}
-          margin={120}
+          margin={100}
           width={600}
           height={600}
         >
-          <XAxis orientation="top"/>
-          <YAxis />
+          <XAxis orientation="top"
+                 style={{textSize: '8px'}}/>
+          <YAxis
+            style={{textSize: '8px'}}/>
           <HeatmapSeries
             colorType="literal"
             getColor={d => exampleColorScale(d.color)}
             style={{
+              textSize: '8px',
               stroke: "white",
-              strokeWidth: "2px",
+              strokeWidth: "4px",
               rectStyle: {
                 rx: 10,
                 ry: 10
@@ -57,7 +61,7 @@ const DataVisHeatMap = (props) => {
             getLabel={d => `${d.color}`}
           />
         </XYPlot>
-      </Container>
+      </div>
     );
 
 };

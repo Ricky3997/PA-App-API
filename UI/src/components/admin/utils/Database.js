@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {
-  CardColumns,
+  CardColumns, CardDeck,
   Col,
   Container,
   Form, Image,
@@ -167,7 +167,7 @@ class Database extends Component {
                   </Row>
                   <Row>
                     <Col md={12}>
-                      <CardColumns>
+                      <CardDeck>
                         {toRender.sort((a,b) => a.status === 'requested' ? (b.status ===  'requested' ? 0 : -1) : 1).map(m => <UserCard history={this.props.history} mentorMode={mentorMode} {...m}
                                                      key={m._id}
                                                      addFilterParam={(fieldName, param) => {
@@ -177,7 +177,7 @@ class Database extends Component {
                                                        else return;
                                                        setFieldValue(fieldName, newVals);
                                                      }}/>)}
-                      </CardColumns>
+                      </CardDeck>
                       {toRender.length === 0 && _.get(values, "search.length") > 0 ?
                         <div>
                           <h4>No results match your search <Icon name="fas fa-search"/>

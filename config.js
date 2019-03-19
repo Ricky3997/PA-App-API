@@ -6,7 +6,7 @@ module.exports = {
     host: "smtp.office365.com",
     tls: { ciphers: "SSLv3" }
   },
-
+  SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
   mongodb: process.env.NODE_ENV === "production" ? {
     URI: process.env.MONGODB_URI
   } : {

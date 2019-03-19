@@ -23,7 +23,7 @@ class Login extends Component {
       <Container className="onboarding">
         <Row className="justify-content-md-center">
           <Col md={6}>
-            {this.props.login.emailSent ? <div className="center-block">
+            {this.props.login.emailSentTo ? <div className="center-block">
               <Image src={LoginEmailSent} height='200px'/>
               <h3>An email is on its way! </h3>
               <p>

@@ -49,14 +49,13 @@ function user(state = JSON.parse(window.localStorage.getItem("user")) || null, a
 }
 
 function login(state = {
-  emailSent: false,
   emailSentTo: null
 }, action) {
   switch (action.type) {
     case (SENT_LOGIN_EMAIL):
-      return { ...state, emailSent: true, emailSentTo: action.email };
+      return { ...state, emailSentTo: action.email };
     case (UNSET_LOGIN_EMAIL):
-      return { ...state, emailSent: false, emailSentTo: null };
+      return { ...state, emailSentTo: null };
     default:
       return state;
   }

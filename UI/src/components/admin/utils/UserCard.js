@@ -56,7 +56,7 @@ const UserCard = (props) => {
                                                                 label={`Mentees: ${current}/${capacity}`}/>;
 
   return (
-    <Card className="text-center" key={props._id} >
+    <Card className="text-center" key={props._id} style={{minWidth: '200px', maxWidth: '200px', marginBottom: '20px'}} >
       <Card.Header style={props.status === 'requested' ? {backgroundColor:  '#ffde89'} :  {}}>
         <ProfileIcon mentorMode={props.mentorMode} pictureUrl={props.pictureUrl} size={"m"}/>
         {props.mentorMode ? (props.relationship.length > 0 ? props.relationship.map(r => <ProfileIcon
