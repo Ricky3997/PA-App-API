@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
-import { Formik, Form as FormikForm, Field } from "formik";
+import { Field, Form as FormikForm, Formik } from "formik";
 import { Icon } from "react-fa";
 import * as Yup from "yup";
 import * as _ from "lodash";
@@ -57,8 +57,8 @@ const RejectionReasonModal = (props) => {
                       props.changeStatus(props.id, "rejected", values.rejectionReason).then(r => {
                         if (r.success) {
                           toast.success("Rejected");
-                        } else toast.error("There was an error")
-                      })
+                        } else toast.error("There was an error");
+                      });
                     }} disabled={isSubmitting || !_.isEmpty(errors) || _.isEmpty(touched)}>
               <span>{"Reject "} <Icon name="fas fa-ban"/> </span>
             </Button>

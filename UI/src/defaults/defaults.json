@@ -264,7 +264,7 @@
     "Community Clubs",
     "LGBTQ+ Awareness"
   ],
-  "career_interests" : [
+  "career_interests": [
     "Accounting, Audit and Tax",
     "Assett and Investment Management",
     "Charity, NGO and Social Enterprise",
@@ -294,7 +294,7 @@
     "Technology: IT and Software Development",
     "Transport and Logistics"
   ],
-  "referrer" : [
+  "referrer": [
     "Google Search",
     "Facebook",
     "Instagram",
@@ -352,5 +352,4 @@
     2026,
     2027
   ]
-
 }

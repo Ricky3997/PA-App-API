@@ -9,7 +9,7 @@ const ConfirmAcceptMentee = (props) => {
     </Col>
     <Col md={8}>
       <Button block variant='danger' onClick={() => props.mentorDecisionRelationship(false).then(r => {
-        if(r.success) toast.success('Rejection saved');
+        if (r.success) toast.success("Rejection saved");
       })}>I confirm I cannot help</Button>
     </Col>
   </Row>;
@@ -19,16 +19,20 @@ const ConfirmAcceptMentee = (props) => {
     </Col>
     <Col md={8}>
       <Button block variant='success' onClick={() => props.mentorDecisionRelationship(true).then(r => {
-        if(r.success) toast.success('Confirmed');
+        if (r.success) toast.success("Confirmed");
       })}>I confirm I can help!</Button>
     </Col>
   </Row>;
   else return <Row>
       <Col md={6}>
-        <Button block variant='danger' onClick={() => props.toggleMentorConfirmDecision(`reject_${props.relationshipId}`)}>Sorry can't help</Button>
+        <Button block variant='danger'
+                onClick={() => props.toggleMentorConfirmDecision(`reject_${props.relationshipId}`)}>Sorry can't
+          help</Button>
       </Col>
       <Col md={6}>
-        <Button block variant='success' onClick={() => props.toggleMentorConfirmDecision(`accept_${props.relationshipId}`)}>Yes I confirm!</Button>
+        <Button block variant='success'
+                onClick={() => props.toggleMentorConfirmDecision(`accept_${props.relationshipId}`)}>Yes I
+          confirm!</Button>
       </Col>
     </Row>;
 

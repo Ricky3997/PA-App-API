@@ -44,7 +44,7 @@ class Approvals extends Component {
             <Container fluid>
 
               {props.mentorMode ? <MentorAdminprofile approvalMode mentor={toApprove} breadcrumbs={false}/> :
-                <MenteeAdminProfile approvalMode mentee={toApprove} breadcrumbs={false} />}
+                <MenteeAdminProfile approvalMode mentee={toApprove} breadcrumbs={false}/>}
 
               <Row>
                 <Col md={{ size: 2, offset: 8 }}>
@@ -62,7 +62,7 @@ class Approvals extends Component {
           </Col>
         </Row>
         {toApprove ? <RejectionReasonModal showModal={props.showModal} name={toApprove.firstName} id={toApprove._id}
-                              onHide={props.toggleAdminModal} changeStatus={props.changeStatus} /> : null}
+                                           onHide={props.toggleAdminModal} changeStatus={props.changeStatus}/> : null}
       </Container>
     );
   }

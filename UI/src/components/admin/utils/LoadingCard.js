@@ -8,9 +8,9 @@ const LoadingCard = (props) => {
       < ReactLoading type={"spin"} color={"#ff9430"}/>
     </Card.Header>
     <Card.Body>
-        < ReactLoading type={"bars"} color={"#ff9430"}/>
+      < ReactLoading type={"bars"} color={"#ff9430"}/>
     </Card.Body>
-  </Card>
-}
+  </Card>;
+};
 
 export default LoadingCard;

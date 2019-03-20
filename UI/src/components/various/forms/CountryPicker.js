@@ -7,9 +7,9 @@ const { Option } = Select;
 const countryFlags = {};
 Object.keys(countries).forEach(key => countryFlags[key] = require(`svg-country-flags/svg/${key.toLowerCase()}.svg`));
 
-const CountryPicker = ({field, touched, errors, setFieldValue, settings}) => {
+const CountryPicker = ({ field, touched, errors, setFieldValue, settings }) => {
   return <div>
-    <Form.Label>{settings ? 'Country' : 'What country are you from?'}</Form.Label>
+    <Form.Label>{settings ? "Country" : "What country are you from?"}</Form.Label>
     <Select showSearch allowClear size={"large"}
             style={{ width: "100%" }}
             value={field.value}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col, Row, Container, Button, Image } from "react-bootstrap";
+import { Button, Col, Container, Image, Row } from "react-bootstrap";
 import { Icon } from "react-fa";
 import ProgressionTimeline from "./Mentee/ProgressionTimeline";
 import Module from "./Mentee/Module";

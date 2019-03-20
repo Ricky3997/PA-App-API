@@ -1,18 +1,18 @@
 import React from "react";
 import { Button, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import NotReadyYet from "../MenteeHome";
-import {LinkContainer} from "react-router-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 const NoMentorYet = (props) => {
 
   let toRender;
   if (!props.user.onboarded) {
     toRender =
-      <LinkContainer to={'/onboard'}>
+      <LinkContainer to={"/onboard"}>
         <Button>
           Looks like you are not onboarded, go finish
         </Button>
-      </LinkContainer>
+      </LinkContainer>;
   } else if (props.user.menteeProfile.status === "notYetRequested") {
     toRender = <div>
       <p>

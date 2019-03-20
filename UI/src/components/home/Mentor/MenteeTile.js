@@ -15,7 +15,7 @@ const MenteeTile = (props) => {
   const hours = Math.floor(timeLeft.subtract(days, "d").asHours());
 
   const ConfirmAcceptMenteeButton = connect(({ mentorHome }) => {
-    return { mentorHome, relationshipId:  props._id };
+    return { mentorHome, relationshipId: props._id };
   }, dispatch => {
     return {
       toggleMentorConfirmDecision: (showConfirmDecision) => dispatch(toggleMentorConfirmDecision(showConfirmDecision)),
@@ -47,7 +47,8 @@ const MenteeTile = (props) => {
               we will have to match them with another mentor`}</p>
             </Col>
           </Row>
-          {(Moment.duration(new Moment(props.matchedOn).add(5, "d").diff(new Moment())) <= 0) ? "Time ran out to confirm, sorry" : <ConfirmAcceptMenteeButton/>}
+          {(Moment.duration(new Moment(props.matchedOn).add(5, "d").diff(new Moment())) <= 0) ? "Time ran out to confirm, sorry" :
+            <ConfirmAcceptMenteeButton/>}
         </div> :
         <Row>
           <Col>

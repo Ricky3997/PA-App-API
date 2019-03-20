@@ -113,7 +113,7 @@ const GettingStartedSteps = (props) => {
               </div> : null}
 
               {props.mentorHome.progress === 100 && acceptMentee.ready ? props.user.mentorProfile.relationship.map(r =>
-                <AcceptMenteeBox {...r} key={r._id} />) : null}
+                <AcceptMenteeBox {...r} key={r._id}/>) : null}
 
             </Col>
           </Row>

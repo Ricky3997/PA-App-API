@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, ProgressBar, Row, Form } from "react-bootstrap";
+import { Button, Col, Form, ProgressBar, Row } from "react-bootstrap";
 import * as _ from "lodash";
 import { Field, Form as FormikForm, Formik } from "formik";
 import * as Yup from "yup";
@@ -10,13 +10,14 @@ import UniversityPicker from "../various/forms/UniversityPicker";
 import CoursePicker from "../various/forms/CoursePicker";
 import { Select } from "antd";
 import defaults from "../../defaults/defaults";
-const {Option} = Select;
+
+const { Option } = Select;
 
 
 const MentorAcademicBackground = (props) => {
 
   const calculateProgressBar = (values) => {
-    return 60 + (values.university ? 7 : 0) +(values.subject ? 7 : 0) +(values.level ? 7 : 0) +(values.area ? 7 : 0) +(values.year ? 7 : 0);
+    return 60 + (values.university ? 7 : 0) + (values.subject ? 7 : 0) + (values.level ? 7 : 0) + (values.area ? 7 : 0) + (values.year ? 7 : 0);
   };
 
   return <Formik
@@ -79,7 +80,7 @@ const MentorAcademicBackground = (props) => {
 
 
               {defaults.yearGraduate.map(e => <Option key={e} value={e}>{e}</Option>)}
-            </Select> } />
+            </Select>}/>
           </Col>
         </Row>
         <br/>
@@ -87,7 +88,7 @@ const MentorAcademicBackground = (props) => {
           <Col md={{ span: 2, offset: 3 }}>
             <Button block onClick={() => {
               props.addOnboardingProperties(values);
-              props.changeStage(2)
+              props.changeStage(2);
             }}>
               <span><Icon name="fas fa-arrow-left"/>{" Previous"}  </span>
             </Button>

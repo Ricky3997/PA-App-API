@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-import {
-  CardColumns, CardDeck,
-  Col,
-  Container,
-  Form, Image,
-  InputGroup,
-  Row
-} from "react-bootstrap";
+import { CardDeck, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import { Icon } from "react-fa";
 import * as JsSearch from "js-search";
 import * as _ from "lodash";
@@ -194,7 +187,6 @@ class Database extends Component {
       );
   }
 
-};
-
+}
 
 export default Database;

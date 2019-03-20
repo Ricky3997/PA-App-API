@@ -103,7 +103,7 @@ const MentorConfirm = (props) => {
       <Col md={{ span: 2 }}>
         <Button variant="success" block disabled={props.onboarding.registering} onClick={() => {
           props.registerMentor().then(r => {
-            if(r.success) toast.success('Registered successfully!')
+            if (r.success) toast.success("Registered successfully!");
           });
         }}>
           {props.onboarding.registering ? <Loader type="Oval" color="#ffffff" width="20" height="20"/> :

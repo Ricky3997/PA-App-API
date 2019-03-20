@@ -8,7 +8,7 @@ const MenteeOnboarding = (props) => {
     {props.onboarding.step === 2 ? <AnagraphicInfoStep {...props} /> : null}
     {props.onboarding.step === 3 ? <MenteeAcademicBackground {...props} /> : null}
     {props.onboarding.step === 4 ? <MenteeConfirm {...props} /> : null}
-  </div>
+  </div>;
 
 };
 

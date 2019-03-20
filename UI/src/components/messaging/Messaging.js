@@ -1,13 +1,11 @@
 import React, { Component } from "react";
-import {
-  ThemeProvider
-} from "@livechat/ui-kit";
+import { ThemeProvider } from "@livechat/ui-kit";
 import { Col, Row } from "react-bootstrap";
 import SendBird from "sendbird";
 import ListOfChats from "./ListOfChats";
 import OpenChat from "./OpenChat";
 import { connect } from "react-redux";
-import * as _  from "lodash";
+import * as _ from "lodash";
 import { setActiveChat } from "../../actions/actionCreator";
 
 class Messaging extends Component {
@@ -129,6 +127,6 @@ class Messaging extends Component {
       );
     }
   }
-};
+}
 
 export default Messaging;

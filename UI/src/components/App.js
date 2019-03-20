@@ -28,7 +28,8 @@ import {
   confirmEmailAddress,
   fetchMentees,
   fetchMentors,
-  fetchRelationships, getMenteeById,
+  fetchRelationships,
+  getMenteeById,
   getUser,
   registerMentee,
   registerMentor,
@@ -173,6 +174,6 @@ class App extends Component {
       </div>
     );
   }
-};
+}
 
 export default App;

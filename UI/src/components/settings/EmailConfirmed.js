@@ -8,10 +8,11 @@ const EmailConfirmed = (props) => {
                 <Icon name="fas fa-envelope"/>
     {props.user.emailConfirmed ? " Email Confirmed" : " Email Not Confirmed"}
     {props.user.emailConfirmed ? null :
-      <Button variant={"link"} style={{ marginLeft: "10px" }} onClick={() =>  props.sendEmailConfirmationAgain(props.user._id).then(r => {
-        if(r.success) toast.success("Confirmation resent, check your email!")
-        else toast.error('There has been a problem')
-      })}>
+      <Button variant={"link"} style={{ marginLeft: "10px" }}
+              onClick={() => props.sendEmailConfirmationAgain(props.user._id).then(r => {
+                if (r.success) toast.success("Confirmation resent, check your email!");
+                else toast.error("There has been a problem");
+              })}>
         Send confirmation email again
       </Button>}
   </span>;

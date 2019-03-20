@@ -76,6 +76,6 @@ class ProfilePicture extends Component {
       </Modal>
     </div>;
   }
-};
+}
 
 export default ProfilePicture;

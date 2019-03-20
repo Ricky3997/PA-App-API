@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, Card, Container, Image, ProgressBar, Row } from "react-bootstrap";
+import { Badge, Card, Container, ProgressBar, Row } from "react-bootstrap";
 import ProfileIcon from "../../various/ProfileIcon";
 import RelationshipAdminDetail from "../utils/RelationshipAdminDetail";
 import { Link } from "react-router-dom";
@@ -35,7 +35,8 @@ const Dashboard = (props) => {
               </Card.Footer>
             </Card>) : <Container fluid>
               <NotFound>
-                <h4>No relationships at this time <span role={"img"} aria-labelledby={"sad crying emoji"}>😢</span></h4></NotFound>
+                <h4>No relationships at this time <span role={"img"} aria-labelledby={"sad crying emoji"}>😢</span></h4>
+              </NotFound>
             </Container>
           }
         </Row>}

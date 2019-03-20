@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col, Row, Container, Button } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { Icon } from "react-fa";
 import { toast } from "react-toastify";
 import * as _ from "lodash";
@@ -27,7 +27,7 @@ class MentorHome extends Component {
 
       {_.get(this.props.user, "mentorProfile.relationship.length") > 0
       && _.get(this.props.user, "mentorProfile.relationship")[0].status === "confirmed" ?
-        <MentoringHome {...this.props} />:
+        <MentoringHome {...this.props} /> :
         <GettingStartedSteps {...this.props} />}
 
 

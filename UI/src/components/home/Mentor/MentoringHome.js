@@ -1,13 +1,8 @@
 import React from "react";
 import { Button, Col, Image, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
-import { toast } from "react-toastify";
 import * as _ from "lodash";
 import MenteeTile from "./MenteeTile";
-import { Bookmark, Timeline } from "react-vertical-timeline";
 import { LinkContainer } from "react-router-bootstrap";
-import RequestApprovalMentorModal from "./RequestApprovalMentorModal";
-import GettingStartedBox from "./GettingStartedBox";
-import ConfirmAcceptMentee from "./ConfirmAcceptMentee";
 import AcceptMenteeBox from "./AcceptMenteeBox";
 
 

@@ -44,7 +44,12 @@ const RegisterNewUser = (props) => {
               .required("Last name is required."),
             userType: Yup.string()
           })}
-          initialValues={{ email: "", firstName: "", lastName: '', userType: typeFromUrl || defaults.onboarding.mentee }}
+          initialValues={{
+            email: "",
+            firstName: "",
+            lastName: "",
+            userType: typeFromUrl || defaults.onboarding.mentee
+          }}
           onSubmit={({ email, userType, firstName }, { setSubmitting }) => {
 
             api.post("/auth/register", {

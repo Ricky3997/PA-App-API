@@ -1,16 +1,17 @@
 import React from "react";
 import {
-  Col,
-  Image,
-  Row,
-  Breadcrumb,
-  Container,
   Badge,
-  Form,
-  CardColumns,
-  Card,
+  Breadcrumb,
   Button,
-  Tooltip, OverlayTrigger
+  Card,
+  CardColumns,
+  Col,
+  Container,
+  Form,
+  Image,
+  OverlayTrigger,
+  Row,
+  Tooltip
 } from "react-bootstrap";
 import ProfileIcon from "../../various/ProfileIcon";
 import { LinkContainer } from "react-router-bootstrap";
@@ -25,7 +26,7 @@ import NotFound from "../../various/NotFound";
 
 const MentorAdminProfile = (props) => {
 
-  if (!props.mentor) return  <NotFound/>;
+  if (!props.mentor) return <NotFound/>;
   let flagIndex = "";
   Object.entries(countries).forEach((a) => {
     if (props.mentor.country === a[1]) flagIndex = a[0];
@@ -58,15 +59,15 @@ const MentorAdminProfile = (props) => {
             </span>
         </OverlayTrigger>
       </Col>}
-      {props.approvalMode || props.mentor.status !== "requested"|| props.matching ? null : <Col md={2}>
+      {props.approvalMode || props.mentor.status !== "requested" || props.matching ? null : <Col md={2}>
         <Button block variant="danger"
                 onClick={props.toggleAdminModal}> Reject </Button>
       </Col>}
-      {props.approvalMode || props.mentor.status !== "requested"|| props.matching ? null : <Col md={2}>
+      {props.approvalMode || props.mentor.status !== "requested" || props.matching ? null : <Col md={2}>
         <Button block variant="success"
                 onClick={() => props.changeStatus(props.mentor._id, "approved").then(r => {
                   if (r.success) toast.success("Approved");
-                  props.history.push('/admin/mentors')
+                  props.history.push("/admin/mentors");
                 })}> Approve </Button>
       </Col>}
     </Row>
@@ -78,7 +79,8 @@ const MentorAdminProfile = (props) => {
         <Badge variant="info">{"Status"}</Badge>
       </Col>
       <Col md={{ span: 3 }}>
-        <StatusIcon status={props.mentor.status} reason={props.mentor.rejectionReason}/> {props.mentor.latestStatusChange ? `since ${moment(props.mentor.latestStatusChange).format("Do MMM YY")}` : ''}
+        <StatusIcon status={props.mentor.status}
+                    reason={props.mentor.rejectionReason}/> {props.mentor.latestStatusChange ? `since ${moment(props.mentor.latestStatusChange).format("Do MMM YY")}` : ""}
       </Col>
       <Col md={2}>
         <Badge variant="info">
@@ -258,20 +260,22 @@ const MentorAdminProfile = (props) => {
           <h5>Mentees</h5>
           <CardColumns>
             {props.mentor.relationship.map(r =>
-              <Card key={r.mentee._id} className="text-center" >
+              <Card key={r.mentee._id} className="text-center">
                 <Card.Header>
                   <ProfileIcon pictureUrl={r.mentee.pictureUrl} size={"l"} mentorMode/>
-                  {r.status === 'awaitingConfirmation' ? <Badge variant={'warning'}>pending</Badge> : null}
+                  {r.status === "awaitingConfirmation" ? <Badge variant={"warning"}>pending</Badge> : null}
                 </Card.Header>
                 <Card.Body>
-                  <LinkContainer to={`/admin/mentees/${r.mentee._id}`} style={{cursor: 'pointer', textDecoration: 'underline', color: 'blue'}}>
+                  <LinkContainer to={`/admin/mentees/${r.mentee._id}`}
+                                 style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>
                     <Card.Title>{r.mentee.firstName}</Card.Title>
                   </LinkContainer>
                   <Card.Text>
                     Last message exchanged: TODO
                   </Card.Text>
-                  <LinkContainer to={`/admin/dashboard/${r._id}`} style={{cursor: 'pointer', textDecoration: 'underline', color: 'blue'}}>
-                    <Button variant={'light'}>Go to relationship</Button>
+                  <LinkContainer to={`/admin/dashboard/${r._id}`}
+                                 style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>
+                    <Button variant={"light"}>Go to relationship</Button>
                   </LinkContainer>
                 </Card.Body>
                 <Card.Footer>
@@ -285,7 +289,7 @@ const MentorAdminProfile = (props) => {
     </Row>}
 
     <RejectionReasonModal showModal={props.showModal} name={props.mentor.firstName} id={props.mentor._id}
-                                       onHide={props.toggleAdminModal} changeStatus={props.changeStatus} />
+                          onHide={props.toggleAdminModal} changeStatus={props.changeStatus}/>
   </Container>;
 };
 

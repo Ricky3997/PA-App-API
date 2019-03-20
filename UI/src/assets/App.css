@@ -1,17 +1,17 @@
 
-
-.pa_orange_text{
+.pa_orange_text {
     color: #eb9d26;
 }
-.pa_orange_link:hover{
+
+.pa_orange_link:hover {
     background-color: #9F6A1C;
     border-color: #9F6A1C;
 }
 
-.pa_orange_link{
-     background-color: #eb9d26;
-     border-color: #eb9d26;
- }
+.pa_orange_link {
+    background-color: #eb9d26;
+    border-color: #eb9d26;
+}
 
 .journey-module-box {
     margin-top: 5px;
@@ -21,7 +21,7 @@
     padding: 20px;
 }
 
-.progression-dot{
+.progression-dot {
     background-color: red;
     border-radius: 40px;
     border: 5px solid green;
@@ -29,7 +29,7 @@
     height: 50px;
 }
 
-.user-circle{
+.user-circle {
     width: 30px;
     border-radius: 50%;
 }
@@ -76,7 +76,7 @@
     text-align: center;
 }
 
-.onboarding{
+.onboarding {
     min-height: 500px;
     border-radius: 10px;
     background-color: coral;
@@ -84,11 +84,12 @@
     color: beige;
 }
 
-#root_div{
+#root_div {
     height: 100vh;
     font-size: 16px;
 }
-#root_container{
+
+#root_container {
     min-height: 95vh;
     padding-top: 10vh
 }

@@ -2,9 +2,10 @@ import React from "react";
 import { Form } from "react-bootstrap";
 import { Select } from "antd";
 import defaults from "../../../defaults/defaults";
+
 const { Option } = Select;
 
-const AreaOfDegreePicker = ({ field, touched, errors, setFieldValue, multiple}) => {
+const AreaOfDegreePicker = ({ field, touched, errors, setFieldValue, multiple }) => {
   return <div>
     <Form.Label>Field of study</Form.Label>
     <Select mode={multiple ? "multiple" : "default"}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Image, Row, Breadcrumb, Container, Badge, Button } from "react-bootstrap";
+import { Badge, Breadcrumb, Button, Col, Container, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import ProfileIcon from "../../various/ProfileIcon";
 import { toast } from "react-toastify";
@@ -43,8 +43,8 @@ const RelationshipAdminDetail = (props) => {
         </Col>
         <Col md={3}>
           <b>Status</b> <Badge variant={"info"}>{props.relationship.status}</Badge>
-          <br />
-          <br />
+          <br/>
+          <br/>
           {props.dashboard.showConfirmation ?
             <Row>
               <Col md={5}>

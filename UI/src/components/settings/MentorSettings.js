@@ -21,17 +21,18 @@ import { Select } from "antd";
 import defaults from "../../defaults/defaults";
 import SubjectsInSchoolPicker from "../various/forms/SubjectsInSchoolPicker";
 import { LinkContainer } from "react-router-bootstrap";
+
 const { Option } = Select;
 
 const MentorSettings = (props) => {
-  if(!props.user.onboarded) return <div>
+  if (!props.user.onboarded) return <div>
     <h6>Looks like you are not onboarded, settings are only available when you are done with that!</h6>
-    <LinkContainer to={'/onboard'}>
+    <LinkContainer to={"/onboard"}>
       <Button>
         Go finish onboard
       </Button>
     </LinkContainer>
-  </div>
+  </div>;
   const { user, settings, togglePicturePicker, storePictureToCrop, removePictureToCrop, storePictureCropped, history } = props;
   const { relationship, ...initialVals } = user.mentorProfile;
   return <div>
@@ -69,26 +70,30 @@ const MentorSettings = (props) => {
           .required("typeOfHighSchool is required."),
         fromThreeLargestCity: Yup.number()
           .required("fromThreeLargestCity is required."),
-        subjectsInSchool:Yup.array()
-          .required('subjectsInSchool required'),
+        subjectsInSchool: Yup.array()
+          .required("subjectsInSchool required"),
         hobbiesAndInterests: Yup.array()
-          .required('hobbiesAndInterests required'),
+          .required("hobbiesAndInterests required"),
         careerInterests: Yup.array()
-          .required('careerInterests required'),
+          .required("careerInterests required"),
         offersFromUnis: Yup.array()
-          .required('offersFromUnis required'),
+          .required("offersFromUnis required"),
         yearBorn: Yup.number()
           .required("yearBorn is required."),
         yearGraduation: Yup.number()
           .required("yearGraduation is required."),
         referral: Yup.array()
-          .required('referral required'),
+          .required("referral required"),
         maxNumberOfMentees: Yup.number()
-          .required('Max number of Mentees required'),
+          .required("Max number of Mentees required"),
         notes: Yup.string()
 
       })}
-      initialValues={{ email: user.email, firstName: user.firstName, ...initialVals, fromThreeLargestCity: initialVals.fromThreeLargestCity ? 1 : 0 }}
+      initialValues={{
+        email: user.email,
+        firstName: user.firstName, ...initialVals,
+        fromThreeLargestCity: initialVals.fromThreeLargestCity ? 1 : 0
+      }}
       onSubmit={(values, { setSubmitting }) => {
         props.saveSettings(values).then(r => {
           setSubmitting(false);
@@ -137,7 +142,8 @@ const MentorSettings = (props) => {
               <Row>
                 <Col>
                   <Field name="country" render={({ field, form: { touched, errors } }) =>
-                    <CountryPicker settings setFieldValue={setFieldValue} field={field} touched={touched} errors={errors}/>
+                    <CountryPicker settings setFieldValue={setFieldValue} field={field} touched={touched}
+                                   errors={errors}/>
                   }
                   />
                 </Col>
@@ -150,19 +156,20 @@ const MentorSettings = (props) => {
                 <Col>
                   <Form.Label>One of 3 largest cities?</Form.Label>
 
-                  <Field name="fromThreeLargestCity" render={({ field, form: { touched, errors } }) => <Select showSearch
-                                                                                                               size={"large"}
-                                                                                                               style={{ width: "100%" }}
-                                                                                                               value={field.value}
-                                                                                                               placeholder={ 'Yes, No'}
-                                                                                                               onChange={(o) => setFieldValue(field.name, o)}
-                                                                                                               tokenSeparators={[",", ":"]}>
+                  <Field name="fromThreeLargestCity"
+                         render={({ field, form: { touched, errors } }) => <Select showSearch
+                                                                                   size={"large"}
+                                                                                   style={{ width: "100%" }}
+                                                                                   value={field.value}
+                                                                                   placeholder={"Yes, No"}
+                                                                                   onChange={(o) => setFieldValue(field.name, o)}
+                                                                                   tokenSeparators={[",", ":"]}>
 
 
-                    <Option value={1}>Yes</Option>
-                    <Option value={0}>No</Option>
+                           <Option value={1}>Yes</Option>
+                           <Option value={0}>No</Option>
 
-                  </Select> } />
+                         </Select>}/>
                 </Col>
                 <Col>
                   <Field name="gender" render={({ field, form: { touched, errors } }) =>
@@ -175,7 +182,7 @@ const MentorSettings = (props) => {
                                                 errors={errors}/>}
                 />
               </Row>
-              <br />
+              <br/>
               <Row>
                 <Col>
                   <Field name="level" render={({ field, form: { touched, errors } }) =>
@@ -213,14 +220,14 @@ const MentorSettings = (props) => {
                                                                                                            size={"large"}
                                                                                                            style={{ width: "100%" }}
                                                                                                            value={field.value}
-                                                                                                           placeholder={ 'White, Black African, Mixed...'}
+                                                                                                           placeholder={"White, Black African, Mixed..."}
                                                                                                            onChange={(o) => setFieldValue(field.name, o)}
                                                                                                            tokenSeparators={[",", ":"]}>
 
 
                     {defaults.ethnic_background.map(e => <Option key={e} value={e}>{e}</Option>)}
 
-                  </Select> } />
+                  </Select>}/>
                 </Col>
                 <Col>
                   <Form.Label>High school type</Form.Label>
@@ -228,79 +235,86 @@ const MentorSettings = (props) => {
                                                                                                            size={"large"}
                                                                                                            style={{ width: "100%" }}
                                                                                                            value={field.value}
-                                                                                                           placeholder={ 'State selective, State non selective...'}
+                                                                                                           placeholder={"State selective, State non selective..."}
                                                                                                            onChange={(o) => setFieldValue(field.name, o)}
                                                                                                            tokenSeparators={[",", ":"]}>
 
 
                     {defaults.school_type.map(e => <Option key={e} value={e}>{e}</Option>)}
 
-                  </Select> } />
+                  </Select>}/>
                 </Col>
                 <Col>
                   <Form.Label>Subjects in school?</Form.Label>
 
                   <Field name="subjectsInSchool" render={({ field, form: { touched, errors } }) =>
-                    <SubjectsInSchoolPicker approval setFieldValue={setFieldValue} field={field} touched={touched} errors={errors} multiple/> } />
+                    <SubjectsInSchoolPicker approval setFieldValue={setFieldValue} field={field} touched={touched}
+                                            errors={errors} multiple/>}/>
                 </Col>
                 <Col>
                   <Form.Label>Other uni offers</Form.Label>
                   <Field name="offersFromUnis" render={({ field, form: { touched, errors } }) =>
-                    <UniversityPicker approval setFieldValue={setFieldValue} field={field} touched={touched} mentee multiple errors={errors}/>} />
+                    <UniversityPicker approval setFieldValue={setFieldValue} field={field} touched={touched} mentee
+                                      multiple errors={errors}/>}/>
                 </Col>
               </Row>
 
-              <br />
+              <br/>
 
               <Row>
                 <Col>
                   <Form.Label>Hobbies?</Form.Label>
                   <Field name="hobbiesAndInterests" render={({ field, form: { touched, errors } }) => <Select showSearch
-                                                                                                              size={"large"} mode="multiple"
+                                                                                                              size={"large"}
+                                                                                                              mode="multiple"
                                                                                                               style={{ width: "100%" }}
                                                                                                               value={field.value}
-                                                                                                              placeholder={ 'Painting, running..'}
+                                                                                                              placeholder={"Painting, running.."}
                                                                                                               onChange={(o) => setFieldValue(field.name, o)}
                                                                                                               tokenSeparators={[",", ":"]}>
 
 
                     {defaults.interests_and_hobbies.map(e => <Option key={e} value={e}>{e}</Option>)}
 
-                  </Select> } />
+                  </Select>}/>
                 </Col>
                 <Col>
                   <Form.Label>Career interests</Form.Label>
                   <Field name="careerInterests" render={({ field, form: { touched, errors } }) => <Select showSearch
-                                                                                                          size={"large"} mode="multiple"
+                                                                                                          size={"large"}
+                                                                                                          mode="multiple"
                                                                                                           style={{ width: "100%" }}
                                                                                                           value={field.value}
-                                                                                                          placeholder={ 'Finance, engineering..'}
+                                                                                                          placeholder={"Finance, engineering.."}
                                                                                                           onChange={(o) => setFieldValue(field.name, o)}
                                                                                                           tokenSeparators={[",", ":"]}>
 
 
                     {defaults.career_interests.map(e => <Option key={e} value={e}>{e}</Option>)}
 
-                  </Select> } />
+                  </Select>}/>
                 </Col>
                 <Col>
                   <Form.Label>LinkedIn profile</Form.Label>
 
-                  <Field name="linkedinUrl" render={({ field, form: { touched, errors } }) => <InputGroup className="md-6">
-                    <InputGroup.Prepend>
-                      <InputGroup.Text><Image src={'http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c528.png'} style={{maxHeight: '16px'}} /></InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <div>
-                      <Form.Control {...field} placeholder="www.linkedin.com/in/amazingmentor"
-                                    isInvalid={touched[field.name] && errors[field.name]}/>
-                      {touched[field.name] && errors[field.name] ?
-                        <p style={{ color: "red" }}>{errors[field.name]}</p> : null}
-                    </div>
-                  </InputGroup> } />
+                  <Field name="linkedinUrl"
+                         render={({ field, form: { touched, errors } }) => <InputGroup className="md-6">
+                           <InputGroup.Prepend>
+                             <InputGroup.Text><Image
+                               src={"http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c528.png"}
+                               style={{ maxHeight: "16px" }}/></InputGroup.Text>
+                           </InputGroup.Prepend>
+                           <div>
+                             <Form.Control {...field} placeholder="www.linkedin.com/in/amazingmentor"
+                                           isInvalid={touched[field.name] && errors[field.name]}/>
+                             {touched[field.name] && errors[field.name] ?
+                               <p style={{ color: "red" }}>{errors[field.name]}</p> : null}
+                           </div>
+                         </InputGroup>}/>
                 </Col>
               </Row>
 
-              <br />
+              <br/>
 
               <Row>
                 <Col>
@@ -309,13 +323,13 @@ const MentorSettings = (props) => {
                                                                                                    size={"large"}
                                                                                                    style={{ width: "100%" }}
                                                                                                    value={field.value}
-                                                                                                   placeholder={ '1991,1997....'}
+                                                                                                   placeholder={"1991,1997...."}
                                                                                                    onChange={(o) => setFieldValue(field.name, o)}
                                                                                                    tokenSeparators={[",", ":"]}>
 
 
                     {defaults.yearBorn.map(e => <Option key={e} value={e}>{e}</Option>)}
-                  </Select> } />
+                  </Select>}/>
                 </Col>
                 <Col>
                   <Form.Label>Graduation year</Form.Label>
@@ -323,14 +337,14 @@ const MentorSettings = (props) => {
                                                                                                          size={"large"}
                                                                                                          style={{ width: "100%" }}
                                                                                                          value={field.value}
-                                                                                                         placeholder={ '2017, 2019..'}
+                                                                                                         placeholder={"2017, 2019.."}
                                                                                                          onChange={(o) => setFieldValue(field.name, o)}
                                                                                                          tokenSeparators={[",", ":"]}>
 
 
                     {defaults.yearGraduate.map(e => <Option key={e} value={e}>{e}</Option>)}
 
-                  </Select> } />
+                  </Select>}/>
                 </Col>
                 <Col>
                   <Form.Label>Max mentees</Form.Label>
@@ -338,28 +352,28 @@ const MentorSettings = (props) => {
                                                                                                              size={"large"}
                                                                                                              style={{ width: "100%" }}
                                                                                                              value={field.value}
-                                                                                                             placeholder={'3'}
+                                                                                                             placeholder={"3"}
                                                                                                              onChange={(o) => setFieldValue(field.name, o)}
                                                                                                              tokenSeparators={[",", ":"]}>
 
 
-                    {[1,2,3,4,5,6].map(e => <Option key={e} value={e}>{e}</Option>)}
-                  </Select> } />
+                    {[1, 2, 3, 4, 5, 6].map(e => <Option key={e} value={e}>{e}</Option>)}
+                  </Select>}/>
                 </Col>
                 <Col>
                   <Form.Label>Referral</Form.Label>
                   <Field name="referral" render={({ field, form: { touched, errors } }) => <Select showSearch
-                                                                                                   mode={ "multiple"}
+                                                                                                   mode={"multiple"}
                                                                                                    size={"large"}
                                                                                                    style={{ width: "100%" }}
                                                                                                    value={field.value}
-                                                                                                   placeholder={ 'Google, Instagram..'}
+                                                                                                   placeholder={"Google, Instagram.."}
                                                                                                    onChange={(o) => setFieldValue(field.name, o)}
                                                                                                    tokenSeparators={[",", ":"]}>
 
 
                     {defaults.referrer.map(e => <Option key={e} value={e}>{e}</Option>)}
-                  </Select> } />
+                  </Select>}/>
                 </Col>
               </Row>
               <Row>

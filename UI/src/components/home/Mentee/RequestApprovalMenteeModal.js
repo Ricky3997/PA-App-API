@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
-import { Formik, Form as FormikForm, Field } from "formik";
+import { Field, Form as FormikForm, Formik } from "formik";
 import { Icon } from "react-fa";
 import * as Yup from "yup";
 import * as _ from "lodash";

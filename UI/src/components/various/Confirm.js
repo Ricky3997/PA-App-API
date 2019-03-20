@@ -10,7 +10,7 @@ class Confirm extends Component {
     const qs = queryString.parse(this.props.location.search);
     const { token, id } = qs;
     if (token && id) {
-      this.props.history.push({ search: '' });
+      this.props.history.push({ search: "" });
       this.props.confirmEmailAddress(token, id).then(r => {
         if (r.success) {
           this.props.history.push("/");
@@ -33,6 +33,6 @@ class Confirm extends Component {
       </Container>
     );
   }
-};
+}
 
 export default Confirm;

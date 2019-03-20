@@ -286,7 +286,8 @@ const MenteeSettings = (props) => {
                 </Col>
                 <Col>
                   <Field name="coursesApplyingFor" render={({ field, form: { touched, errors } }) =>
-                    <CoursePicker multiple field={field} touched={touched} errors={errors} setFieldValue={setFieldValue}/>}/>
+                    <CoursePicker multiple field={field} touched={touched} errors={errors}
+                                  setFieldValue={setFieldValue}/>}/>
                 </Col>
               </Row>
 

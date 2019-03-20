@@ -14,7 +14,7 @@ const CoursePicker = ({ field, touched, errors, setFieldValue, multiple }) => {
             size={"large"}
             style={{ width: "100%" }}
             value={field.value}
-            placeholder={ 'Course'}
+            placeholder={"Course"}
             onChange={(o) => setFieldValue(field.name, o)}
             tokenSeparators={[",", ":"]}>
 

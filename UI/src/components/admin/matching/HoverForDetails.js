@@ -31,6 +31,6 @@ class HoverForDetails extends Component {
   </span>;
   }
 
-};
+}
 
 export default HoverForDetails;

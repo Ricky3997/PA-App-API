@@ -1,15 +1,5 @@
 import React from "react";
-import {
-  Col,
-  Image,
-  Row,
-  Breadcrumb,
-  Container,
-  Badge,
-  Form,
-  Button,
-  Tooltip, OverlayTrigger
-} from "react-bootstrap";
+import { Badge, Breadcrumb, Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import ProfileIcon from "../../various/ProfileIcon";
 import { LinkContainer } from "react-router-bootstrap";
 import StatusIcon from "./StatusIcon";
@@ -48,7 +38,7 @@ const MenteeAdminProfile = (props) => {
       </Col>
       <Col md={2}>
         {props.matching ? <LinkContainer to={`/admin/mentees/${props.mentee._id}`}
-                                             style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>
+                                         style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>
           <h4>{props.mentee.firstName}</h4>
         </LinkContainer> : <h4>{props.mentee.firstName}</h4>}
       </Col>
@@ -58,15 +48,15 @@ const MenteeAdminProfile = (props) => {
         </ButtonNotReadyYet>
       </Col>}
 
-      {props.approvalMode || props.mentee.status !== "requested"|| props.matching ? null : <Col md={2}>
+      {props.approvalMode || props.mentee.status !== "requested" || props.matching ? null : <Col md={2}>
         <Button block variant="danger"
                 onClick={props.toggleAdminModal}> Reject </Button>
       </Col>}
-      {props.approvalMode || props.mentee.status !== "requested"|| props.matching ? null : <Col md={2}>
+      {props.approvalMode || props.mentee.status !== "requested" || props.matching ? null : <Col md={2}>
         <Button block variant="success"
                 onClick={() => props.changeStatus(props.mentee._id, "approved").then(r => {
                   if (r.success) toast.success("Approved");
-                  props.history.push('/admin/mentors')
+                  props.history.push("/admin/mentors");
                 })}> Approve </Button>
       </Col>}
       {props.details && props.mentee.status === "approved" && !props.mentee.relationship ? <Col md={2}>
@@ -231,7 +221,7 @@ const MenteeAdminProfile = (props) => {
         <Badge variant="info">{"Courses"}</Badge>
       </Col>
       <Col>
-        <Form.Label>{`${props.mentee.coursesApplyingFor.join(', ')}`}</Form.Label>
+        <Form.Label>{`${props.mentee.coursesApplyingFor.join(", ")}`}</Form.Label>
       </Col>
     </Row>
 
@@ -248,7 +238,7 @@ const MenteeAdminProfile = (props) => {
     </Row>}
 
     <RejectionReasonModal showModal={props.showModal} name={props.mentee.firstName} id={props.mentee._id}
-                          onHide={props.toggleAdminModal} changeStatus={props.changeStatus} />
+                          onHide={props.toggleAdminModal} changeStatus={props.changeStatus}/>
   </Container>;
 };
 

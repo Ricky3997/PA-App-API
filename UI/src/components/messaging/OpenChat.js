@@ -1,8 +1,14 @@
 import React from "react";
 import {
-  AddIcon, IconButton, Message,
-  MessageList, MessageText,
-  Row as ChatRow, SendButton, TextComposer, TextInput
+  AddIcon,
+  IconButton,
+  Message,
+  MessageList,
+  MessageText,
+  Row as ChatRow,
+  SendButton,
+  TextComposer,
+  TextInput
 } from "@livechat/ui-kit";
 
 const OpenChat = (props) => {
@@ -26,17 +32,17 @@ const OpenChat = (props) => {
     return <div>
       {activeChat ? <div>
         <MessageList active style={{ height: "580px" }}>
-        {activeChat.messages.map(m => {
-            return <Message key={m.messageId}
-                            date={makeDateEllipsis(new Date(m.createdAt))}
-                            authorName={m._sender.userId === props.user._id ? 'You' : m._sender.nickname}
-                            isOwn={m._sender.userId === props.user._id}>
-              <MessageText>
-                {m.message}
-              </MessageText>
-            </Message>;
-          }
-        )}
+          {activeChat.messages.map(m => {
+              return <Message key={m.messageId}
+                              date={makeDateEllipsis(new Date(m.createdAt))}
+                              authorName={m._sender.userId === props.user._id ? "You" : m._sender.nickname}
+                              isOwn={m._sender.userId === props.user._id}>
+                <MessageText>
+                  {m.message}
+                </MessageText>
+              </Message>;
+            }
+          )}
         </MessageList>
         <TextComposer onSend={(message) => props.sendMessageInChat(activeChat.id, message)}>
           <ChatRow align="center">
@@ -44,7 +50,7 @@ const OpenChat = (props) => {
               <AddIcon/>
             </IconButton>
             <TextInput fill={"true"} placeholder={"Type a message"}/>
-            <SendButton fit />
+            <SendButton fit/>
           </ChatRow>
         </TextComposer>
       </div> : null}

@@ -1,7 +1,7 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 
-const TextFieldWithLabel = ({field, touched, errors, label}) => {
+const TextFieldWithLabel = ({ field, touched, errors, label }) => {
   return <div>
     <Form.Label>{label}</Form.Label>
     <Form.Control {...field}

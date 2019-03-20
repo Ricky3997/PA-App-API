@@ -5,48 +5,48 @@ import { Icon } from "react-fa";
 import ProfileIcon from "../../various/ProfileIcon";
 
 const MentorTile = (props) => {
-    return (
-        <Container>
-            <Row>
-                <Col>
-                    <h4>
-                        Your Mentor <span role="img" aria-label="hands raised in celebration">🙌</span>
-                    </h4>
-                </Col>
-            </Row>
-            <Row>
-                <Col md={4}>
-                    <ProfileIcon pictureUrl={props.mentor.pictureUrl} size={"l"} mentorMode/>
-                </Col>
-                <Col md={6}>
-                    <Row>
-                        {props.mentor.firstName}
-                    </Row>
-                    <Row>
-                        {props.mentor.subject}
-                    </Row>
-                    <Row>
-                        {props.mentor.university}
-                    </Row>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <Row style={{marginTop: "10px"}}>
-                        <LinkContainer to="/message">
-                            <Button block><Icon name="fas fa-commenting"/> Message</Button>
-                        </LinkContainer>
-                    </Row>
-                    <Row style={{marginTop: "10px"}}>
-                        <LinkContainer to="/call">
-                            <Button block><Icon name="fas fa-phone"/> Call</Button>
-                        </LinkContainer>
-                    </Row>
-                </Col>
-            </Row>
+  return (
+    <Container>
+      <Row>
+        <Col>
+          <h4>
+            Your Mentor <span role="img" aria-label="hands raised in celebration">🙌</span>
+          </h4>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={4}>
+          <ProfileIcon pictureUrl={props.mentor.pictureUrl} size={"l"} mentorMode/>
+        </Col>
+        <Col md={6}>
+          <Row>
+            {props.mentor.firstName}
+          </Row>
+          <Row>
+            {props.mentor.subject}
+          </Row>
+          <Row>
+            {props.mentor.university}
+          </Row>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Row style={{ marginTop: "10px" }}>
+            <LinkContainer to="/message">
+              <Button block><Icon name="fas fa-commenting"/> Message</Button>
+            </LinkContainer>
+          </Row>
+          <Row style={{ marginTop: "10px" }}>
+            <LinkContainer to="/call">
+              <Button block><Icon name="fas fa-phone"/> Call</Button>
+            </LinkContainer>
+          </Row>
+        </Col>
+      </Row>
 
-        </Container>
-    );
+    </Container>
+  );
 };
 
 export default MentorTile;

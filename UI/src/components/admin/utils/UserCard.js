@@ -1,18 +1,17 @@
 import React from "react";
-import { Badge, Button, Card, Image, OverlayTrigger, ProgressBar, Tooltip } from "react-bootstrap";
+import { Badge, Card, Image, OverlayTrigger, ProgressBar, Tooltip } from "react-bootstrap";
 import ConfirmMatchButton from "./ConfirmMatchButton";
 import ProfileIcon from "../../various/ProfileIcon";
 import connect from "react-redux/es/connect/connect";
 import {
   confirmMatch,
-  unsetMatchingConfirmation,
   showMatchingConfirmation,
-  toggleMatchingDetailsModal
+  toggleMatchingDetailsModal,
+  unsetMatchingConfirmation
 } from "../../../actions/actionCreator";
 import { Link } from "react-router-dom";
 import HoverForDetails from "../matching/HoverForDetails";
 import countries from "svg-country-flags/countries";
-import { LinkContainer } from "react-router-bootstrap";
 
 const UserCard = (props) => {
 

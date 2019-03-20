@@ -3,7 +3,7 @@ import { Avatar, ChatListItem, Column, Row as ChatRow, Subtitle, Title } from "@
 
 const LoadingChatList = () => {
   return <ChatListItem active>
-    <Avatar imgUrl={'https://cdn1.iconfinder.com/data/icons/loading-icon/100/loading_icon-01-512.png'} />
+    <Avatar imgUrl={"https://cdn1.iconfinder.com/data/icons/loading-icon/100/loading_icon-01-512.png"}/>
     <Column fill={"true"}>
       <ChatRow justify>
         <Title ellipsis>...</Title>
@@ -12,7 +12,7 @@ const LoadingChatList = () => {
         Loading, will style nicely later
       </Subtitle>
     </Column>
-  </ChatListItem>
+  </ChatListItem>;
 };
 
 export default LoadingChatList;

@@ -16,7 +16,7 @@ import CoursePicker from "../various/forms/CoursePicker";
 const MenteeAcademicBackground = (props) => {
 
   const calculateProgressBar = (values) => {
-    return 60 + (values.school ? 6 : 0) +(values.subjects ? 6 : 0) +(values.year ? 6 : 0) + (values.interestedIn ? 7 : 0)+ (values.level ? 3 : 0)+ (values.unisApplyingFor ? 7 : 0);
+    return 60 + (values.school ? 6 : 0) + (values.subjects ? 6 : 0) + (values.year ? 6 : 0) + (values.interestedIn ? 7 : 0) + (values.level ? 3 : 0) + (values.unisApplyingFor ? 7 : 0);
   };
 
   return <Formik
@@ -29,9 +29,9 @@ const MenteeAcademicBackground = (props) => {
       year: Yup.string()
         .required("Year is required."),
       interestedIn: Yup.array()
-        .required('Area of degree required'),
+        .required("Area of degree required"),
       coursesApplyingFor: Yup.array()
-        .required('Courses required'),
+        .required("Courses required"),
       unisApplyingFor: Yup.array()
         .required("Unis required"),
       level: Yup.string()
@@ -58,7 +58,7 @@ const MenteeAcademicBackground = (props) => {
           </Col>
         </Row>
         <Row>
-          <Col md={{ span: 6, offset: 3}}>
+          <Col md={{ span: 6, offset: 3 }}>
             <Field
               name="subjects"
               render={({ field, form: { touched, errors } }) =>
@@ -70,7 +70,8 @@ const MenteeAcademicBackground = (props) => {
         <Row>
           <Col md={{ span: 3, offset: 3 }}>
             <Field name="unisApplyingFor" render={({ field, form: { touched, errors } }) =>
-              <UniversityPicker setFieldValue={setFieldValue} field={field} touched={touched} mentee multiple errors={errors}/>}
+              <UniversityPicker setFieldValue={setFieldValue} field={field} touched={touched} mentee multiple
+                                errors={errors}/>}
             />
           </Col>
 
@@ -84,7 +85,8 @@ const MenteeAcademicBackground = (props) => {
         <Row>
           <Col md={{ span: 3, offset: 3 }}>
             <Field name="interestedIn" render={({ field, form: { touched, errors } }) =>
-              <AreaOfDegreePicker multiple setFieldValue={setFieldValue} field={field} touched={touched} errors={errors}/>}
+              <AreaOfDegreePicker multiple setFieldValue={setFieldValue} field={field} touched={touched}
+                                  errors={errors}/>}
             />
           </Col>
           <Col md={{ span: 3 }}>
@@ -94,14 +96,14 @@ const MenteeAcademicBackground = (props) => {
           </Col>
         </Row>
 
-        <br />
+        <br/>
         <Row>
           < Col md={{ span: 2, offset: 3 }}>
             <Button block onClick={() => {
               props.addOnboardingProperties(values);
-              props.changeStage(2)
+              props.changeStage(2);
             }}>
-              <span><Icon name="fas fa-arrow-left" />{" Previous"}  </span>
+              <span><Icon name="fas fa-arrow-left"/>{" Previous"}  </span>
             </Button>
           </Col>
           <Col md={{ span: 2 }} style={{ paddingTop: "10px" }}>
@@ -109,7 +111,7 @@ const MenteeAcademicBackground = (props) => {
           </Col>
           <Col md={{ span: 2 }}>
             <Button block type="submit" variant="success" disabled={isSubmitting || !_.isEmpty(errors)}>
-              <span>{"Next "} <Icon name="fas fa-arrow-right" /> </span>
+              <span>{"Next "} <Icon name="fas fa-arrow-right"/> </span>
             </Button>
           </Col>
         </Row>

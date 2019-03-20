@@ -89,8 +89,8 @@ const MenteeConfirm = (props) => {
       </Col>
       <Col md={{ span: 4 }}>
         {props.onboarding.unisApplyingFor.map(uAf => <Image key={uAf}
-          src={[...defaults.universities.US, ...defaults.universities.UK].filter(u => u.name === uAf)[0].logo}
-          style={{ maxHeight: "60px", maxWidth: "130px" }}/>)}
+                                                            src={[...defaults.universities.US, ...defaults.universities.UK].filter(u => u.name === uAf)[0].logo}
+                                                            style={{ maxHeight: "60px", maxWidth: "130px" }}/>)}
       </Col>
     </Row>
 
@@ -100,7 +100,7 @@ const MenteeConfirm = (props) => {
         <Badge variant="info">{"Interested in"}</Badge>
       </Col>
       <Col md={{ span: 3 }}>
-        {props.onboarding.interestedIn.join(', ')}
+        {props.onboarding.interestedIn.join(", ")}
       </Col>
     </Row>
 
@@ -116,7 +116,7 @@ const MenteeConfirm = (props) => {
     <Row>
       <Col md={{ span: 2, offset: 3 }}>
         <Button block onClick={() => props.changeStage(3)}>
-          <span><Icon name="fas fa-arrow-left" />{" Previous"}  </span>
+          <span><Icon name="fas fa-arrow-left"/>{" Previous"}  </span>
         </Button>
       </Col>
       <Col md={{ span: 2 }} style={{ paddingTop: "10px" }}>
@@ -125,10 +125,11 @@ const MenteeConfirm = (props) => {
       <Col md={{ span: 2 }}>
         <Button variant="success" block disabled={props.onboarding.registering} onClick={() => {
           props.registerMentee().then(r => {
-            if(r.success) toast.success('Registered successfully!')
+            if (r.success) toast.success("Registered successfully!");
           });
         }}>
-          {props.onboarding.registering ? <Loader type="Oval" color="#ffffff" width="20" height="20"/> : <span>Perfect, let's go!</span>}
+          {props.onboarding.registering ? <Loader type="Oval" color="#ffffff" width="20" height="20"/> :
+            <span>Perfect, let's go!</span>}
         </Button>
       </Col>
     </Row>

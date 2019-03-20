@@ -1,15 +1,5 @@
 import React, { Component } from "react";
-import {
-  Button,
-  CardColumns,
-  CardDeck,
-  Col,
-  Container,
-  Form,
-  InputGroup,
-  ListGroup,
-  Row
-} from "react-bootstrap";
+import { CardDeck, Col, Container, Form, InputGroup, ListGroup, Row } from "react-bootstrap";
 import UserCard from "../utils/UserCard";
 import { Icon } from "react-fa";
 import * as JsSearch from "js-search";
@@ -129,6 +119,6 @@ class Matching extends Component {
       </Row>
     );
   }
-};
+}
 
 export default Matching;

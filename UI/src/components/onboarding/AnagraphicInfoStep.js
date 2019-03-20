@@ -13,7 +13,7 @@ import { Icon } from "react-fa";
 const AnagraphicInfoStep = (props) => {
 
   const calculateProgressBar = (values) => {
-    return 30 + (values.country ? 7 : 0) +(values.city ? 7 : 0) +(values.gender ? 8 : 0) +(values.firstGenStudent ? 8 : 0);
+    return 30 + (values.country ? 7 : 0) + (values.city ? 7 : 0) + (values.gender ? 8 : 0) + (values.firstGenStudent ? 8 : 0);
   };
 
   const { user } = props;

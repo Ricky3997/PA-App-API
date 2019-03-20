@@ -1,9 +1,10 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 import { Select } from "antd";
-const {OptGroup, Option} = Select;
 
-const UnisApplyingFor = ({field, touched, errors, setFieldValue}) => {
+const { OptGroup, Option } = Select;
+
+const UnisApplyingFor = ({ field, touched, errors, setFieldValue }) => {
   return <div>
     <Form.Label>Universities you may apply for</Form.Label>
     <Select mode="multiple" showSearch
