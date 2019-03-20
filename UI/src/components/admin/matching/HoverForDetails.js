@@ -1,27 +1,36 @@
-import React from "react";
-import { Badge, Button, Modal } from "react-bootstrap";
+import React, { Component } from "react";
+import { Button, Modal } from "react-bootstrap";
 import MentorAdminProfile from "../utils/MentorAdminProfile";
 import { Icon } from "react-fa";
 import MenteeAdminProfile from "../utils/MenteeAdminProfile";
 
-const HoverForDetails = (props) => {
-  return <span>
-    <span onMouseEnter={() => props.toggleMatchingDetailsModal(props[props.mentorMode ? "mentor" : "mentee"]._id)}>
+class HoverForDetails extends Component {
+  render() {
+    return <span>
+    <span onMouseEnter={() => {
+      this.timer = window.setTimeout(() => this.props.toggleMatchingDetailsModal(this.props[this.props.mentorMode ? "mentor" : "mentee"]._id), 300);
+
+    }} onMouseLeave={() => {
+      if (this.timer) window.clearTimeout(this.timer);
+    }}
+    >
       <Button variant={"info"} block style={{ marginBottom: "5px" }}><Icon
         name='fas fa-hand-pointer-o'/>{" Hover for details"}</Button>
     </span>
     <Modal
       size="lg"
       centered
-      onHide={() => props.toggleMatchingDetailsModal(false)}
-      show={props.matching.showDetailsModal === props[props.mentorMode ? "mentor" : "mentee"]._id}
+      onHide={() => this.props.toggleMatchingDetailsModal(false)}
+      show={this.props.matching.showDetailsModal === this.props[this.props.mentorMode ? "mentor" : "mentee"]._id}
     >
       <Modal.Body>
-        {props.mentorMode ? <MentorAdminProfile {...props} matching/> :
-          <MenteeAdminProfile {...props} matching/>}
+        {this.props.mentorMode ? <MentorAdminProfile {...this.props} matching/> :
+          <MenteeAdminProfile {...this.props} matching/>}
       </Modal.Body>
     </Modal>
   </span>;
+  }
+
 };
 
 export default HoverForDetails;

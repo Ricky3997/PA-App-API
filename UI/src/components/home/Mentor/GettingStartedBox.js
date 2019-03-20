@@ -8,22 +8,23 @@ import moment from "moment";
 const GettingStartedBox = (props) => {
   return (
     <Container className="journey-module-box"
-               style={{ backgroundColor: props.module.completed ? "#4f84bc" : "#d64f29" , marginBottom: '50px'}}>
+               style={{ backgroundColor: props.module.completed ? "#4f84bc" : "#d64f29", marginBottom: "50px" }}>
       <Row>
         <Col md={9}>
           <h5> {props.module.title}
           </h5>
           <p>
-            {props.module.ready ? props.module.description : 'Before you can do this, you first need to complete the previous task!'}
+            {props.module.ready ? props.module.description : "Before you can do this, you first need to complete the previous task!"}
           </p>
         </Col>
         <Col md={3}>
           {props.module.ready ?
             <Container>
               <b>
-                {props.module.completed ? `✅ Completed` : (props.action ? <Button style={{marginTop: '30px'}} onClick={props.onClick}>
+                {props.module.completed ? `✅ Completed` : (props.action ?
+                  <Button style={{ marginTop: "30px" }} onClick={props.onClick}>
                     {props.action}
-                </Button> : null)}
+                  </Button> : null)}
               </b>
             </Container> :
             <OverlayTrigger placement="bottom" overlay={

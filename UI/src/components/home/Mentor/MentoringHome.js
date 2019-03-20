@@ -67,7 +67,8 @@ const MentoringHome = (props) => {
       <Row>
         <Col md={9}>
           <p>
-            It's always great to see you back with us, {props.user.firstName}!
+            It's always great to see you back with us, and thank you so much for being an amazing human being changing
+            the world!
           </p>
         </Col>
       </Row>
@@ -80,7 +81,8 @@ const MentoringHome = (props) => {
           <Row>
             <h4>Your Mentees <span role="img" aria-labelledby={"angel emoji"}>😇</span></h4>
             {_.get(props, "user.mentorProfile.relationship.length") > 0 ?
-              props.user.mentorProfile.relationship.map(r => <MenteeTile key={r._id} {...r} />) :
+              props.user.mentorProfile.relationship.map(r => r.status === "awaitingConfirmation" ?
+                <AcceptMenteeBox {...r} /> : <MenteeTile key={r._id} {...r} />) :
               <div>
                 <div>{toRender}</div>
               </div>}

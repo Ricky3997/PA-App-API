@@ -1,13 +1,12 @@
 import React from "react";
-import { Button, Col, Image, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
+import { Button, Col, Image, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import * as _ from "lodash";
-import MenteeTile from "../../people/MenteeTile";
 import { Bookmark, Timeline } from "react-vertical-timeline";
-import { LinkContainer } from "react-router-bootstrap";
 import RequestApprovalMentorModal from "./RequestApprovalMentorModal";
 import GettingStartedBox from "./GettingStartedBox";
 import AcceptMenteeBox from "./AcceptMenteeBox";
+import ButtonNotReadyYet from "../../various/ButtonNotReadyYet";
 
 
 const GettingStartedSteps = (props) => {
@@ -61,19 +60,23 @@ const GettingStartedSteps = (props) => {
             <Col md={3}>
               <Timeline height={300} progress={props.mentorHome.progress}>
                 <Bookmark key={"confirm"} progress={10} onSelect={() => props.setMentorHomeProgress(10)}>
-                  <h6 style={{ cursor: "pointer" }}>{confirmEmailModule.completed ? `✅ ` : '⏳'}{confirmEmailModule.title}</h6>
+                  <h6
+                    style={{ cursor: "pointer" }}>{confirmEmailModule.completed ? `✅ ` : "⏳"}{confirmEmailModule.title}</h6>
                 </Bookmark>
                 <Bookmark key={"approval"} progress={30} onSelect={() => props.setMentorHomeProgress(30)}>
-                  <h6 style={{ cursor: "pointer" }}>{requestApprovallModule.completed ? `✅ ` : '⏳'}{requestApprovallModule.title}</h6>
+                  <h6
+                    style={{ cursor: "pointer" }}>{requestApprovallModule.completed ? `✅ ` : "⏳"}{requestApprovallModule.title}</h6>
                 </Bookmark>
                 <Bookmark key={"waitApproval"} progress={50} onSelect={() => props.setMentorHomeProgress(50)}>
-                  <h6 style={{ cursor: "pointer" }}>{waitUntilApproved.completed ? `✅ ` : '⏳'}{waitUntilApproved.title}</h6>
+                  <h6
+                    style={{ cursor: "pointer" }}>{waitUntilApproved.completed ? `✅ ` : "⏳"}{waitUntilApproved.title}</h6>
                 </Bookmark>
                 <Bookmark key={"waitMatch"} progress={70} onSelect={() => props.setMentorHomeProgress(70)}>
-                  <h6 style={{ cursor: "pointer" }}>{waitUntilMatched.completed ? `✅ ` : '⏳'}{waitUntilMatched.title}</h6>
+                  <h6
+                    style={{ cursor: "pointer" }}>{waitUntilMatched.completed ? `✅ ` : "⏳"}{waitUntilMatched.title}</h6>
                 </Bookmark>
                 <Bookmark key={"mentee"} progress={100} onSelect={() => props.setMentorHomeProgress(100)}>
-                  <h6 style={{ cursor: "pointer" }}>{acceptMentee.completed ? `✅ ` : '⏳'}{acceptMentee.title}</h6>
+                  <h6 style={{ cursor: "pointer" }}>{acceptMentee.completed ? `✅ ` : "⏳"}{acceptMentee.title}</h6>
                 </Bookmark>
               </Timeline>
             </Col>
@@ -90,15 +93,21 @@ const GettingStartedSteps = (props) => {
                 <h5>
                   While you wait, you can help us with the following
                 </h5>
-                <ol>
+                <ol style={{ lineHeight: "50px" }}>
                   <li>
-                    Submit your personal statement
+                    <ButtonNotReadyYet>
+                      <Button disabled>Submit your personal statement</Button>
+                    </ButtonNotReadyYet>
                   </li>
                   <li>
-                    Write a blog post
+                    <ButtonNotReadyYet>
+                      <Button disabled>Write a blog post</Button>
+                    </ButtonNotReadyYet>
                   </li>
                   <li>
-                    Start the training
+                    <ButtonNotReadyYet>
+                      <Button disabled>Start the training</Button>
+                    </ButtonNotReadyYet>
                   </li>
                 </ol>
               </div> : null}

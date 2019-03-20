@@ -20,6 +20,7 @@ import defaults from "../../../defaults/defaults";
 import MenteeProfileMentorTile from "./MenteeProfileMentorTile";
 import { toast } from "react-toastify";
 import RejectionReasonModal from "./RejectionReasonModal";
+import ButtonNotReadyYet from "../../various/ButtonNotReadyYet";
 
 
 const MenteeAdminProfile = (props) => {
@@ -51,14 +52,9 @@ const MenteeAdminProfile = (props) => {
         </LinkContainer> : <h4>{props.mentee.firstName}</h4>}
       </Col>
       {props.approvalMode || props.matching ? null : <Col md={{ span: 2, offset: 1 }}>
-        <OverlayTrigger placement="bottom" trigger="hover"
-                        overlay={<Tooltip placement="bottom" className="in">Feature not ready yet</Tooltip>}>
-            <span className="d-inline-block">
-              <LinkContainer to="/message">
+        <ButtonNotReadyYet>
           <Button block disabled><Icon name="fas fa-commenting"/> Message</Button>
-        </LinkContainer>
-            </span>
-        </OverlayTrigger>
+        </ButtonNotReadyYet>
       </Col>}
 
       {props.approvalMode || props.mentee.status !== "requested"|| props.matching ? null : <Col md={2}>
