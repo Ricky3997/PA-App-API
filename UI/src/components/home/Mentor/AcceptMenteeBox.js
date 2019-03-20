@@ -5,6 +5,7 @@ import Moment from "moment";
 import ConfirmAcceptMentee from "./ConfirmAcceptMentee";
 import connect from "react-redux/es/connect/connect";
 import { mentorDecisionRelationship, toggleMentorConfirmDecision } from "../../../actions/actionCreator";
+import { Link } from "react-router-dom";
 
 const AcceptMenteeBox = (props) => {
   const timeLeft = Moment.duration(new Moment(props.matchedOn).add(5, "d").diff(new Moment()));
@@ -30,7 +31,8 @@ const AcceptMenteeBox = (props) => {
         <Col md={6}>
           <Row>
             <h6>
-              {props.mentee.firstName}
+              <Link to={`mentee/${props.mentee._id}`}>{props.mentee.firstName}</Link>
+              , studies at <b>{props.mentee.school}</b> in {props.mentee.city}
             </h6>
           </Row>
         </Col>

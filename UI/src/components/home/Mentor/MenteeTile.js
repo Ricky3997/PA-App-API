@@ -2,14 +2,15 @@ import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { Icon } from "react-fa";
-import ProfileIcon from "../various/ProfileIcon";
-import moment from "moment";
-import ConfirmAcceptMentee from "../home/Mentor/ConfirmAcceptMentee";
+import ProfileIcon from "../../various/ProfileIcon";
+import Moment from "moment";
+import ConfirmAcceptMentee from "./ConfirmAcceptMentee";
 import connect from "react-redux/es/connect/connect";
-import { mentorDecisionRelationship, toggleMentorConfirmDecision } from "../../actions/actionCreator";
+import { mentorDecisionRelationship, toggleMentorConfirmDecision } from "../../../actions/actionCreator";
+import { Link } from "react-router-dom";
 
 const MenteeTile = (props) => {
-  const timeLeft = moment.duration(new moment(props.matchedOn).add(5, "d").diff(new moment()));
+  const timeLeft = Moment.duration(new Moment(props.matchedOn).add(5, "d").diff(new Moment()));
   const days = Math.floor(timeLeft.asDays());
   const hours = Math.floor(timeLeft.subtract(days, "d").asHours());
 
@@ -32,7 +33,8 @@ const MenteeTile = (props) => {
         <Col md={6}>
           <Row>
             <h6>
-              {props.mentee.firstName}
+              <Link to={`mentee/${props.mentee._id}`}>{props.mentee.firstName}</Link>
+              , studies at <b>{props.mentee.school}</b> in {props.mentee.city}
             </h6>
           </Row>
         </Col>
@@ -45,7 +47,7 @@ const MenteeTile = (props) => {
               we will have to match them with another mentor`}</p>
             </Col>
           </Row>
-          {(moment.duration(new moment(props.matchedOn).add(5, "d").diff(new moment())) <= 0) ? "Time ran out to confirm, sorry" : <ConfirmAcceptMenteeButton/>}
+          {(Moment.duration(new Moment(props.matchedOn).add(5, "d").diff(new Moment())) <= 0) ? "Time ran out to confirm, sorry" : <ConfirmAcceptMenteeButton/>}
         </div> :
         <Row>
           <Col>

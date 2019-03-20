@@ -7,7 +7,7 @@ import Onboarding from "./onboarding/Onboarding";
 import Login from "./various/Login";
 import { Route, Switch } from "react-router-dom";
 import Confirm from "./various/Confirm";
-import MentorProfile from "./people/MentorTile";
+import MentorProfile from "./home/Mentee/MentorTile";
 import Call from "./call/Call";
 import Messaging from "./messaging/Messaging";
 import Admin from "./admin/Admin";
@@ -50,6 +50,8 @@ import {
 import Footer from "./various/Footer";
 import { Container } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
+import PublicMentorProfile from "./people/PublicMentorProfile";
+import PublicMenteeProfile from "./people/PublicMenteeProfile";
 
 class App extends Component {
   render() {
@@ -97,11 +99,28 @@ class App extends Component {
             })(Onboarding)}/>
 
             <Route path={"/journey/:id"} component={connect(({ user }) => {
-              return {  user };
+            return {  user };
+          }, dispatch => {
+            return {
+            };
+          })(JourneyModule)}/>
+
+            <Route path={"/mentor/:id"} component={connect(
+              ({ }) => {
+              return { };
             }, dispatch => {
               return {
               };
-            })(JourneyModule)}/>
+            })(PublicMentorProfile)}/>
+
+            <Route path={"/mentee/:id"} component={connect(
+              ({ }) => {
+              return { };
+            }, dispatch => {
+              return {
+              };
+            })(PublicMenteeProfile)}/>
+
 
             <Route path={"/message"}  component={connect(({ user }) => {
               return {  user };

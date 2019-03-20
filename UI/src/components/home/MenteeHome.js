@@ -3,7 +3,7 @@ import { Col, Row, Container, Button, Image } from "react-bootstrap";
 import { Icon } from "react-fa";
 import ProgressionTimeline from "./Mentee/ProgressionTimeline";
 import Module from "./Mentee/Module";
-import MentorTile from "../people/MentorTile";
+import MentorTile from "./Mentee/MentorTile";
 import NoMentorYet from "./Mentee/NoMentorYet";
 import * as _ from "lodash";
 import RequestApprovalMenteeModal from "./Mentee/RequestApprovalMenteeModal";
