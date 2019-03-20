@@ -21,10 +21,11 @@ import { Icon } from "react-fa";
 import moment from "moment";
 import RejectionReasonModal from "./RejectionReasonModal";
 import { toast } from "react-toastify";
+import NotFound from "../../various/NotFound";
 
 const MentorAdminProfile = (props) => {
 
-  if (!props.mentor) return <Image src={"https://media.giphy.com/media/6uGhT1O4sxpi8/giphy.gif"}/>;
+  if (!props.mentor) return  <NotFound/>;
   let flagIndex = "";
   Object.entries(countries).forEach((a) => {
     if (props.mentor.country === a[1]) flagIndex = a[0];

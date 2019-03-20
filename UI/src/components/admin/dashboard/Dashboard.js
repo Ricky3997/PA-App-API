@@ -4,6 +4,7 @@ import ProfileIcon from "../../various/ProfileIcon";
 import RelationshipAdminDetail from "../utils/RelationshipAdminDetail";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import NotFound from "../../various/NotFound";
 
 const Dashboard = (props) => {
   return (
@@ -33,8 +34,8 @@ const Dashboard = (props) => {
                 <ProgressBar now={r.progress} label={`${"TODO"}%`} style={{ minWidth: "100px" }}/>
               </Card.Footer>
             </Card>) : <Container fluid>
-              <h4>No relationships at this time <span role={"img"} aria-labelledby={"sad crying emoji"}>😢</span></h4>
-              <Image src={"https://media.giphy.com/media/6uGhT1O4sxpi8/giphy.gif"}/>
+              <NotFound>
+                <h4>No relationships at this time <span role={"img"} aria-labelledby={"sad crying emoji"}>😢</span></h4></NotFound>
             </Container>
           }
         </Row>}

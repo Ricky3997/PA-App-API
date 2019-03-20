@@ -21,11 +21,12 @@ import MenteeProfileMentorTile from "./MenteeProfileMentorTile";
 import { toast } from "react-toastify";
 import RejectionReasonModal from "./RejectionReasonModal";
 import ButtonNotReadyYet from "../../various/ButtonNotReadyYet";
+import NotFound from "../../various/NotFound";
 
 
 const MenteeAdminProfile = (props) => {
 
-  if (!props.mentee) return <Image src={"https://media.giphy.com/media/6uGhT1O4sxpi8/giphy.gif"}/>;
+  if (!props.mentee) return <NotFound/>;
   let flagIndex = "";
   Object.entries(countries).forEach((a) => {
     if (props.mentee.country === a[1]) flagIndex = a[0];

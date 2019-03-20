@@ -18,6 +18,7 @@ import MentorAdminprofile from "./MentorAdminProfile";
 import MenteeAdminProfile from "./MenteeAdminProfile";
 import UniversityPicker from "../../various/forms/UniversityPicker";
 import { adminChangeUserStatus, toggleAdminModal } from "../../../actions/actionCreator";
+import NotFound from "../../various/NotFound";
 
 const { Option } = Select;
 
@@ -178,11 +179,9 @@ class Database extends Component {
                                     key={m._id}/>)}
                       </CardDeck>
                       {toRender.length === 0 && _.get(values, "search.length") > 0 ?
-                        <div>
-                          <h4>No results match your search <Icon name="fas fa-search"/>
-                          </h4>
-                          <Image src={"https://media.giphy.com/media/6uGhT1O4sxpi8/giphy.gif"}/>
-                        </div> : null}
+                        <NotFound>
+                          <h4>No results match your search <Icon name="fas fa-search"/></h4>
+                        </NotFound> : null}
                     </Col>
 
                   </Row>

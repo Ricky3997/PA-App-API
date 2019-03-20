@@ -3,6 +3,7 @@ import { Col, Image, Row, Breadcrumb, Container, Badge, Button } from "react-boo
 import { LinkContainer } from "react-router-bootstrap";
 import ProfileIcon from "../../various/ProfileIcon";
 import { toast } from "react-toastify";
+import NotFound from "../../various/NotFound";
 
 
 const RelationshipAdminDetail = (props) => {
@@ -65,7 +66,7 @@ const RelationshipAdminDetail = (props) => {
 
       </Row>
     </Container> :
-    <Image src={"https://media.giphy.com/media/6uGhT1O4sxpi8/giphy.gif"}/>;
+    <NotFound/>;
 };
 
 export default RelationshipAdminDetail;
