@@ -73,7 +73,7 @@ const MentorAcademicBackground = (props) => {
                                                                                                    size={"large"}
                                                                                                    style={{ width: "100%" }}
                                                                                                    value={field.value}
-                                                                                                   placeholder={ '2017, 2019..'}
+                                                                                                   placeholder={2019}
                                                                                                    onChange={(o) => setFieldValue(field.name, o)}
                                                                                                    tokenSeparators={[",", ":"]}>
 

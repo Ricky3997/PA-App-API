@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Col, Row, Container, Button, Image } from "react-bootstrap";
 import { Icon } from "react-fa";
-import ProgressionTimeline from "./ProgressionTimeline";
-import Module from "./Module";
+import ProgressionTimeline from "./Mentee/ProgressionTimeline";
+import Module from "./Mentee/Module";
 import MentorTile from "../people/MentorTile";
-import NoMentorYet from "./NoMentorYet";
+import NoMentorYet from "./Mentee/NoMentorYet";
 import * as _ from "lodash";
-import RequestApprovalMenteeModal from "./RequestApprovalMenteeModal";
+import RequestApprovalMenteeModal from "./Mentee/RequestApprovalMenteeModal";
 import { toast } from "react-toastify";
 
 class MenteeHome extends Component {

@@ -36,6 +36,7 @@ import {
   TOGGLE_MENTOR_CONFIRM_DECISION, TOGGLE_DASHBOARD_CONFIRMATION
 } from "../actions/actionTypes";
 import { combineReducers } from "redux";
+import * as _ from "lodash";
 
 function user(state = JSON.parse(window.localStorage.getItem("user")) || null, action) {
   switch (action.type) {
@@ -216,8 +217,10 @@ const getInitialMentorHomeProgress = () => {
   try {
     const user = JSON.parse(window.localStorage.getItem("user"));
     let baseline = 10;
-    if (user.emailConfirmed) baseline = baseline + 30;
-    if (user.mentorProfile.status === "requested") baseline = baseline + 30;
+    if (user.emailConfirmed) baseline = baseline + 20;
+    if (user.mentorProfile.status === "requested") baseline = baseline + 20;
+    if (user.mentorProfile.status === "approved") baseline = baseline + 40;
+    if(_.get(user, "mentorProfile.relationship.length") > 0) baseline = 100;
     return baseline;
   } catch (e) {
     return 10;

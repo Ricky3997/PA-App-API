@@ -4,6 +4,7 @@ import Loader from "react-loader-spinner";
 import { Icon } from "react-fa";
 import defaults from "../../defaults/defaults";
 import countries from "svg-country-flags/countries";
+import { Toast as toast } from "react-toastify";
 
 const MenteeConfirm = (props) => {
 
@@ -123,7 +124,9 @@ const MenteeConfirm = (props) => {
       </Col>
       <Col md={{ span: 2 }}>
         <Button variant="success" block disabled={props.onboarding.registering} onClick={() => {
-          props.registerMentee();
+          props.registerMentee().then(r => {
+            if(r.success) toast.success('Registered successfully!')
+          });
         }}>
           {props.onboarding.registering ? <Loader type="Oval" color="#ffffff" width="20" height="20"/> : <span>Perfect, let's go!</span>}
         </Button>

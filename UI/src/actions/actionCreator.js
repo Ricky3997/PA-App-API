@@ -34,6 +34,7 @@ import {
   UPDATE_USER
 } from "./actionTypes";
 import * as api from "../api";
+import * as _ from "lodash";
 import { toast } from "react-toastify";
 
 export const updateUser = (user) => {
@@ -215,7 +216,12 @@ const updateAndStoreUser = (dispatch, user ) => {
     if (user.type === "mentee") {
       dispatch(changeActiveJourneyModule(user.menteeProfile.journey.filter(m => !m.completed && m.ready)[0].typeformID));
     } else {
-      dispatch(setMentorHomeProgress(user.emailConfirmed  ? (user.mentorProfile.status === "requested" ? 70 : 40) : 10));
+      let baseline = 10;
+      if (user.emailConfirmed) baseline = baseline + 20;
+      if (user.mentorProfile.status === "requested") baseline = baseline + 20;
+      if (user.mentorProfile.status === "approved") baseline = baseline + 40;
+      if(_.get(user, "mentorProfile.relationship.length") > 0) baseline = 100;
+      dispatch(setMentorHomeProgress(baseline));
     }
   }
 };

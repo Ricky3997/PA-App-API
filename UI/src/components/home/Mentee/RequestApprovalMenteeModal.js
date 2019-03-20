@@ -5,7 +5,7 @@ import { Icon } from "react-fa";
 import * as Yup from "yup";
 import * as _ from "lodash";
 import { Checkbox, Select } from "antd";
-import defaults from "../../defaults/defaults";
+import defaults from "../../../defaults/defaults";
 
 const { Option } = Select;
 

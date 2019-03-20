@@ -5,9 +5,9 @@ import { Icon } from "react-fa";
 import * as Yup from "yup";
 import * as _ from "lodash";
 import { Checkbox, Select } from "antd";
-import defaults from "../../defaults/defaults";
-import SubjectsInSchoolPicker from "../various/forms/SubjectsInSchoolPicker";
-import UniversityPicker from "../various/forms/UniversityPicker";
+import defaults from "../../../defaults/defaults";
+import SubjectsInSchoolPicker from "../../various/forms/SubjectsInSchoolPicker";
+import UniversityPicker from "../../various/forms/UniversityPicker";
 const { Option } = Select;
 
 const RequestApprovalMentorModal = (props) => {

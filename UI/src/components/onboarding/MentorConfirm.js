@@ -4,6 +4,7 @@ import Loader from "react-loader-spinner";
 import { Icon } from "react-fa";
 import countries from "svg-country-flags/countries";
 import defaults from "./../../defaults/defaults.json";
+import { toast } from "react-toastify";
 
 const MentorConfirm = (props) => {
   let flagIndex = "";
@@ -101,7 +102,9 @@ const MentorConfirm = (props) => {
       </Col>
       <Col md={{ span: 2 }}>
         <Button variant="success" block disabled={props.onboarding.registering} onClick={() => {
-          props.registerMentor();
+          props.registerMentor().then(r => {
+            if(r.success) toast.success('Registered successfully!')
+          });
         }}>
           {props.onboarding.registering ? <Loader type="Oval" color="#ffffff" width="20" height="20"/> :
             <span>Perfect, let's go!</span>}
