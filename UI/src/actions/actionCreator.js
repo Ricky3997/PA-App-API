@@ -66,7 +66,14 @@ export const setPublicProfile = (profile) => {
 export const getMenteeById = (id) => {
   return (dispatch) => {
     return api.get(`/api/mentees/${id}`).then(r => {
-      console.log(r);
+      dispatch(setPublicProfile(r.success ? r.payload : undefined));
+    });
+  };
+};
+
+export const getMentorById = (id) => {
+  return (dispatch) => {
+    return api.get(`/api/mentors/${id}`).then(r => {
       dispatch(setPublicProfile(r.success ? r.payload : undefined));
     });
   };

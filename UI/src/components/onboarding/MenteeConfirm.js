@@ -3,16 +3,10 @@ import { Badge, Button, Col, Form, Image, ProgressBar, Row } from "react-bootstr
 import Loader from "react-loader-spinner";
 import { Icon } from "react-fa";
 import defaults from "../../defaults/defaults";
-import countries from "svg-country-flags/countries";
 import { Toast as toast } from "react-toastify";
+import CountryFlag from "../various/CountryFlag";
 
 const MenteeConfirm = (props) => {
-
-  let flagIndex = "";
-  Object.entries(countries).forEach((a) => {
-    if (props.onboarding.country === a[1]) flagIndex = a[0];
-  });
-  const flag = require(`svg-country-flags/svg/${flagIndex.toLowerCase()}.svg`);
 
   return <div>
     <Row style={{ paddingTop: "80px" }}>
@@ -30,8 +24,7 @@ const MenteeConfirm = (props) => {
         <Badge variant="info">{"From"}</Badge>
       </Col>
       <Col md={{ span: 4 }}>
-        <Form.Label>{`${props.onboarding.city}, ${props.onboarding.country}`} <img alt={props.onboarding.country}
-                                                                                   width="15px" src={flag}/>
+        <Form.Label>{`${props.onboarding.city}, ${props.onboarding.country}`} <CountryFlag country={props.onboarding.country}/>
         </Form.Label>
       </Col>
     </Row>

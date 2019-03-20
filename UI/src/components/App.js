@@ -29,7 +29,7 @@ import {
   fetchMentees,
   fetchMentors,
   fetchRelationships,
-  getMenteeById,
+  getMenteeById, getMentorById,
   getUser,
   registerMentee,
   registerMentor,
@@ -109,7 +109,8 @@ class App extends Component {
               ({ publicProfile }) => {
                 return { publicProfile };
               }, dispatch => {
-                return {};
+                return {
+                  getMentorById: (id) => dispatch(getMentorById(id))};
               })(PublicMentorProfile)}/>
 
             <Route path={"/mentee/:id"} component={connect(

@@ -3,7 +3,6 @@ import { Badge, Breadcrumb, Button, Col, Container, Form, Image, Row } from "rea
 import ProfileIcon from "../../various/ProfileIcon";
 import { LinkContainer } from "react-router-bootstrap";
 import StatusIcon from "./StatusIcon";
-import countries from "svg-country-flags/countries";
 import { Icon } from "react-fa";
 import moment from "moment";
 import defaults from "../../../defaults/defaults";
@@ -12,16 +11,12 @@ import { toast } from "react-toastify";
 import RejectionReasonModal from "./RejectionReasonModal";
 import ButtonNotReadyYet from "../../various/ButtonNotReadyYet";
 import NotFound from "../../various/NotFound";
+import CountryFlag from "../../various/CountryFlag";
 
 
 const MenteeAdminProfile = (props) => {
 
   if (!props.mentee) return <NotFound/>;
-  let flagIndex = "";
-  Object.entries(countries).forEach((a) => {
-    if (props.mentee.country === a[1]) flagIndex = a[0];
-  });
-  const flag = require(`svg-country-flags/svg/${flagIndex.toLowerCase()}.svg`);
   return <Container>
     {props.beadcrumbs ? <Row>
       <Breadcrumb>
@@ -92,8 +87,7 @@ const MenteeAdminProfile = (props) => {
         <Badge variant="info">{"From"}</Badge>
       </Col>
       <Col md={{ span: 3 }}>
-        <Form.Label>{`${props.mentee.city}, ${props.mentee.country}`} <img alt={props.mentee.country}
-                                                                           width="15px" src={flag}/>
+        <Form.Label>{`${props.mentee.city}, ${props.mentee.country}`} <CountryFlag country={props.mentee.country} />
         </Form.Label>
       </Col>
       <Col md={2}>

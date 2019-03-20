@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, Card, Image, OverlayTrigger, ProgressBar, Tooltip } from "react-bootstrap";
+import { Badge, Card, OverlayTrigger, ProgressBar, Tooltip } from "react-bootstrap";
 import ConfirmMatchButton from "./ConfirmMatchButton";
 import ProfileIcon from "../../various/ProfileIcon";
 import connect from "react-redux/es/connect/connect";
@@ -11,7 +11,7 @@ import {
 } from "../../../actions/actionCreator";
 import { Link } from "react-router-dom";
 import HoverForDetails from "../matching/HoverForDetails";
-import countries from "svg-country-flags/countries";
+import CountryFlag from "../../various/CountryFlag";
 
 const UserCard = (props) => {
 
@@ -45,17 +45,11 @@ const UserCard = (props) => {
     };
   })(HoverForDetails);
 
-  let flagIndex = "";
-  Object.entries(countries).forEach((a) => {
-    if (props.country === a[1]) flagIndex = a[0];
-  });
-  const flag = require(`svg-country-flags/svg/${flagIndex.toLowerCase()}.svg`);
 
   const MenteeCapacityBar = (current, capacity) => <ProgressBar style={current === 0 ? { color: "black" } : {}}
                                                                 variant={(current === 0) ? "success" : (capacity - current) === 0 ? "danger" : ((capacity - current) === 1 ? "warning" : null)}
                                                                 now={current - capacity === 0 ? 100 : (100 - (current / capacity * 100))}
                                                                 label={`Mentees: ${current}/${capacity}`}/>;
-
   return (
     <Card className="text-center" key={props._id}
           style={{ minWidth: "200px", maxWidth: "200px", marginBottom: "20px" }}>
@@ -75,8 +69,7 @@ const UserCard = (props) => {
       </Card.Header>
       <Card.Body>
         <Card.Title>
-          <Image alt={props.country}
-                 width="15px" src={flag}/>
+          <CountryFlag country={props.country}/>
           <span>{" "}</span>
           <OverlayTrigger placement="bottom" trigger="hover"
                           overlay={<Tooltip placement="bottom" className="in">Go to profile</Tooltip>}>

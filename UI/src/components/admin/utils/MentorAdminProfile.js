@@ -17,21 +17,16 @@ import ProfileIcon from "../../various/ProfileIcon";
 import { LinkContainer } from "react-router-bootstrap";
 import StatusIcon from "./StatusIcon";
 import defaults from "../../../defaults/defaults";
-import countries from "svg-country-flags/countries";
 import { Icon } from "react-fa";
 import moment from "moment";
 import RejectionReasonModal from "./RejectionReasonModal";
 import { toast } from "react-toastify";
 import NotFound from "../../various/NotFound";
+import CountryFlag from "../../various/CountryFlag";
 
 const MentorAdminProfile = (props) => {
 
   if (!props.mentor) return <NotFound/>;
-  let flagIndex = "";
-  Object.entries(countries).forEach((a) => {
-    if (props.mentor.country === a[1]) flagIndex = a[0];
-  });
-  const flag = require(`svg-country-flags/svg/${flagIndex.toLowerCase()}.svg`);
   return <Container>
     {props.beadcrumbs ? <Row>
       <Breadcrumb>
@@ -99,8 +94,7 @@ const MentorAdminProfile = (props) => {
         <Badge variant="info">{"From"}</Badge>
       </Col>
       <Col md={{ span: 3 }}>
-        <Form.Label>{`${props.mentor.city}, ${props.mentor.country}`} <img alt={props.mentor.country}
-                                                                           width="15px" src={flag}/>
+        <Form.Label>{`${props.mentor.city}, ${props.mentor.country}`} <CountryFlag country={props.mentor.country}/>
         </Form.Label>
       </Col>
       <Col md={2}>
