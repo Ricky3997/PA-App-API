@@ -28,7 +28,7 @@ import {
   confirmEmailAddress,
   fetchMentees,
   fetchMentors,
-  fetchRelationships,
+  fetchRelationships, getMenteeById,
   getUser,
   registerMentee,
   registerMentor,
@@ -68,7 +68,7 @@ class App extends Component {
               return {
                 sendLoginEmail: (email) => dispatch(sendLoginEmail(email)),
                 getUser: () => dispatch(getUser()),
-                unsetLoginEmailSent: () => dispatch(unsetLoginEmailSent()),
+                unsetLoginEmailSent: () => dispatch(unsetLoginEmailSent())
               };
             })(Login)}/>
 
@@ -99,31 +99,30 @@ class App extends Component {
             })(Onboarding)}/>
 
             <Route path={"/journey/:id"} component={connect(({ user }) => {
-            return {  user };
-          }, dispatch => {
-            return {
-            };
-          })(JourneyModule)}/>
+              return { user };
+            }, dispatch => {
+              return {};
+            })(JourneyModule)}/>
 
             <Route path={"/mentor/:id"} component={connect(
-              ({ }) => {
-              return { };
-            }, dispatch => {
-              return {
-              };
-            })(PublicMentorProfile)}/>
+              ({ publicProfile }) => {
+                return { publicProfile };
+              }, dispatch => {
+                return {};
+              })(PublicMentorProfile)}/>
 
             <Route path={"/mentee/:id"} component={connect(
-              ({ }) => {
-              return { };
-            }, dispatch => {
-              return {
-              };
-            })(PublicMenteeProfile)}/>
+              ({ publicProfile }) => {
+                return { publicProfile };
+              }, dispatch => {
+                return {
+                  getMenteeById: (id) => dispatch(getMenteeById(id))
+                };
+              })(PublicMenteeProfile)}/>
 
 
-            <Route path={"/message"}  component={connect(({ user }) => {
-              return {  user };
+            <Route path={"/message"} component={connect(({ user }) => {
+              return { user };
             }, dispatch => {
               return {
                 toggleMessagingConnected: () => dispatch(toggleMessagingConnected()),
@@ -163,7 +162,7 @@ class App extends Component {
                 changeActiveJourneyModule: (id) => dispatch(changeActiveJourneyModule(id)),
                 setMentorHomeProgress: (progress) => dispatch(setMentorHomeProgress(progress)),
                 toggleMentorHomeModal: () => dispatch(toggleMentorHomeModal()),
-                setMentorApprovalProperties: (properties) => dispatch(setMentorApprovalProperties(properties)),
+                setMentorApprovalProperties: (properties) => dispatch(setMentorApprovalProperties(properties))
               };
             })(Home)}/>
 

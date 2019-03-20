@@ -6,6 +6,13 @@ const getAll = async (req, res) => {
   else res.sendStatus(400);
 };
 
+
+const getById = async (req,res) => {
+  const result = await menteesService.getById(req.params.id);
+  if(result) res.json(result);
+  else res.sendStatus(400);
+};
+
 const registerNew = async (req, res) => {
   const { id } = req.decoded;
   const data = req.body;
@@ -22,4 +29,4 @@ const changeStatus = async (req,res) => {
   else res.sendStatus(400);
 };
 
-module.exports = { getAll, registerNew, changeStatus };
+module.exports = { getAll, registerNew, changeStatus, getById };

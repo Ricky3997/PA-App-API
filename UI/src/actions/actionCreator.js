@@ -16,7 +16,7 @@ import {
   SET_MENTOR_APPROVAL_PROPERTIES,
   SET_MENTOR_HOME_PROGRESS,
   SET_MENTOR_RECOMMENDATIONS,
-  SET_MENTORS,
+  SET_MENTORS, SET_PUBLIC_PROFILE,
   SET_RELATIONSHIPS,
   SHOW_MATCHING_CONFIRMATION,
   STORE_PICTURE_CROPPED,
@@ -30,7 +30,7 @@ import {
   TOGGLE_PICTURE_PICKER,
   TOGGLE_REGISTERING, TOGGLE_SHOW_MATCHING_DETAILS_MODAL,
   UNSET_LOGIN_EMAIL,
-  UNSET_MATCHING_CONFIRMATION,
+  UNSET_MATCHING_CONFIRMATION, UNSET_PUBLIC_PROFILE,
   UPDATE_USER
 } from "./actionTypes";
 import * as api from "../api";
@@ -47,6 +47,30 @@ export const updateUser = (user) => {
 export const removeUser = () => {
   return {
     type: REMOVE_USER
+  }
+};
+
+export const setPublicProfile = (profile) => {
+  return {
+    type: SET_PUBLIC_PROFILE,
+    profile: profile
+  }
+};
+
+
+export const getMenteeById = (id) => {
+  return (dispatch) => {
+    return api.get(`/api/mentees/${id}`).then(r => {
+      console.log(r)
+      dispatch(setPublicProfile(r.success ? r.payload : undefined));
+    })
+  }
+};
+
+
+export const unsetPublicProfile = () => {
+  return {
+    type: UNSET_PUBLIC_PROFILE,
   }
 };
 

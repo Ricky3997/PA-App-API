@@ -11,8 +11,12 @@ const s3 = new AWS.S3({ endpoint: ep });
 const {Mentee} = require("./../models/mentees");
 const {User} = require("./../models/users");
 
-getAll = async () => {
+const getAll = async () => {
   return await Mentee.find().populate({ path: 'relationship', populate: { path: 'mentor' }}).populate({path: 'mentorBlackList', populate: { path: 'mentor' }}).exec().then(p => {return p});
+};
+
+const getById = async (id) => {
+  return await Mentee.findById(id).populate({ path: 'relationship', populate: { path: 'mentor' }}).populate({path: 'mentorBlackList', populate: { path: 'mentor' }}).exec().then(p => {return p});
 };
 
 const edit = async (id, data, file) => {
@@ -127,4 +131,4 @@ const changeStatus = async (id, data) => {
   }
 };
 
-module.exports = { getAll, registerNew, edit, changeStatus };
+module.exports = { getAll, registerNew, edit, changeStatus, getById };

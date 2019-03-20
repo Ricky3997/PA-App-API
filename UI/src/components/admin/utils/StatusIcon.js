@@ -2,7 +2,7 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import React from "react";
 import { Icon } from "react-fa";
 
-const LoadingCard = (props) => {
+const StatusIcon = (props) => {
   if (props.status === "notYetRequested") return <OverlayTrigger placement="bottom" overlay={<Tooltip placement="bottoom" className="in">Not Yet Requested</Tooltip>}>
     <Icon name={`fas fa-newspaper-o`} style={{ color: "#03619b" }}/>
   </OverlayTrigger>;
@@ -18,4 +18,4 @@ const LoadingCard = (props) => {
   else return null;
 };
 
-export default LoadingCard;
+export default StatusIcon;

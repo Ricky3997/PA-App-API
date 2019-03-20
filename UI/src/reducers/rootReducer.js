@@ -33,7 +33,7 @@ import {
   SET_MENTEE_APPROVAL_PROPERTIES,
   TOGGLE_ADMIN_MODAL,
   TOGGLE_SHOW_MATCHING_DETAILS_MODAL,
-  TOGGLE_MENTOR_CONFIRM_DECISION, TOGGLE_DASHBOARD_CONFIRMATION
+  TOGGLE_MENTOR_CONFIRM_DECISION, TOGGLE_DASHBOARD_CONFIRMATION, SET_PUBLIC_PROFILE, UNSET_PUBLIC_PROFILE
 } from "../actions/actionTypes";
 import { combineReducers } from "redux";
 import * as _ from "lodash";
@@ -134,29 +134,7 @@ function admin(state = {
   }
 }
 
-function mentorAdmin(state = {
-  activeApprovalId: null
-}, action) {
-  switch (action.type) {
-    case SET_ACTIVE_MENTOR_APPROVAL_ID:
-      return { ...state, activeApprovalId: action.id };
-    default:
-      return state;
-  }
-}
-
-function menteeAdmin(state = {
-  activeApprovalId: null
-}, action) {
-  switch (action.type) {
-    case SET_ACTIVE_MENTEE_APPROVAL_ID:
-      return { ...state, activeApprovalId: action.id };
-    default:
-      return state;
-  }
-}
-
-function menteeHome(state ={
+function menteeHome(state = {
   showModal: false,
   maxNumberOfMentees: 3,
   careerInterests: [],
@@ -168,7 +146,7 @@ function menteeHome(state ={
   typeOfHighSchool: "",
   yearBorn: null,
   yearStart: null,
-  notes: ''
+  notes: ""
 }, action) {
   switch (action.type) {
     case TOGGLE_MENTEE_HOME_MODAL:
@@ -183,7 +161,7 @@ function menteeHome(state ={
 function mentorHome(state = {
   progress: getInitialMentorHomeProgress(),
   showModal: false,
-  showConfirmDecision: '',
+  showConfirmDecision: "",
   maxNumberOfMentees: 3,
   careerInterests: [],
   confirmCommittment: false,
@@ -197,7 +175,7 @@ function mentorHome(state = {
   typeOfHighSchool: "",
   yearBorn: null,
   yearGraduation: null,
-  notes: ''
+  notes: ""
 }, action) {
   switch (action.type) {
     case SET_MENTOR_HOME_PROGRESS:
@@ -220,7 +198,7 @@ const getInitialMentorHomeProgress = () => {
     if (user.emailConfirmed) baseline = baseline + 20;
     if (user.mentorProfile.status === "requested") baseline = baseline + 20;
     if (user.mentorProfile.status === "approved") baseline = baseline + 40;
-    if(_.get(user, "mentorProfile.relationship.length") > 0) baseline = 100;
+    if (_.get(user, "mentorProfile.relationship.length") > 0) baseline = 100;
     return baseline;
   } catch (e) {
     return 10;
@@ -312,8 +290,33 @@ function dashboard(state = {
   }
 }
 
+
+function publicProfile(state = {
+  profile: null
+}, action) {
+  switch (action.type) {
+    case SET_PUBLIC_PROFILE:
+      return { ...state, profile: action.profile };
+    case UNSET_PUBLIC_PROFILE:
+      return { ...state, profile: null };
+    default:
+      return state;
+  }
+}
+
 const app = combineReducers({
-  user, settings, onboarding, admin, mentorAdmin, menteeAdmin, matching, messaging, login, journey, mentorHome, menteeHome,dashboard
+  user,
+  settings,
+  onboarding,
+  admin,
+  matching,
+  messaging,
+  login,
+  journey,
+  mentorHome,
+  menteeHome,
+  dashboard,
+  publicProfile
 });
 
 export default app;
