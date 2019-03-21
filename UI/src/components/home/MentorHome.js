@@ -7,8 +7,6 @@ import GettingStartedSteps from "./Mentor/GettingStartedSteps";
 import MentoringHome from "./Mentor/MentoringHome";
 
 class MentorHome extends Component {
-
-
   render() {
     return <Container fluid>
       <Row style={{ marginTop: "10px" }}>
@@ -29,8 +27,6 @@ class MentorHome extends Component {
       && _.get(this.props.user, "mentorProfile.relationship")[0].status === "confirmed" ?
         <MentoringHome {...this.props} /> :
         <GettingStartedSteps {...this.props} />}
-
-
     </Container>;
   }
 }

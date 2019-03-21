@@ -101,6 +101,7 @@ const registerNew = async (id, data) => {
     _id: id,
     status: data.status || "notYetRequested",
     firstName: user.firstName,
+    lastName: user.lastName,
     pictureUrl: data.pictureUrl || null,
     journey: generateJourney(data.unisApplyingFor)
   }).save();

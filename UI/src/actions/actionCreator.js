@@ -252,7 +252,8 @@ const updateAndStoreUser = (dispatch, user) => {
     if (user.type === "mentee") {
       dispatch(changeActiveJourneyModule(user.menteeProfile.journey.filter(m => !m.completed && m.ready)[0].typeformID));
     } else {
-      let baseline = 10;
+      let baseline = 0;
+      if (user.onboarded) baseline = baseline + 10;
       if (user.emailConfirmed) baseline = baseline + 20;
       if (user.mentorProfile.status === "requested") baseline = baseline + 20;
       if (user.mentorProfile.status === "approved") baseline = baseline + 40;

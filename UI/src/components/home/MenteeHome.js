@@ -8,6 +8,7 @@ import NoMentorYet from "./Mentee/NoMentorYet";
 import * as _ from "lodash";
 import RequestApprovalMenteeModal from "./Mentee/RequestApprovalMenteeModal";
 import { toast } from "react-toastify";
+import CountryPartner from "../advertising/CountryPartner";
 
 class MenteeHome extends Component {
   render() {
@@ -49,12 +50,7 @@ class MenteeHome extends Component {
           </Row>
           <br/>
           <Row>
-            <h5>{"McKinsey & Co."} is Project
-              Access {this.props.user.onboarded ? `${this.props.user.menteeProfile.country}'s` : ""} Platinum Partner,
-              providing the essential financing to make this happen </h5>
-            <Image
-              src={"https://s1.ibtimes.com/sites/www.ibtimes.com/files/styles/lg/public/2014/05/28/mckinsey-logo.png"}
-              style={{ maxWidth: "300px", maxHeight: "150px" }}/>
+            <CountryPartner country={this.props.user.menteeProfile.country} index={Math.floor(Math.random() * 3)}/>
           </Row>
         </Col>
       </Row>

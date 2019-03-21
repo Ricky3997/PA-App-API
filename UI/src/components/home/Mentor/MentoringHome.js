@@ -84,11 +84,7 @@ const MentoringHome = (props) => {
           </Row>
           <br/>
           <Row>
-            <h5>{"McKinsey & Co."} is Project Access {props.user.mentorProfile.country}'s Platinum Partner,
-              providing the essential financing to make this happen </h5>
-            <Image
-              src={"https://s1.ibtimes.com/sites/www.ibtimes.com/files/styles/lg/public/2014/05/28/mckinsey-logo.png"}
-              style={{ maxWidth: "300px", maxHeight: "150px" }}/>
+
           </Row>
         </Col>
       </Row>

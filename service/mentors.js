@@ -29,6 +29,7 @@ const registerNew = async (id, data) => {
     status: data.status || "notYetRequested",
     maxNumberOfMentees: 3,
     firstName: user.firstName,
+    lastName: user.lastName,
     relationship: [],
     latestStatusChange: new Date(),
     pictureUrl: data.pictureUrl || null

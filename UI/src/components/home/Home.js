@@ -19,7 +19,7 @@ const Home = (props) => {
   if (!props.user) return <Redirect to={"/onboard"}/>;
   else if (props.user.type === "mentor") {
     const MentorHomeConnected = connect(({ user, mentorHome }) => {
-      return { user, mentorHome };
+      return { user, mentorHome, history: props.history };
     }, dispatch => {
       return {
         changeMentorStatus: (status, properties) => dispatch(changeMentorStatus(status, properties)),
@@ -32,7 +32,7 @@ const Home = (props) => {
     return <MentorHomeConnected/>;
   } else {
     const MenteeHomeConnected = connect(({ user, journey, menteeHome }) => {
-      return { user, journey, menteeHome };
+      return { user, journey, menteeHome, history: props.history };
     }, dispatch => {
       return {
         changeMenteeStatus: (status, properties) => dispatch(changeMenteeStatus(status, properties)),
