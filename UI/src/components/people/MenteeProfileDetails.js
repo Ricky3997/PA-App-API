@@ -10,7 +10,7 @@ const MenteeProfileDetails = ({
                                 yearStart, unisApplyingFor, coursesApplyingFor, year, level
                               }) => {
   return (<div>
-      <ProfileIcon pictureUrl={pictureUrl} size='xl' />
+      <ProfileIcon pictureUrl={pictureUrl} size='xl'/>
       <Row>
         <Col md={2}>
           <Badge variant="info">{"From"}</Badge>

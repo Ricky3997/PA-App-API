@@ -104,7 +104,7 @@ const GettingStartedSteps = (props) => {
               {props.mentorHome.progress === 70 ? <GettingStartedBox module={waitUntilMatched}/> : null}
               {props.mentorHome.progress === 100 ? <GettingStartedBox module={acceptMentee}/> : null}
 
-              {props.mentorHome.progress >= 50 && props.mentorHome.progress !== 100 ? <div>
+              {props.mentorHome.progress >= 50 && props.mentorHome.progress !== 100 && waitUntilApproved.ready ? <div>
                 <h5>
                   While you wait, you can help us with the following
                 </h5>
@@ -146,28 +146,28 @@ const GettingStartedSteps = (props) => {
               height='130'/>
           </Row>
           <br/>
-        </Col>
-      </Row>
-      <Row>
-        <Col md={{ offset: 9 }}>
-          <CountryPartner country={_.get(props.user, "mentorProfile.country")} index={Math.floor(Math.random() * 3)}/>
+
+          <Row>
+            <CountryPartner country={_.get(props.user, "mentorProfile.country")} index={Math.floor(Math.random() * 3)}/>
+          </Row>
         </Col>
       </Row>
 
-      {_.get(props.user, "mentorProfile") ? <RequestApprovalMentorModal user={props.user} show={props.mentorHome.showModal}
-                                  mentorHome={props.mentorHome}
-                                  onSubmit={(properties) => props.changeMentorStatus("requested", properties).then(r => {
-                                    if (r.success) {
+      {_.get(props.user, "mentorProfile") ?
+        <RequestApprovalMentorModal user={props.user} show={props.mentorHome.showModal}
+                                    mentorHome={props.mentorHome}
+                                    onSubmit={(properties) => props.changeMentorStatus("requested", properties).then(r => {
+                                      if (r.success) {
+                                        props.toggleMentorHomeModal();
+                                        toast.success("Request sent");
+                                      } else toast.error("Error ");
+
+                                    })
+                                    }
+                                    onHide={(properties) => {
+                                      props.setMentorApprovalProperties(properties);
                                       props.toggleMentorHomeModal();
-                                      toast.success("Request sent");
-                                    } else toast.error("Error ");
-
-                                  })
-                                  }
-                                  onHide={(properties) => {
-                                    props.setMentorApprovalProperties(properties);
-                                    props.toggleMentorHomeModal();
-                                  }}/> : null }
+                                    }}/> : null}
     </div>
   );
 };

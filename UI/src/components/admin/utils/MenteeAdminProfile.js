@@ -87,7 +87,7 @@ const MenteeAdminProfile = (props) => {
         <Badge variant="info">{"From"}</Badge>
       </Col>
       <Col md={{ span: 3 }}>
-        <Form.Label>{`${props.mentee.city}, ${props.mentee.country}`} <CountryFlag country={props.mentee.country} />
+        <Form.Label>{`${props.mentee.city}, ${props.mentee.country}`} <CountryFlag country={props.mentee.country}/>
         </Form.Label>
       </Col>
       <Col md={2}>

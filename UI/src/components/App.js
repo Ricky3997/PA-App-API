@@ -29,7 +29,8 @@ import {
   fetchMentees,
   fetchMentors,
   fetchRelationships,
-  getMenteeById, getMentorById,
+  getMenteeById,
+  getMentorById,
   getUser,
   registerMentee,
   registerMentor,
@@ -56,10 +57,10 @@ import PublicMenteeProfile from "./people/PublicMenteeProfile";
 
 class App extends Component {
   render() {
-    const { user, removeUser, history, location } = this.props;
+    const { user, logout, history, location } = this.props;
     return (
       <div id="root_div">
-        <Header user={user} logout={removeUser} history={history} location={location}/>
+        <Header user={user} logout={logout} history={history} location={location}/>
         <Container fluid id="root_container">
           <Switch>
 
@@ -110,7 +111,8 @@ class App extends Component {
                 return { publicProfile };
               }, dispatch => {
                 return {
-                  getMentorById: (id) => dispatch(getMentorById(id))};
+                  getMentorById: (id) => dispatch(getMentorById(id))
+                };
               })(PublicMentorProfile)}/>
 
             <Route path={"/mentee/:id"} component={connect(

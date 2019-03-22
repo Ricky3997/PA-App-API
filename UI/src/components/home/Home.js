@@ -4,15 +4,15 @@ import MenteeHome from "./MenteeHome";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import {
-    changeActiveJourneyModule,
-    changeMenteeStatus,
-    changeMentorStatus,
-    getUser,
-    setMenteeApprovalProperties,
-    setMentorApprovalProperties,
-    setMentorHomeProgress,
-    toggleMenteeHomeModal,
-    toggleMentorHomeModal
+  changeActiveJourneyModule,
+  changeMenteeStatus,
+  changeMentorStatus,
+  getUser,
+  setMenteeApprovalProperties,
+  setMentorApprovalProperties,
+  setMentorHomeProgress,
+  toggleMenteeHomeModal,
+  toggleMentorHomeModal
 } from "../../actions/actionCreator";
 
 const Home = (props) => {

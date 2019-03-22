@@ -5,6 +5,7 @@ import {
   CHANGE_STAGE,
   REMOVE_PICTURE_TO_CROP,
   REMOVE_USER,
+  RESET_APP,
   SENT_LOGIN_EMAIL,
   SET_ACTIVE_CHAT,
   SET_ACTIVE_JOURNEY_MODULE,
@@ -306,6 +307,7 @@ function publicProfile(state = {
   }
 }
 
+
 const app = combineReducers({
   user,
   settings,
@@ -321,4 +323,9 @@ const app = combineReducers({
   publicProfile
 });
 
-export default app;
+const rootReducer = (state, action) => {
+  if (action.type === RESET_APP) state = undefined;
+  return app(state, action);
+};
+
+export default rootReducer;

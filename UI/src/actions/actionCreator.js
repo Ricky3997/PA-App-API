@@ -5,6 +5,7 @@ import {
   CHANGE_STAGE,
   REMOVE_PICTURE_TO_CROP,
   REMOVE_USER,
+  RESET_APP,
   SENT_LOGIN_EMAIL,
   SET_ACTIVE_CHAT,
   SET_ACTIVE_JOURNEY_MODULE,
@@ -41,6 +42,12 @@ import {
 import * as api from "../api";
 import * as _ from "lodash";
 import { toast } from "react-toastify";
+
+export const resetApp = () => {
+  return {
+    type: RESET_APP
+  };
+};
 
 export const updateUser = (user) => {
   return {
@@ -135,6 +142,7 @@ export const getUser = () => {
         window.localStorage.removeItem("token");
         window.localStorage.removeItem("user");
         dispatch(removeUser());
+        dispatch(resetApp());
       }
       return r;
     });
@@ -416,6 +424,14 @@ export const unsetLoginEmailSent = () => {
   };
 };
 
+export const logout = () => {
+  return (dispatch) => {
+    window.localStorage.removeItem("token");
+    window.localStorage.removeItem("user");
+    dispatch(removeUser());
+    dispatch(resetApp());
+  };
+};
 
 export const sendLoginEmail = (email) => {
   return (dispatch) => {

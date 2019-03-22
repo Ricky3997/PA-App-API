@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Image, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
+import { Button, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import * as _ from "lodash";
 import MenteeTile from "./MenteeTile";
 import { LinkContainer } from "react-router-bootstrap";

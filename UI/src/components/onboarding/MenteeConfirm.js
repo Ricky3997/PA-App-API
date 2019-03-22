@@ -24,7 +24,8 @@ const MenteeConfirm = (props) => {
         <Badge variant="info">{"From"}</Badge>
       </Col>
       <Col md={{ span: 4 }}>
-        <Form.Label>{`${props.onboarding.city}, ${props.onboarding.country}`} <CountryFlag country={props.onboarding.country}/>
+        <Form.Label>{`${props.onboarding.city}, ${props.onboarding.country}`} <CountryFlag
+          country={props.onboarding.country}/>
         </Form.Label>
       </Col>
     </Row>
