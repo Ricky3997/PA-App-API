@@ -196,9 +196,9 @@ function mentorHome(state = {
 const getInitialMentorHomeProgress = () => {
   try {
     const user = JSON.parse(window.localStorage.getItem("user"));
-    let baseline = 10;
+    let baseline = 0;
     if (user.onboarded) baseline = baseline + 10;
-    if (user.emailConfirmed) baseline = baseline + 20;
+    if (!user.emailConfirmed) baseline = baseline + 20;
     if (user.mentorProfile.status === "requested") baseline = baseline + 20;
     if (user.mentorProfile.status === "approved") baseline = baseline + 40;
     if (_.get(user, "mentorProfile.relationship.length") > 0) baseline = 100;

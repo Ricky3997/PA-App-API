@@ -1,6 +1,6 @@
 const config = require("../config");
 const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(config.SENDGRID_API_KEY);
+if (config.EMAIL_ON) sgMail.setApiKey(config.SENDGRID_API_KEY);
 
 const pug = require("pug");
 const loginTemplate = pug.compileFile("util/login_email.pug", {});

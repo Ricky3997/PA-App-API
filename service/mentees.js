@@ -105,19 +105,19 @@ const registerNew = async (id, data) => {
     pictureUrl: data.pictureUrl || null,
     journey: generateJourney(data.unisApplyingFor)
   }).save();
-  await request({
-    method: 'post',
-    body: {
-      "user_id": id,
-      "nickname": user.firstName,
-      "profile_url": ""
-    },
-    json: true,
-    url: "https://api.sendbird.com/v3/users",
-    headers: {
-      'Content-Type': 'application/json',
-      'Api-Token': config.sendbird.API_TOKEN
-    }});
+  // await request({
+  //   method: 'post',
+  //   body: {
+  //     "user_id": id,
+  //     "nickname": user.firstName,
+  //     "profile_url": ""
+  //   },
+  //   json: true,
+  //   url: "https://api.sendbird.com/v3/users",
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     'Api-Token': config.sendbird.API_TOKEN
+  //   }});
   return await User.findByIdAndUpdate(id, { onboarded: true, menteeProfile: id}, { new: true }).populate("menteeProfile").exec().then(p => { return p});
 
 };

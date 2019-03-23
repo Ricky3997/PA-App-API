@@ -3,11 +3,12 @@ import { Button, Col, Image, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import * as _ from "lodash";
 import { Bookmark, Timeline } from "react-vertical-timeline";
-import RequestApprovalMentorModal from "./RequestApprovalMentorModal";
-import GettingStartedBox from "./GettingStartedBox";
-import AcceptMenteeBox from "./AcceptMenteeBox";
-import ButtonNotReadyYet from "../../various/ButtonNotReadyYet";
-import CountryPartner from "../../advertising/CountryPartner";
+import RequestApprovalMentorModal from "./Mentor/RequestApprovalMentorModal";
+import GettingStartedBox from "./Mentor/GettingStartedBox";
+import AcceptMenteeBox from "./Mentor/AcceptMenteeBox";
+import ButtonNotReadyYet from "../various/ButtonNotReadyYet";
+import CountryPartner from "../advertising/CountryPartner";
+import RequestApprovalMenteeModal from "./MenteeHome";
 
 
 const GettingStartedSteps = (props) => {
@@ -62,11 +63,11 @@ const GettingStartedSteps = (props) => {
           <p>
             We are extremely excited to have you onboard with us! <br/> Before you can jump into the core of the action
             and
-            help a mentee ( the most rewarding and fun part!), there's a couple of things for you to do! 🙏
+            {props.mode === "mentee" ? " get a mentor" : " help a mentee ( the most rewarding and fun part!)"}, there's a couple of things for you to do! 🙏
           </p>
           <Row>
             <Col md={3}>
-              <Timeline height={400} progress={props.mentorHome.progress}>
+              <Timeline height={400} progress={props[`${props.mode}Home`].progress}>
                 <Bookmark key={"onboard"} progress={10} onSelect={() => props.setMentorHomeProgress(10)}>
                   <h6
                     style={{ cursor: "pointer" }}>{onboardModule.completed ? `✅ ` : "⏳"}{onboardModule.title}</h6>
@@ -93,18 +94,18 @@ const GettingStartedSteps = (props) => {
               </Timeline>
             </Col>
             <Col md={9}>
-              {props.mentorHome.progress === 10 ?
+              {props[`${props.mode}Home`].progress === 10 ?
                 <GettingStartedBox module={onboardModule} action={"Yes, let's register!"}
                                    onClick={() => props.history.push("/onboard")}/> : null}
-              {props.mentorHome.progress === 20 ? <GettingStartedBox module={confirmEmailModule}/> : null}
-              {props.mentorHome.progress === 30 ?
+              {props[`${props.mode}Home`].progress === 20 ? <GettingStartedBox module={confirmEmailModule}/> : null}
+              {props[`${props.mode}Home`].progress === 30 ?
                 <GettingStartedBox module={requestApprovallModule} action={"Sure, let's do this!"}
                                    onClick={props.toggleMentorHomeModal}/> : null}
-              {props.mentorHome.progress === 50 ? <GettingStartedBox module={waitUntilApproved}/> : null}
-              {props.mentorHome.progress === 70 ? <GettingStartedBox module={waitUntilMatched}/> : null}
-              {props.mentorHome.progress === 100 ? <GettingStartedBox module={acceptMentee}/> : null}
+              {props[`${props.mode}Home`].progress === 50 ? <GettingStartedBox module={waitUntilApproved}/> : null}
+              {props[`${props.mode}Home`].progress === 70 ? <GettingStartedBox module={waitUntilMatched}/> : null}
+              {props[`${props.mode}Home`].progress === 100 ? <GettingStartedBox module={acceptMentee}/> : null}
 
-              {props.mentorHome.progress >= 50 && props.mentorHome.progress !== 100 && waitUntilApproved.ready ? <div>
+              {props[`${props.mode}Home`].progress >= 50 && props[`${props.mode}Home`].progress !== 100 && waitUntilApproved.ready ? <div>
                 <h5>
                   While you wait, you can help us with the following
                 </h5>
@@ -127,7 +128,7 @@ const GettingStartedSteps = (props) => {
                 </ol>
               </div> : null}
 
-              {props.mentorHome.progress === 100 && acceptMentee.ready ? props.user.mentorProfile.relationship.map(r =>
+              {props.mode === "mentor" && props.mentorHome.progress === 100 && acceptMentee.ready ? props.user.mentorProfile.relationship.map(r =>
                 <AcceptMenteeBox {...r} key={r._id}/>) : null}
 
             </Col>
@@ -136,10 +137,10 @@ const GettingStartedSteps = (props) => {
         <Col md={3}>
           <Row>
             <h4>
-              Your Mentees <span role="img" aria-labelledby={"angel emoji"}>😇</span>
+              Your {props.mode === "mentee" ? 'Mentor' : 'Mentees'} <span role="img" aria-labelledby={"angel emoji"}>😇</span>
             </h4>
             <p>
-              Soon you'll be able to help your mentee(s), just complete the steps on the left first!
+              Soon you'll be able to {props.mode === "mentee" ? 'get help from a mentor' : 'help your mentee(s)'}, just complete the steps on the left first!
             </p>
             <Image
               src='https://www.universitiesuk.ac.uk/news/PublishingImages/access-paper-blurred-students.png?RenditionID=8'
@@ -148,12 +149,12 @@ const GettingStartedSteps = (props) => {
           <br/>
 
           <Row>
-            <CountryPartner country={_.get(props.user, "mentorProfile.country")} index={Math.floor(Math.random() * 3)}/>
+            <CountryPartner country={_.get(props.user, `${props.mode}Profile.country`)} index={Math.floor(Math.random() * 4)}/>
           </Row>
         </Col>
       </Row>
 
-      {_.get(props.user, "mentorProfile") ?
+      {props.mode === "mentor" && _.get(props.user, "mentorProfile") ?
         <RequestApprovalMentorModal user={props.user} show={props.mentorHome.showModal}
                                     mentorHome={props.mentorHome}
                                     onSubmit={(properties) => props.changeMentorStatus("requested", properties).then(r => {
@@ -168,6 +169,22 @@ const GettingStartedSteps = (props) => {
                                       props.setMentorApprovalProperties(properties);
                                       props.toggleMentorHomeModal();
                                     }}/> : null}
+
+      {props.mode === "mentee" && _.get(props.user, "menteeProfile") ?
+        <RequestApprovalMenteeModal show={props.menteeHome.showModal} user={props.user}
+                                    menteeHome={props.menteeHome} onHide={(properties) => {
+          props.setMenteeApprovalProperties(properties);
+          props.toggleMenteeHomeModal();
+        }} onSubmit={(properties) => props.changeMenteeStatus("requested", properties).then(r => {
+          if (r.success) {
+            props.toggleMenteeHomeModal();
+            toast.success("Request sent");
+          }
+        })
+        }
+        /> : null}
+
+
     </div>
   );
 };

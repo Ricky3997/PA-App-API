@@ -34,19 +34,19 @@ const registerNew = async (id, data) => {
     latestStatusChange: new Date(),
     pictureUrl: data.pictureUrl || null
   }).save();
-  await request({
-    method: 'post',
-    body: {
-      "user_id": id,
-      "nickname": user.firstName,
-      "profile_url": ""
-    },
-    json: true,
-    url: "https://api.sendbird.com/v3/users",
-    headers: {
-      'Content-Type': 'application/json',
-      'Api-Token': config.sendbird.API_TOKEN
-    }});
+  // await request({
+  //   method: 'post',
+  //   body: {
+  //     "user_id": id,
+  //     "nickname": user.firstName,
+  //     "profile_url": ""
+  //   },
+  //   json: true,
+  //   url: "https://api.sendbird.com/v3/users",
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     'Api-Token': config.sendbird.API_TOKEN
+  //   }});
   return await User.findByIdAndUpdate(id, { onboarded: true, mentorProfile: id}, { new: true }).populate("mentorProfile").exec().then(p => { return p});
 };
 

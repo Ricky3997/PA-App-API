@@ -7,7 +7,7 @@ import { cancelRelationship, changeMenteeBeingMatched, toggleDashboardConfirmati
 import connect from "react-redux/es/connect/connect";
 import { toast } from "react-toastify";
 import BadgePendingNumber from "./utils/BadgePendingNumber";
-import Statistics from "./utils/Statistics";
+import Statistics from "./statistics/Statistics";
 import Database from "./utils/Database";
 import { Icon } from "react-fa";
 

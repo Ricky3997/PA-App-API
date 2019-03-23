@@ -1,8 +1,7 @@
 import React from "react";
-import { Button, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import * as _ from "lodash";
 import MenteeTile from "./MenteeTile";
-import { LinkContainer } from "react-router-bootstrap";
 import AcceptMenteeBox from "./AcceptMenteeBox";
 
 
@@ -13,47 +12,12 @@ const MentoringHome = (props) => {
     toRender = <Button onClick={() => props.history.push("/onboard")}>
       Looks like you are not onboarded, go finish
     </Button>;
-  } else if (props.user.mentorProfile.status === "notYetRequested") {
-    toRender = <div>
-      <p>To be able to help a mentee, you first need to request approval
-      </p>
-
-      {props.user.emailConfirmed ? <Button onClick={() => props.toggleMentorHomeModal()}>
-          Click here to request approval
-        </Button> :
-        <OverlayTrigger placement="bottom" trigger="hover"
-                        overlay={<Tooltip placement="bottom" className="in">You need to confirm your email
-                          first</Tooltip>}>
-            <span className="d-inline-block">
-              <Button disabled style={{ pointerEvents: "none" }}>
-                Click here to request approval
-              </Button>
-            </span>
-        </OverlayTrigger>
-      }
-    </div>;
-  } else if (props.user.mentorProfile.status === "requested") {
-    toRender = <div>
-      <p>You have now requested to be approved. What happens next? <LinkContainer to="/about?type=mentor" style={{
-        cursor: "pointer",
-        textDecoration: "underline"
-      }}><span
-      >Find out here</span></LinkContainer>
-      </p>
-      <Button onClick={() => props.changeMentorStatus("notYetRequested")}>
-        Click here to withdraw your request
-      </Button>
-    </div>;
-  } else if (props.user.mentorProfile.status === "rejected") {
+  } else if  (props.user.mentorProfile.status === "rejected") {
     toRender = <div>
       Unfortunately you have been rejected, and this was indicated as the reason:
       <blockquote>
         {props.user.mentorProfile.rejectionReason}
       </blockquote>
-    </div>;
-  } else if (props.user.mentorProfile.status === "approved") {
-    toRender = <div>
-      You have been approved to be a mentor, we are now looking for the best match
     </div>;
   }
 

@@ -11,8 +11,16 @@ const Footer = () => {
       </Badge>
     </Navbar.Brand>
     <Navbar.Text>
-      This is a work in progress, bear with us! V0.1.2019-03-10
+      This is a work in progress, bear with us! V0.1.2019-03-22
     </Navbar.Text>
+    <Navbar.Text style={{marginLeft: '250px'}}>
+      <LinkContainer to="/about?type=mentor" style={{
+        cursor: "pointer",
+        textDecoration: "underline"
+      }}><span
+      >Find out here</span></LinkContainer>
+    </Navbar.Text>
+
     <Navbar.Collapse className="justify-content-end">
       <Navbar.Text>
         Made with <Icon style={{ color: "red" }} name="fas fa-heart"/> <span> at </span>

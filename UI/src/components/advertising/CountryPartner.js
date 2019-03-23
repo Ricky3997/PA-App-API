@@ -11,6 +11,9 @@ const CountryPartner = ({ country, index }) => {
   }, {
     name: "Prowler",
     logo: "https://www.prowler.io/ASSETS/press/images/prowler-primary-logo-lbg.svg"
+  }, {
+    name: "P&G",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/f/ff/Procter_and_Gamble_Logo.svg"
   }];
 
   const shortenCountry = (country) => {

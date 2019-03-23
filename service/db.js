@@ -54,8 +54,8 @@ const loadDummyMentors = async () => {
       area: "Social Sciences",
       firstName: "Andrea",
       lastName: "Delton",
-      university: "King's College London",
-      subject: "PPE",
+      university: "KCL",
+      subject: "Sociology",
       city: "Milano",
       email: 'test1234565g43@notexistent.com',
       status: "requested",
@@ -70,8 +70,8 @@ const loadDummyMentors = async () => {
       email: 'test12345654g43@notexistent.com',
       firstName: "Rebecca",
       lastName: "Natalie",
-      subject: "International Relations",
-      university: "London School of Economics",
+      subject: "French",
+      university: "LSE",
       city: "Singapore",
       status: "notYetRequested",
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb257a29140b75265e2b89e/1538667677946/0+%289%29.jpeg?format=500w"
@@ -86,7 +86,7 @@ const loadDummyMentors = async () => {
       firstName: "Filippo",
       lastName: "Ugo",
       subject: "Mathematics",
-      university: "University of Oxford",
+      university: "Oxford",
       city: "Prague",
       status: "notYetRequested",
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb24fc6e4966bf3c9d5df59/1538412681321/33038092_1063433287139499_9178229761615331328_n.jpg?format=500w"
@@ -100,8 +100,8 @@ const loadDummyMentors = async () => {
       area: "Business",
       firstName: "James",
       lastName: "Hancoj",
-      subject: "Economics",
-      university: "Imperial College London",
+      subject: "Physics",
+      university: "Imperial",
       city: "Stockholm",
       status: "requested",
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb24ac19140b713a2fe714c/1538411224076/Raphael.jpeg?format=500w"
@@ -117,7 +117,7 @@ const loadDummyMentors = async () => {
       firstName: "Elisa",
       lastName: "Caretto",
       subject: "Religion",
-      university: "University of Oxford",
+      university: "Oxford",
       city: "Milano",
       status: "approved",
     }, {
@@ -131,7 +131,7 @@ const loadDummyMentors = async () => {
       firstName: "George",
       lastName: "Jode",
       subject: "Mathematics",
-      university: "King's College London",
+      university: "KCL",
       city: "Edinburgh",
       status: "approved",
     }
@@ -148,7 +148,7 @@ const loadDummyMentees = async () => {
       school: "StLouisSchool OF Milan",
       subjects: ["Biology"],
       email: 'test123456543@notexistent.com',
-      unisApplyingFor: ["London School of Economics", "University of Oxford"],
+      unisApplyingFor: ["Oxford"],
       level: "Masters",
       country: "Italy",
       firstGenStudent: "Yes",
@@ -157,17 +157,17 @@ const loadDummyMentees = async () => {
       area: "Social Sciences",
       firstName: "Emil",
       lastName: "Bender Lassen",
-      coursesApplyingFor: ["Psychological & Behavioural Sciences"],
-      university: "King's College London",
+      coursesApplyingFor: ["Mathematics", "Sociology"],
+      university: "KCL",
       subject: "PPE",
       city: "Milano",
       status: "requested",
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5a7c387b4192029bc4b0dd95/1538660326244/20247810_10211655657680787_3062606713295678620_o.jpg?format=500w"
     }, {
-      interestedIn: ["Natural Sciences", "Technology", "Humanities"],
+      interestedIn: ["Computer Science", "Mathematics"],
       school: "StLouisSchool OF Milan",
       subjects: ["Biology"],
-      unisApplyingFor: ["London School of Economics", "University of Oxford"],
+      unisApplyingFor: ["LSE", "Oxford"],
       level: "Masters",
       country: "Italy",
       email: 'test1234565rr43@notexistent.com',
@@ -179,7 +179,7 @@ const loadDummyMentees = async () => {
       firstName: "Nicole",
       lastName: "Lim",
       subject: "International Relations",
-      university: "London School of Economics",
+      university: "LSE",
       city: "Singapore",
       status: "notYetRequested",
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb257a29140b75265e2b89e/1538667677946/0+%289%29.jpeg?format=500w"
@@ -187,19 +187,19 @@ const loadDummyMentees = async () => {
       interestedIn: ["Natural Sciences", "Technology", "Humanities"],
       school: "StLouisSchool OF Milan",
       subjects: ["Biology"],
-      unisApplyingFor: ["London School of Economics", "University of Oxford"],
+      unisApplyingFor: ["LSE", "Oxford"],
       level: "Masters",
       country: "Italy",
       email: 'test1234565rf43@notexistent.com',
       firstGenStudent: "Yes",
       gender: "Male",
       year: "2",
-      coursesApplyingFor: ["Psychological & Behavioural Sciences"],
+      coursesApplyingFor: ["Physics"],
       area: "Social Sciences",
       firstName: "Filip",
       lastName: "Tokarski",
       subject: "Mathematics",
-      university: "University of Oxford",
+      university: "Oxford",
       city: "Milano",
       status: "rejected",
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb24fc6e4966bf3c9d5df59/1538412681321/33038092_1063433287139499_9178229761615331328_n.jpg?format=500w"
@@ -207,7 +207,7 @@ const loadDummyMentees = async () => {
       interestedIn: ["Natural Sciences", "Technology", "Humanities"],
       school: "StLouisSchool OF Milan",
       subjects: ["Biology"],
-      unisApplyingFor: ["London School of Economics", "University of Oxford"],
+      unisApplyingFor: ["LSE", "Oxford"],
       level: "Masters",
       country: "Italy",
       email: 'tesrrrt123456543@notexistent.com',
@@ -219,7 +219,7 @@ const loadDummyMentees = async () => {
       firstName: "Raphael",
       lastName: "Eder",
       subject: "Economics",
-      university: "Imperial College London",
+      university: "Imperial",
       city: "Milano",
       status: "requested",
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb24ac19140b713a2fe714c/1538411224076/Raphael.jpeg?format=500w"
@@ -228,7 +228,7 @@ const loadDummyMentees = async () => {
       interestedIn: ["Natural Sciences", "Technology", "Humanities"],
       school: "StLouisSchool OF Milan",
       subjects: ["Biology"],
-      unisApplyingFor: ["London School of Economics", "University of Oxford"],
+      unisApplyingFor: ["LSE", "Oxford"],
       level: "Masters",
       coursesApplyingFor: ["Psychological & Behavioural Sciences"],
       country: "Italy",
@@ -240,7 +240,7 @@ const loadDummyMentees = async () => {
       firstName: "Anna",
       lastName: "Gross",
       subject: "History",
-      university: "University of Oxford",
+      university: "Oxford",
       city: "Milano",
       status: "approved",
       emailAddress: "riccardo@broggi.co.uk",
@@ -250,7 +250,7 @@ const loadDummyMentees = async () => {
       school: "StLouisSchool OF Milan",
       coursesApplyingFor: ["Psychological & Behavioural Sciences"],
       subjects: ["Biology"],
-      unisApplyingFor: ["London School of Economics", "University of Oxford"],
+      unisApplyingFor: ["LSE", "Oxford"],
       level: "Masters",
       country: "Italy",
       email: 'test123456gg7643@notexistent.com',
@@ -261,7 +261,7 @@ const loadDummyMentees = async () => {
       firstName: "Alexander",
       lastName: "Hutterer",
       subject: "PPE",
-      university: "King's College London",
+      university: "KCL",
       city: "Milano",
       status: "approved",
       pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb257eeec212d94bfb1ec35/1538415414370/27747541_865005767039622_4075308886654729626_o.jpg?format=500w"
@@ -296,7 +296,7 @@ const loadAdmin = async () => {
     area: "Natural Sciences",
     firstName: "Riccardo",
     lastName: "Broggi",
-    university: "University of Oxford",
+    university: "Oxford",
     subject: "Computer Science",
     city: "Milano",
     status: "notYetRequested",
@@ -308,7 +308,7 @@ const loadAdmin = async () => {
     fromThreeLargestCity: false,
     hobbiesAndInterests: ["Professional Sports"],
     linkedinUrl: "https://www.linkedin.com/in/riccardobroggi/",
-    offersFromUnis: ["London School of Economics"],
+    offersFromUnis: ["LSE"],
     referral: ["Project Access Mentor", "Friends"],
     subjectsInSchool: ["French"],
     typeOfHighSchool: "Independent",
@@ -330,7 +330,7 @@ const loadAdmin = async () => {
     level: "Undergraduate",
     school: "StLouisSchool Of Milan",
     subjects: ["Biology"],
-    unisApplyingFor: ["London School of Economics", "University of Oxford"],
+    unisApplyingFor: ["LSE", "Oxford"],
     year: "Gap Year",
     status: "approved",
 
@@ -348,19 +348,19 @@ const loadAdmin = async () => {
   };
   await MentorService.registerNew(id, mentorProfile);
   await MenteeService.registerNew(id, menteeProfile);
-  await request({
-    method: 'post',
-    body: {
-      "user_id": id,
-      "nickname": userProfile.firstName,
-      "profile_url": ""
-    },
-    json: true,
-    url: "https://api.sendbird.com/v3/users",
-    headers: {
-      'Content-Type': 'application/json',
-      'Api-Token': config.sendbird.API_TOKEN
-    }});
+  // await request({
+  //   method: 'post',
+  //   body: {
+  //     "user_id": id,
+  //     "nickname": userProfile.firstName,
+  //     "profile_url": ""
+  //   },
+  //   json: true,
+  //   url: "https://api.sendbird.com/v3/users",
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     'Api-Token': config.sendbird.API_TOKEN
+  //   }});
 
 };
 
