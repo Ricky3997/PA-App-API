@@ -61,6 +61,7 @@ class Messaging extends Component {
   componentWillUnmount() {
     if (this.props.user.onboarded) this.sendBird.disconnect(() => {
       this.props.toggleMessagingConnected();
+      this.props.clearChats();
     });
   }
 

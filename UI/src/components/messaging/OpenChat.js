@@ -1,4 +1,5 @@
 import React from "react";
+import ReactLoading from "react-loading";
 import {
   AddIcon,
   IconButton,
@@ -25,7 +26,7 @@ const OpenChat = (props) => {
 
 
   if (!props.messaging.connected) return <div>
-    Loading
+    <ReactLoading type={"spin"} color={"#111111"} height={64} width={64}/>
   </div>;
   else {
     const activeChat = props.messaging.chats.filter(c => c.id === props.messaging.activeChatId)[0];

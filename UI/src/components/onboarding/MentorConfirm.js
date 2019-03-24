@@ -17,10 +17,8 @@ const MentorConfirm = (props) => {
       </Col>
     </Row>
 
-
     <Row>
       <Col md={{ span: 2, offset: 3 }}>
-
         <Badge variant="info">{"From"}</Badge>
       </Col>
       <Col md={{ span: 3 }}>

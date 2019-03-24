@@ -151,16 +151,16 @@ const createSendBirdChat = async (mentor, mentee) => {
     "user_ids": [mentor._id.toString(), mentee._id.toString()],
     "invitation_status[]": [`${mentor._id.toString()}:joined`, `${mentee._id.toString()}:joined`]
   };
-  // return request({
-  //   method: "post",
-  //   body: body,
-  //   json: true,
-  //   url: "https://api.sendbird.com/v3/group_channels",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     "Api-Token": config.sendbird.API_TOKEN
-  //   }
-  // });
+  return request({
+    method: "post",
+    body: body,
+    json: true,
+    url: "https://api.sendbird.com/v3/group_channels",
+    headers: {
+      "Content-Type": "application/json",
+      "Api-Token": config.sendbird.API_TOKEN
+    }
+  });
 };
 
 

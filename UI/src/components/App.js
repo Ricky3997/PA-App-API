@@ -24,7 +24,7 @@ import {
   changeActiveJourneyModule,
   changeMenteeStatus,
   changeMentorStatus,
-  changeStage,
+  changeStage, clearChats,
   confirmEmailAddress,
   fetchMentees,
   fetchMentors,
@@ -132,7 +132,8 @@ class App extends Component {
                 toggleMessagingConnected: () => dispatch(toggleMessagingConnected()),
                 addMessagingChat: (chat) => dispatch(addMessagingChat(chat)),
                 addMessagesToChat: (chatId, messages) => dispatch(addMessagesToChat(chatId, messages)),
-                setActiveChatId: (id) => dispatch(setActiveChat(id))
+                setActiveChatId: (id) => dispatch(setActiveChat(id)),
+                clearChats: (id) => dispatch(clearChats(id)),
               };
             })(Messaging)}/>
 

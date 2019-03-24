@@ -2,7 +2,7 @@ import {
   ADD_MESSAGES_TO_CHAT,
   ADD_MESSAGING_CHAT,
   ADD_ONBOARDING_PROPERTIES,
-  CHANGE_STAGE,
+  CHANGE_STAGE, CLEAR_CHATS,
   REMOVE_PICTURE_TO_CROP,
   REMOVE_USER,
   RESET_APP,
@@ -243,6 +243,12 @@ function messaging(state = {
       return { ...state, connected: !state.connected };
     case SET_ACTIVE_CHAT:
       return { ...state, activeChatId: action.id };
+    case CLEAR_CHATS:
+      return {
+        connected: false,
+        chats: [],
+        activeChatId: null
+      };
     case ADD_MESSAGING_CHAT:
       const chats = state.chats;
       chats.push(action.chat);
