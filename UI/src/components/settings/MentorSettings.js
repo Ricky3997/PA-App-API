@@ -133,10 +133,16 @@ const MentorSettings = (props) => {
               <EmailConfirmed user={props.user} sendEmailConfirmationAgain={props.sendEmailConfirmationAgain}/>
 
             </Col>
-            <Col>
-              { props.user.mentorProfile.status === "requested" ? <Button onClick={() => props.changeMentorStatus("notYetRequested")} variant='warning' >
-                  Click here to withdraw your approval request
-                </Button> : null}
+            <Col md={3}>
+              {props.user.mentorProfile.status === "requested" ?
+                <div>\
+                  <h6>
+                    You requested approval to mentor,
+                  </h6>
+                  <Button onClick={() => props.changeMentorStatus("notYetRequested")} variant='warning'>
+                  Click here to withdraw your request
+                </Button>
+                </div> : null}
             </Col>
           </Row>
           <br/>
