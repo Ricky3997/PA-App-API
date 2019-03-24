@@ -40,11 +40,15 @@ const Statistics = ({ mentors, mentees }) => {
       </Row>
       <Row className="justify-content-md-center">
         <Col>
+          <h3>Mentees and mentor signups</h3>
           <SignupsChart mentees={mentees} mentors={mentors}/>
         </Col>
       </Row>
+      <h3>Rastio of mentees/mentors</h3>
       <Row style={{marginTop: '-100px', marginLeft: '-40px'}}>
+        <Col>
         <DataVisHeatMap mentors={mentors} mentees={mentees}/>
+        </Col>
       </Row>
     </Container>
   );
