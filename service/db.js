@@ -137,7 +137,7 @@ const loadDummyMentors = async () => {
     }
   ];
   dummy.forEach(async d => {
-    const res = await AuthService.register(d.email, d.firstName, "mentor");
+    const res = await AuthService.register(d.email, d.firstName, d.lastName,"mentor");
     await MentorService.registerNew(res.user._id.toString(), d);
   });
 };
@@ -268,7 +268,7 @@ const loadDummyMentees = async () => {
     }
   ];
   dummy.forEach(async d => {
-    const res = await AuthService.register(d.email, d.firstName, "mentee");
+    const res = await AuthService.register(d.email, d.firstName, d.lastName, "mentee");
     await MenteeService.registerNew(res.user._id.toString(), d);
   });
 };
@@ -277,6 +277,7 @@ const loadAdmin = async () => {
   const userProfile = {
     _id: id,
     firstName: "Riccardo",
+    lastName: "Broggi",
     type: "mentor",
     email: "riccardo@broggi.co.uk",
     emailConfirmed: true,

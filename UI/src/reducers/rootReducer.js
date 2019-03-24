@@ -85,19 +85,19 @@ function settings(state = {
 
 function onboarding(state = {
   step: 1,
-  country: "",
-  city: "",
-  university: "",
-  school: "",
-  subject: "",
-  subjects: [],
-  level: "",
+  country: "Italy",
+  city: "Mi",
+  university: "Cambridge",
+  school: "SLS",
+  subject: "Maths",
+  subjects: ["Maths"],
+  level: "Undergraduate",
   area: "",
   year: "",
-  gender: "",
-  firstGenStudent: "",
-  interestedIn: [],
-  unisApplyingFor: [],
+  gender: "Male",
+  firstGenStudent: "Yes",
+  interestedIn: ["CS"],
+  unisApplyingFor: ["Cambridge"],
   registering: false
 }, action) {
   switch (action.type) {

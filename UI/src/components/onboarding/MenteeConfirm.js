@@ -3,7 +3,7 @@ import { Badge, Button, Col, Form, Image, ProgressBar, Row } from "react-bootstr
 import Loader from "react-loader-spinner";
 import { Icon } from "react-fa";
 import defaults from "../../defaults/defaults";
-import { Toast as toast } from "react-toastify";
+import { toast } from "react-toastify";
 import CountryFlag from "../various/CountryFlag";
 
 const MenteeConfirm = (props) => {

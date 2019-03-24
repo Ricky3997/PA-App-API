@@ -50,12 +50,12 @@ const RegisterNewUser = (props) => {
             lastName: "",
             userType: typeFromUrl || defaults.onboarding.mentee
           }}
-          onSubmit={({ email, userType, firstName }, { setSubmitting }) => {
+          onSubmit={({ email, userType, firstName, lastName }, { setSubmitting }) => {
 
             api.post("/auth/register", {
               email: email,
               firstName: firstName,
-              lastName: firstName,
+              lastName: lastName,
               type: userType === defaults.onboarding.mentee ? "mentee" : "mentor"
             }).then(r => {
 

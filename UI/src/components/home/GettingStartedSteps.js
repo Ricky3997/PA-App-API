@@ -170,19 +170,19 @@ const GettingStartedSteps = (props) => {
                                       props.toggleMentorHomeModal();
                                     }}/> : null}
 
-      {props.mode === "mentee" && _.get(props.user, "menteeProfile") ?
-        <RequestApprovalMenteeModal show={props.menteeHome.showModal} user={props.user}
-                                    menteeHome={props.menteeHome} onHide={(properties) => {
-          props.setMenteeApprovalProperties(properties);
-          props.toggleMenteeHomeModal();
-        }} onSubmit={(properties) => props.changeMenteeStatus("requested", properties).then(r => {
-          if (r.success) {
-            props.toggleMenteeHomeModal();
-            toast.success("Request sent");
-          }
-        })
-        }
-        /> : null}
+      {/*{props.mode === "mentee" && _.get(props.user, "menteeProfile") ?*/}
+        {/*<RequestApprovalMenteeModal show={props.menteeHome.showModal} user={props.user}*/}
+                                    {/*menteeHome={props.menteeHome} onHide={(properties) => {*/}
+          {/*props.setMenteeApprovalProperties(properties);*/}
+          {/*props.toggleMenteeHomeModal();*/}
+        {/*}} onSubmit={(properties) => props.changeMenteeStatus("requested", properties).then(r => {*/}
+          {/*if (r.success) {*/}
+            {/*props.toggleMenteeHomeModal();*/}
+            {/*toast.success("Request sent");*/}
+          {/*}*/}
+        {/*})*/}
+        {/*}*/}
+        {/*/> : null}*/}
 
 
     </div>
