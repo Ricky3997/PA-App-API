@@ -45,7 +45,7 @@ const GettingStartedSteps = (props) => {
     title: "Fourth, wait until matched",
     description: "Whoho, you've been approved! We now need to find a mentee that matches your profile, so hang tight while we find one! In the mean time, here's some things you can do to help!",
     ready: _.get(props.user, `${props.mode}Profile.status`) === "approved",
-    completed: props.mode === 'mentee' ?
+    completed: props.mode === "mentee" ?
       _.get(props.user, "menteeProfile.relationship") :
       _.get(props.user, "mentorProfile.relationship.length") > 0
   };
@@ -54,7 +54,7 @@ const GettingStartedSteps = (props) => {
   const acceptMentee = {
     title: "Start mentoring!",
     description: "Great news, you've been matched with a mentee! You're almost there, you just need to accept the match now, and you'll be ready to start!",
-    ready: props.mode === 'mentee' ?
+    ready: props.mode === "mentee" ?
       _.get(props.user, "menteeProfile.relationship") :
       _.get(props.user, "mentorProfile.relationship.length") > 0,
     completed: false
@@ -185,7 +185,8 @@ const GettingStartedSteps = (props) => {
                                     onHide={(properties) => {
                                       props.setMenteeApprovalProperties(properties);
                                       props.toggleApprovalModal();
-                                    }} onSubmit={(properties) => props.changeMenteeStatus("requested", properties).then(r => {
+                                    }}
+                                    onSubmit={(properties) => props.changeMenteeStatus("requested", properties).then(r => {
                                       if (r.success) {
                                         props.toggleApprovalModal();
                                         toast.success("Request sent");

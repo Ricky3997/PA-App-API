@@ -12,7 +12,7 @@ const MentoringHome = (props) => {
     toRender = <Button onClick={() => props.history.push("/onboard")}>
       Looks like you are not onboarded, go finish
     </Button>;
-  } else if  (props.user.mentorProfile.status === "rejected") { //TODO
+  } else if (props.user.mentorProfile.status === "rejected") { //TODO
     toRender = <div>
       Unfortunately you have been rejected, and this was indicated as the reason:
       <blockquote>

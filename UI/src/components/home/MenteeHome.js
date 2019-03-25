@@ -7,20 +7,22 @@ import MenteeInRelationshipHome from "./Mentee/MenteeInRelationshipHome";
 import GettingStartedSteps from "./GettingStartedSteps";
 import { connect } from "react-redux";
 import {
+  changeMenteeStatus,
   setGettingStartedStepsProgress,
-  toggleApprovalModal, setMenteeApprovalProperties, changeMenteeStatus
+  setMenteeApprovalProperties,
+  toggleApprovalModal
 } from "../../actions/actionCreator";
 
 const MenteeHome = (props) => {
 
   const GettingStartedStepsConnected = connect(({ user, gettingStartedSteps, menteeHome }) => {
-    return { user, gettingStartedSteps, menteeHome,  mode: 'mentee' };
+    return { user, gettingStartedSteps, menteeHome, mode: "mentee" };
   }, dispatch => {
     return {
       setGettingStartedStepsProgress: (progress) => dispatch(setGettingStartedStepsProgress(progress)),
       toggleApprovalModal: () => dispatch(toggleApprovalModal()),
       setMenteeApprovalProperties: (properties) => dispatch(setMenteeApprovalProperties(properties)),
-      changeMenteeStatus: (status) => dispatch(changeMenteeStatus(status)),
+      changeMenteeStatus: (status) => dispatch(changeMenteeStatus(status))
     };
   })(GettingStartedSteps);
 
@@ -41,7 +43,7 @@ const MenteeHome = (props) => {
 
     {_.get(props.user, "menteeProfile.relationship") ?
       <MenteeInRelationshipHome {...props} /> :
-      <GettingStartedStepsConnected />}
+      <GettingStartedStepsConnected/>}
   </Container>;
 };
 

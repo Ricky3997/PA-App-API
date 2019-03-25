@@ -45,9 +45,9 @@ const Statistics = ({ mentors, mentees }) => {
         </Col>
       </Row>
       <h3>Rastio of mentees/mentors</h3>
-      <Row style={{marginTop: '-100px', marginLeft: '-40px'}}>
+      <Row style={{ marginTop: "-100px", marginLeft: "-40px" }}>
         <Col>
-        <DataVisHeatMap mentors={mentors} mentees={mentees}/>
+          <DataVisHeatMap mentors={mentors} mentees={mentees}/>
         </Col>
       </Row>
     </Container>
