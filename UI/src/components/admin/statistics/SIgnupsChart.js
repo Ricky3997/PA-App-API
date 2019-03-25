@@ -3,7 +3,7 @@ import { Line } from "react-chartjs";
 import Moment from "moment";
 
 const SignupsChart = ({ mentors, mentees }) => {
-  console.log(mentees.map(m => Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()));
+  console.log(mentees.map(m => Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()))
 
   return <Line style={{ marginLeft: "160px", marginTop: "60px" }}
                data={{

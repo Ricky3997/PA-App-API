@@ -22,9 +22,9 @@ import {
   addMessagingChat,
   addOnboardingProperties,
   changeActiveJourneyModule,
+  changeMenteeStatus,
   changeMentorStatus,
-  changeStage,
-  clearChats,
+  changeStage, clearChats,
   confirmEmailAddress,
   fetchMentees,
   fetchMentors,
@@ -40,8 +40,10 @@ import {
   sendLoginEmail,
   setActiveChat,
   setMentorApprovalProperties,
+  setGettingStartedStepsProgress,
   storePictureCropped,
   storePictureToCrop,
+  toggleApprovalModal,
   toggleMessagingConnected,
   togglePicturePicker,
   unsetLoginEmailSent,
@@ -131,7 +133,7 @@ class App extends Component {
                 addMessagingChat: (chat) => dispatch(addMessagingChat(chat)),
                 addMessagesToChat: (chatId, messages) => dispatch(addMessagesToChat(chatId, messages)),
                 setActiveChatId: (id) => dispatch(setActiveChat(id)),
-                clearChats: (id) => dispatch(clearChats(id))
+                clearChats: (id) => dispatch(clearChats(id)),
               };
             })(Messaging)}/>
 

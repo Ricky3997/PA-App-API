@@ -140,8 +140,8 @@ const MentorSettings = (props) => {
                     You requested approval to mentor,
                   </h6>
                   <Button onClick={() => props.changeMentorStatus("notYetRequested")} variant='warning'>
-                    Click here to withdraw your request
-                  </Button>
+                  Click here to withdraw your request
+                </Button>
                 </div> : null}
             </Col>
           </Row>

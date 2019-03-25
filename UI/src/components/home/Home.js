@@ -18,7 +18,7 @@ const Home = (props) => {
     }, dispatch => {
       return {
         changeMentorStatus: (status, properties) => dispatch(changeMentorStatus(status, properties)),
-        refreshUser: () => dispatch(getUser())
+        refreshUser: () => dispatch(getUser()),
       };
     })(MentorHome);
     return <MentorHomeConnected/>;
@@ -29,7 +29,7 @@ const Home = (props) => {
       return {
         changeMenteeStatus: (status, properties) => dispatch(changeMenteeStatus(status, properties)),
         refreshUser: () => dispatch(getUser()),
-        changeActiveJourneyModule: (id) => dispatch(changeActiveJourneyModule(id))
+        changeActiveJourneyModule: (id) => dispatch(changeActiveJourneyModule(id)),
       };
     })(MenteeHome);
     return <MenteeHomeConnected/>;

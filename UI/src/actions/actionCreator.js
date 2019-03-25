@@ -2,8 +2,7 @@ import {
   ADD_MESSAGES_TO_CHAT,
   ADD_MESSAGING_CHAT,
   ADD_ONBOARDING_PROPERTIES,
-  CHANGE_STAGE,
-  CLEAR_CHATS,
+  CHANGE_STAGE, CLEAR_CHATS,
   REMOVE_PICTURE_TO_CROP,
   REMOVE_USER,
   RESET_APP,
@@ -12,11 +11,11 @@ import {
   SET_ACTIVE_JOURNEY_MODULE,
   SET_ACTIVE_MENTEE_APPROVAL_ID,
   SET_ACTIVE_MENTOR_APPROVAL_ID,
-  SET_GETTING_STARTED_PROGRESS,
   SET_MATCHING_ID,
   SET_MENTEE_APPROVAL_PROPERTIES,
   SET_MENTEES,
   SET_MENTOR_APPROVAL_PROPERTIES,
+  SET_GETTING_STARTED_PROGRESS,
   SET_MENTOR_RECOMMENDATIONS,
   SET_MENTORS,
   SET_PUBLIC_PROFILE,
@@ -27,10 +26,10 @@ import {
   SWITCH_MATCHING_MODE,
   TOGGLE_ADMIN_FETCHING,
   TOGGLE_ADMIN_MODAL,
-  TOGGLE_APPROVAL_MODAL,
   TOGGLE_DASHBOARD_CONFIRMATION,
   TOGGLE_MENTEE_HOME_MODAL,
   TOGGLE_MENTOR_CONFIRM_DECISION,
+  TOGGLE_APPROVAL_MODAL,
   TOGGLE_MESSAGING_CONNECTED,
   TOGGLE_PICTURE_PICKER,
   TOGGLE_REGISTERING,
@@ -41,8 +40,9 @@ import {
   UPDATE_USER
 } from "./actionTypes";
 import * as api from "../api";
+import * as _ from "lodash";
 import { toast } from "react-toastify";
-import { getInitialGettingStartedProgress } from "./helpers";
+import {getInitialGettingStartedProgress} from './helpers';
 
 export const resetApp = () => {
   return {
@@ -380,7 +380,7 @@ export const addMessagesToChat = (chatId, messages) => {
 };
 export const clearChats = () => {
   return {
-    type: CLEAR_CHATS
+    type: CLEAR_CHATS,
   };
 };
 
