@@ -13,7 +13,7 @@ import {
   SET_MENTEE_APPROVAL_PROPERTIES,
   SET_MENTEES,
   SET_MENTOR_APPROVAL_PROPERTIES,
-  SET_MENTOR_HOME_PROGRESS,
+  SET_GETTING_STARTED_PROGRESS,
   SET_MENTOR_RECOMMENDATIONS,
   SET_MENTORS,
   SET_PUBLIC_PROFILE,
@@ -27,7 +27,7 @@ import {
   TOGGLE_DASHBOARD_CONFIRMATION,
   TOGGLE_MENTEE_HOME_MODAL,
   TOGGLE_MENTOR_CONFIRM_DECISION,
-  TOGGLE_MENTOR_HOME_MODAL,
+  TOGGLE_APPROVAL_MODAL,
   TOGGLE_MESSAGING_CONNECTED,
   TOGGLE_PICTURE_PICKER,
   TOGGLE_REGISTERING,
@@ -38,7 +38,7 @@ import {
   UPDATE_USER
 } from "../actions/actionTypes";
 import { combineReducers } from "redux";
-import * as _ from "lodash";
+import {getInitialGettingStartedProgress} from "../actions/helpers";
 
 function user(state = JSON.parse(window.localStorage.getItem("user")) || null, action) {
   switch (action.type) {
@@ -160,9 +160,21 @@ function menteeHome(state = {
   }
 }
 
-function mentorHome(state = {
-  progress: getInitialMentorHomeProgress(),
+function gettingStartedSteps(state = {
+  progress: getInitialGettingStartedProgress(),
   showModal: false,
+}, action) {
+  switch (action.type) {
+    case SET_GETTING_STARTED_PROGRESS:
+      return { ...state, progress: action.progress };
+    case TOGGLE_APPROVAL_MODAL:
+      return { ...state, showModal: !state.showModal };
+    default:
+      return state;
+  }
+}
+
+function mentorHome(state = {
   showConfirmDecision: "",
   maxNumberOfMentees: 3,
   careerInterests: [],
@@ -180,10 +192,6 @@ function mentorHome(state = {
   notes: ""
 }, action) {
   switch (action.type) {
-    case SET_MENTOR_HOME_PROGRESS:
-      return { ...state, progress: action.progress };
-    case TOGGLE_MENTOR_HOME_MODAL:
-      return { ...state, showModal: !state.showModal };
     case SET_MENTOR_APPROVAL_PROPERTIES:
       return { ...state, ...action.properties };
     case TOGGLE_MENTOR_CONFIRM_DECISION:
@@ -193,20 +201,6 @@ function mentorHome(state = {
   }
 }
 
-const getInitialMentorHomeProgress = () => {
-  try {
-    const user = JSON.parse(window.localStorage.getItem("user"));
-    let baseline = 0;
-    if (user.onboarded) baseline = baseline + 10;
-    if (!user.emailConfirmed) baseline = baseline + 20;
-    if (user.mentorProfile.status === "requested") baseline = baseline + 20;
-    if (user.mentorProfile.status === "approved") baseline = baseline + 40;
-    if (_.get(user, "mentorProfile.relationship.length") > 0) baseline = 100;
-    return baseline;
-  } catch (e) {
-    return 10;
-  }
-};
 
 function matching(state = {
   manualMode: true,
@@ -313,7 +307,6 @@ function publicProfile(state = {
   }
 }
 
-
 const app = combineReducers({
   user,
   settings,
@@ -326,7 +319,8 @@ const app = combineReducers({
   mentorHome,
   menteeHome,
   dashboard,
-  publicProfile
+  publicProfile,
+  gettingStartedSteps
 });
 
 const rootReducer = (state, action) => {

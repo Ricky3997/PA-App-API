@@ -9,7 +9,7 @@ const LoadingChatList = () => {
         <Title ellipsis>...</Title>
       </ChatRow>
       <Subtitle ellipsis>
-        Loading, will style nicely later
+        Fetching conversations
       </Subtitle>
     </Column>
   </ChatListItem>;

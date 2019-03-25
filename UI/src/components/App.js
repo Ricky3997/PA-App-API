@@ -40,10 +40,10 @@ import {
   sendLoginEmail,
   setActiveChat,
   setMentorApprovalProperties,
-  setMentorHomeProgress,
+  setGettingStartedStepsProgress,
   storePictureCropped,
   storePictureToCrop,
-  toggleMentorHomeModal,
+  toggleApprovalModal,
   toggleMessagingConnected,
   togglePicturePicker,
   unsetLoginEmailSent,
@@ -162,11 +162,8 @@ class App extends Component {
             }, dispatch => {
               return {
                 changeMentorStatus: (status, properties) => dispatch(changeMentorStatus(status, properties)),
-                changeMenteeStatus: (status) => dispatch(changeMenteeStatus(status)),
                 refreshUser: () => dispatch(getUser()),
                 changeActiveJourneyModule: (id) => dispatch(changeActiveJourneyModule(id)),
-                setMentorHomeProgress: (progress) => dispatch(setMentorHomeProgress(progress)),
-                toggleMentorHomeModal: () => dispatch(toggleMentorHomeModal()),
                 setMentorApprovalProperties: (properties) => dispatch(setMentorApprovalProperties(properties))
               };
             })(Home)}/>

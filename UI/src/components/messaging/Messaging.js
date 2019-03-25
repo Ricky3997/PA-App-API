@@ -94,7 +94,9 @@ class Messaging extends Component {
   };
 
   render() {
-    if (!this.props.user.onboarded || (_.get(this.props.user, "mentorProfile.relationship.length") === 0) || !(_.get(this.props.user, "menteeProfile.relationship"))) return <div>
+    if (!this.props.user.onboarded ||
+      (_.get(this.props.user, "mentorProfile.relationship.length") === 0) ||
+      !(_.get(this.props.user, "menteeProfile.relationship"))) return <div>
       Messaging is only available once your mentoring relationship has started
     </div>;
     else {

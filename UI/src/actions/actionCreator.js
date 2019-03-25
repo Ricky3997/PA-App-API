@@ -15,7 +15,7 @@ import {
   SET_MENTEE_APPROVAL_PROPERTIES,
   SET_MENTEES,
   SET_MENTOR_APPROVAL_PROPERTIES,
-  SET_MENTOR_HOME_PROGRESS,
+  SET_GETTING_STARTED_PROGRESS,
   SET_MENTOR_RECOMMENDATIONS,
   SET_MENTORS,
   SET_PUBLIC_PROFILE,
@@ -29,7 +29,7 @@ import {
   TOGGLE_DASHBOARD_CONFIRMATION,
   TOGGLE_MENTEE_HOME_MODAL,
   TOGGLE_MENTOR_CONFIRM_DECISION,
-  TOGGLE_MENTOR_HOME_MODAL,
+  TOGGLE_APPROVAL_MODAL,
   TOGGLE_MESSAGING_CONNECTED,
   TOGGLE_PICTURE_PICKER,
   TOGGLE_REGISTERING,
@@ -42,6 +42,7 @@ import {
 import * as api from "../api";
 import * as _ from "lodash";
 import { toast } from "react-toastify";
+import {getInitialGettingStartedProgress} from './helpers';
 
 export const resetApp = () => {
   return {
@@ -93,9 +94,9 @@ export const unsetPublicProfile = () => {
   };
 };
 
-export const toggleMentorHomeModal = () => {
+export const toggleApprovalModal = () => {
   return {
-    type: TOGGLE_MENTOR_HOME_MODAL
+    type: TOGGLE_APPROVAL_MODAL
   };
 };
 
@@ -208,9 +209,9 @@ export const changeActiveJourneyModule = (id) => {
   };
 };
 
-export const setMentorHomeProgress = (progress) => {
+export const setGettingStartedStepsProgress = (progress) => {
   return {
-    type: SET_MENTOR_HOME_PROGRESS,
+    type: SET_GETTING_STARTED_PROGRESS,
     progress: progress
   };
 };
@@ -257,16 +258,9 @@ const updateAndStoreUser = (dispatch, user) => {
   window.localStorage.setItem("user", JSON.stringify(user));
   dispatch(updateUser(user));
   if (user.onboarded) {
+    dispatch(setGettingStartedStepsProgress(getInitialGettingStartedProgress(user)));
     if (user.type === "mentee") {
       dispatch(changeActiveJourneyModule(user.menteeProfile.journey.filter(m => !m.completed && m.ready)[0].typeformID));
-    } else {
-      let baseline = 0;
-      if (user.onboarded) baseline = baseline + 10;
-      if (!user.emailConfirmed) baseline = baseline + 20;
-      if (user.mentorProfile.status === "requested") baseline = baseline + 20;
-      if (user.mentorProfile.status === "approved") baseline = baseline + 40;
-      if (_.get(user, "mentorProfile.relationship.length") > 0) baseline = 100;
-      dispatch(setMentorHomeProgress(baseline));
     }
   }
 };

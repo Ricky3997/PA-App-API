@@ -7,12 +7,7 @@ import {
   changeActiveJourneyModule,
   changeMenteeStatus,
   changeMentorStatus,
-  getUser,
-  setMenteeApprovalProperties,
-  setMentorApprovalProperties,
-  setMentorHomeProgress,
-  toggleMenteeHomeModal,
-  toggleMentorHomeModal
+  getUser
 } from "../../actions/actionCreator";
 
 const Home = (props) => {
@@ -24,9 +19,6 @@ const Home = (props) => {
       return {
         changeMentorStatus: (status, properties) => dispatch(changeMentorStatus(status, properties)),
         refreshUser: () => dispatch(getUser()),
-        setMentorHomeProgress: (progress) => dispatch(setMentorHomeProgress(progress)),
-        toggleMentorHomeModal: () => dispatch(toggleMentorHomeModal()),
-        setMentorApprovalProperties: (properties) => dispatch(setMentorApprovalProperties(properties))
       };
     })(MentorHome);
     return <MentorHomeConnected/>;
@@ -38,8 +30,6 @@ const Home = (props) => {
         changeMenteeStatus: (status, properties) => dispatch(changeMenteeStatus(status, properties)),
         refreshUser: () => dispatch(getUser()),
         changeActiveJourneyModule: (id) => dispatch(changeActiveJourneyModule(id)),
-        toggleMenteeHomeModal: () => dispatch(toggleMenteeHomeModal()),
-        setMenteeApprovalProperties: (properties) => dispatch(setMenteeApprovalProperties(properties))
       };
     })(MenteeHome);
     return <MenteeHomeConnected/>;
