@@ -37,14 +37,14 @@ const GettingStartedSteps = (props) => {
 
   const waitUntilApproved = {
     title: "Third, wait for approval",
-    description: "Fantastic, great that you've submitted that request! Someone from the team will now look at it and let you know ASAP. While you wait, here are some things you can do to help in the mean time!",
+    description: "Fantastic, great that you've submitted that request! Someone from the team will now look at it and let you know ASAP. While you wait, here are some things you can do in the mean time!",
     ready: props.user.emailConfirmed,
     completed: _.get(props.user, `${props.mode}Profile.status`) === "approved"
   };
 
   const waitUntilMatched = {
     title: "Fourth, wait until matched",
-    description: "Whoho, you've been approved! We now need to find a mentee that matches your profile, so hang tight while we find one! In the mean time, here's some things you can do to help!",
+    description: `Whoho, you've been approved! We now need to find a ${props.mode === "mentor" ? "mentee" : 'mentor'} that matches your profile, so hang tight while we find one! In the mean time, here's some things you can do!`,
     ready: _.get(props.user, `${props.mode}Profile.status`) === "approved",
     completed: props.mode === 'mentee' ?
       _.get(props.user, "menteeProfile.relationship") :
@@ -53,8 +53,9 @@ const GettingStartedSteps = (props) => {
 
 
   const acceptMentee = {
-    title: "Start mentoring!",
-    description: "Great news, you've been matched with a mentee! You're almost there, you just need to accept the match now, and you'll be ready to start!",
+    title: props.mode === 'mentee' ? "Almost ready" : "Start mentoring!",
+    description: `Great news, you've been matched with a  ${props.mode === "mentor" ? "mentee" : 'mentor'}! 
+    You're almost there,  ${props.mode === "mentor" ? 'you just need to accept the match now' :  'we just  need your mentor to  confirm they have time'}, and you\'ll be ready to start!`,
     ready: props.mode === 'mentee' ?
       _.get(props.user, "menteeProfile.relationship") :
       _.get(props.user, "mentorProfile.relationship.length") > 0,
@@ -111,8 +112,26 @@ const GettingStartedSteps = (props) => {
               {props.gettingStartedSteps.progress === 80 ? <GettingStartedBox module={waitUntilMatched}/> : null}
               {props.gettingStartedSteps.progress === 100 ? <GettingStartedBox module={acceptMentee}/> : null}
 
-              {props.gettingStartedSteps.progress >= 50 && props.gettingStartedSteps.progress !== 100 && waitUntilApproved.ready ?
-                <div>
+              {(props.gettingStartedSteps.progress === 60 && waitUntilApproved.ready) ||
+              (props.gettingStartedSteps.progress === 80 && waitUntilMatched.ready ) ?
+                (props.mode === "mentee" ? <div>
+                    <h5>
+                      While you wait, you can get a head start by:
+                    </h5>
+                    <ol style={{ lineHeight: "50px" }}>
+                      <li>
+                        <ButtonNotReadyYet>
+                          <Button disabled>Reading our blog</Button>
+                        </ButtonNotReadyYet>
+                      </li>
+                      <li>
+                        <ButtonNotReadyYet>
+                          <Button disabled>Start the training</Button>
+                        </ButtonNotReadyYet>
+                      </li>
+                    </ol>
+                  </div> :
+                  <div>
                   <h5>
                     While you wait, you can help us with the following
                   </h5>
@@ -133,7 +152,7 @@ const GettingStartedSteps = (props) => {
                       </ButtonNotReadyYet>
                     </li>
                   </ol>
-                </div> : null}
+                </div>) : null}
 
               {props.mode === "mentor" && props.mentorHome.progress === 100 && acceptMentee.ready ? props.user.mentorProfile.relationship.map(r =>
                 <AcceptMenteeBox {...r} key={r._id}/>) : null}

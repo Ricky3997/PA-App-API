@@ -51,7 +51,7 @@ const MenteeAdminProfile = (props) => {
         <Button block variant="success"
                 onClick={() => props.changeStatus(props.mentee._id, "approved").then(r => {
                   if (r.success) toast.success("Approved");
-                  props.history.push("/admin/mentors");
+                  props.history.push("/admin/mentees");
                 })}> Approve </Button>
       </Col>}
       {props.details && props.mentee.status === "approved" && !props.mentee.relationship ? <Col md={2}>
