@@ -1,7 +1,8 @@
 import React from "react";
-import { Badge, Col, Form, Row } from "react-bootstrap";
+import { Badge, Col, Form, Image, Row } from "react-bootstrap";
 import CountryFlag from "../various/CountryFlag";
 import ProfileIcon from "../various/ProfileIcon";
+import defaults from "../../defaults/defaults";
 
 const MentorProfileDetails = ({
                                 firstName, yearBorn, city, country, subject, university,
@@ -34,10 +35,11 @@ const MentorProfileDetails = ({
           <Form.Label>{`${subject}`}</Form.Label>
         </Col>
         <Col md={2}>
-          <Badge variant="info">{"School"}</Badge>
+          <Badge variant="info">{"University"}</Badge>
         </Col>
-        <Col md={{ span: 3 }}>
-          <Form.Label>{`${university}`}</Form.Label>
+        <Col md={{ span: 3 }}><Image
+          src={[...defaults.universities.US, ...defaults.universities.UK].filter(u => u.name === university)[0].logo}
+          style={{ maxHeight: "60px", maxWidth: "130px" }}/>
         </Col>
       </Row>
 

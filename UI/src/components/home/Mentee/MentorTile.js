@@ -31,18 +31,17 @@ const MentorTile = (props) => {
           </Row>
         </Col>
       </Row>
+      <br/>
       <Row>
         <Col>
-          <Row style={{ marginTop: "10px" }}>
-            <LinkContainer to="/message">
-              <Button block><Icon name="fas fa-commenting"/> Message</Button>
-            </LinkContainer>
-          </Row>
-          <Row style={{ marginTop: "10px" }}>
-            <LinkContainer to="/call">
-              <Button block><Icon name="fas fa-phone"/> Call</Button>
-            </LinkContainer>
-          </Row>
+          <LinkContainer to="/message">
+            <Button block><Icon name="fas fa-commenting"/> Message</Button>
+          </LinkContainer>
+        </Col>
+        <Col>
+          <LinkContainer to="/call">
+            <Button block><Icon name="fas fa-phone"/> Call</Button>
+          </LinkContainer>
         </Col>
       </Row>
 
