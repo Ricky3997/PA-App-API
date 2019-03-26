@@ -18,33 +18,33 @@ const MenteeInRelationshipHome = (props) => {
         </Col>
       </Row>
 
-      {/*<Row>*/}
-        {/*<Col md={2}>*/}
-          {/*{this.props.user.onboarded ?*/}
-            {/*<ProgressionTimeline modules={this.props.user.menteeProfile.journey} activeId={this.props.journey.activeId}*/}
-                                 {/*changeSection={(m) => this.props.changeActiveJourneyModule(m.typeformID)}/>*/}
-            {/*: null}*/}
-        {/*</Col>*/}
+      <Row>
+        <Col md={2}>
+          {props.user.onboarded ?
+            <ProgressionTimeline modules={props.user.menteeProfile.journey} activeId={props.journey.activeId}
+                                 changeSection={(m) => props.changeActiveJourneyModule(m.typeformID)}/>
+            : null}
+        </Col>
 
-        {/*<Col md={7}>*/}
-          {/*{this.props.user.onboarded ?*/}
-            {/*<Module*/}
-              {/*module={this.props.user.menteeProfile.journey.filter(m => m.typeformID === this.props.journey.activeId)[0]}/>*/}
-            {/*: null}*/}
-        {/*</Col>*/}
-        {/*<Col md={3}>*/}
-          {/*<Row>*/}
-            {/*{_.get(this.props, "user.menteeProfile.relationship.status") === "confirmed" ?*/}
-              {/*<MentorTile mentor={this.props.user.menteeProfile.relationship.mentor}/>*/}
-              {/*: <NoMentorYet toggleMenteeHomeModal={this.props.toggleMenteeHomeModal}*/}
-                             {/*changeMenteeStatus={this.props.changeMenteeStatus} user={this.props.user}/>}*/}
-          {/*</Row>*/}
-          {/*<br/>*/}
-          {/*<Row>*/}
-            {/*<CountryPartner country={this.props.user.menteeProfile.country} index={Math.floor(Math.random() * 3)}/>*/}
-          {/*</Row>*/}
-        {/*</Col>*/}
-      {/*</Row>*/}
+        <Col md={7}>
+          {props.user.onboarded ?
+            <Module
+              module={props.user.menteeProfile.journey.filter(m => m.typeformID === props.journey.activeId)[0]}/>
+            : null}
+        </Col>
+        <Col md={3}>
+          <Row>
+            {_.get(props, "user.menteeProfile.relationship.status") === "confirmed" ?
+              <MentorTile mentor={props.user.menteeProfile.relationship.mentor}/>
+              : <NoMentorYet toggleMenteeHomeModal={props.toggleMenteeHomeModal}
+                             changeMenteeStatus={props.changeMenteeStatus} user={props.user}/>}
+          </Row>
+          <br/>
+          <Row>
+            <CountryPartner country={props.user.menteeProfile.country} index={Math.floor(Math.random() * 3)}/>
+          </Row>
+        </Col>
+      </Row>
 
     </div>
   );

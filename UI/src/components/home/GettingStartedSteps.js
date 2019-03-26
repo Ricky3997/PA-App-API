@@ -154,9 +154,9 @@ const GettingStartedSteps = (props) => {
                   </ol>
                 </div>) : null}
 
-              {props.mode === "mentor" && props.mentorHome.progress === 100 && acceptMentee.ready ? props.user.mentorProfile.relationship.map(r =>
+              {props.mode === "mentor" && props.gettingStartedSteps.progress === 100 &&
+              acceptMentee.ready ? props.user.mentorProfile.relationship.map(r =>
                 <AcceptMenteeBox {...r} key={r._id}/>) : null}
-
             </Col>
           </Row>
         </Col>

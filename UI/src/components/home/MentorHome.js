@@ -7,6 +7,7 @@ import GettingStartedSteps from "./GettingStartedSteps";
 import MentoringHome from "./Mentor/MentoringHome";
 import { connect } from "react-redux";
 import {
+  changeMenteeStatus, changeMentorStatus,
   setGettingStartedStepsProgress,
   setMentorApprovalProperties,
   toggleApprovalModal
@@ -20,7 +21,8 @@ const MentorHome = (props) => {
     return {
       setGettingStartedStepsProgress: (progress) => dispatch(setGettingStartedStepsProgress(progress)),
       toggleApprovalModal: () => dispatch(toggleApprovalModal()),
-      setMentorApprovalProperties: (properties) => dispatch(setMentorApprovalProperties(properties))
+      setMentorApprovalProperties: (properties) => dispatch(setMentorApprovalProperties(properties)),
+      changeMentorStatus: (status, properties) => dispatch(changeMentorStatus(status, properties)),
     };
   })(GettingStartedSteps);
 

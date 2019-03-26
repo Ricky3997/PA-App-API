@@ -137,7 +137,6 @@ function admin(state = {
 }
 
 function menteeHome(state = {
-  showModal: true,
   careerInterests: ['kjhg'],
   confirmCommittment: true,
   ethnicBackground: "hgfv",

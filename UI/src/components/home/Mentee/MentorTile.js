@@ -3,6 +3,7 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { Icon } from "react-fa";
 import ProfileIcon from "../../various/ProfileIcon";
+import { Link } from "react-router-dom";
 
 const MentorTile = (props) => {
   return (
@@ -20,7 +21,7 @@ const MentorTile = (props) => {
         </Col>
         <Col md={6}>
           <Row>
-            {props.mentor.firstName}
+            <Link to={`mentor/${props.mentor._id}`}>{props.mentor.firstName}</Link>
           </Row>
           <Row>
             {props.mentor.subject}

@@ -39,7 +39,7 @@ const MenteeHome = (props) => {
       </Col>
     </Row>
 
-    {_.get(props.user, "menteeProfile.relationship.status" === "confirmed") ?
+    {_.get(props.user, "menteeProfile.relationship.status") === "confirmed" ?
       <MenteeInRelationshipHome {...props} /> :
       <GettingStartedStepsConnected />}
   </Container>;
