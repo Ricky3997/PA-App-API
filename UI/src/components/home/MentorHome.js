@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React  from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { Icon } from "react-fa";
 import { toast } from "react-toastify";
@@ -7,9 +7,8 @@ import GettingStartedSteps from "./GettingStartedSteps";
 import MentoringHome from "./Mentor/MentoringHome";
 import { connect } from "react-redux";
 import {
-  changeMenteeStatus,
   setGettingStartedStepsProgress,
-  setMenteeApprovalProperties, setMentorApprovalProperties,
+  setMentorApprovalProperties,
   toggleApprovalModal
 } from "../../actions/actionCreator";
 

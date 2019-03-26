@@ -7,22 +7,22 @@ const Mentee = mongoose.model('Mentee', new mongoose.Schema({
   unisApplyingFor: [{
     type: String
   }],
-  interestedIn: [{
+  interestedIn: [{ //mentee unis apply for
     type: String
   }],
-  coursesApplyingFor: [{
+  coursesApplyingFor: [{ // course  applying for
     type: String
   }],
-  subjects: [{
+  subjects: [{ // subjects study school
     type: String
   }],
-  school: String,
+  school: String, // current school
   level: String,
   country: String,
   firstGenStudent: String,
   city: String,
   gender: String,
-  year: String,
+  year: String, // year  of study in school
   pictureUrl: String,
   status: String,
   firstName: String,
@@ -40,7 +40,7 @@ const Mentee = mongoose.model('Mentee', new mongoose.Schema({
   rejectionReason: String,
   latestStatusChange: Date,
   fromThreeLargestCity: Boolean,
-  ethnicBackground: String,
+  ethnicBackground: String, // ethnicity
   typeOfHighSchool: String,
   careerInterests: [{
     type: String
@@ -49,7 +49,7 @@ const Mentee = mongoose.model('Mentee', new mongoose.Schema({
     type: String
   }],
   yearBorn: Number,
-  yearStart: Number,
+  yearStart: Number, // start uni
   referral: [{
     type: String
   }],

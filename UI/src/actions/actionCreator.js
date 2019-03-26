@@ -40,7 +40,6 @@ import {
   UPDATE_USER
 } from "./actionTypes";
 import * as api from "../api";
-import * as _ from "lodash";
 import { toast } from "react-toastify";
 import {getInitialGettingStartedProgress} from './helpers';
 

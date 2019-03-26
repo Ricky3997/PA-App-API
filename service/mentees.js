@@ -38,13 +38,16 @@ const edit = async (id, data, file) => {
   return Mentee.findById(id).populate({ path: 'relationship', populate: { path: 'mentor' }}).populate({path: 'mentorBlackList', populate: { path: 'mentor' }}).exec().then(p => {return p})
 };
 
-const generateJourney = (unisApplyingFor) => {
-  let coreJourney = [{
+const generateJourney = ({unisApplyingFor}) => {
+
+  let coreJourney = [
+    {
     title: "Subject choice",
     description: "The choice of a subject bla bla bla",
     progress: 10,
+      order:1,
     date: "June/July",
-    completed: new Date(),
+    completed: null,
     ready: true,
     typeformID: "oybn"
   }, {
@@ -81,7 +84,8 @@ const generateJourney = (unisApplyingFor) => {
     ready: false,
     typeformID: "oiuyu"
   }];
-  if(unisApplyingFor.indexOf('University of Cambridge') > 0 || unisApplyingFor.indexOf('University of Oxford') > 0  ) coreJourney.push({
+
+  if(_.some(['Cambridge', 'Oxford'], (vals) => _.includes(unisApplyingFor, vals))) coreJourney.push({
     title: "Oxbridge deadline",
     description: "The deadline for Obridge bla bla bla",
     progress: 50,
@@ -92,6 +96,7 @@ const generateJourney = (unisApplyingFor) => {
 
   });
   return coreJourney;
+
 };
 
 const registerNew = async (id, data) => {
@@ -103,7 +108,7 @@ const registerNew = async (id, data) => {
     firstName: user.firstName,
     lastName: user.lastName,
     pictureUrl: data.pictureUrl || null,
-    journey: generateJourney(data.unisApplyingFor)
+    journey: generateJourney(data)
   }).save();
   await request({
     method: 'post',
@@ -132,4 +137,4 @@ const changeStatus = async (id, data) => {
   }
 };
 
-module.exports = { getAll, registerNew, edit, changeStatus, getById };
+module.exports = { getAll, registerNew, edit, changeStatus, getById, generateJourney };
