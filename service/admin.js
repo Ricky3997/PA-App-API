@@ -171,5 +171,9 @@ const cancelMentoringRelationship = async (relationshipId) => {
   return true;
 };
 
+const removeMentorFromBlacklist = async (menteeId, mentorId) => {
+  return Mentee.findByIdAndUpdate(menteeId, {$pull: {mentorBlackList: mentorId}}, {new: true}).populate({ path: 'relationship', populate: { path: 'mentor' }}).populate({path: 'mentorBlackList', populate: { path: 'mentor' }}).exec().then(p => { return p});
+};
 
-module.exports = { changeUserStatus, matchingMentorRecommendations, createMatch, cancelMentoringRelationship };
+
+module.exports = { changeUserStatus, matchingMentorRecommendations, createMatch, cancelMentoringRelationship, removeMentorFromBlacklist};

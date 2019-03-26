@@ -497,6 +497,23 @@ export const confirmMatch = (mentorId, menteeId) => {
   };
 };
 
+
+export const removeMentorFromBlacklist = (menteeId, mentorId,) => {
+  return (dispatch, getState) => {
+    dispatch(toggleAdminFetching());
+    return api.post("/api/admin/removeMentorFromBlacklist", { mentorId: mentorId, menteeId: menteeId }).then(r => {
+      dispatch(toggleAdminFetching());
+      if (r.success) {
+        let { mentees } = getState().admin;
+        mentees = mentees.filter(m => m._id !== menteeId);
+        mentees.push(r.payload);
+        dispatch(setMentees(mentees));
+      }
+      return r;
+    });
+  };
+};
+
 export const changeMenteeBeingMatched = (id) => {
   return (dispatch) => {
     dispatch(setMatchingActiveId(id));

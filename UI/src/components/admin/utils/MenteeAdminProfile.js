@@ -226,7 +226,8 @@ const MenteeAdminProfile = (props) => {
           <MenteeProfileMentorTile mentee={props.mentee}/>
         </div> : (!props.mentee.relationship && props.mentee.mentorBlackList.length > 0 ? <div>
           <h5>Mentor(s) Blacklist</h5>
-          {props.mentee.mentorBlackList.map(m => <MenteeProfileMentorTile banned mentor={m}/>)}
+          {props.mentee.mentorBlackList.map(m => <MenteeProfileMentorTile removeMentorFromBlacklist={props.removeMentorFromBlacklist.bind(null, props.mentee._id)}
+                                                                          banned mentor={m}/>)}
         </div> : "No Mentor Yet and No Blacklist")}
       </Col>
     </Row>}

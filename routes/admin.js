@@ -10,4 +10,6 @@ router.post('/createMatch', adminController.createMatch);
 
 router.post('/cancelRelationship', adminController.cancelRelationship);
 
+router.post('/removeMentorFromBlacklist', adminController.removeMentorFromBlacklist);
+
 module.exports = router;

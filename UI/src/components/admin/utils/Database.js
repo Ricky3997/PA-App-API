@@ -10,7 +10,7 @@ import connect from "react-redux/es/connect/connect";
 import MentorAdminprofile from "./MentorAdminProfile";
 import MenteeAdminProfile from "./MenteeAdminProfile";
 import UniversityPicker from "../../various/forms/UniversityPicker";
-import { adminChangeUserStatus, toggleAdminModal } from "../../../actions/actionCreator";
+import { adminChangeUserStatus, removeMentorFromBlacklist, toggleAdminModal } from "../../../actions/actionCreator";
 import NotFound from "../../various/NotFound";
 
 const { Option } = Select;
@@ -55,12 +55,14 @@ class Database extends Component {
         beadcrumbs: true,
         showModal: admin.showModal,
         history: this.props.history,
-        mentee: admin.mentees.filter(m => m._id === this.props.match.params.id)[0], details: true
+        mentee: admin.mentees.filter(m => m._id === this.props.match.params.id)[0],
+        details: true
       };
     }, dispatch => {
       return {
         changeStatus: (id, status, rejectionReason) => dispatch(adminChangeUserStatus("mentee", id, status, rejectionReason)),
-        toggleAdminModal: () => dispatch(toggleAdminModal())
+        toggleAdminModal: () => dispatch(toggleAdminModal()),
+        removeMentorFromBlacklist: (menteeId, mentorId) => dispatch(removeMentorFromBlacklist(menteeId, mentorId))
       };
     })(MenteeAdminProfile);
 

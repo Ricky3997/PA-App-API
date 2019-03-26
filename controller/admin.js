@@ -25,4 +25,11 @@ const cancelRelationship =  async (req,res) => {
     else res.sendStatus(400);
 };
 
-module.exports = {changeUserStatus, matchingMentorRecommendations, createMatch, cancelRelationship};
+const removeMentorFromBlacklist =  async (req,res) => {
+    const {menteeId, mentorId} = req.body;
+    const result = await adminService.removeMentorFromBlacklist(menteeId, mentorId);
+    if(result) res.json(result);
+    else res.sendStatus(400);
+};
+
+module.exports = {changeUserStatus, matchingMentorRecommendations, createMatch, cancelRelationship, removeMentorFromBlacklist};
