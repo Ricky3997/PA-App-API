@@ -51,6 +51,7 @@ import { Container } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import PublicMentorProfile from "./people/PublicMentorProfile";
 import PublicMenteeProfile from "./people/PublicMenteeProfile";
+import Messages from "./messaging/Messages";
 
 class App extends Component {
   render() {
@@ -134,7 +135,7 @@ class App extends Component {
                 setActiveChatId: (id) => dispatch(setActiveChat(id)),
                 clearChats: (id) => dispatch(clearChats(id)),
               };
-            })(Messaging)}/>
+            })(Messages)}/>
 
             <Route path={"/call"} render={(props) => <Call user={user} {...props} />}/>
             <Route path={"/mentor/:id"} exact render={(props) => <MentorProfile {...props} />}/>
