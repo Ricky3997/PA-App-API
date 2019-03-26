@@ -27,8 +27,8 @@ const RequestApprovalMenteeModal = (props) => {
         .required("careerInterests required"),
       yearBorn: Yup.number()
         .required("yearBorn is required."),
-      yearStart: Yup.number()
-        .required("yearStart is required."),
+      yearApply: Yup.number()
+        .required("yearApply is required."),
       referral: Yup.array()
         .required("referral required"),
       notes: Yup.string()
@@ -71,28 +71,6 @@ const RequestApprovalMenteeModal = (props) => {
 
                 </Select>}/>
               </Col>
-            </Row>
-
-            <br/>
-
-            <Row>
-              <Col>
-                <h6>What type of school is {props.user.menteeProfile.school}? <span aria-labelledby={"school"}
-                                                                                    role={"img"}>🏫</span></h6>
-
-                <Field name="typeOfHighSchool" render={({ field, form: { touched, errors } }) => <Select showSearch
-                                                                                                         size={"large"}
-                                                                                                         style={{ width: "100%" }}
-                                                                                                         value={field.value}
-                                                                                                         placeholder={"State selective, State non selective..."}
-                                                                                                         onChange={(o) => setFieldValue(field.name, o)}
-                                                                                                         tokenSeparators={[",", ":"]}>
-
-
-                  {defaults.school_type.map(e => <Option key={e} value={e}>{e}</Option>)}
-
-                </Select>}/>
-              </Col>
               <Col>
                 <h6>Are you from one of the 3 largest cities in {props.user.menteeProfile.country}?</h6>
 
@@ -116,6 +94,23 @@ const RequestApprovalMenteeModal = (props) => {
 
             <Row>
               <Col>
+                <h6>What type of school is {props.user.menteeProfile.school}? <span aria-labelledby={"school"}
+                                                                                    role={"img"}>🏫</span></h6>
+
+                <Field name="typeOfHighSchool" render={({ field, form: { touched, errors } }) => <Select showSearch
+                                                                                                         size={"large"}
+                                                                                                         style={{ width: "100%" }}
+                                                                                                         value={field.value}
+                                                                                                         placeholder={"State selective, State non selective..."}
+                                                                                                         onChange={(o) => setFieldValue(field.name, o)}
+                                                                                                         tokenSeparators={[",", ":"]}>
+
+
+                  {defaults.school_type.map(e => <Option key={e} value={e}>{e}</Option>)}
+
+                </Select>}/>
+              </Col>
+              <Col>
                 <h6>What are your hobbies?</h6>
 
                 <Field name="hobbiesAndInterests" render={({ field, form: { touched, errors } }) => <Select showSearch
@@ -134,13 +129,14 @@ const RequestApprovalMenteeModal = (props) => {
               </Col>
             </Row>
 
+
             <br/>
 
             <Row>
               <Col>
-                <h6>What year do you expect to start University?</h6>
+                <h6>What year do you expect to apply to University?</h6>
 
-                <Field name="yearStart" render={({ field, form: { touched, errors } }) => <Select showSearch
+                <Field name="yearApply" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                   size={"large"}
                                                                                                   style={{ width: "100%" }}
                                                                                                   value={field.value}
@@ -184,7 +180,7 @@ const RequestApprovalMenteeModal = (props) => {
 
             <Row>
               <Col>
-                <h6>What are your career interests after studying at {props.user.menteeProfile.university}</h6>
+                <h6>What are your career interests?</h6>
 
                 <Field name="careerInterests" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                         size={"large"}
@@ -200,10 +196,6 @@ const RequestApprovalMenteeModal = (props) => {
 
                 </Select>}/>
               </Col>
-            </Row>
-            <br/>
-
-            <Row>
               <Col>
                 <h6>Who referred you to us? Because we’d like to send them a thank you <span aria-labelledby={"gift"}
                                                                                              role={"img"}>🎁</span></h6>

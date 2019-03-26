@@ -84,9 +84,9 @@ function settings(state = {
 }
 
 function onboarding(state = {
-  step: 1,
+  step: 3,
   country: "Italy",
-  city: "Mi",
+  city: "Milo",
   university: "Cambridge",
   school: "SLS",
   subject: "Maths",
@@ -137,17 +137,16 @@ function admin(state = {
 }
 
 function menteeHome(state = {
-  showModal: false,
-  maxNumberOfMentees: 3,
-  careerInterests: [],
-  confirmCommittment: false,
-  ethnicBackground: "",
+  showModal: true,
+  careerInterests: ['kjhg'],
+  confirmCommittment: true,
+  ethnicBackground: "hgfv",
   fromThreeLargestCity: 1,
-  hobbiesAndInterests: [],
-  referral: [],
-  typeOfHighSchool: "",
-  yearBorn: null,
-  yearStart: null,
+  hobbiesAndInterests: ['jh'],
+  referral: ['gvb'],
+  typeOfHighSchool: "nbv",
+  yearBorn: 1998,
+  yearApply: 1234,
   notes: ""
 }, action) {
   switch (action.type) {

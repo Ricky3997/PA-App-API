@@ -49,7 +49,7 @@ const Mentee = mongoose.model('Mentee', new mongoose.Schema({
     type: String
   }],
   yearBorn: Number,
-  yearStart: Number, // start uni
+  yearApply: Number, // start uni
   referral: [{
     type: String
   }],

@@ -123,7 +123,7 @@ const MenteeAdminProfile = (props) => {
         <Form.Label>{`${props.mentee.subjects.join(", ")}`}</Form.Label>
       </Col>
       <Col md={2}>
-        <Badge variant="info">{"Year"}</Badge>
+        <Badge variant="info">{"School graduation year"}</Badge>
       </Col>
       <Col md={{ span: 3 }}>
         <Form.Label>{`${props.mentee.year}`}</Form.Label>
@@ -164,10 +164,10 @@ const MenteeAdminProfile = (props) => {
 
     <Row>
       <Col md={2}>
-        <Badge variant="info">{"Expected Start"}</Badge>
+        <Badge variant="info">{"Application Year"}</Badge>
       </Col>
       <Col md={{ span: 3 }}>
-        <Form.Label>{`${props.mentee.yearStart}`}</Form.Label>
+        <Form.Label>{`${props.mentee.yearApply}`}</Form.Label>
       </Col>
       <Col md={2}>
         <Badge variant="info">{"Hobbies & Interests"}</Badge>

@@ -20,7 +20,7 @@ const MenteeHome = (props) => {
       setGettingStartedStepsProgress: (progress) => dispatch(setGettingStartedStepsProgress(progress)),
       toggleApprovalModal: () => dispatch(toggleApprovalModal()),
       setMenteeApprovalProperties: (properties) => dispatch(setMenteeApprovalProperties(properties)),
-      changeMenteeStatus: (status) => dispatch(changeMenteeStatus(status)),
+      changeMenteeStatus: (status, properties) => dispatch(changeMenteeStatus(status, properties)),
     };
   })(GettingStartedSteps);
 

@@ -72,8 +72,8 @@ const MenteeSettings = (props) => {
           .required("careerInterests required"),
         yearBorn: Yup.number()
           .required("yearBorn is required."),
-        yearStart: Yup.number()
-          .required("yearStart is required."),
+        yearApply: Yup.number()
+          .required("yearApply is required."),
         referral: Yup.array()
           .required("referral required"),
         notes: Yup.string()
@@ -122,6 +122,19 @@ const MenteeSettings = (props) => {
 
               <EmailConfirmed user={props.user} sendEmailConfirmationAgain={props.sendEmailConfirmationAgain}/>
 
+            </Col>
+            <Col md={3}>
+              {props.user.menteeProfile.status === "requested" ?
+                <div>\
+                  <h6>
+                    You requested approval to get a mentor
+                  </h6>
+                  <Button onClick={() => props.changeMenteeStatus("notYetRequested").then(r => {
+                    if(r.success) toast.success("Request withdrawn")
+                  })} variant='warning'>
+                    Click here to withdraw your request
+                  </Button>
+                </div> : null}
             </Col>
           </Row>
           <br/>
@@ -310,7 +323,7 @@ const MenteeSettings = (props) => {
                 </Col>
                 <Col>
                   <Form.Label>Graduation year</Form.Label>
-                  <Field name="yearStart" render={({ field, form: { touched, errors } }) => <Select showSearch
+                  <Field name="yearApply" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                     size={"large"}
                                                                                                     style={{ width: "100%" }}
                                                                                                     value={field.value}

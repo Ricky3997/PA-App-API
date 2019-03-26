@@ -29,7 +29,8 @@ const GettingStartedSteps = (props) => {
 
   const requestApprovallModule = {
     title: `Second, request approval to ${props.mode === "mentor" ? "mentor" : "get a mentor"}`,
-    description: "Awesome, thanks for that! Now, before we can match you with a mentee, we need to ask you some questions and check everything is okay (we work with young students, so we have to be super careful!) 🔎",
+    description: `Awesome, thanks for that! Now, before we can match you with a ${props.mode === "mentor" ? "mentee" : 'mentor'}, we need to ask you some questions and check
+     ${props.mode === "mentor"  ? 'everything is okay (we work with young students, so we have to be super careful!)' : 'you  meet the eligibility criteria'} 🔎`,
     ready: props.user.emailConfirmed,
     completed: props.user.onboarded && _.get(props.user, `${props.mode}Profile.status`) !== "notYetRequested"
   };
@@ -185,12 +186,14 @@ const GettingStartedSteps = (props) => {
                                     onHide={(properties) => {
                                       props.setMenteeApprovalProperties(properties);
                                       props.toggleApprovalModal();
-                                    }} onSubmit={(properties) => props.changeMenteeStatus("requested", properties).then(r => {
-                                      if (r.success) {
-                                        props.toggleApprovalModal();
-                                        toast.success("Request sent");
-                                      } else toast.error("Error ");
-                                    })
+                                    }} onSubmit={(properties) => {
+                                      props.changeMenteeStatus("requested", properties).then(r => {
+            if (r.success) {
+              props.toggleApprovalModal();
+              toast.success("Request sent");
+            } else toast.error("Error ");
+          })
+        }
                                     }
         /> : null}
 

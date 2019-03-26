@@ -69,7 +69,7 @@ const matchingMentorRecommendations = async (id) => {
           if(_.get(menteeProfile, "ethnicBackground") === _.get(mentor, "ethnicBackground")){
             score += config["Undergraduate"][degreeLevelMentor]["ethnicBackgroundPoints"];
           }
-          if((_.get(mentor, "yearGraduation") - _.get(menteeProfile, "yearStart")) > 2){
+          if((_.get(mentor, "yearGraduation") - _.get(menteeProfile, "yearApply")) > 2){
             score += config["Undergraduate"][degreeLevelMentor]["degreePoints"];
           }
           mentor._doc.score = score;
@@ -97,7 +97,7 @@ const matchingMentorRecommendations = async (id) => {
           if(_.get(menteeProfile, "ethnicBackground") === _.get(mentor, "ethnicBackground")){
             score += config["Masters"][degreeLevelMentor]["ethnicBackgroundPoints"];
           }
-          if((_.get(mentor, "yearGraduation") - _.get(menteeProfile, "yearStart")) > 2){
+          if((_.get(mentor, "yearGraduation") - _.get(menteeProfile, "yearApply")) > 2){
             score += config["Masters"][degreeLevelMentor]["degreePoints"];
           }
           mentor._doc.score = score;

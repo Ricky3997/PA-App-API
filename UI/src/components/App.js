@@ -21,8 +21,7 @@ import {
   addMessagesToChat,
   addMessagingChat,
   addOnboardingProperties,
-  changeActiveJourneyModule,
-  changeMenteeStatus,
+  changeActiveJourneyModule, changeMenteeStatus,
   changeMentorStatus,
   changeStage, clearChats,
   confirmEmailAddress,
@@ -40,10 +39,8 @@ import {
   sendLoginEmail,
   setActiveChat,
   setMentorApprovalProperties,
-  setGettingStartedStepsProgress,
   storePictureCropped,
   storePictureToCrop,
-  toggleApprovalModal,
   toggleMessagingConnected,
   togglePicturePicker,
   unsetLoginEmailSent,
@@ -84,7 +81,9 @@ class App extends Component {
                 removePictureToCrop: () => dispatch(removePictureToCrop()),
                 storePictureCropped: (pictureCropped) => dispatch(storePictureCropped(pictureCropped)),
                 saveSettings: (settings) => dispatch(saveSettings(settings)),
-                sendEmailConfirmationAgain: (settings) => dispatch(sendEmailConfirmationAgain(settings))
+                sendEmailConfirmationAgain: (settings) => dispatch(sendEmailConfirmationAgain(settings)),
+                changeMentorStatus: (status, properties) => dispatch(changeMentorStatus(status, properties)),
+                changeMenteeStatus: (status, properties) => dispatch(changeMenteeStatus(status, properties))
               };
             })(Settings)}/>
 

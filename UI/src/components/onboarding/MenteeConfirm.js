@@ -61,7 +61,7 @@ const MenteeConfirm = (props) => {
 
     <Row>
       <Col md={{ span: 2, offset: 3 }}>
-        <Badge variant="info">{"Year"}</Badge>
+        <Badge variant="info">{"School graduation year"}</Badge>
       </Col>
       <Col md={{ span: 4 }}>
         <Form.Label>{`${props.onboarding.year}`}</Form.Label>

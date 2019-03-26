@@ -342,7 +342,7 @@ const loadAdmin = async () => {
     referral: ["Project Access Mentor", "Friends"],
     typeOfHighSchool: "Independent",
     yearBorn: 1991,
-    yearStart: 2020,
+    yearApply: 2020,
     notes: 'Here are some notes',
     pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/t/5bb721a4e2c48357967f52fa/1538728361542/Riccardo.jpg?format=300w"
 

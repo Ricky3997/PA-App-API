@@ -7,7 +7,7 @@ import ProfileIcon from "../various/ProfileIcon";
 const MenteeProfileDetails = ({
                                 firstName, yearBorn, city, country, subjects, school,
                                 careerInterests, interestedIn, hobbiesAndInterests, pictureUrl,
-                                yearStart, unisApplyingFor, coursesApplyingFor, year, level
+                                yearApply, unisApplyingFor, coursesApplyingFor, year, level
                               }) => {
   return (<div>
       <ProfileIcon pictureUrl={pictureUrl} size='xl'/>
@@ -68,7 +68,7 @@ const MenteeProfileDetails = ({
           <Badge variant="info">{"Expected Start"}</Badge>
         </Col>
         <Col md={{ span: 3 }}>
-          <Form.Label>{`${yearStart}`}</Form.Label>
+          <Form.Label>{`${yearApply}`}</Form.Label>
         </Col>
         <Col md={2}>
           <Badge variant="info">{"Hobbies & Interests"}</Badge>

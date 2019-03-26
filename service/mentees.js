@@ -127,7 +127,6 @@ const registerNew = async (id, data) => {
 
 };
 
-
 const changeStatus = async (id, data) => {
   try {
     await Mentee.findByIdAndUpdate(id, {...data, latestStatusChange: new Date()}).exec();
