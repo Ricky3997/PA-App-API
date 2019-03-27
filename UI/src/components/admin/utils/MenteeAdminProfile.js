@@ -202,11 +202,12 @@ const MenteeAdminProfile = (props) => {
       <Col md={{ span: 3 }}>
         <Form.Label>{`${props.mentee.referral.join(", ")}`}</Form.Label>
       </Col>
+
       <Col md={2}>
-        <Badge variant="info">{"Notes"}</Badge>
+        <Badge variant="info">{"School exam type"}</Badge>
       </Col>
-      <Col md={{ span: 3 }}>
-        <Form.Label>{`${props.mentee.notes}`}</Form.Label>
+      <Col md={{ span: 3 }} >
+        <Form.Label>{`${props.mentee.examType}`}</Form.Label>
       </Col>
     </Row>
 
@@ -216,6 +217,14 @@ const MenteeAdminProfile = (props) => {
       </Col>
       <Col>
         <Form.Label>{`${props.mentee.coursesApplyingFor.join(", ")}`}</Form.Label>
+      </Col>
+    </Row>
+    <Row>
+      <Col md={2}>
+        <Badge variant="info">{"Notes"}</Badge>
+      </Col>
+      <Col md={{ span: 3 }}>
+        <Form.Label>{`${props.mentee.notes}`}</Form.Label>
       </Col>
     </Row>
 

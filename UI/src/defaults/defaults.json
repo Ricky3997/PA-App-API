@@ -352,5 +352,12 @@
     2025,
     2026,
     2027
+  ],
+  "examType": [
+    "A-levels",
+    "Maturità",
+    "IB",
+    "French Bac",
+    "Other"
   ]
 }

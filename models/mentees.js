@@ -40,6 +40,7 @@ const Mentee = mongoose.model('Mentee', new mongoose.Schema({
   rejectionReason: String,
   latestStatusChange: Date,
   fromThreeLargestCity: Boolean,
+  examType: String,
   ethnicBackground: String, // ethnicity
   typeOfHighSchool: String,
   careerInterests: [{

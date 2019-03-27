@@ -31,6 +31,8 @@ const RequestApprovalMenteeModal = (props) => {
         .required("yearApply is required."),
       referral: Yup.array()
         .required("referral required"),
+      examType: Yup.string()
+        .required("examType required"),
       notes: Yup.string()
     })}
     initialValues={{ confirmCommittment: false, ...initialValues }}
@@ -111,19 +113,18 @@ const RequestApprovalMenteeModal = (props) => {
                 </Select>}/>
               </Col>
               <Col>
-                <h6>What are your hobbies?</h6>
+                <h6>What kind of exam are you taking?</h6>
 
-                <Field name="hobbiesAndInterests" render={({ field, form: { touched, errors } }) => <Select showSearch
+                <Field name="examType" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                             size={"large"}
-                                                                                                            mode="tags"
                                                                                                             style={{ width: "100%" }}
                                                                                                             value={field.value}
-                                                                                                            placeholder={"Painting, running.."}
+                                                                                                            placeholder={"Exam type"}
                                                                                                             onChange={(o) => setFieldValue(field.name, o)}
                                                                                                             tokenSeparators={[",", ":"]}>
 
 
-                  {defaults.interests_and_hobbies.map(e => <Option key={e} value={e}>{e}</Option>)}
+                  {defaults.examType.map(e => <Option key={e} value={e}>{e}</Option>)}
 
                 </Select>}/>
               </Col>
@@ -216,8 +217,30 @@ const RequestApprovalMenteeModal = (props) => {
               </Col>
             </Row>
 
+            <br/>
+
+            <Row>
+              <Col>
+                <h6>What are your hobbies?</h6>
+
+                <Field name="hobbiesAndInterests" render={({ field, form: { touched, errors } }) => <Select showSearch
+                                                                                                            size={"large"}
+                                                                                                            mode="tags"
+                                                                                                            style={{ width: "100%" }}
+                                                                                                            value={field.value}
+                                                                                                            placeholder={"Painting, running.."}
+                                                                                                            onChange={(o) => setFieldValue(field.name, o)}
+                                                                                                            tokenSeparators={[",", ":"]}>
+
+
+                  {defaults.interests_and_hobbies.map(e => <Option key={e} value={e}>{e}</Option>)}
+
+                </Select>}/>
+              </Col>
+            </Row>
 
             <br/>
+
             <Row>
               <Col>
                 <h6>Anything else you might want to add?</h6>
