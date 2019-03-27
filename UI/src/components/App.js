@@ -38,7 +38,6 @@ import {
   sendEmailConfirmationAgain,
   sendLoginEmail,
   setActiveChat,
-  setMentorApprovalProperties,
   storePictureCropped,
   storePictureToCrop,
   toggleMessagingConnected,
@@ -146,7 +145,6 @@ class App extends Component {
               };
             })(Confirm)}/>
 
-
             <Route path={"/admin/:section?"} component={connect(({ user, admin }) => {
               return { user, admin };
             }, dispatch => {
@@ -157,14 +155,11 @@ class App extends Component {
               };
             })(Admin)}/>
 
-            <Route component={connect(({ user, journey, mentorHome }) => {
-              return { user, journey, mentorHome };
+            <Route component={connect(({ user }) => {
+              return { user};
             }, dispatch => {
               return {
-                changeMentorStatus: (status, properties) => dispatch(changeMentorStatus(status, properties)),
-                refreshUser: () => dispatch(getUser()),
-                changeActiveJourneyModule: (id) => dispatch(changeActiveJourneyModule(id)),
-                setMentorApprovalProperties: (properties) => dispatch(setMentorApprovalProperties(properties))
+                refreshUser: () => dispatch(getUser())
               };
             })(Home)}/>
 

@@ -7,13 +7,15 @@ import GettingStartedSteps from "./GettingStartedSteps";
 import MentoringHome from "./Mentor/MentoringHome";
 import { connect } from "react-redux";
 import {
-  changeMenteeStatus, changeMentorStatus,
+  changeMentorStatus,
   setGettingStartedStepsProgress,
   setMentorApprovalProperties,
   toggleApprovalModal
 } from "../../actions/actionCreator";
 
-const MentorHome = (props) => {
+const MentorHome = ({user, refreshUser}) => {
+
+  console.log(user);
 
   const GettingStartedStepsConnected = connect(({ user, gettingStartedSteps, mentorHome }) => {
     return { user, gettingStartedSteps, mentorHome,  mode: 'mentor' };
@@ -26,13 +28,15 @@ const MentorHome = (props) => {
     };
   })(GettingStartedSteps);
 
+  
+
     return <Container fluid>
       <Row style={{ marginTop: "10px" }}>
         <Col md={{ span: 11 }}>
-          <h3>Welcome {props.user.emailConfirmed ? "back, " : ""} {props.user.firstName}! 🤗</h3>
+          <h3>Welcome {user.emailConfirmed ? "back, " : ""} {user.firstName}! 🤗</h3>
         </Col>
         <Col md={{ span: 1 }}>
-          <Button onClick={() => props.refreshUser().then(r => {
+          <Button onClick={() => refreshUser().then(r => {
             if (r.success) toast.success("Refreshed");
             else toast.error("Error refreshing");
           })}>
@@ -41,9 +45,9 @@ const MentorHome = (props) => {
         </Col>
       </Row>
 
-      {_.get(props.user, "mentorProfile.relationship.length") > 0
-      && _.get(props.user, "mentorProfile.relationship")[0].status === "confirmed" ?
-        <MentoringHome {...props} /> :
+      {_.get(user, "mentorProfile.relationship.length") > 0
+      && _.get(user, "mentorProfile.relationship")[0].status === "confirmed" ?
+        <MentoringHome user={user} refreshUser={refreshUser} /> :
         <GettingStartedStepsConnected />}
     </Container>;
 };

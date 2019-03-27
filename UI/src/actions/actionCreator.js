@@ -581,11 +581,11 @@ export const mentorDecisionRelationship = (relationshipId, accept) => {
   return (dispatch, getState) => {
     return api.post(`/api/relationships/mentorDecision/${relationshipId}`, { accept: accept }).then(r => {
       if (r.success) {
-        const { user } = getState();
-        const rels = user.mentorProfile.relationship.filter(rel => rel._id !== relationshipId);
+        const newUser = {...getState().user};
+        const rels = newUser.mentorProfile.relationship.filter(rel => rel._id !== relationshipId);
         if (accept) rels.push(r.payload);
-        user.mentorProfile.relationship = rels;
-        updateAndStoreUser(dispatch, user);
+        newUser.mentorProfile.relationship = rels;
+        updateAndStoreUser(dispatch, newUser);
       }
       return r;
     });

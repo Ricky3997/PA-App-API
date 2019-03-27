@@ -8,7 +8,7 @@ import GettingStartedSteps from "./GettingStartedSteps";
 import { connect } from "react-redux";
 import {
   setGettingStartedStepsProgress,
-  toggleApprovalModal, setMenteeApprovalProperties, changeMenteeStatus
+  toggleApprovalModal, setMenteeApprovalProperties, changeMenteeStatus, changeActiveJourneyModule
 } from "../../actions/actionCreator";
 
 const MenteeHome = (props) => {
@@ -23,6 +23,15 @@ const MenteeHome = (props) => {
       changeMenteeStatus: (status, properties) => dispatch(changeMenteeStatus(status, properties)),
     };
   })(GettingStartedSteps);
+
+
+  const MenteeInRelationshipHomeConnected = connect(({ user, journey, menteeHome }) => {
+    return { user, journey, menteeHome };
+  }, dispatch => {
+    return {
+      changeActiveJourneyModule: (id) => dispatch(changeActiveJourneyModule(id)),
+    };
+  })(MenteeInRelationshipHome);
 
   return <Container fluid>
     <Row style={{ marginTop: "10px" }}>
@@ -40,7 +49,7 @@ const MenteeHome = (props) => {
     </Row>
 
     {_.get(props.user, "menteeProfile.relationship.status") === "confirmed" ?
-      <MenteeInRelationshipHome {...props} /> :
+      <MenteeInRelationshipHomeConnected /> :
       <GettingStartedStepsConnected />}
   </Container>;
 };
