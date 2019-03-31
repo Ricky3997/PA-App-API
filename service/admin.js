@@ -72,6 +72,15 @@ const matchingMentorRecommendations = async (id) => {
           if((_.get(mentor, "yearGraduation") - _.get(menteeProfile, "yearApply")) > 2){
             score += config["Undergraduate"][degreeLevelMentor]["degreePoints"];
           }
+          if(_.get(menteeProfile, "fromThreeLargestCity") === _.get(mentor, "fromThreeLargestCity")){
+            score += config["Undergraduate"][degreeLevelMentor]["fromThreeLargestCity"];
+          }
+          const menteeHobbiesAndInterests = _.get(menteeProfile, "hobbiesAndInterests")
+          const mentorHobbiesAndInterests = _.get(mentor, "hobbiesAndInterests")
+          const hobbyIntersection = _.intersectin(menteeHobbiesAndInterests, mentorHobbiesAndInterests)
+          if((hobbyIntersection.length / menteeHobbiesAndInterests.length) >= 0.5 ){
+            score += config["Undergraduate"][degreeLevelMentor]["hobbiesAndInterests"];
+          }
           mentor._doc.score = score;
           return mentor;
         }
@@ -99,6 +108,15 @@ const matchingMentorRecommendations = async (id) => {
           }
           if((_.get(mentor, "yearGraduation") - _.get(menteeProfile, "yearApply")) > 2){
             score += config["Masters"][degreeLevelMentor]["degreePoints"];
+          }
+          if(_.get(menteeProfile, "fromThreeLargestCity") === _.get(mentor, "fromThreeLargestCity")){
+            score += config["Masters"][degreeLevelMentor]["fromThreeLargestCity"];
+          }
+          const menteeHobbiesAndInterests = _.get(menteeProfile, "hobbiesAndInterests")
+          const mentorHobbiesAndInterests = _.get(mentor, "hobbiesAndInterests")
+          const hobbyIntersection = _.intersectin(menteeHobbiesAndInterests, mentorHobbiesAndInterests)
+          if((hobbyIntersection.length / menteeHobbiesAndInterests.length) >= 0.5 ){
+            score += config["Masters"][degreeLevelMentor]["hobbiesAndInterests"];
           }
           mentor._doc.score = score;
           return mentor;
