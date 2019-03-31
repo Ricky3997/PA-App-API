@@ -211,7 +211,7 @@ const MenteeAdminProfile = (props) => {
       </Col>
     </Row>
 
-    <Row>
+    <Row>≤
       <Col md={2}>
         <Badge variant="info">{"Courses"}</Badge>
       </Col>
