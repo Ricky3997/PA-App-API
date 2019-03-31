@@ -3,23 +3,19 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import DataVisHeatMap from "./DataVisHeatMap";
 import Moment from "moment";
 import SignupsChart from "./SIgnupsChart";
-import ButtonNotReadyYet from "../../various/ButtonNotReadyYet";
 import { Icon } from "react-fa";
-import {Doughnut} from 'react-chartjs'
 import GenderDoughnut from "./GenderDoughnut";
 
 
 const Statistics = ({ mentors, mentees }) => {
 
   return (
-    <Container fluid>
+    <Container fluid id={'statistic-div'}>
       <Row>
         <Col md={{offset: 9}}>
-          <ButtonNotReadyYet>
-            <Button disabled block>
+            <Button onClick={window.print} block>
               <Icon name="fas fa-file-text" /> Export to PDF
             </Button>
-          </ButtonNotReadyYet>
 
         </Col>
       </Row>
