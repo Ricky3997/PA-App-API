@@ -11,7 +11,7 @@ const Footer = () => {
       </Badge>
     </Navbar.Brand>
     <Navbar.Text>
-      This is a work in progress, bear with us! V0.1.2019-03-22
+      This is a work in progress, bear with us! V0.1.2019-04-02
     </Navbar.Text>
     <Navbar.Text style={{marginLeft: '250px'}}>
       <LinkContainer to="/about?type=mentor" style={{
