@@ -58,10 +58,15 @@ const RequestApprovalMentorModal = (props) => {
         >
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
-              A couple more details!
+              Request your mentee(s)
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
+
+            <h4>
+              Before we can give you a mentee, we need to check some details and then find one that matches your profile
+              to ensure they are the best possible match we can find: these questions help us do just that, thanks!
+            </h4>
 
             <Row>
               <Col>

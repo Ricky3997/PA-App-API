@@ -51,10 +51,15 @@ const RequestApprovalMenteeModal = (props) => {
         >
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
-              We just need a couple more questions
+              Request your mentor
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
+
+            <h4>
+              Before we can give you a mentor, we need to check some details and then find one that matches your profile
+              to ensure they are the best possible mentor we can find: these questions help us do just that, thanks!
+            </h4>
 
             <Row>
               <Col>
@@ -116,12 +121,12 @@ const RequestApprovalMenteeModal = (props) => {
                 <h6>What kind of exam are you taking?</h6>
 
                 <Field name="examType" render={({ field, form: { touched, errors } }) => <Select showSearch
-                                                                                                            size={"large"}
-                                                                                                            style={{ width: "100%" }}
-                                                                                                            value={field.value}
-                                                                                                            placeholder={"Exam type"}
-                                                                                                            onChange={(o) => setFieldValue(field.name, o)}
-                                                                                                            tokenSeparators={[",", ":"]}>
+                                                                                                 size={"large"}
+                                                                                                 style={{ width: "100%" }}
+                                                                                                 value={field.value}
+                                                                                                 placeholder={"Exam type"}
+                                                                                                 onChange={(o) => setFieldValue(field.name, o)}
+                                                                                                 tokenSeparators={[",", ":"]}>
 
 
                   {defaults.examType.map(e => <Option key={e} value={e}>{e}</Option>)}
