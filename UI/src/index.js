@@ -9,9 +9,11 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { connect, Provider } from "react-redux";
 import { logout, updateUser } from "./actions/actionCreator";
 import store from "./store/configureStore";
+import * as ReactGA from "react-ga";
 
-const ReduxApp = connect(state => {
-  return { user: state.user };
+
+const ReduxApp = connect(({user, app}) => {
+  return { user, app };
 }, dispatch => {
   return {
     logout: () => dispatch(logout()),
@@ -19,6 +21,7 @@ const ReduxApp = connect(state => {
   };
 })(App);
 
+ReactGA.initialize('UA-137517000-1');
 ReactDOM.render(
   <Provider store={store}>
     <Router>

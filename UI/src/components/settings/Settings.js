@@ -3,8 +3,14 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import MentorSettings from "./MentorSettings";
 import MenteeSettings from "./MenteeSettings";
+import * as ReactGA from "react-ga";
 
 class Settings extends Component {
+
+  componentDidMount() {
+    ReactGA.pageview('/settings')
+  }
+
   render() {
     return this.props.user ?
       <Container>

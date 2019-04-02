@@ -9,7 +9,6 @@ import { Route, Switch } from "react-router-dom";
 import Confirm from "./various/Confirm";
 import MentorProfile from "./home/Mentee/MentorTile";
 import Call from "./call/Call";
-import Messaging from "./messaging/Messaging";
 import Admin from "./admin/Admin";
 import Settings from "./settings/Settings";
 import JourneyModule from "./journey/JourneyModule";
@@ -21,7 +20,7 @@ import {
   addMessagesToChat,
   addMessagingChat,
   addOnboardingProperties,
-  changeActiveJourneyModule, changeMenteeStatus,
+  changeMenteeStatus,
   changeMentorStatus,
   changeStage, clearChats,
   confirmEmailAddress,
@@ -51,10 +50,20 @@ import { ToastContainer } from "react-toastify";
 import PublicMentorProfile from "./people/PublicMentorProfile";
 import PublicMenteeProfile from "./people/PublicMenteeProfile";
 import Messages from "./messaging/Messages";
+import * as ReactGA from "react-ga";
 
 class App extends Component {
+
+  componentDidMount() {
+    if(!this.props.app.trackingOn && this.props.user) ReactGA.set({ userId: this.props.user._id });
+    this.props.history.listen((location) => {
+      ReactGA.pageview(location.pathname);
+    })
+  }
+
   render() {
     const { user, logout, history, location } = this.props;
+
     return (
       <div id="root_div">
         <Header user={user} logout={logout} history={history} location={location}/>

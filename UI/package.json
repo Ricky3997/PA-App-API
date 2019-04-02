@@ -25,6 +25,7 @@
     "react-dom": "^16.6.3",
     "react-dropzone": "^7.0.1",
     "react-fa": "^5.0.0",
+    "react-ga": "^2.5.7",
     "react-gif": "^0.1.0",
     "react-images-upload": "^1.2.3",
     "react-loader-spinner": "^2.2.0",

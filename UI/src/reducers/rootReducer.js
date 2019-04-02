@@ -35,7 +35,7 @@ import {
   UNSET_LOGIN_EMAIL,
   UNSET_MATCHING_CONFIRMATION,
   UNSET_PUBLIC_PROFILE,
-  UPDATE_USER
+  UPDATE_USER, TOGGLE_TRACKING
 } from "../actions/actionTypes";
 import { combineReducers } from "redux";
 import {getInitialGettingStartedProgress} from "../actions/helpers";
@@ -46,6 +46,18 @@ function user(state = JSON.parse(window.localStorage.getItem("user")) || null, a
       return action.user;
     case (REMOVE_USER):
       return null;
+    default:
+      return state;
+  }
+}
+
+
+function app(state = {
+  trackingOn: false
+}, action) {
+  switch (action.type) {
+    case (TOGGLE_TRACKING):
+      return { ...state, trackingOn: action.mode };
     default:
       return state;
   }
@@ -305,7 +317,8 @@ function publicProfile(state = {
   }
 }
 
-const app = combineReducers({
+const rootRed = combineReducers({
+  app,
   user,
   settings,
   onboarding,
@@ -323,7 +336,7 @@ const app = combineReducers({
 
 const rootReducer = (state, action) => {
   if (action.type === RESET_APP) state = undefined;
-  return app(state, action);
+  return rootRed(state, action);
 };
 
 export default rootReducer;

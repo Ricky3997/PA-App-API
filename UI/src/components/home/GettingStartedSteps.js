@@ -55,7 +55,7 @@ const GettingStartedSteps = (props) => {
   const acceptMentee = {
     title: props.mode === 'mentee' ? "Almost ready" : "Start mentoring!",
     description: `Great news, you've been matched with a  ${props.mode === "mentor" ? "mentee" : 'mentor'}! 
-    You're almost there,  ${props.mode === "mentor" ? 'you just need to accept the match now' :  'we just  need your mentor to  confirm they have time'}, and you\'ll be ready to start!`,
+    You're almost there,  ${props.mode === "mentor" ? 'you just need to accept the match now' :  'we just  need your mentor to  confirm they have time'}, and you'll be ready to start!`,
     ready: props.mode === 'mentee' ?
       _.get(props.user, "menteeProfile.relationship") :
       _.get(props.user, "mentorProfile.relationship.length") > 0,

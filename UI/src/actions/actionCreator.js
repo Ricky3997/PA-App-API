@@ -37,7 +37,7 @@ import {
   UNSET_LOGIN_EMAIL,
   UNSET_MATCHING_CONFIRMATION,
   UNSET_PUBLIC_PROFILE,
-  UPDATE_USER
+  UPDATE_USER, TOGGLE_TRACKING
 } from "./actionTypes";
 import * as api from "../api";
 import { toast } from "react-toastify";
@@ -59,6 +59,13 @@ export const updateUser = (user) => {
 export const removeUser = () => {
   return {
     type: REMOVE_USER
+  };
+};
+
+export const toggleTracking = (mode) => {
+  return {
+    type: TOGGLE_TRACKING,
+    mode: mode
   };
 };
 
@@ -429,6 +436,7 @@ export const logout = () => {
     window.localStorage.removeItem("user");
     dispatch(removeUser());
     dispatch(resetApp());
+    dispatch(toggleTracking(false))
   };
 };
 
