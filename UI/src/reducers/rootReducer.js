@@ -97,19 +97,19 @@ function settings(state = {
 
 function onboarding(state = {
   step: 3,
-  country: "Italy",
-  city: "Milo",
-  university: "Cambridge",
-  school: "SLS",
-  subject: "Maths",
-  subjects: ["Maths"],
-  level: "Undergraduate",
+  country: "",
+  city: "",
+  university: "",
+  school: "",
+  subject: "",
+  subjects: [],
+  level: "",
   area: "",
   year: "",
-  gender: "Male",
-  firstGenStudent: "Yes",
-  interestedIn: ["CS"],
-  unisApplyingFor: ["Cambridge"],
+  gender: "",
+  firstGenStudent: null,
+  interestedIn: [],
+  unisApplyingFor: [],
   registering: false
 }, action) {
   switch (action.type) {
@@ -149,15 +149,15 @@ function admin(state = {
 }
 
 function menteeHome(state = {
-  careerInterests: ['kjhg'],
-  confirmCommittment: true,
-  ethnicBackground: "hgfv",
+  careerInterests: [],
+  confirmCommittment: false,
+  ethnicBackground: "",
   fromThreeLargestCity: 1,
-  hobbiesAndInterests: ['jh'],
-  referral: ['gvb'],
-  typeOfHighSchool: "nbv",
-  yearBorn: 1998,
-  yearApply: 1234,
+  hobbiesAndInterests: [''],
+  referral: [],
+  typeOfHighSchool: "",
+  yearBorn: null,
+  yearApply: null,
   notes: ""
 }, action) {
   switch (action.type) {

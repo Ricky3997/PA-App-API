@@ -25,10 +25,10 @@ const initDb = (callback) => {
 
     await clearDb();
     await loadAdmin();
-    if (!config.PROD_MODE){
+    // if (!config.PROD_MODE){
       await loadDummyMentors();
       await loadDummyMentees();
-    }
+    // }
     let rule = new scheduler.RecurrenceRule();
     rule.minute = new scheduler.Range(0, 59, 20);
     scheduler.scheduleJob(rule, relationshipService.checkForElapsedMatches);
