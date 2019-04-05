@@ -96,7 +96,7 @@ class Admin extends Component {
           <Tab eventKey="data" title={<span><Icon name='fas fa-bar-chart'/>{"  Statistics"}</span>}>
             <Route path={"/admin/data"} component={connect(({ user, admin }) => {
               return {
-                user, mentors: admin.mentors, mentees: admin.mentees, mentorMode: true
+                user, mentors: admin.mentors, mentees: admin.mentees,
               };
             }, dispatch => {
               return {};
