@@ -265,6 +265,7 @@
     "LGBTQ+ Awareness"
   ],
   "career_interests": [
+    "None yet",
     "Accounting, Audit and Tax",
     "Assett and Investment Management",
     "Charity, NGO and Social Enterprise",
@@ -301,7 +302,8 @@
     "Friends",
     "Conference/Event",
     "Project Access Mentor",
-    "Project Access Mentee"
+    "Project Access Mentee",
+    "Project Access Team Member"
   ],
   "ethnic_background": [
     "White",
@@ -359,5 +361,26 @@
     "IB",
     "French Bac",
     "Other"
+  ],
+  "countries_operating": [
+    "Austria",
+    "Brazil",
+    "China",
+    "Denmark",
+    "Finland",
+    "France",
+    "Germany",
+    "Hong Kong",
+    "Italy",
+    "Malaysia",
+    "Norway",
+    "Peru",
+    "Poland",
+    "Romania",
+    "Singapore",
+    "Spain",
+    "Sweden",
+    "United Kingdom",
+    "United States"
   ]
 }

@@ -94,7 +94,7 @@ const loadAdmin = async () => {
     _id: id,
     firstName: "Riccardo",
     lastName: "Broggi",
-    type: "mentor",
+    type: "mentee",
     email: "riccardo@broggi.co.uk",
     emailConfirmed: true,
     onboarded: true,
@@ -116,7 +116,7 @@ const loadAdmin = async () => {
     university: "Oxford",
     subject: "Computer Science",
     city: "Milano",
-    status: "approved",
+    status: "requested",
 
     maxNumberOfMentees: 5,
     careerInterests: ["Creative Arts and Design"],
@@ -149,7 +149,7 @@ const loadAdmin = async () => {
     subjects: ["Biology"],
     unisApplyingFor: ["LSE", "Oxford"],
     year: "Gap Year",
-    status: "approved",
+    status: "requested",
 
     careerInterests: ["Creative Arts and Design"],
     ethnicBackground: "Mixed / multiple ethnic groups",

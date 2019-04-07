@@ -1,7 +1,7 @@
 import React from "react";
 import countries from "svg-country-flags/countries";
 
-const CountryFlag = ({ country }) => {
+const CountryFlag = ({ country, width }) => {
 
   let flagIndex = "";
   Object.entries(countries).forEach((a) => {
@@ -9,7 +9,7 @@ const CountryFlag = ({ country }) => {
   });
   const flag = require(`svg-country-flags/svg/${flagIndex.toLowerCase()}.svg`);
   return (<img alt={country}
-               width="15px" src={flag}/>
+               width={width || "15px"} src={flag}/>
   );
 };
 

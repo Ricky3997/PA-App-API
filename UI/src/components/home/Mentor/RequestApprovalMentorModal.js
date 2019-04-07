@@ -8,6 +8,7 @@ import { Checkbox, Select } from "antd";
 import defaults from "../../../defaults/defaults";
 import SubjectsInSchoolPicker from "../../various/forms/SubjectsInSchoolPicker";
 import UniversityPicker from "../../various/forms/UniversityPicker";
+import CompulsoryAsterisk from "../CompulsoryAsterisk";
 
 const { Option } = Select;
 
@@ -17,9 +18,7 @@ const RequestApprovalMentorModal = (props) => {
     validationSchema={Yup.object().shape({
       confirmCommittment: Yup.mixed().oneOf([true])
         .required("Commitment is required."),
-
-      linkedinUrl: Yup.string()
-        .required("linkedinUrl is required."),
+      linkedinUrl: Yup.string(),
       ethnicBackground: Yup.string()
         .required("ethnicBackground is required."),
       typeOfHighSchool: Yup.string()
@@ -81,7 +80,7 @@ const RequestApprovalMentorModal = (props) => {
 
             <Row>
               <Col>
-                <h6>What's your ethnic background?<span style={{ color: "red" }}>*</span></h6>
+                <h6>What's your ethnic background?<CompulsoryAsterisk/></h6>
 
                 <Field name="ethnicBackground" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                          size={"large"}
@@ -97,7 +96,7 @@ const RequestApprovalMentorModal = (props) => {
                 </Select>}/>
               </Col>
               <Col>
-                <h6>What year were you born?<span style={{ color: "red" }}>*</span> <span aria-labelledby={"newborn"}
+                <h6>What year were you born?<CompulsoryAsterisk/> <span aria-labelledby={"newborn"}
                                                                                           role={"img"}>🐣</span></h6>
 
                 <Field name="yearBorn" render={({ field, form: { touched, errors } }) => <Select showSearch
@@ -119,7 +118,7 @@ const RequestApprovalMentorModal = (props) => {
 
             <Row>
               <Col>
-                <h6>What type of high school did you attend?<span style={{ color: "red" }}>*</span> <span
+                <h6>What type of high school did you attend?<CompulsoryAsterisk/> <span
                   aria-labelledby={"school"} role={"img"}>🏫</span></h6>
 
                 <Field name="typeOfHighSchool" render={({ field, form: { touched, errors } }) => <Select showSearch
@@ -159,14 +158,14 @@ const RequestApprovalMentorModal = (props) => {
 
             <Row>
               <Col>
-                <h6>What subjects did you study in school?<span style={{ color: "red" }}>*</span></h6>
+                <h6>What subjects did you study in school?<CompulsoryAsterisk/></h6>
 
                 <Field name="subjectsInSchool" render={({ field, form: { touched, errors } }) =>
                   <SubjectsInSchoolPicker approval setFieldValue={setFieldValue} field={field} touched={touched}
                                           errors={errors} multiple/>}/>
               </Col>
               <Col>
-                <h6>What are your hobbies?<span style={{ color: "red" }}>*</span></h6>
+                <h6>What are your hobbies?<CompulsoryAsterisk/></h6>
 
                 <Field name="hobbiesAndInterests" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                             size={"large"}
@@ -188,7 +187,7 @@ const RequestApprovalMentorModal = (props) => {
 
             <Row>
               <Col>
-                <h6>Do you have any career interests yet?<span style={{ color: "red" }}>*</span></h6>
+                <h6>Do you have any career interests yet?<CompulsoryAsterisk/></h6>
 
                 <Field name="careerInterests" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                         size={"large"}

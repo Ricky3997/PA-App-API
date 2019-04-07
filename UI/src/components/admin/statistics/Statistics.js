@@ -9,24 +9,15 @@ import CountryDoughnut from "./CountryDoughnut";
 import CityDoughnut from "./CityDoughnut";
 import CountryFlag from "../../various/CountryFlag";
 import { Field, Form as FormikForm, Formik } from "formik";
-import countries from "svg-country-flags/countries";
-import { Select } from "antd";
-import DayPickerInput from "react-day-picker/DayPickerInput";
 import DayPicker  from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
-const { Option } = Select;
 
+const Statistics = ({ mentors, mentees, user, programFilter }) => {
 
-class Statistics extends Component {
-
-  render() {
-
-    let { mentors, mentees, user } = this.props;
     let { admin } = user;
 
     return (<Formik
         initialValues={{
-          country: "Global",
           range: { from: new Moment().subtract(5, 'd').toDate(), to: new Moment().toDate() }
         }}
         onSubmit={(values, { setSubmitting }) => {
@@ -34,39 +25,15 @@ class Statistics extends Component {
         }}
         render={({ values, touched, errors, isSubmitting, setFieldValue }) => {
 
-          if (admin === "superadmin" && values.country !== "Global") {
-            mentors = mentors.filter(m => m.country === values.country);
-            mentees = mentees.filter(m => m.country === values.country);
-          }
-
           const { from, to } = values.range;
           return <FormikForm>
             <Container fluid id={"statistic-div"}>
               <Row>
                 <Col md={6}>
                   <h3>
-                    You are seeing data for the {admin === "superadmin" ? (values.country === "Global" ? "🌍 global" :
-                    <span><CountryFlag country={values.country}/>{values.country}</span>) :
-                    <span>{admin} <CountryFlag country={admin}/></span>} program
+                    You are seeing data for the {programFilter === "Global" ? " 🌍 " :
+                    <span><CountryFlag country={programFilter}/></span>} program
                   </h3>
-                </Col>
-                <Col md={2}>
-                  {admin === "superadmin" ?
-                    <Field name="country" render={({ field, form: { touched, errors } }) => <Select showSearch
-                                                                                                    mode={"default"}
-                                                                                                    size={"large"}
-                                                                                                    style={{ width: "100%" }}
-                                                                                                    value={field.value}
-                                                                                                    placeholder={"Country"}
-                                                                                                    onChange={(o) => setFieldValue(field.name, o)}
-                                                                                                    tokenSeparators={[",", ":"]}>
-
-                      <Option value={'Global'}>🌍 Global</Option>
-                      {Object.values(countries)
-                        .filter(c => mentors.map(m => m.country).filter(country => c === country).length > 0 || mentees.map(m => m.country).filter(country => c === country).length > 0)
-                        .map(c => <Option value={c}><span><CountryFlag country={c}/>{' '}{c}</span></Option>)}
-
-                    </Select>}/> : null}
                 </Col>
                 <Col md={2}>
                   <Button onClick={window.print} block>
@@ -186,7 +153,6 @@ class Statistics extends Component {
         }
         }/>
     );
-  }
 };
 
 

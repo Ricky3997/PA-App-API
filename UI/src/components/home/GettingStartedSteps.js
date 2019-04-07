@@ -9,7 +9,7 @@ import AcceptMenteeBox from "./Mentor/AcceptMenteeBox";
 import ButtonNotReadyYet from "../various/ButtonNotReadyYet";
 import CountryPartner from "../advertising/CountryPartner";
 import RequestApprovalMenteeModal from "./Mentee/RequestApprovalMenteeModal";
-
+import { LinkContainer } from "react-router-bootstrap";
 
 const GettingStartedSteps = (props) => {
 
@@ -22,7 +22,7 @@ const GettingStartedSteps = (props) => {
 
   const confirmEmailModule = {
     title: "First, confirm your email address",
-    description: "First things first, we need you to confirm your email address. Why? Because your email address is your only way to log in, we need to make sure you can come back! 📧",
+    description: `First things first, we need you to confirm you can receive emails at ${props.user.email} 📧 Why? Because your email address is your only way to log in, we need to make sure you can come back! 🤓`,
     ready: props.user.onboarded,
     completed: props.user.emailConfirmed
   };
@@ -104,7 +104,10 @@ const GettingStartedSteps = (props) => {
               {props.gettingStartedSteps.progress === 10 ?
                 <GettingStartedBox module={onboardModule} action={"Yes, let's register!"}
                                    onClick={() => props.history.push("/onboard")}/> : null}
-              {props.gettingStartedSteps.progress === 20 ? <GettingStartedBox module={confirmEmailModule}/> : null}
+              {props.gettingStartedSteps.progress === 20 ? <GettingStartedBox module={confirmEmailModule}
+                                                                              action={"Open email"}
+                                                                              onClick={() => window.open('https://'+props.user.email.substring(props.user.email.indexOf('@') + 1),'_blank')}
+              /> : null}
               {props.gettingStartedSteps.progress === 40 ?
                 <GettingStartedBox module={requestApprovallModule} action={"Sure, let's do this!"}
                                    onClick={props.toggleApprovalModal}/> : null}
@@ -119,6 +122,12 @@ const GettingStartedSteps = (props) => {
                       While you wait, you can get a head start by:
                     </h5>
                     <ol style={{ lineHeight: "50px" }}>
+                      <li>
+                        <LinkContainer to={'/settings'}>
+                          <Button>Upload a profile picture
+                          </Button>
+                        </LinkContainer>
+                      </li>
                       <li>
                         <ButtonNotReadyYet>
                           <Button disabled>Reading our blog</Button>
@@ -136,14 +145,15 @@ const GettingStartedSteps = (props) => {
                     While you wait, you can help us with the following
                   </h5>
                   <ol style={{ lineHeight: "50px" }}>
-                    <li>
-                      <ButtonNotReadyYet>
-                        <Button disabled>Submit your personal statement</Button>
-                      </ButtonNotReadyYet>
+                    <li >
+                      <LinkContainer to={'/settings'} >
+                        <Button>{props.user.profilePicture ? '✅' : '📸'} Upload a profile picture
+                        </Button>
+                      </LinkContainer>
                     </li>
                     <li>
                       <ButtonNotReadyYet>
-                        <Button disabled>Write a blog post</Button>
+                        <Button disabled>Submit your personal statement</Button>
                       </ButtonNotReadyYet>
                     </li>
                     <li>

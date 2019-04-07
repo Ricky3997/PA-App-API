@@ -37,7 +37,7 @@ import {
   UNSET_LOGIN_EMAIL,
   UNSET_MATCHING_CONFIRMATION,
   UNSET_PUBLIC_PROFILE,
-  UPDATE_USER, TOGGLE_TRACKING
+  UPDATE_USER, TOGGLE_TRACKING, SET_PROGRAM_FILTER
 } from "./actionTypes";
 import * as api from "../api";
 import { toast } from "react-toastify";
@@ -94,9 +94,10 @@ export const getMentorById = (id) => {
 };
 
 
-export const unsetPublicProfile = () => {
+export const setProgramFilter = (programFilter) => {
   return {
-    type: UNSET_PUBLIC_PROFILE
+    type: SET_PROGRAM_FILTER,
+    programFilter: programFilter
   };
 };
 

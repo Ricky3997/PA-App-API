@@ -35,7 +35,7 @@ import {
   UNSET_LOGIN_EMAIL,
   UNSET_MATCHING_CONFIRMATION,
   UNSET_PUBLIC_PROFILE,
-  UPDATE_USER, TOGGLE_TRACKING
+  UPDATE_USER, TOGGLE_TRACKING, SET_PROGRAM_FILTER
 } from "../actions/actionTypes";
 import { combineReducers } from "redux";
 import {getInitialGettingStartedProgress} from "../actions/helpers";
@@ -130,11 +130,14 @@ function admin(state = {
   mentors: [],
   relationships: [],
   mentees: [],
-  showModal: false
+  showModal: false,
+  programFilter: 'Global'
 }, action) {
   switch (action.type) {
     case SET_RELATIONSHIPS:
       return { ...state, relationships: action.relationships };
+    case SET_PROGRAM_FILTER:
+      return { ...state, programFilter: action.programFilter };
     case SET_MENTEES:
       return { ...state, mentees: action.mentees };
     case SET_MENTORS:

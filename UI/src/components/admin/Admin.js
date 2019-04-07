@@ -10,6 +10,9 @@ import BadgePendingNumber from "./utils/BadgePendingNumber";
 import Statistics from "./statistics/Statistics";
 import Database from "./utils/Database";
 import { Icon } from "react-fa";
+import { Select } from "antd";
+import CountryFlag from "../various/CountryFlag";
+import defaults from '../../defaults/defaults';
 
 class Admin extends Component {
   constructor(props) {
@@ -34,6 +37,7 @@ class Admin extends Component {
   }
 
   changeTab(key) {
+    if(key === 'country') return;
     if (key === "refresh") {
       if (this.props.match.params.section === "mentors") this.props.fetchMentors().then(r => this.refreshedToast(r, "mentors"));
       else if (this.props.match.params.section === "mentees") this.props.fetchMentees().then(r => this.refreshedToast(r, "mentees"));
@@ -46,6 +50,14 @@ class Admin extends Component {
 
   render() {
     const { section } = this.props.match.params;
+    let {mentors, mentees, relationships, programFilter} = this.props.admin;
+
+
+    if(programFilter !== 'Global'){
+      mentors = mentors.filter(m => m.country === programFilter);
+      mentees = mentees.filter(m => m.country === programFilter);
+      relationships = relationships.filter(m => m.country === programFilter);
+    }
 
     return (this.props.user && this.props.user.admin) ?
       <Container fluid>
@@ -54,8 +66,8 @@ class Admin extends Component {
               onSelect={this.changeTab}>
           <Tab eventKey="dashboard" title={<span><Icon name='fas fa-handshake-o'/>{"  Relationships   "}</span>}>
             <Route path={"/admin/dashboard/:id?"}
-                   component={connect(({ admin, dashboard }) => {
-                     return { relationships: admin.relationships, dashboard };
+                   component={connect(({ dashboard }) => {
+                     return { relationships, dashboard };
                    }, dispatch => {
                      return {
                        toggleDashboardConfirmation: () => dispatch(toggleDashboardConfirmation()),
@@ -64,27 +76,27 @@ class Admin extends Component {
                    })(Dashboard)}/>
           </Tab>
           <Tab eventKey="mentors" title={<span><Icon name='fas fa-graduation-cap'/>{"  Mentors   "}<BadgePendingNumber
-            pending={this.props.admin.mentors.filter(m => m.status === "requested")}/></span>}>
+            pending={mentors.filter(m => m.status === "requested")}/></span>}>
             <Route path={"/admin/mentors/:id?"}
-                   component={connect(({ admin }) => {
-                     return { mentors: admin.mentors, mode: "mentors" };
+                   component={connect(({}) => {
+                     return { mentors, mode: "mentors" };
                    }, null)(Database)}/>
 
           </Tab>
           <Tab eventKey="mentees" title={<span><Icon name='fas fa-user'/>{"  Mentees   "}<BadgePendingNumber
-            pending={this.props.admin.mentees.filter(m => m.status === "requested")}/></span>}>
+            pending={mentees.filter(m => m.status === "requested")}/></span>}>
             <Route path={"/admin/mentees/:id?"}
-                   component={connect(({ admin }) => {
-                     return { mentees: admin.mentees, mode: "mentees" };
+                   component={connect(({}) => {
+                     return { mentees, mode: "mentees" };
                    }, null)(Database)}/>
           </Tab>
           <Tab eventKey="matching" title={<span><Icon name='fas fa-bullseye'/>{"  Matching   "}<BadgePendingNumber
-            pending={this.props.admin.mentees.filter(m => m.status === "approved" && !m.relationship)}/></span>}>
-            <Route path={"/admin/matching/:id?"} component={connect(({ user, admin, matching }) => {
+            pending={mentees.filter(m => m.status === "approved" && !m.relationship)}/></span>}>
+            <Route path={"/admin/matching/:id?"} component={connect(({ user, matching }) => {
               return {
                 user,
-                mentors: admin.mentors.filter(m => m.status === "approved"),
-                mentees: admin.mentees.filter(m => m.status === "approved" && !m.relationship),
+                mentors: mentors.filter(m => m.status === "approved"),
+                mentees: mentees.filter(m => m.status === "approved" && !m.relationship),
                 matching
               };
             }, dispatch => {
@@ -94,15 +106,27 @@ class Admin extends Component {
             })(Matching)}/>
           </Tab>
           <Tab eventKey="data" title={<span><Icon name='fas fa-bar-chart'/>{"  Statistics"}</span>}>
-            <Route path={"/admin/data"} component={connect(({ user, admin }) => {
+            <Route path={"/admin/data"} component={connect(({ user }) => {
               return {
-                user, mentors: admin.mentors, mentees: admin.mentees,
+                user, mentors, mentees, programFilter
               };
             }, dispatch => {
               return {};
             })(Statistics)}/>
           </Tab>
           <Tab eventKey="refresh" disabled={this.props.fetching} title={<Icon name={"fas fa-refresh"}/>}/>
+          {this.props.user.admin === 'superadmin' ?<Tab eventKey="country" title={<Select showSearch
+                                                 mode={"default"}
+                                                 size={"small"}
+                                                 style={{ width: "150px" }}
+                                                 value={this.props.admin.programFilter}
+                                                 onChange={this.props.setProgramFilter}
+                                                 tokenSeparators={[",", ":"]}>
+
+            <Select.Option value={'Global'}>🌍 Global</Select.Option>
+            {defaults.countries_operating.map(c => <Select.Option value={c}><span><CountryFlag country={c}/>{' '}{c}</span></Select.Option>)}
+
+          </Select>}/> : null}
         </Tabs>
       </Container>
       : <div>Not Logged In</div>;

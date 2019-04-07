@@ -135,7 +135,7 @@ const MentorSettings = (props) => {
             </Col>
             <Col md={3}>
               {props.user.mentorProfile.status === "requested" ?
-                <div>\
+                <div>
                   <h6>
                     You requested approval to mentor,
                   </h6>

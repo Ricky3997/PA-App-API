@@ -69,6 +69,11 @@ const Header = (props) => {
             : null
           }
         </Nav>
+        {/*<Form>*/}
+        {/*  <span style={{border: '1px red', borderRadius: 20}}>*/}
+        {/*    <Icon name={'fas fa-bell'}/> {' '}*/}
+        {/*  </span>*/}
+        {/*</Form>*/}
         <Nav>
           {userDropdown}
         </Nav>

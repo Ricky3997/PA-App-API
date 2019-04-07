@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import * as queryString from "query-string";
 import { Icon } from "react-fa";
 import defaults from "./../../defaults/defaults.json";
+import CountryFlag from "../various/CountryFlag";
 
 const RegisterNewUser = (props) => {
 
@@ -21,15 +22,17 @@ const RegisterNewUser = (props) => {
   }
 
   return (
-    <Row>
-      <Col md={7} style={{ paddingTop: "160px" }}>
+    <div>
+      <Row>
+      <Col md={7} style={{ paddingTop: "30px" }}>
         <Image width="100px" src={PALogo}/>
         <h1>
           Where passion and potential define your future.
         </h1>
-        <p>At Project Access we help disadvantaged students reach a Top University</p>
+        <p>At Project Access we help disadvantaged students reach a top university</p>
+
       </Col>
-      <Col md={{ size: 2, offset: 1 }} style={{ paddingTop: "130px" }}>
+      <Col md={{ size: 2, offset: 1 }} style={{ paddingTop: "40px" }}>
 
         <Formik
           validationSchema={Yup.object().shape({
@@ -173,7 +176,26 @@ const RegisterNewUser = (props) => {
         <Button block style={{ color: "white" }} variant="link" onClick={() => props.history.push("/login")}>Already
           registered? Sign in instead</Button>
       </Col>
-    </Row>
+      </Row>
+      <Row>
+        <Col>
+          <p>For now we are working with:</p>
+          <h4>
+            <CountryFlag width={'50px'} country={'United Kingdom'}/>
+          </h4>
+          <div style={{backgroundColor: '#fff4f0'}}>
+          {defaults.universities.UK.map(u => <Image key={u.name} src={u.logo} style={{ maxHeight: "50px", maxWidth: "100px" }} />)}
+          </div>
+          <h4>
+            <CountryFlag width={'50px'} country={'United States'}/>
+          </h4>
+          <div style={{backgroundColor: '#fff4f0'}}>
+          {defaults.universities.US.map(u => <Image key={u.name} src={u.logo} style={{ maxHeight: "50px", maxWidth: "100px" }} />)}
+          </div>
+        </Col>
+      </Row>
+      <br/>
+    </div>
   );
 };
 

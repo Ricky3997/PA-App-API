@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import * as _ from "lodash";
 import { Checkbox, Select } from "antd";
 import defaults from "../../../defaults/defaults";
+import CompulsoryAsterisk from "../CompulsoryAsterisk";
 
 const { Option } = Select;
 
@@ -63,7 +64,7 @@ const RequestApprovalMenteeModal = (props) => {
 
             <Row>
               <Col>
-                <h6>What's your ethnic background?</h6>
+                <h6>What's your ethnic background?<CompulsoryAsterisk/></h6>
 
                 <Field name="ethnicBackground" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                          size={"large"}
@@ -79,7 +80,7 @@ const RequestApprovalMenteeModal = (props) => {
                 </Select>}/>
               </Col>
               <Col>
-                <h6>Are you from one of the 3 largest cities in {props.user.menteeProfile.country}?</h6>
+                <h6>Are you from one of the 3 largest cities in {props.user.menteeProfile.country}?<CompulsoryAsterisk/></h6>
 
                 <Field name="fromThreeLargestCity" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                              size={"large"}
@@ -101,7 +102,7 @@ const RequestApprovalMenteeModal = (props) => {
 
             <Row>
               <Col>
-                <h6>What type of school is {props.user.menteeProfile.school}? <span aria-labelledby={"school"}
+                <h6>What type of school is {props.user.menteeProfile.school}?<CompulsoryAsterisk/> <span aria-labelledby={"school"}
                                                                                     role={"img"}>🏫</span></h6>
 
                 <Field name="typeOfHighSchool" render={({ field, form: { touched, errors } }) => <Select showSearch
@@ -140,7 +141,7 @@ const RequestApprovalMenteeModal = (props) => {
 
             <Row>
               <Col>
-                <h6>What year do you expect to apply to University?</h6>
+                <h6>What year do you expect to apply to University?<CompulsoryAsterisk/></h6>
 
                 <Field name="yearApply" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                   size={"large"}
@@ -156,7 +157,7 @@ const RequestApprovalMenteeModal = (props) => {
                 </Select>}/>
               </Col>
               <Col>
-                <h6>What year were you born? <span aria-labelledby={"newborn"} role={"img"}>🐣</span></h6>
+                <h6>What year were you born?<CompulsoryAsterisk/> <span aria-labelledby={"newborn"} role={"img"}>🐣</span></h6>
 
                 <Field name="yearBorn" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                  size={"large"}
@@ -181,12 +182,12 @@ const RequestApprovalMenteeModal = (props) => {
             2) Poste Code
             4) High school diploma in what system
             5) Funny fact about you
-            5) What made you interested in this subject in particular? What parts interest you within your discipline? This is our chance to learn more about what you care about in an informal wa*
+            5) What made you interested in this wect in particular? What parts interest you within your discipline? This is our chance to learn more about what you care about in an informal wa*
             */}
 
             <Row>
               <Col>
-                <h6>What are your career interests?</h6>
+                <h6>What are your career interests?<CompulsoryAsterisk/></h6>
 
                 <Field name="careerInterests" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                         size={"large"}
@@ -203,7 +204,7 @@ const RequestApprovalMenteeModal = (props) => {
                 </Select>}/>
               </Col>
               <Col>
-                <h6>Who referred you to us? Because we’d like to send them a thank you <span aria-labelledby={"gift"}
+                <h6>Who referred you to us? Because we’d like to send them a thank you<CompulsoryAsterisk/> <span aria-labelledby={"gift"}
                                                                                              role={"img"}>🎁</span></h6>
 
                 <Field name="referral" render={({ field, form: { touched, errors } }) => <Select showSearch

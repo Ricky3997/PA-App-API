@@ -8,7 +8,7 @@ const { OptGroup, Option } = Select;
 const SubjectsInSchoolPicker = ({ field, touched, errors, setFieldValue, approval }) => {
   return <div>
     {approval ? null : <Form.Label>Subjects you study in school</Form.Label>}
-    <Select mode="multiple" showSearch
+    <Select mode="tags" showSearch
             size={"large"}
             style={{ width: "100%" }}
             value={field.value}

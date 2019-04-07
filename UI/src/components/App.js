@@ -36,7 +36,7 @@ import {
   saveSettings,
   sendEmailConfirmationAgain,
   sendLoginEmail,
-  setActiveChat,
+  setActiveChat, setProgramFilter,
   storePictureCropped,
   storePictureToCrop,
   toggleMessagingConnected,
@@ -160,7 +160,8 @@ class App extends Component {
               return {
                 fetchMentors: () => dispatch(fetchMentors()),
                 fetchRelationships: () => dispatch(fetchRelationships()),
-                fetchMentees: () => dispatch(fetchMentees())
+                fetchMentees: () => dispatch(fetchMentees()),
+                setProgramFilter: (filter) => dispatch(setProgramFilter(filter)),
               };
             })(Admin)}/>
 
