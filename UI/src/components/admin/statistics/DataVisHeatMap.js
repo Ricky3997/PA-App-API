@@ -62,7 +62,7 @@ const DataVisHeatMap = ({ mentors, mentees }) => {
         yDomain={yDomain}
         margin={160}
         width={1500}
-        height={700}>
+        height={_.uniq(_.map(data, u => u.y)).length*70 < 500 ? 500 : _.uniq(_.map(data, u => u.y)).length*70}>
         <XAxis orientation="top"/>
         <YAxis tickLabelAngle={-60}/>
         <HeatmapSeries

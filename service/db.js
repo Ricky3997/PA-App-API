@@ -12,6 +12,11 @@ const mongoose = require("mongoose");
 const scheduler = require("node-schedule");
 const config = require("./../config");
 
+const countries = require("./../UI/node_modules/svg-country-flags/countries");
+const defaults = require("./../UI/src/defaults/defaults");
+const _ = require('lodash');
+const moment = require('moment');
+
 let _db;
 
 const initDb = (callback) => {
@@ -43,231 +48,42 @@ const getDb = () => {
   return _db;
 };
 
+
+randomUser = () => {
+  return {
+    level: _.sample(["Masters", "Undergraduate", "Postgraduate"]),
+    country: _.sample(Object.values(countries)),
+    email: Math.random().toString(36).substring(2,11) + '@dummynotexist.com',
+    firstGenStudent: _.sample(["Yes", "No"]),
+    gender: _.sample(defaults.gender),
+    year: _.sample(["1","2","3","4","5"]),
+    area: _.sample(Object.keys(defaults.uni_subjects)),
+    firstName: _.sample(["Filippo", "John", "Emil", "Anna", "Raphael", "Kas", "Carolina", "Katie", "Nicole", "Joe", "Brandon", "Nick"]),
+    lastName: _.sample(["Broggi", "Ugo", "Biscaldi", "Carretto", 'Heyste', "Juilk", "Heiny", "Buvtr", "Whynut"]),
+    subject: _.sample(_.flatMap((Object.values(defaults.uni_subjects)))),
+    university: _.sample(_.flatMap((Object.values(defaults.universities))).map(u => u.name)),
+    city: _.sample(["Prague", "Milano", "London", "Copenhagen", "Singapore"]),
+    status: _.sample(['notYetRequested', 'requested', 'rejected', 'approved']),
+    pictureUrl: "https://source.unsplash.com/featured/500x500?student,person," + Math.floor(Math.random()*1000),
+    interestedIn: _.sampleSize(Object.keys(defaults.uni_subjects), Math.floor(Math.random()*6)),
+    school: _.sample(["Collegio San Carlo", "ISM", "CopenhagenMeinSkul", "Ecole du Ridtmajknd", "Colegio dos padres"]),
+    subjects: _.sampleSize(_.flatMap(Object.values(defaults.school_subjects)), Math.floor(Math.random()*6)),
+    unisApplyingFor: _.sampleSize(_.flatMap((Object.values(defaults.universities))).map(u => u.name), 4),
+    coursesApplyingFor: _.sampleSize(_.flatMap((Object.values(defaults.uni_subjects))), Math.floor(Math.random()*6)),
+    latestStatusChange: moment().subtract(Math.floor(Math.random()*7), 'd').toDate()
+  }
+};
+
+
 const loadDummyMentors = async () => {
-  const dummy = [
-    {
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Social Sciences",
-      firstName: "Andrea",
-      lastName: "Delton",
-      university: "KCL",
-      subject: "Sociology",
-      city: "Milano",
-      email: 'test12345g4ko3@notexistent.com',
-      status: "requested",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5a7c387b4192029bc4b0dd95/1538660326244/20247810_10211655657680787_3062606713295678620_o.jpg?format=500w"
-    }, {
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Social Sciences",
-      email: 'test12ui345654g43@noxistent.com',
-      firstName: "Rebecca",
-      lastName: "Natalie",
-      subject: "French",
-      university: "LSE",
-      city: "Singapore",
-      status: "notYetRequested",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb257a29140b75265e2b89e/1538667677946/0+%289%29.jpeg?format=500w"
-    }, {
-      level: "Masters",
-      country: "Italy",
-      email: 'test123ooil45ll63@notexistent.com',
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Social Sciences",
-      firstName: "Filippo",
-      lastName: "Ugo",
-      subject: "Mathematics",
-      university: "Oxford",
-      city: "Prague",
-      status: "notYetRequested",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb24fc6e4966bf3c9d5df59/1538412681321/33038092_1063433287139499_9178229761615331328_n.jpg?format=500w"
-    }, {
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      email: 'test1tfkl543h@notexistent.com',
-      gender: "Nonbinary",
-      year: "2",
-      area: "Business",
-      firstName: "James",
-      lastName: "Hancoj",
-      subject: "Physics",
-      university: "Imperial",
-      city: "Stockholm",
-      status: "requested",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb24ac19140b713a2fe714c/1538411224076/Raphael.jpeg?format=500w"
-    },
-    {
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      email: 'test12653456jj99843@notexistent.com',
-      gender: "Female",
-      year: "2",
-      area: "Social Sciences",
-      firstName: "Elisa",
-      lastName: "Caretto",
-      subject: "Religion",
-      university: "Oxford",
-      city: "Milano",
-      status: "approved",
-    }, {
-      level: "Masters",
-      country: "Italy",
-      email: 'test12345654lkjhg563@noexistent.cm',
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Humanities",
-      firstName: "George",
-      lastName: "Jode",
-      subject: "Mathematics",
-      university: "KCL",
-      city: "Edinburgh",
-      status: "approved",
-    }
-  ];
-  dummy.forEach(async d => {
+  [...Array(Math.floor(Math.random()*400)).keys()].map(i => randomUser()).forEach(async d => {
     const res = await AuthService.register(d.email, d.firstName, d.lastName,"mentor");
     await MentorService.registerNew(res.user._id.toString(), d);
   });
 };
+
 const loadDummyMentees = async () => {
-  const dummy = [
-    {
-      interestedIn: ["Natural Sciences", "Technology", "Humanities"],
-      school: "StLouisSchool OF Milan",
-      subjects: ["Biology"],
-      email: 'te1234bm56543@noteistent.com',
-      unisApplyingFor: ["Oxford"],
-      level: "Masters",
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Social Sciences",
-      firstName: "Emil",
-      lastName: "Bender Lassen",
-      coursesApplyingFor: ["Mathematics", "Sociology"],
-      university: "KCL",
-      subject: "PPE",
-      city: "Milano",
-      status: "requested",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5a7c387b4192029bc4b0dd95/1538660326244/20247810_10211655657680787_3062606713295678620_o.jpg?format=500w"
-    }, {
-      interestedIn: ["Computer Science", "Mathematics"],
-      school: "StLouisSchool OF Milan",
-      subjects: ["Biology"],
-      unisApplyingFor: ["LSE", "Oxford"],
-      level: "Masters",
-      country: "Italy",
-      email: 'test12365rr43@notexistioent.com',
-      coursesApplyingFor: ["Psychological & Behavioural Sciences"],
-      firstGenStudent: "Yes",
-      gender: "Female",
-      year: "2",
-      area: "Social Sciences",
-      firstName: "Nicole",
-      lastName: "Lim",
-      subject: "International Relations",
-      university: "LSE",
-      city: "Singapore",
-      status: "notYetRequested",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb257a29140b75265e2b89e/1538667677946/0+%289%29.jpeg?format=500w"
-    }, {
-      interestedIn: ["Natural Sciences", "Technology", "Humanities"],
-      school: "StLouisSchool OF Milan",
-      subjects: ["Biology"],
-      unisApplyingFor: ["LSE", "Oxford"],
-      level: "Masters",
-      country: "Italy",
-      email: 'test1234565rf43@notexkooistent.com',
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      coursesApplyingFor: ["Physics"],
-      area: "Social Sciences",
-      firstName: "Filip",
-      lastName: "Tokarski",
-      subject: "Mathematics",
-      university: "Oxford",
-      city: "Milano",
-      status: "rejected",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb24fc6e4966bf3c9d5df59/1538412681321/33038092_1063433287139499_9178229761615331328_n.jpg?format=500w"
-    }, {
-      interestedIn: ["Natural Sciences", "Technology", "Humanities"],
-      school: "StLouisSchool OF Milan",
-      subjects: ["Biology"],
-      unisApplyingFor: ["LSE", "Oxford"],
-      level: "Masters",
-      country: "Italy",
-      email: 'tesrrrt1234565ioio43@notexistent.com',
-      firstGenStudent: "Yes",
-      gender: "Male",
-      coursesApplyingFor: ["Psychological & Behavioural Sciences"],
-      year: "2",
-      area: "Business",
-      firstName: "Raphael",
-      lastName: "Eder",
-      subject: "Economics",
-      university: "Imperial",
-      city: "Milano",
-      status: "requested",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb24ac19140b713a2fe714c/1538411224076/Raphael.jpeg?format=500w"
-    },
-    {
-      interestedIn: ["Natural Sciences", "Technology", "Humanities"],
-      school: "StLouisSchool OF Milan",
-      subjects: ["Biology"],
-      unisApplyingFor: ["LSE", "Oxford"],
-      level: "Masters",
-      coursesApplyingFor: ["Psychological & Behavioural Sciences"],
-      country: "Italy",
-      firstGenStudent: "Yes",
-      gender: "Female",
-      email: 'test1234ge56543okli@notexistent.com',
-      year: "2",
-      area: "Social Sciences",
-      firstName: "Anna",
-      lastName: "Gross",
-      subject: "History",
-      university: "Oxford",
-      city: "Milano",
-      status: "approved",
-      emailAddress: "riccardo@broggi.co.uk",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5a7c3a6653450a8017a4dd11/1538511549752/Anna.jpg?format=500w"
-    }, {
-      interestedIn: ["Natural Sciences", "Technology", "Humanities"],
-      school: "StLouisSchool OF Milan",
-      coursesApplyingFor: ["Psychological & Behavioural Sciences"],
-      subjects: ["Biology"],
-      unisApplyingFor: ["LSE", "Oxford"],
-      level: "Masters",
-      country: "Italy",
-      email: 'test12345hogrf6gg7643@notexistent.com',
-      firstGenStudent: "Yes",
-      gender: "Male",
-      year: "2",
-      area: "Humanities",
-      firstName: "Alexander",
-      lastName: "Hutterer",
-      subject: "PPE",
-      university: "KCL",
-      city: "Milano",
-      status: "approved",
-      pictureUrl: "https://static1.squarespace.com/static/5a1abda8aeb6251ef0a76deb/5a7c37da652dead2372a0d71/5bb257eeec212d94bfb1ec35/1538415414370/27747541_865005767039622_4075308886654729626_o.jpg?format=500w"
-    }
-  ];
-  dummy.forEach(async d => {
+  [...Array(Math.floor(Math.random()*400)).keys()].map(i => randomUser()).forEach(async d => {
     const res = await AuthService.register(d.email, d.firstName, d.lastName, "mentee");
     await MenteeService.registerNew(res.user._id.toString(), d);
   });

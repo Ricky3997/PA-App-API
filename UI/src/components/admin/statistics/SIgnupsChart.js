@@ -24,12 +24,12 @@ const SignupsChart = ({ mentors, mentees }) => {
                      pointHighlightFill: "#fff",
                      pointHighlightStroke: "rgba(220,220,220,1)",
                      data: [
-                       mentors.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) === 5).length,
-                       mentors.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) === 4).length,
-                       mentors.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) === 3).length,
-                       mentors.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) === 2).length,
-                       mentors.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) === 1).length,
-                       mentors.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) === 0).length
+                       mentors.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 5).length,
+                       mentors.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 4).length,
+                       mentors.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 3).length,
+                       mentors.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 2).length,
+                       mentors.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 1).length,
+                       mentors.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 0).length
                      ]
                    },
                    {
@@ -41,12 +41,12 @@ const SignupsChart = ({ mentors, mentees }) => {
                      pointHighlightFill: "#fff",
                      pointHighlightStroke: "rgba(151,187,205,1)",
                      data: [
-                       mentees.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) === 5).length,
-                       mentees.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) === 4).length,
-                       mentees.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) === 3).length,
-                       mentees.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) === 2).length,
-                       mentees.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) === 1).length,
-                       mentees.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) === 0).length
+                       mentees.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 5).length,
+                       mentees.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 4).length,
+                       mentees.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 3).length,
+                       mentees.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 2).length,
+                       mentees.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 1).length,
+                       mentees.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 0).length
                      ]
                    }
                  ]

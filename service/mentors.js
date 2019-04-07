@@ -31,7 +31,7 @@ const registerNew = async (id, data) => {
     firstName: user.firstName,
     lastName: user.lastName,
     relationship: [],
-    latestStatusChange: new Date(),
+    latestStatusChange: data.latestStatusChange || new Date(),
     pictureUrl: data.pictureUrl || null
   }).save();
   await request({
