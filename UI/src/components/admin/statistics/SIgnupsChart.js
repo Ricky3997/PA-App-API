@@ -2,55 +2,50 @@ import React from "react";
 import { Line } from "react-chartjs";
 import Moment from "moment";
 
-const SignupsChart = ({ mentors, mentees }) => {
+const SignupsChart = ({ mentors, mentees, from, to }) => {
 
-  return <Line style={{ marginLeft: "160px", marginTop: "60px" }}
-               data={{
-                 labels: [
-                   new Moment().subtract(5, "d").format("MMM DD"),
-                   new Moment().subtract(4, "d").format("MMM DD"),
-                   new Moment().subtract(3, "d").format("MMM DD"),
-                   new Moment().subtract(2, "d").format("MMM DD"),
-                   new Moment().subtract(1, "d").format("MMM DD"),
-                   new Moment().format("MMM DD")
-                 ],
-                 datasets: [
-                   {
-                     label: "Mentors",
-                     fillColor: "rgba(220,220,220,0.2)",
-                     strokeColor: "rgba(220,220,220,1)",
-                     pointColor: "rgba(220,220,220,1)",
-                     pointStrokeColor: "#fff",
-                     pointHighlightFill: "#fff",
-                     pointHighlightStroke: "rgba(220,220,220,1)",
-                     data: [
-                       mentors.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 5).length,
-                       mentors.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 4).length,
-                       mentors.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 3).length,
-                       mentors.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 2).length,
-                       mentors.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 1).length,
-                       mentors.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 0).length
-                     ]
-                   },
-                   {
-                     label: "Mentees",
-                     fillColor: "rgba(151,187,205,0.2)",
-                     strokeColor: "rgba(151,187,205,1)",
-                     pointColor: "rgba(151,187,205,1)",
-                     pointStrokeColor: "#fff",
-                     pointHighlightFill: "#fff",
-                     pointHighlightStroke: "rgba(151,187,205,1)",
-                     data: [
-                       mentees.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 5).length,
-                       mentees.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 4).length,
-                       mentees.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 3).length,
-                       mentees.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 2).length,
-                       mentees.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 1).length,
-                       mentees.filter(m => Math.floor(Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays()) >= 0).length
-                     ]
-                   }
-                 ]
-               }} options={{
+  const range = Math.ceil(Moment.duration(Moment(to).diff(Moment(from))).asDays()) + 1;
+  let labels, menteeData, mentorData;
+  if (range <= 7) {
+    labels = [...Array(range).keys()].reverse().map(d => new Moment(to).subtract(d, "d").format("MMM DD"));
+    menteeData = [...Array(range).keys()].reverse().map(d => mentees.filter(m => new Moment(m.latestStatusChange).isBetween(1262304000, new Moment(to).subtract(d, 'd'))).length);
+    mentorData = [...Array(range).keys()].reverse().map(d => mentors.filter(m => new Moment(m.latestStatusChange).isBetween(1262304000, new Moment(to).subtract(d, 'd'))).length);
+  } else if (range <= 35) {
+    labels = [...Array(Math.ceil(range / 7)).keys()].reverse().map(d => new Moment(to).subtract(d, "w").format("MMM DD")).map(d => `Week of ${d}`);
+    menteeData = [...Array(Math.ceil(range / 7)).keys()].reverse().map(d => mentees.filter(m => new Moment(m.latestStatusChange).isBetween(1262304000, new Moment(to).subtract(d, 'w'))).length);
+    mentorData = [...Array(Math.ceil(range / 7)).keys()].reverse().map(d => mentors.filter(m => new Moment(m.latestStatusChange).isBetween(1262304000, new Moment(to).subtract(d, 'w'))).length);
+  } else {
+    labels = [...Array(Math.ceil(range / 30)).keys()].reverse().map(d => new Moment(to).subtract(d, "M").format("MMM"));
+    menteeData = [...Array(Math.ceil(range / 30)).keys()].reverse().map(d => mentees.filter(m => new Moment(m.latestStatusChange).isBetween(1262304000, new Moment(to).subtract(d, 'M'))).length);
+    mentorData = [...Array(Math.ceil(range / 30)).keys()].reverse().map(d => mentors.filter(m => new Moment(m.latestStatusChange).isBetween(1262304000, new Moment(to).subtract(d, 'M'))).length);
+  }
+
+  return <Line
+    data={{
+      labels: labels,
+      datasets: [
+        {
+          label: "Mentors",
+          fillColor: "rgba(220,220,220,0.2)",
+          strokeColor: "rgba(220,220,220,1)",
+          pointColor: "rgba(220,220,220,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(220,220,220,1)",
+          data: mentorData
+        },
+        {
+          label: "Mentees",
+          fillColor: "rgba(151,187,205,0.2)",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          data: menteeData
+        }
+      ]
+    }} options={{
     scaleShowGridLines: true,
     scaleGridLineColor: "rgba(0,0,0,.05)",
     scaleGridLineWidth: 1,

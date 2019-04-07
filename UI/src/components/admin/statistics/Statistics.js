@@ -18,12 +18,6 @@ const { Option } = Select;
 
 
 class Statistics extends Component {
-  constructor(props){
-    super(props);
-    this.state={
-      range: { from: new Moment().subtract(5, 'd').toDate(), to: new Moment().toDate() }
-    }
-  }
 
   render() {
 
@@ -32,7 +26,8 @@ class Statistics extends Component {
 
     return (<Formik
         initialValues={{
-          country: "Global"
+          country: "Global",
+          range: { from: new Moment().subtract(5, 'd').toDate(), to: new Moment().toDate() }
         }}
         onSubmit={(values, { setSubmitting }) => {
           setSubmitting(false);
@@ -44,7 +39,7 @@ class Statistics extends Component {
             mentees = mentees.filter(m => m.country === values.country);
           }
 
-          const { from, to } = this.state.range;
+          const { from, to } = values.range;
           return <FormikForm>
             <Container fluid id={"statistic-div"}>
               <Row>
@@ -155,24 +150,28 @@ class Statistics extends Component {
               <Row className="justify-content-md-center">
                 <Col>
                   <Row>
+                    <Col md={{span:11}}>
                     <h3>
-                      Mentees and mentor signups
+                      Mentees and mentor signups between {Moment(from).format('DD MMM')} and {Moment(to).format('DD MMM')}
                     </h3>
-
-                    <Field name="range" render={({ field, form: { touched, errors } }) => <DayPickerInput
-                      placeholder={'Choose date'}
-                      dayPickerProps={{
-                        selectedDays: [from, { from, to }],
-                        modifiers: { start: from, end: to },
-                        className: "Selectable",
-                        onDayClick: (day) => this.setState({range: DayPicker.DateUtils.addDayToRange(day, values.range)})
-                      }}
-                      keepFocus={false}
-                    />
-                    }/>
+                    </Col>
+                    <Col md={{span:1}}>
+                    <Button variant={'light'} onClick={() => setFieldValue('range',  { from: new Moment().subtract(5, 'd').toDate(), to: new Moment().toDate() })}>Reset</Button>
+                    </Col>
                   </Row>
                   <Row>
-                    <SignupsChart mentees={mentees} mentors={mentors}/>
+                    <Col md={9}>
+                    <SignupsChart mentees={mentees} mentors={mentors} from={from} to={to}/>
+                    </Col>
+                    <Col md={3}>
+                      <Field name="range" render={({ field, form: { touched, errors } }) => <DayPicker
+                        selectedDays={{from, to }}
+                        modifiers={{ start: from, end: to }}
+                        className="Selectable"
+                        onDayClick={(day) => setFieldValue(field.name, DayPicker.DateUtils.addDayToRange(day, values.range))}
+                      />
+                      }/>
+                    </Col>
                   </Row>
                 </Col>
               </Row>

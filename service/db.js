@@ -76,14 +76,14 @@ randomUser = () => {
 
 
 const loadDummyMentors = async () => {
-  [...Array(Math.floor(Math.random()*400)).keys()].map(i => randomUser()).forEach(async d => {
+  [...Array(Math.floor(Math.random()*50)).keys()].map(i => randomUser()).forEach(async d => {
     const res = await AuthService.register(d.email, d.firstName, d.lastName,"mentor");
     await MentorService.registerNew(res.user._id.toString(), d);
   });
 };
 
 const loadDummyMentees = async () => {
-  [...Array(Math.floor(Math.random()*400)).keys()].map(i => randomUser()).forEach(async d => {
+  [...Array(Math.floor(Math.random()*50)).keys()].map(i => randomUser()).forEach(async d => {
     const res = await AuthService.register(d.email, d.firstName, d.lastName, "mentee");
     await MenteeService.registerNew(res.user._id.toString(), d);
   });
