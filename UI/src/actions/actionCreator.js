@@ -37,7 +37,7 @@ import {
   UNSET_LOGIN_EMAIL,
   UNSET_MATCHING_CONFIRMATION,
   UNSET_PUBLIC_PROFILE,
-  UPDATE_USER, TOGGLE_TRACKING, SET_PROGRAM_FILTER
+  UPDATE_USER, TOGGLE_TRACKING, SET_PROGRAM_FILTER, UPDATE_LAST_USER_REFRESH
 } from "./actionTypes";
 import * as api from "../api";
 import { toast } from "react-toastify";
@@ -104,6 +104,13 @@ export const setProgramFilter = (programFilter) => {
 export const toggleApprovalModal = () => {
   return {
     type: TOGGLE_APPROVAL_MODAL
+  };
+};
+
+export const updateLastUserRefresh = (now) => {
+  return {
+    type: UPDATE_LAST_USER_REFRESH,
+    now: now
   };
 };
 
@@ -264,6 +271,9 @@ export const changeMenteeStatus = (status, properties) => {
 const updateAndStoreUser = (dispatch, user) => {
   window.localStorage.setItem("user", JSON.stringify(user));
   dispatch(updateUser(user));
+  const now = new Date();
+  window.localStorage.setItem("lastUserUpdate", now.getTime().toString());
+  dispatch(updateLastUserRefresh(now));
   if (user.onboarded) {
     dispatch(setGettingStartedStepsProgress(getInitialGettingStartedProgress(user)));
     if (user.type === "mentee") {

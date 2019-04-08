@@ -51,6 +51,7 @@ import PublicMentorProfile from "./people/PublicMentorProfile";
 import PublicMenteeProfile from "./people/PublicMenteeProfile";
 import Messages from "./messaging/Messages";
 import * as ReactGA from "react-ga";
+import moment from "moment";
 
 class App extends Component {
 
@@ -58,7 +59,9 @@ class App extends Component {
     if(!this.props.app.trackingOn && this.props.user) ReactGA.set({ userId: this.props.user._id });
     this.props.history.listen((location) => {
       ReactGA.pageview(location.pathname);
-    })
+    });
+    if(moment().diff(moment(this.props.app.lastUserRefresh), 'm') >= 1) this.props.refreshUser();
+
   }
 
   render() {

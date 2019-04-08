@@ -14,9 +14,6 @@ import {
 } from "../../actions/actionCreator";
 
 const MentorHome = ({user, refreshUser}) => {
-
-  console.log(user);
-
   const GettingStartedStepsConnected = connect(({ user, gettingStartedSteps, mentorHome }) => {
     return { user, gettingStartedSteps, mentorHome,  mode: 'mentor' };
   }, dispatch => {

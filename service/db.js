@@ -51,7 +51,7 @@ const getDb = () => {
 
 randomUser = () => {
   return {
-    level: _.sample(["Masters", "Undergraduate", "Postgraduate"]),
+    level: _.sample(["Masters", "Undergraduate"]),
     country: _.sample(Object.values(countries)),
     email: Math.random().toString(36).substring(2,11) + '@dummynotexist.com',
     firstGenStudent: _.sample(["Yes", "No"]),
@@ -76,14 +76,14 @@ randomUser = () => {
 
 
 const loadDummyMentors = async () => {
-  [...Array(Math.floor(Math.random()*50)).keys()].map(i => randomUser()).forEach(async d => {
+  [...Array(Math.floor(Math.random()*100)).keys()].map(i => randomUser()).forEach(async d => {
     const res = await AuthService.register(d.email, d.firstName, d.lastName,"mentor");
     await MentorService.registerNew(res.user._id.toString(), d);
   });
 };
 
 const loadDummyMentees = async () => {
-  [...Array(Math.floor(Math.random()*50)).keys()].map(i => randomUser()).forEach(async d => {
+  [...Array(Math.floor(Math.random()*100)).keys()].map(i => randomUser()).forEach(async d => {
     const res = await AuthService.register(d.email, d.firstName, d.lastName, "mentee");
     await MenteeService.registerNew(res.user._id.toString(), d);
   });
@@ -94,7 +94,7 @@ const loadAdmin = async () => {
     _id: id,
     firstName: "Riccardo",
     lastName: "Broggi",
-    type: "mentee",
+    type: "mentor",
     email: "riccardo@broggi.co.uk",
     emailConfirmed: true,
     onboarded: true,
@@ -116,7 +116,7 @@ const loadAdmin = async () => {
     university: "Oxford",
     subject: "Computer Science",
     city: "Milano",
-    status: "requested",
+    status: "approved",
 
     maxNumberOfMentees: 5,
     careerInterests: ["Creative Arts and Design"],
@@ -149,7 +149,7 @@ const loadAdmin = async () => {
     subjects: ["Biology"],
     unisApplyingFor: ["LSE", "Oxford"],
     year: "Gap Year",
-    status: "requested",
+    status: "approved",
 
     careerInterests: ["Creative Arts and Design"],
     ethnicBackground: "Mixed / multiple ethnic groups",

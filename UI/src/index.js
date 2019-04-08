@@ -7,7 +7,7 @@ import App from "./components/App.js";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { connect, Provider } from "react-redux";
-import { logout, updateUser } from "./actions/actionCreator";
+import { getUser, logout, updateUser } from "./actions/actionCreator";
 import store from "./store/configureStore";
 import * as ReactGA from "react-ga";
 
@@ -17,7 +17,8 @@ const ReduxApp = connect(({user, app}) => {
 }, dispatch => {
   return {
     logout: () => dispatch(logout()),
-    updateUser: (user) => dispatch(updateUser(user))
+    updateUser: (user) => dispatch(updateUser(user)),
+    refreshUser: () => dispatch(getUser())
   };
 })(App);
 

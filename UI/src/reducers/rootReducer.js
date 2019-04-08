@@ -35,7 +35,7 @@ import {
   UNSET_LOGIN_EMAIL,
   UNSET_MATCHING_CONFIRMATION,
   UNSET_PUBLIC_PROFILE,
-  UPDATE_USER, TOGGLE_TRACKING, SET_PROGRAM_FILTER
+  UPDATE_USER, TOGGLE_TRACKING, SET_PROGRAM_FILTER, UPDATE_LAST_USER_REFRESH
 } from "../actions/actionTypes";
 import { combineReducers } from "redux";
 import {getInitialGettingStartedProgress} from "../actions/helpers";
@@ -53,11 +53,14 @@ function user(state = JSON.parse(window.localStorage.getItem("user")) || null, a
 
 
 function app(state = {
-  trackingOn: false
+  trackingOn: false,
+  lastUserRefresh: new Date(parseInt(localStorage.getItem('lastUserUpdate')) || new Date().getTime())
 }, action) {
   switch (action.type) {
     case (TOGGLE_TRACKING):
       return { ...state, trackingOn: action.mode };
+    case (UPDATE_LAST_USER_REFRESH):
+      return { ...state, lastUserRefresh: action.now };
     default:
       return state;
   }

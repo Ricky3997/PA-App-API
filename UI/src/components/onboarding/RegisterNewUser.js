@@ -184,13 +184,13 @@ const RegisterNewUser = (props) => {
             <CountryFlag width={'50px'} country={'United Kingdom'}/>
           </h4>
           <div style={{backgroundColor: '#fff4f0'}}>
-          {defaults.universities.UK.map(u => <Image key={u.name} src={u.logo} style={{ maxHeight: "50px", maxWidth: "100px" }} />)}
+          {defaults.universities.UK.map(u => <Image key={u.name} src={u.logo} style={{ maxHeight: "50px", maxWidth: "100px", marginLeft: '3px' }} />)}
           </div>
           <h4>
             <CountryFlag width={'50px'} country={'United States'}/>
           </h4>
           <div style={{backgroundColor: '#fff4f0'}}>
-          {defaults.universities.US.map(u => <Image key={u.name} src={u.logo} style={{ maxHeight: "50px", maxWidth: "100px" }} />)}
+          {defaults.universities.US.map(u => <Image key={u.name} src={u.logo} style={{ maxHeight: "50px", maxWidth: "100px", marginLeft: '3px' }} />)}
           </div>
         </Col>
       </Row>

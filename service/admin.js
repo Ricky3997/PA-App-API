@@ -104,6 +104,7 @@ const matchingMentorRecommendations = async (id) => {
           return mentor;
         }
         else{
+          //TODO Handle postgraduate
           //err, invalid degree type
         }
 
