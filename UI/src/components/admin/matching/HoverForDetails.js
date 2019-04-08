@@ -8,14 +8,16 @@ class HoverForDetails extends Component {
   render() {
     return <span>
     <span onMouseEnter={() => {
-      this.timer = window.setTimeout(() => this.props.toggleMatchingDetailsModal(this.props[this.props.mentorMode ? "mentor" : "mentee"]._id), 300);
+      this.timer = window.setTimeout(() => this.props.toggleMatchingDetailsModal(this.props[this.props.mentorMode ? "mentor" : "mentee"]._id),
+        1000);
 
     }} onMouseLeave={() => {
       if (this.timer) window.clearTimeout(this.timer);
+      // if(!this.props.matching.showDetailsModal) this.props.toggleMatchingDetailsModal(false)
     }}
     >
       <Button variant={"info"} block style={{ marginBottom: "5px" }}><Icon
-        name='fas fa-hand-pointer-o'/>{" Hover for details"}</Button>
+        name='fas fa-hand-pointer-o'/>{" Hover for preview"}</Button>
     </span>
     <Modal
       size="lg"

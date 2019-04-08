@@ -72,7 +72,7 @@ const UserCard = (props) => {
           <CountryFlag country={props.country}/>
           <span>{" "}</span>
           <OverlayTrigger placement="bottom" trigger="hover"
-                          overlay={<Tooltip placement="bottom" className="in">Go to profile</Tooltip>}>
+                          overlay={<Tooltip placement="bottom" className="in">Click to go to profile, wait for preview</Tooltip>}>
             <Link to={`/admin/${props.mentorMode ? "mentors" : "mentees"}/${props._id}`} style={{
               textDecoration: "underline", color: "blue",
               cursor: "pointer"
@@ -80,7 +80,6 @@ const UserCard = (props) => {
               {`${props.firstName} ${props.lastName}`}
             </Link>
           </OverlayTrigger>
-
 
         </Card.Title>
 
