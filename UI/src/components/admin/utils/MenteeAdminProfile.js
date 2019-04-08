@@ -37,17 +37,17 @@ const MenteeAdminProfile = (props) => {
           <h4>{props.mentee.firstName}</h4>
         </LinkContainer> : <h4>{props.mentee.firstName}</h4>}
       </Col>
-      {props.approvalMode || props.matching ? null : <Col md={{ span: 2, offset: 1 }}>
+      {props.matching ? null : <Col md={{ span: 2, offset: 1 }}>
         <ButtonNotReadyYet>
           <Button block disabled><Icon name="fas fa-commenting"/> Message</Button>
         </ButtonNotReadyYet>
       </Col>}
 
-      {props.approvalMode || props.mentee.status !== "requested" || props.matching ? null : <Col md={2}>
+      {props.mentee.status !== "requested" || props.matching ? null : <Col md={2}>
         <Button block variant="danger"
                 onClick={props.toggleAdminModal}> Reject </Button>
       </Col>}
-      {props.approvalMode || props.mentee.status !== "requested" || props.matching ? null : <Col md={2}>
+      {props.mentee.status !== "requested" || props.matching ? null : <Col md={2}>
         <Button block variant="success"
                 onClick={() => props.changeStatus(props.mentee._id, "approved").then(r => {
                   if (r.success) toast.success("Approved");
@@ -228,7 +228,7 @@ const MenteeAdminProfile = (props) => {
       </Col>
     </Row>
 
-    {props.approvalMode || props.matching ? null : <Row>
+    {props.matching ? null : <Row>
       <Col>
         {props.mentee.relationship ? <div>
           <h5>Mentor</h5>

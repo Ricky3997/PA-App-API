@@ -44,7 +44,7 @@ const MentorAdminProfile = (props) => {
       <Col md={2}>
         <h4>{props.mentor.firstName}</h4>
       </Col>
-      {props.approvalMode || props.matching ? null : <Col md={{ span: 2, offset: 1 }}>
+      {props.matching ? null : <Col md={{ span: 2, offset: 1 }}>
         <OverlayTrigger placement="bottom" trigger="hover"
                         overlay={<Tooltip placement="bottom" className="in">Feature not ready yet</Tooltip>}>
             <span className="d-inline-block">
@@ -54,17 +54,20 @@ const MentorAdminProfile = (props) => {
             </span>
         </OverlayTrigger>
       </Col>}
-      {props.approvalMode || props.mentor.status !== "requested" || props.matching ? null : <Col md={2}>
+      {props.mentor.status !== "requested" || props.matching ? null : <Col md={2}>
         <Button block variant="danger"
                 onClick={props.toggleAdminModal}> Reject </Button>
       </Col>}
-      {props.approvalMode || props.mentor.status !== "requested" || props.matching ? null : <Col md={2}>
+      {props.mentor.status !== "requested" || props.matching ? null : <Col md={2}>
         <Button block variant="success"
                 onClick={() => props.changeStatus(props.mentor._id, "approved").then(r => {
                   if (r.success) toast.success("Approved");
                   props.history.push("/admin/mentors");
                 })}> Approve </Button>
       </Col>}
+      {props.mentor.status === "approved" && !props.matching ? <Col md={2}>
+        <Button block variant="warning"><Icon name="fas fa-user-secret"/> Make Admin</Button>
+      </Col> : null}
     </Row>
 
     <br/>
@@ -248,7 +251,7 @@ const MentorAdminProfile = (props) => {
       </Col>
     </Row>
 
-    {props.approvalMode ? null : <Row>
+    <Row>
       <Col>
         {props.mentor.relationship.length > 0 ? <div>
           <h5>Mentees</h5>
@@ -280,7 +283,7 @@ const MentorAdminProfile = (props) => {
           </CardColumns>
         </div> : "No Mentees Yet"}
       </Col>
-    </Row>}
+    </Row>
 
     <RejectionReasonModal showModal={props.showModal} name={props.mentor.firstName} id={props.mentor._id}
                           onHide={props.toggleAdminModal} changeStatus={props.changeStatus}/>

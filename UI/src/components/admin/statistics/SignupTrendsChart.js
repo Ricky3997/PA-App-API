@@ -2,7 +2,7 @@ import React from "react";
 import { Line } from "react-chartjs";
 import Moment from "moment";
 
-const SignupsChart = ({ mentors, mentees, from, to }) => {
+const SignupTrendsChart = ({ mentors, mentees, from, to }) => {
 
   const range = Math.ceil(Moment.duration(Moment(to).diff(Moment(from))).asDays()) + 1;
   let labels, menteeData, mentorData;
@@ -65,4 +65,4 @@ const SignupsChart = ({ mentors, mentees, from, to }) => {
 };
 
 
-export default SignupsChart;
+export default SignupTrendsChart;

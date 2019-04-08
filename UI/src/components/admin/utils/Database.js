@@ -7,7 +7,7 @@ import UserCard from "./UserCard";
 import { Field, Form as FormikForm, Formik } from "formik";
 import { Select } from "antd";
 import connect from "react-redux/es/connect/connect";
-import MentorAdminprofile from "./MentorAdminProfile";
+import MentorAdminProfile from "./MentorAdminProfile";
 import MenteeAdminProfile from "./MenteeAdminProfile";
 import UniversityPicker from "../../various/forms/UniversityPicker";
 import { adminChangeUserStatus, removeMentorFromBlacklist, toggleAdminModal } from "../../../actions/actionCreator";
@@ -36,8 +36,9 @@ class Database extends Component {
 
   render() {
 
-    const ConnectedMentorProfile = connect(({ admin }) => {
+    const ConnectedMentorProfile = connect(({user, admin }) => {
       return {
+        user,
         beadcrumbs: true,
         showModal: admin.showModal,
         history: this.props.history,
@@ -48,7 +49,7 @@ class Database extends Component {
         changeStatus: (id, status, rejectionReason) => dispatch(adminChangeUserStatus("mentor", id, status, rejectionReason)),
         toggleAdminModal: () => dispatch(toggleAdminModal())
       };
-    })(MentorAdminprofile);
+    })(MentorAdminProfile);
 
     const ConnectedMenteeProfile = connect(({ admin }) => {
       return {
