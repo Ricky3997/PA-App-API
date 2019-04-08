@@ -77,7 +77,7 @@ const matchingMentorRecommendations = async (id) => {
           }
           const menteeHobbiesAndInterests = _.get(menteeProfile, "hobbiesAndInterests")
           const mentorHobbiesAndInterests = _.get(mentor, "hobbiesAndInterests")
-          const hobbyIntersection = _.intersectin(menteeHobbiesAndInterests, mentorHobbiesAndInterests)
+          const hobbyIntersection = _.intersection(menteeHobbiesAndInterests, mentorHobbiesAndInterests)
           if((hobbyIntersection.length / menteeHobbiesAndInterests.length) >= 0.5 ){
             score += config["Undergraduate"][degreeLevelMentor]["hobbiesAndInterests"];
           }
@@ -114,7 +114,7 @@ const matchingMentorRecommendations = async (id) => {
           }
           const menteeHobbiesAndInterests = _.get(menteeProfile, "hobbiesAndInterests")
           const mentorHobbiesAndInterests = _.get(mentor, "hobbiesAndInterests")
-          const hobbyIntersection = _.intersectin(menteeHobbiesAndInterests, mentorHobbiesAndInterests)
+          const hobbyIntersection = _.intersection(menteeHobbiesAndInterests, mentorHobbiesAndInterests)
           if((hobbyIntersection.length / menteeHobbiesAndInterests.length) >= 0.5 ){
             score += config["Masters"][degreeLevelMentor]["hobbiesAndInterests"];
           }

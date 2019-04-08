@@ -1,11 +1,13 @@
 import React from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import ProfileIcon from "../../various/ProfileIcon";
 import Moment from "moment";
 import ConfirmAcceptMentee from "./ConfirmAcceptMentee";
 import connect from "react-redux/es/connect/connect";
 import { mentorDecisionRelationship, toggleMentorConfirmDecision } from "../../../actions/actionCreator";
 import { Link } from "react-router-dom";
+import { LinkContainer } from "react-router-bootstrap";
+import { Icon } from "react-fa";
 
 const AcceptMenteeBox = (props) => {
   const timeLeft = Moment.duration(new Moment(props.matchedOn).add(5, "d").diff(new Moment()));
@@ -23,17 +25,26 @@ const AcceptMenteeBox = (props) => {
 
 
   return (
-    <Container>
+    <Container style={{marginBottom: '5px '}}>
       <Row>
-        <Col md={4}>
+        <Col md={props.firstMatch ? 2 : 4}>
           <ProfileIcon pictureUrl={props.mentee.pictureUrl} size={"l"} mentorMode/>
         </Col>
-        <Col md={6}>
+        <Col md={props.firstMatch ? 10 : 8}>
           <Row>
+            <Col>
             <h6>
               <Link to={`mentee/${props.mentee._id}`}>{props.mentee.firstName}</Link>
               , studies at <b>{props.mentee.school}</b> in {props.mentee.city}
             </h6>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={{span: props.firstMatch ? 7 : 12}}>
+            <LinkContainer to={`/mentee/${props.mentee._id}`}>
+              <Button block><Icon name="fas fa-user"/> See their profile</Button>
+            </LinkContainer>
+            </Col>
           </Row>
         </Col>
       </Row>

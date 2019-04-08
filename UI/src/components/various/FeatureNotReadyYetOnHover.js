@@ -1,6 +1,5 @@
 import React from "react";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
 import NotReadyYet from "./NotReadyYet";
 
 const FeatureNotReadyYetOnHover = ({ children }) => {

@@ -15,7 +15,16 @@ const MenteeProfileDetails = ({
                                 yearApply, unisApplyingFor, coursesApplyingFor, year, level
                               }) => {
   return (<div>
+      <Row>
+        <Col md={2}>
       <ProfileIcon pictureUrl={pictureUrl} size='xl'/>
+        </Col>
+        <Col md={4}>
+          <h1>
+            {firstName}
+          </h1>
+        </Col>
+      </Row>
       <Row>
         <Col md={2}>
           <Badge variant="info">{"From"}</Badge>
@@ -104,15 +113,17 @@ const MenteeProfileDetails = ({
         <Col md={2}>
           <Badge variant="info">{"Unis interested"}</Badge>
         </Col>
-        <Col md={{ span: 3 }}>
+        <Col>
           {unisApplyingFor.map(uni => <Image
             key={uni}
             src={[...defaults.universities.US, ...defaults.universities.UK].filter(u => u.name === uni)[0].logo}
-            style={{ maxHeight: "60px", maxWidth: "130px" }}/>)}
+            style={{ maxHeight: "60px", maxWidth: "130px", marginLeft: '10px' }}/>)}
         </Col>
       </Row>
 
-      {user.type === "mentor" && _.some(_.get(user, "mentorProfile.relationship") || [], r => r.mentee._id === menteeId) ?
+      <br />
+
+      {user.type === "mentor" && _.some(_.get(user, "mentorProfile.relationship") || [], r => r.mentee._id === menteeId && r.status === 'confirmed') ?
         <Row>
           <Col>
             <LinkContainer to="/message">

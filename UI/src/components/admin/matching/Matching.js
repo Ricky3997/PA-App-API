@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { CardDeck, Col, Container, Form, InputGroup, ListGroup, Row } from "react-bootstrap";
+import { Card, CardColumns, CardDeck, Col, Container, Form, InputGroup, ListGroup, Row } from "react-bootstrap";
 import UserCard from "../utils/UserCard";
 import { Icon } from "react-fa";
 import * as JsSearch from "js-search";
@@ -8,6 +8,7 @@ import { Field, Form as FormikForm, Formik } from "formik";
 import LoadingCard from "../utils/LoadingCard";
 import { toast } from "react-toastify";
 import MenteeAdminProfile from "../utils/MenteeAdminProfile";
+import NoMentorsFitCard from "./NoMentorsFitCard";
 
 class Matching extends Component {
   constructor(props) {
@@ -98,13 +99,16 @@ class Matching extends Component {
                                 <LoadingCard/>
                                 <LoadingCard/>
                               </CardDeck> :
-                              <CardDeck>
-                                {mentorsToRender.sort((a, b) => Number(b.score) - Number(a.score)).map(m => <UserCard
+                              mentorsToRender.length > 0 ? <CardDeck>
+                                  {mentorsToRender.sort((a, b) => Number(b.score) - Number(a.score)).map(m => <UserCard
                                   successToast={successToast} matching
                                   mentorMode key={m._id}
                                   menteeToMatch={toMatch._id} {...m}
                                 />)}
-                              </CardDeck>}
+                                <NoMentorsFitCard/>
+                              </CardDeck> : <CardColumns>
+                                  <NoMentorsFitCard/>
+                                </CardColumns>}
                           </div>
                         </FormikForm>
                       );

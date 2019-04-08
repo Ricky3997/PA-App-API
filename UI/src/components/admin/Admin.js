@@ -84,7 +84,7 @@ class Admin extends Component {
           <Tab eventKey="mentors" title={<span><Icon name='fas fa-graduation-cap'/>{"  Mentors   "}<BadgePendingNumber
             pending={mentors.filter(m => m.status === "requested")}/></span>}>
             <Route path={"/admin/mentors/:id?"}
-                   component={connect(({}) => {
+                   component={connect(() => {
                      return { mentors, mode: "mentors" };
                    }, null)(Database)}/>
 
@@ -92,7 +92,7 @@ class Admin extends Component {
           <Tab eventKey="mentees" title={<span><Icon name='fas fa-user'/>{"  Mentees   "}<BadgePendingNumber
             pending={mentees.filter(m => m.status === "requested")}/></span>}>
             <Route path={"/admin/mentees/:id?"}
-                   component={connect(({}) => {
+                   component={connect(() => {
                      return { mentees, mode: "mentees" };
                    }, null)(Database)}/>
           </Tab>

@@ -25,11 +25,9 @@ const MentorHome = ({user, refreshUser}) => {
     };
   })(GettingStartedSteps);
 
-  
-
     return <Container fluid>
       <Row style={{ marginTop: "10px" }}>
-        <Col md={{ span: 11 }}>
+        <Col md={{ span: 9 }}>
           <h3>Welcome {user.emailConfirmed ? "back, " : ""} {user.firstName}! 🤗</h3>
         </Col>
         <Col md={{ span: 1 }}>
@@ -38,6 +36,11 @@ const MentorHome = ({user, refreshUser}) => {
             else toast.error("Error refreshing");
           })}>
             <Icon name={"fas fa-refresh"}/>
+          </Button>
+        </Col>
+        <Col md={2}>
+          <Button variant={'danger'} onClick={() => window.open('mailto:help@projectaccess.org', '_blank')}>
+            <Icon name="fas fa-ticket"/> Issues? Tell us!
           </Button>
         </Col>
       </Row>
