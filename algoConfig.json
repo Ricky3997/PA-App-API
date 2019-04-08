@@ -1,46 +1,54 @@
 {
   "Undergraduate": {
     "Undergraduate": {
-      "degreePoints": 1,
+      "degreePoints": 2.5,
       "genderIdentityPoints": 1,
-      "countryPoints": 1,
-      "ethnicBackgroundPoints": 1,
-      "subjectPoints": 1,
-      "uniPoints": 1,
-      "firstGenPoints": 1,
-      "yearDiffPoints": 1
+      "countryPoints": 6,
+      "ethnicBackgroundPoints": 3,
+      "subjectPoints": 4,
+      "uniPoints": 4,
+      "firstGenPoints": 2,
+      "yearDiffPoints": 1.5,
+      "fromThreeLargestCity": 1,
+      "hobbiesAndInterests": 1
     },
     "Masters": {
       "degreePoints": 1,
       "genderIdentityPoints": 1,
-      "countryPoints": 1,
-      "ethnicBackgroundPoints": 1,
-      "subjectPoints": 1,
-      "uniPoints": 1,
-      "firstGenPoints": 1,
-      "yearDiffPoints": 1
+      "countryPoints": 6,
+      "ethnicBackgroundPoints": 3,
+      "subjectPoints": 4,
+      "uniPoints": 1.5,
+      "firstGenPoints": 2,
+      "yearDiffPoints": 0.5,
+      "fromThreeLargestCity": 1,
+      "hobbiesAndInterests": 1
     }
   },
   "Masters": {
     "Undergraduate": {
       "degreePoints": 1,
       "genderIdentityPoints": 1,
-      "countryPoints": 1,
-      "ethnicBackgroundPoints": 1,
-      "subjectPoints": 1,
-      "uniPoints": 1,
-      "firstGenPoints": 1,
-      "yearDiffPoints": 1
+      "countryPoints": 6,
+      "ethnicBackgroundPoints": 3,
+      "subjectPoints": 2,
+      "uniPoints": 1.5,
+      "firstGenPoints": 2,
+      "yearDiffPoints": 0.5,
+      "fromThreeLargestCity": 1,
+      "hobbiesAndInterests": 1
     },
     "Masters": {
-      "degreePoints": 1,
+      "degreePoints": 2.5,
       "genderIdentityPoints": 1,
-      "countryPoints": 1,
-      "ethnicBackgroundPoints": 1,
-      "subjectPoints": 1,
-      "uniPoints": 1,
-      "firstGenPoints": 1,
-      "yearDiffPoints": 1
+      "countryPoints": 6,
+      "ethnicBackgroundPoints": 3,
+      "subjectPoints": 4,
+      "uniPoints": 4,
+      "firstGenPoints": 2,
+      "yearDiffPoints": 1.5,
+      "fromThreeLargestCity": 1,
+      "hobbiesAndInterests": 1
     }
   }
 }
