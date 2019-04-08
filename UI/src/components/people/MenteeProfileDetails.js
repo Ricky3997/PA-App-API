@@ -6,7 +6,7 @@ import ProfileIcon from "../various/ProfileIcon";
 import { LinkContainer } from "react-router-bootstrap";
 import { Icon } from "react-fa";
 import * as _ from "lodash";
-import ButtonNotReadyYet from "../various/ButtonNotReadyYet";
+import FeatureNotReadyYetOnHover from "../various/FeatureNotReadyYetOnHover";
 
 const MenteeProfileDetails = ({
                                 menteeId, user,
@@ -125,11 +125,12 @@ const MenteeProfileDetails = ({
             </LinkContainer>
           </Col>
           <Col>
-            <LinkContainer to="/call">
-              <ButtonNotReadyYet>
-                <Button block disabled><Icon name="fas fa-calendar"/> Schedule Call</Button>
-              </ButtonNotReadyYet>
-            </LinkContainer>
+              <FeatureNotReadyYetOnHover>
+                <LinkContainer to="/call">
+                <Button block disabled>
+                  <Icon name="fas fa-calendar"/> Schedule Call</Button>
+                </LinkContainer>
+              </FeatureNotReadyYetOnHover>
           </Col>
         </Row> : null}
     </div>

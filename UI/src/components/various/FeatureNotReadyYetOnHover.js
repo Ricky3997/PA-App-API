@@ -3,17 +3,15 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import NotReadyYet from "./NotReadyYet";
 
-const ButtonNotReadyYet = ({ children }) => {
+const FeatureNotReadyYetOnHover = ({ children }) => {
   return (
     <OverlayTrigger placement="bottom" trigger="hover"
-                    overlay={<Tooltip placement="bottom" className="in"><NotReadyYet/></Tooltip>}>
+                    overlay={<Tooltip placement="bottom" className="i n"><NotReadyYet/></Tooltip>}>
             <span className="d-inline-block">
-              <LinkContainer to="/message">
                 {children}
-        </LinkContainer>
             </span>
     </OverlayTrigger>
   );
 };
 
-export default ButtonNotReadyYet;
+export default FeatureNotReadyYetOnHover;

@@ -6,7 +6,7 @@ import { Bookmark, Timeline } from "react-vertical-timeline";
 import RequestApprovalMentorModal from "./Mentor/RequestApprovalMentorModal";
 import GettingStartedBox from "./Mentor/GettingStartedBox";
 import AcceptMenteeBox from "./Mentor/AcceptMenteeBox";
-import ButtonNotReadyYet from "../various/ButtonNotReadyYet";
+import FeatureNotReadyYetOnHover from "../various/FeatureNotReadyYetOnHover";
 import CountryPartner from "../advertising/CountryPartner";
 import RequestApprovalMenteeModal from "./Mentee/RequestApprovalMenteeModal";
 import { LinkContainer } from "react-router-bootstrap";
@@ -129,14 +129,14 @@ const GettingStartedSteps = (props) => {
                         </LinkContainer>
                       </li>
                       <li>
-                        <ButtonNotReadyYet>
+                        <FeatureNotReadyYetOnHover>
                           <Button disabled>Reading our blog</Button>
-                        </ButtonNotReadyYet>
+                        </FeatureNotReadyYetOnHover>
                       </li>
                       <li>
-                        <ButtonNotReadyYet>
+                        <FeatureNotReadyYetOnHover>
                           <Button disabled>Start the training</Button>
-                        </ButtonNotReadyYet>
+                        </FeatureNotReadyYetOnHover>
                       </li>
                     </ol>
                   </div> :
@@ -147,19 +147,19 @@ const GettingStartedSteps = (props) => {
                   <ol style={{ lineHeight: "50px" }}>
                     <li >
                       <LinkContainer to={'/settings'} >
-                        <Button>{props.user.profilePicture ? '✅' : '📸'} Upload a profile picture
+                        <Button>{props.user[`${props.user.type}Profile`].pictureUrl ? '✅' : '📸'} Upload a profile picture
                         </Button>
                       </LinkContainer>
                     </li>
                     <li>
-                      <ButtonNotReadyYet>
+                      <FeatureNotReadyYetOnHover>
                         <Button disabled>Submit your personal statement</Button>
-                      </ButtonNotReadyYet>
+                      </FeatureNotReadyYetOnHover>
                     </li>
                     <li>
-                      <ButtonNotReadyYet>
+                      <FeatureNotReadyYetOnHover>
                         <Button disabled>Start the training</Button>
-                      </ButtonNotReadyYet>
+                      </FeatureNotReadyYetOnHover>
                     </li>
                   </ol>
                 </div>) : null}

@@ -9,7 +9,7 @@ import defaults from "../../../defaults/defaults";
 import MenteeProfileMentorTile from "./MenteeProfileMentorTile";
 import { toast } from "react-toastify";
 import RejectionReasonModal from "./RejectionReasonModal";
-import ButtonNotReadyYet from "../../various/ButtonNotReadyYet";
+import FeatureNotReadyYetOnHover from "../../various/FeatureNotReadyYetOnHover";
 import NotFound from "../../various/NotFound";
 import CountryFlag from "../../various/CountryFlag";
 
@@ -38,9 +38,9 @@ const MenteeAdminProfile = (props) => {
         </LinkContainer> : <h4>{props.mentee.firstName}</h4>}
       </Col>
       {props.matching ? null : <Col md={{ span: 2, offset: 1 }}>
-        <ButtonNotReadyYet>
+        <FeatureNotReadyYetOnHover>
           <Button block disabled><Icon name="fas fa-commenting"/> Message</Button>
-        </ButtonNotReadyYet>
+        </FeatureNotReadyYetOnHover>
       </Col>}
 
       {props.mentee.status !== "requested" || props.matching ? null : <Col md={2}>

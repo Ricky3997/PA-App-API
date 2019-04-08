@@ -1,9 +1,12 @@
 import React from "react";
-import { Badge, Breadcrumb, Button, Col, Container, Row } from "react-bootstrap";
+import { Badge, Breadcrumb, Button, Card, Col, Container, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import ProfileIcon from "../../various/ProfileIcon";
 import { toast } from "react-toastify";
 import NotFound from "../../various/NotFound";
+import FeatureNotReadyYetOnHover from "../../various/FeatureNotReadyYetOnHover";
+import CardDeck from "react-bootstrap/CardDeck";
+import { Icon } from "react-fa";
 
 
 const RelationshipAdminDetail = (props) => {
@@ -63,7 +66,29 @@ const RelationshipAdminDetail = (props) => {
               </Col>
             </Row>}
         </Col>
-
+      </Row>
+      <Row>
+        <Col>
+          <FeatureNotReadyYetOnHover>
+            <h4>Upcoming meetings scheduled</h4>
+            <CardDeck>
+              <Card style={{width: '200px'}}>
+                <Card.Header>
+                  <span>
+                    <Icon name="fas fa-calendar"/> Friday 9th July
+                  </span>
+                </Card.Header>
+              </Card>
+              <Card style={{width: '200px'}}>
+                <Card.Header>
+                  <span>
+                    <Icon name="fas fa-calendar"/> Friday 23rd July
+                  </span>
+                </Card.Header>
+              </Card>
+            </CardDeck>
+          </FeatureNotReadyYetOnHover>
+        </Col>
       </Row>
     </Container> :
     <NotFound/>;
