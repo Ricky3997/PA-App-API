@@ -50,7 +50,11 @@ const Statistics = ({ mentors, mentees, user, programFilter }) => {
                   Mentors
                 </h3>
                 <span style={{ fontWeight: "bold", fontSize: "30px" }}>
-              {mentors.length} in total,
+              {mentors.length}
+            </span>
+
+                <span>
+              in total,
             </span>
                 <span style={{ fontWeight: "bold", fontSize: "30px" }}>
             <span style={{ color: "#289b00" }}>

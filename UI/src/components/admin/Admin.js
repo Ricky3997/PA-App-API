@@ -38,14 +38,20 @@ class Admin extends Component {
 
   changeTab(key) {
     if(key === 'country') return;
-    if (key === "refresh") {
-      if (this.props.match.params.section === "mentors") this.props.fetchMentors().then(r => this.refreshedToast(r, "mentors"));
-      else if (this.props.match.params.section === "mentees") this.props.fetchMentees().then(r => this.refreshedToast(r, "mentees"));
-      else if (this.props.match.params.section === "matching" || this.props.match.params.section === "data") {
-        this.props.fetchMentors();
-        this.props.fetchMentees().then(r => this.refreshedToast(r, "mentors and mentees"));
-      } else this.props.fetchRelationships().then(r => this.refreshedToast(r, "relationships"));
-    } else this.props.history.push(`/admin/${key}`);
+    if (key === "refresh") this.refreshData(this.props.match.params.section, true)
+    else {
+      this.refreshData(key, false);
+      this.props.history.push(`/admin/${key}`);
+    }
+  }
+
+  refreshData(type, showToast) {
+    if (type === "mentors") this.props.fetchMentors().then(r => showToast ? this.refreshedToast(r, "mentors") : null);
+    else if (type === "mentees") this.props.fetchMentees().then(r => showToast ? this.refreshedToast(r, "mentees") : null);
+    else if (type === "matching" || type === "data") {
+      this.props.fetchMentors();
+      this.props.fetchMentees().then(r => showToast ? this.refreshedToast(r, "mentors and mentees") : null);
+    } else this.props.fetchRelationships().then(r => showToast ? this.refreshedToast(r, "relationships") : null);
   }
 
   render() {
