@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, CardColumns, CardDeck, Col, Container, Form, InputGroup, ListGroup, Row } from "react-bootstrap";
+import { CardColumns, CardDeck, Col, Container, Form, InputGroup, ListGroup, Row } from "react-bootstrap";
 import UserCard from "../utils/UserCard";
 import { Icon } from "react-fa";
 import * as JsSearch from "js-search";
@@ -100,15 +100,17 @@ class Matching extends Component {
                                 <LoadingCard/>
                               </CardDeck> :
                               mentorsToRender.length > 0 ? <CardDeck>
-                                  {mentorsToRender.sort((a, b) => Number(b.score) - Number(a.score)).map(m => <UserCard
-                                  successToast={successToast} matching
-                                  mentorMode key={m._id}
+                                {mentorsToRender.sort((a, b) => Number(b.score) - Number(a.score)).map(m => <UserCard
+                                  successToast={successToast}
+                                  matching
+                                  mentorMode
+                                  key={m._id}
                                   menteeToMatch={toMatch._id} {...m}
                                 />)}
                                 <NoMentorsFitCard/>
                               </CardDeck> : <CardColumns>
-                                  <NoMentorsFitCard/>
-                                </CardColumns>}
+                                <NoMentorsFitCard/>
+                              </CardColumns>}
                           </div>
                         </FormikForm>
                       );

@@ -8,6 +8,7 @@ const { Relationship } = require("./../models/relationship");
 const config = require("./../config");
 const mongoose = require("mongoose");
 const fs = require("fs")
+const algoConfig = require('../algoConfig');
 
 const changeUserStatus = async (type, id, status, rejectionReason) => {
   if (type === "mentor") return await Mentor.findByIdAndUpdate(id, {
@@ -31,11 +32,8 @@ const matchingMentorRecommendations = async (id) => {
   //including different ways of iterating, i.e. forEach, normal for-loop, and map
   //TODO make the configuration for the algo configurable for the admin teams
   //Get latest configuration
-  const config = JSON.parse(fs.readFileSync("algoConfig.json"))
-
   //TODO Menteee.coursesApplyingFor available with an array of courses interested, chosen from the UI/src/defaults/defaults.json list
-
-  const degreeLevelMentee = _.get(menteeProfile, "level")
+  //TODO Handle postgraduate
 
   let scoredMentors = mentors.filter(mentor => {
     return mentor.status === "approved" //Only allow approved mentors to be matched
@@ -45,87 +43,56 @@ const matchingMentorRecommendations = async (id) => {
     if (menteeProfile.mentorBlackList.length === 0) return true;
     else return menteeProfile.mentorBlackList.map(blackListedMentor => blackListedMentor._id.toString()).indexOf(mentor._id.toString()) === -1  // Only allow matching if mentor not blacklisted
   }).map((mentor) => {
-        let score = 0
-        const degreeLevelMentor = _.get(mentor, "level")
-        if(degreeLevelMentee === "Undergraduate"){
-          if(_.get(mentor, "level") === "Undergraduate"){
-            score += config["Undergraduate"][degreeLevelMentor]["degreePoints"];
-          }
-          if(_.get(menteeProfile, "unisApplyingFor").includes(_.get(mentor, "university"))){
-            score += config["Undergraduate"][degreeLevelMentor]["uniPoints"];
-          }
-          if(_.get(menteeProfile, "subjects").includes(_.get(mentor, "subject"))){
-            score += config["Undergraduate"][degreeLevelMentor]["subjectPoints"];
-          }
-          if(_.get(menteeProfile, "country") === _.get(mentor, "country")){
-            score += config["Undergraduate"][degreeLevelMentor]["countryPoints"];
-          }
-          if(_.get(menteeProfile, "firstGenStudent") === _.get(mentor, "firstGenStudent")){
-            score += config["Undergraduate"][degreeLevelMentor]["firstGenPoints"];
-          }
-          if(_.get(menteeProfile, "gender") === _.get(mentor, "gender")){
-            score += config["Undergraduate"][degreeLevelMentor]["genderIdentityPoints"];
-          }
-          if(_.get(menteeProfile, "ethnicBackground") === _.get(mentor, "ethnicBackground")){
-            score += config["Undergraduate"][degreeLevelMentor]["ethnicBackgroundPoints"];
-          }
-          if((_.get(mentor, "yearGraduation") - _.get(menteeProfile, "yearApply")) > 2){
-            score += config["Undergraduate"][degreeLevelMentor]["degreePoints"];
-          }
-          if(_.get(menteeProfile, "fromThreeLargestCity") === _.get(mentor, "fromThreeLargestCity")){
-            score += config["Undergraduate"][degreeLevelMentor]["fromThreeLargestCity"];
-          }
-          const menteeHobbiesAndInterests = _.get(menteeProfile, "hobbiesAndInterests")
-          const mentorHobbiesAndInterests = _.get(mentor, "hobbiesAndInterests")
-          const hobbyIntersection = _.intersection(menteeHobbiesAndInterests, mentorHobbiesAndInterests)
-          if((hobbyIntersection.length / menteeHobbiesAndInterests.length) >= 0.5 ){
-            score += config["Undergraduate"][degreeLevelMentor]["hobbiesAndInterests"];
-          }
-          mentor._doc.score = score;
-          return mentor;
-        }
-        else if (degreeLevelMentee === "Masters"){
-          if(_.get(mentor, "level") === "Masters"){
-            score += config["Masters"][degreeLevelMentor]["degreePoints"];
-          }
-          if(_.get(menteeProfile, "unisApplyingFor").includes(_.get(mentor, "university"))){
-            score += config["Masters"][degreeLevelMentor]["uniPoints"];
-          }
-          if(_.get(menteeProfile, "subjects").includes(_.get(mentor, "subject"))){
-            score += config["Masters"][degreeLevelMentor]["subjectPoints"];
-          }
-          if(_.get(menteeProfile, "country") === _.get(mentor, "country")){
-            score += config["Masters"][degreeLevelMentor]["countryPoints"];
-          }
-          if(_.get(menteeProfile, "firstGenStudent") === _.get(mentor, "firstGenStudent")){
-            score += config["Masters"][degreeLevelMentor]["firstGenPoints"];
-          }
-          if(_.get(menteeProfile, "gender") === _.get(mentor, "gender")){
-            score += config["Masters"][degreeLevelMentor]["genderIdentityPoints"];
-          }
-          if(_.get(menteeProfile, "ethnicBackground") === _.get(mentor, "ethnicBackground")){
-            score += config["Masters"][degreeLevelMentor]["ethnicBackgroundPoints"];
-          }
-          if((_.get(mentor, "yearGraduation") - _.get(menteeProfile, "yearApply")) > 2){
-            score += config["Masters"][degreeLevelMentor]["degreePoints"];
-          }
-          if(_.get(menteeProfile, "fromThreeLargestCity") === _.get(mentor, "fromThreeLargestCity")){
-            score += config["Masters"][degreeLevelMentor]["fromThreeLargestCity"];
-          }
-          const menteeHobbiesAndInterests = _.get(menteeProfile, "hobbiesAndInterests")
-          const mentorHobbiesAndInterests = _.get(mentor, "hobbiesAndInterests")
-          const hobbyIntersection = _.intersection(menteeHobbiesAndInterests, mentorHobbiesAndInterests)
-          if((hobbyIntersection.length / menteeHobbiesAndInterests.length) >= 0.5 ){
-            score += config["Masters"][degreeLevelMentor]["hobbiesAndInterests"];
-          }
-          mentor._doc.score = score;
-          return mentor;
-        }
-        else{
-          //TODO Handle postgraduate
-          //err, invalid degree type
-        }
+      let score = 0;
+      let criteriaMatched = {};
+      const degreeLevelMentor = _.get(mentor, "level");
+      const degreeLevelMentee = _.get(menteeProfile, "level");
 
+      if(degreeLevelMentee === degreeLevelMentor){
+        score += algoConfig[degreeLevelMentee][degreeLevelMentor]["degreePoints"];
+      }
+      if(_.get(menteeProfile, "unisApplyingFor").includes(_.get(mentor, "university"))){
+        score += algoConfig[degreeLevelMentee][degreeLevelMentor]["uniPoints"];
+        criteriaMatched['University'] = true;
+      } else criteriaMatched['University'] = false;
+      if(_.get(menteeProfile, "subjects").includes(_.get(mentor, "subject"))){
+        score += algoConfig[degreeLevelMentee][degreeLevelMentor]["subjectPoints"];
+        criteriaMatched['Subject'] = true;
+      } else criteriaMatched['Subject'] = false;
+      if(_.get(menteeProfile, "country") === _.get(mentor, "country")){
+        score += algoConfig[degreeLevelMentee][degreeLevelMentor]["countryPoints"];
+        criteriaMatched['Country'] = true;
+      } else criteriaMatched['Country'] = false;
+      if(_.get(menteeProfile, "firstGenStudent") === _.get(mentor, "firstGenStudent")){
+        score += algoConfig[degreeLevelMentee][degreeLevelMentor]["firstGenPoints"];
+        criteriaMatched['First Gen'] = true;
+      } else criteriaMatched['First Gen'] = false;
+      if(_.get(menteeProfile, "gender") === _.get(mentor, "gender")){
+        score += algoConfig[degreeLevelMentee][degreeLevelMentor]["genderIdentityPoints"];
+        criteriaMatched['Gender'] = true;
+      } else criteriaMatched['Gender'] = false;
+      if(_.get(menteeProfile, "ethnicBackground") === _.get(mentor, "ethnicBackground")){
+        score += algoConfig[degreeLevelMentee][degreeLevelMentor]["ethnicBackgroundPoints"];
+        criteriaMatched['Ethnic Background'] = true;
+      } else criteriaMatched['Ethnic Background'] = false;
+      if((_.get(mentor, "yearGraduation") - _.get(menteeProfile, "yearApply")) > 2){
+        score += algoConfig[degreeLevelMentee][degreeLevelMentor]["degreePoints"];
+        criteriaMatched['Age Distance'] = true;
+      } else criteriaMatched['Age Distance'] = false;
+      if(_.get(menteeProfile, "fromThreeLargestCity") === _.get(mentor, "fromThreeLargestCity")){
+        score += algoConfig[degreeLevelMentee][degreeLevelMentor]["fromThreeLargestCity"];
+        criteriaMatched['From 3 Largest City'] = true;
+      } else criteriaMatched['From 3 Largest City'] = false;
+      const menteeHobbiesAndInterests = _.get(menteeProfile, "hobbiesAndInterests")
+      const mentorHobbiesAndInterests = _.get(mentor, "hobbiesAndInterests")
+      const hobbyIntersection = _.intersection(menteeHobbiesAndInterests, mentorHobbiesAndInterests)
+      if((hobbyIntersection.length / menteeHobbiesAndInterests.length) >= 0.5 ){
+        score += algoConfig[degreeLevelMentee][degreeLevelMentor]["hobbiesAndInterests"];
+        criteriaMatched['Hobbies & Interests'] = true;
+      } else criteriaMatched['Hobbies & Interests'] = true;
+      mentor._doc.score = score;
+      mentor._doc.criteriaMatched = criteriaMatched;
+      return mentor;
   });
 
   const highestScore = Math.max(...scoredMentors.map(scoredMentor => scoredMentor._doc.score));

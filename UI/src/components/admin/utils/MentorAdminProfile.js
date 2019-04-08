@@ -23,6 +23,7 @@ import RejectionReasonModal from "./RejectionReasonModal";
 import { toast } from "react-toastify";
 import NotFound from "../../various/NotFound";
 import CountryFlag from "../../various/CountryFlag";
+import * as qs from "query-string";
 
 const MentorAdminProfile = (props) => {
 
@@ -30,8 +31,8 @@ const MentorAdminProfile = (props) => {
   return <Container>
     {props.beadcrumbs ? <Row>
       <Breadcrumb>
-        <LinkContainer to={"/admin/mentors"}>
-          <Breadcrumb.Item>Database</Breadcrumb.Item>
+        <LinkContainer to={qs.parse(window.location.search).from ? `/admin/${qs.parse(window.location.search).from}` : "/admin/mentors"}>
+          <Breadcrumb.Item>{qs.parse(window.location.search).from  || 'Database'}</Breadcrumb.Item>
         </LinkContainer>
         <Breadcrumb.Item active href="#">{props.mentor.firstName}</Breadcrumb.Item>
       </Breadcrumb>
@@ -76,7 +77,7 @@ const MentorAdminProfile = (props) => {
       <Col md={2}>
         <Badge variant="info">{"Status"}</Badge>
       </Col>
-      <Col md={{ span: 3 }}>
+      <Col md={4}>
         <StatusIcon status={props.mentor.status}
                     reason={props.mentor.rejectionReason}/> {props.mentor.latestStatusChange ? `since ${moment(props.mentor.latestStatusChange).format("Do MMM YY")}` : ""}
       </Col>
@@ -86,7 +87,7 @@ const MentorAdminProfile = (props) => {
                  style={{ maxHeight: "16px" }}/>
         </Badge>
       </Col>
-      <Col md={{ span: 3 }}>
+      <Col md={4}>
         <a href={props.mentor.linkedinUrl} rel="noopener noreferrer"
            target="_blank">{props.mentor.linkedinUrl}</a>
       </Col>
@@ -96,7 +97,7 @@ const MentorAdminProfile = (props) => {
       <Col md={2}>
         <Badge variant="info">{"From"}</Badge>
       </Col>
-      <Col md={{ span: 3 }}>
+      <Col md={4}>
         <Form.Label>{`${props.mentor.city}, ${props.mentor.country}`} <CountryFlag country={props.mentor.country}/>
         </Form.Label>
       </Col>
@@ -105,7 +106,7 @@ const MentorAdminProfile = (props) => {
           {"Largest 3 Cities"}
         </Badge>
       </Col>
-      <Col md={{ span: 3 }}>
+      <Col md={4}>
         {props.mentor.fromThreeLargestCity ? "Yes" : "No"}
       </Col>
     </Row>
@@ -114,7 +115,7 @@ const MentorAdminProfile = (props) => {
       <Col md={2}>
         <Badge variant="info">{"Gender Identity"}</Badge>
       </Col>
-      <Col md={{ span: 3 }}>
+      <Col md={4}>
         <Form.Label>{`${props.mentor.gender}`} </Form.Label>
       </Col>
       <Col md={2}>
@@ -122,7 +123,7 @@ const MentorAdminProfile = (props) => {
           {"Ethnic Background"}
         </Badge>
       </Col>
-      <Col md={{ span: 3 }}>
+      <Col md={4}>
         {props.mentor.ethnicBackground}
       </Col>
     </Row>
@@ -131,7 +132,7 @@ const MentorAdminProfile = (props) => {
       <Col md={2}>
         <Badge variant="info">{"First Generation"}</Badge>
       </Col>
-      <Col md={{ span: 3 }}>
+      <Col md={4}>
         <Form.Label>{`${props.mentor.firstGenStudent ? "Yes" : "No"}`} </Form.Label>
       </Col>
       <Col md={2}>
@@ -139,7 +140,7 @@ const MentorAdminProfile = (props) => {
           {"Type of High School"}
         </Badge>
       </Col>
-      <Col md={{ span: 3 }}>
+      <Col md={4}>
         {props.mentor.typeOfHighSchool}
       </Col>
     </Row>
@@ -148,7 +149,7 @@ const MentorAdminProfile = (props) => {
       <Col md={2}>
         <Badge variant="info">{"Currently studying"}</Badge>
       </Col>
-      <Col md={{ span: 3 }}>
+      <Col md={4}>
         <Form.Label>{`${props.mentor.subject}`}</Form.Label>
       </Col>
       <Col md={2}>
@@ -156,7 +157,7 @@ const MentorAdminProfile = (props) => {
           {"Subjects in School"}
         </Badge>
       </Col>
-      <Col md={{ span: 3 }}>
+      <Col md={4}>
         {props.mentor.subjectsInSchool.join(", ")}
       </Col>
     </Row>
@@ -165,7 +166,7 @@ const MentorAdminProfile = (props) => {
       <Col md={2}>
         <Badge variant="info">{"University"}</Badge>
       </Col>
-      <Col md={{ span: 3 }}>
+      <Col md={4}>
         <Image
           src={[...defaults.universities.US, ...defaults.universities.UK].filter(u => u.name === props.mentor.university)[0].logo}
           style={{ maxHeight: "60px", maxWidth: "130px" }}/>
@@ -173,7 +174,7 @@ const MentorAdminProfile = (props) => {
       <Col md={2}>
         <Badge variant="info">{"Other Offers From"}</Badge>
       </Col>
-      <Col md={{ span: 3 }}>
+      <Col md={4}>
         {props.mentor.offersFromUnis.map(uni => <Image
           key={uni}
           src={[...defaults.universities.US, ...defaults.universities.UK].filter(u => u.name === uni)[0].logo}
@@ -186,13 +187,13 @@ const MentorAdminProfile = (props) => {
       <Col md={2}>
         <Badge variant="info">{"Level"}</Badge>
       </Col>
-      <Col md={{ span: 3 }}>
+      <Col md={4}>
         <Form.Label>{`${props.mentor.level}`}</Form.Label>
       </Col>
       <Col md={2}>
         <Badge variant="info">{"Career Interests"}</Badge>
       </Col>
-      <Col md={{ span: 3 }}>
+      <Col md={4}>
         <Form.Label>{`${props.mentor.careerInterests.join(", ")}`}</Form.Label>
       </Col>
     </Row>
@@ -201,13 +202,13 @@ const MentorAdminProfile = (props) => {
       <Col md={2}>
         <Badge variant="info">{"Year"}</Badge>
       </Col>
-      <Col md={{ span: 3 }}>
+      <Col md={4}>
         <Form.Label>{`${props.mentor.year}`}</Form.Label>
       </Col>
       <Col md={2}>
         <Badge variant="info">{"Hobbies & Interests"}</Badge>
       </Col>
-      <Col md={{ span: 3 }}>
+      <Col md={4}>
         <Form.Label>{`${props.mentor.hobbiesAndInterests.join(", ")}`}</Form.Label>
       </Col>
     </Row>
@@ -216,13 +217,13 @@ const MentorAdminProfile = (props) => {
       <Col md={2}>
         <Badge variant="info">{"Graduation Year"}</Badge>
       </Col>
-      <Col md={{ span: 3 }}>
+      <Col md={4}>
         <Form.Label>{`${props.mentor.yearGraduation}`}</Form.Label>
       </Col>
       <Col md={2}>
         <Badge variant="info">{"Year of Birth"}</Badge>
       </Col>
-      <Col md={{ span: 3 }}>
+      <Col md={4}>
         <Form.Label>{`${props.mentor.yearBorn}`}</Form.Label>
       </Col>
     </Row>
@@ -231,13 +232,13 @@ const MentorAdminProfile = (props) => {
       <Col md={2}>
         <Badge variant="info">{"Referral"}</Badge>
       </Col>
-      <Col md={{ span: 3 }}>
+      <Col md={4}>
         <Form.Label>{`${props.mentor.referral.join(", ")}`}</Form.Label>
       </Col>
       <Col md={2}>
         <Badge variant="info">{"Notes"}</Badge>
       </Col>
-      <Col md={{ span: 3 }}>
+      <Col md={4}>
         <Form.Label>{`${props.mentor.notes}`}</Form.Label>
       </Col>
     </Row>
@@ -246,7 +247,7 @@ const MentorAdminProfile = (props) => {
       <Col md={2}>
         <Badge variant="info">{"Max Mentees"}</Badge>
       </Col>
-      <Col md={{ span: 3 }}>
+      <Col md={4}>
         <Form.Label>{`${props.mentor.maxNumberOfMentees}`}</Form.Label>
       </Col>
     </Row>

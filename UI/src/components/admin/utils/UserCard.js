@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import HoverForDetails from "../matching/HoverForDetails";
 import CountryFlag from "../../various/CountryFlag";
+import RecommendationTransparency from "../matching/RecommendationTransparency";
 
 const UserCard = (props) => {
 
@@ -55,6 +56,7 @@ const UserCard = (props) => {
           style={{ minWidth: "200px", maxWidth: "200px", marginBottom: "20px" }}>
       <Card.Header style={props.status === "requested" ? { backgroundColor: "#ffde89" } : {}}>
         <ProfileIcon mentorMode={props.mentorMode} pictureUrl={props.pictureUrl} size={"m"}/>
+
         {props.mentorMode ? (props.relationship.length > 0 ? props.relationship.map(r => <ProfileIcon
           key={r.mentee._id}
           pictureUrl={r.mentee.pictureUrl} size={"xs"}/>) : null) : (props.relationship ? <ProfileIcon
@@ -64,16 +66,28 @@ const UserCard = (props) => {
           <Badge variant={"warning"}>pending approval</Badge> : null}
         {!props.matching && !props.mentorMode && !props.relationship && props.status === "approved" ?
           <Badge variant={"info"}>pending match</Badge> : null}
-        {props.matching && props.mentorMode ? <span>{"  "}<Badge style={{ fontSize: "20px" }}
-                                                                 variant={props.score > 80 ? "success" : (props.score > 60 ? "warning" : "danger")}>{Math.floor(props.score)}%</Badge></span> : null}
+
+        {props.matching && props.mentorMode ? <span>{"  "}
+            <OverlayTrigger placement="bottom" trigger="hover"
+                          overlay={<Tooltip placement="bottom" className="in">
+                            <RecommendationTransparency criteriaMatched={props.criteriaMatched} />
+                          </Tooltip>}>
+
+        <Badge style={{ fontSize: "20px" }}
+               variant={props.score > 80 ? "success" : (props.score > 60 ? "warning" : "danger")}>
+          {Math.floor(props.score)}%</Badge>
+          </OverlayTrigger>
+
+        </span> : null}
       </Card.Header>
       <Card.Body>
         <Card.Title>
           <CountryFlag country={props.country}/>
           <span>{" "}</span>
           <OverlayTrigger placement="bottom" trigger="hover"
-                          overlay={<Tooltip placement="bottom" className="in">Click to go to profile, wait for preview</Tooltip>}>
-            <Link to={`/admin/${props.mentorMode ? "mentors" : "mentees"}/${props._id}`} style={{
+                          overlay={<Tooltip placement="bottom" className="in">Click to go to profile, wait for
+                            preview</Tooltip>}>
+            <Link to={`/admin/${props.mentorMode ? "mentors" : "mentees"}/${props._id}${props.matching ? '?from=matching' : ''}`} style={{
               textDecoration: "underline", color: "blue",
               cursor: "pointer"
             }}>
