@@ -1,10 +1,15 @@
 import React from "react";
-import { Badge, Col, Form, Image, Row } from "react-bootstrap";
+import { Badge, Button, Col, Form, Image, Row } from "react-bootstrap";
 import defaults from "../../defaults/defaults";
 import CountryFlag from "../various/CountryFlag";
 import ProfileIcon from "../various/ProfileIcon";
+import { LinkContainer } from "react-router-bootstrap";
+import { Icon } from "react-fa";
+import * as _ from "lodash";
+import ButtonNotReadyYet from "../various/ButtonNotReadyYet";
 
 const MenteeProfileDetails = ({
+                                menteeId, user,
                                 firstName, yearBorn, city, country, subjects, school,
                                 careerInterests, interestedIn, hobbiesAndInterests, pictureUrl,
                                 yearApply, unisApplyingFor, coursesApplyingFor, year, level
@@ -106,6 +111,27 @@ const MenteeProfileDetails = ({
             style={{ maxHeight: "60px", maxWidth: "130px" }}/>)}
         </Col>
       </Row>
+
+      {user.type === "mentor" && _.some(_.get(user, "mentorProfile.relationship") || [], r => r.mentee._id === menteeId) ?
+        <Row>
+          <Col>
+            <LinkContainer to="/message">
+              <Button block><Icon name="fas fa-commenting"/> Message</Button>
+            </LinkContainer>
+          </Col>
+          <Col>
+            <LinkContainer to="/call">
+              <Button block><Icon name="fas fa-phone"/> Call</Button>
+            </LinkContainer>
+          </Col>
+          <Col>
+            <LinkContainer to="/call">
+              <ButtonNotReadyYet>
+                <Button block disabled><Icon name="fas fa-calendar"/> Schedule Call</Button>
+              </ButtonNotReadyYet>
+            </LinkContainer>
+          </Col>
+        </Row> : null}
     </div>
   );
 };

@@ -52,13 +52,8 @@ const MenteeTile = (props) => {
         </div> :
         <Row>
           <Col>
-            <LinkContainer to="/message">
-              <Button block><Icon name="fas fa-commenting"/> Message</Button>
-            </LinkContainer>
-          </Col>
-          <Col>
-            <LinkContainer to="/call">
-              <Button block><Icon name="fas fa-phone"/> Call</Button>
+            <LinkContainer to={`/mentee/${props.mentee._id}`}>
+              <Button block><Icon name="fas fa-user"/> Go to your mentee's profile</Button>
             </LinkContainer>
           </Col>
         </Row>}

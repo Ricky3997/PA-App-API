@@ -118,8 +118,8 @@ class App extends Component {
             })(JourneyModule)}/>
 
             <Route path={"/mentor/:id"} component={connect(
-              ({ publicProfile }) => {
-                return { publicProfile };
+              ({ publicProfile, user }) => {
+                return { publicProfile, user };
               }, dispatch => {
                 return {
                   getMentorById: (id) => dispatch(getMentorById(id))
@@ -127,8 +127,8 @@ class App extends Component {
               })(PublicMentorProfile)}/>
 
             <Route path={"/mentee/:id"} component={connect(
-              ({ publicProfile }) => {
-                return { publicProfile };
+              ({ publicProfile, user }) => {
+                return { publicProfile, user };
               }, dispatch => {
                 return {
                   getMenteeById: (id) => dispatch(getMenteeById(id))
