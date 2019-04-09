@@ -70,7 +70,8 @@ randomUser = () => {
     subjects: _.sampleSize(_.flatMap(Object.values(defaults.school_subjects)), Math.floor(Math.random()*6)),
     unisApplyingFor: _.sampleSize(_.flatMap((Object.values(defaults.universities))).map(u => u.name), 4),
     coursesApplyingFor: _.sampleSize(_.flatMap((Object.values(defaults.uni_subjects))), Math.floor(Math.random()*6)),
-    latestStatusChange: moment().subtract(Math.floor(Math.random()*7), 'd').toDate()
+    latestStatusChange: moment().subtract(Math.floor(Math.random()*7), 'd').toDate(),
+    referral: _.sampleSize(Object.values(defaults.referrer), Math.floor(Math.random()*4)),
   }
 };
 

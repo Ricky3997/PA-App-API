@@ -7,12 +7,13 @@ import { Icon } from "react-fa";
 import GenderDoughnut from "./GenderDoughnut";
 import CountryDoughnut from "./CountryDoughnut";
 import CityDoughnut from "./CityDoughnut";
-import UniversityDoughnut from "./UniversityDoughnut";
+import UniversityBarChart from "./UniversityBarChart";
 import CountryFlag from "../../various/CountryFlag";
 import { Field, Form as FormikForm, Formik } from "formik";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
-import CourseDoughnut from "./CourseDoughnut";
+import CourseBarChart from "./CourseBarChart";
+import ReferralBarChart from "./ReferralBarChart";
 
 const Statistics = ({ mentors, mentees, user, programFilter }) => {
 
@@ -37,7 +38,7 @@ const Statistics = ({ mentors, mentees, user, programFilter }) => {
                   <span><CountryFlag country={programFilter}/></span>} program
                 </h3>
               </Col>
-              <Col md={2}>
+              <Col md={{offset:4, span:2}}>
                 <Button onClick={window.print} block>
                   <Icon name="fas fa-file-text"/> Export to PDF
                 </Button>
@@ -45,7 +46,7 @@ const Statistics = ({ mentors, mentees, user, programFilter }) => {
               </Col>
             </Row>
             <Row>
-              <Col>
+              <Col style={{backgroundColor: 'rgba(54,216,255,0.26)', borderRadius: '20px'}}>
                 <h3>
                   Mentors
                 </h3>
@@ -84,18 +85,25 @@ const Statistics = ({ mentors, mentees, user, programFilter }) => {
                     <h5>
                       University of study
                     </h5>
-                    <UniversityDoughnut mentors={mentors}/>
+                    <UniversityBarChart mentors={mentors}/>
                   </Col>
 
                   <Col>
                     <h5>
                       Macro area of study
                     </h5>
-                    <CourseDoughnut mentors={mentors}/>
+                    <CourseBarChart mentors={mentors}/>
+                  </Col>
+
+                  <Col>
+                    <h5>
+                      Referral source
+                    </h5>
+                    <ReferralBarChart users={mentors}/>
                   </Col>
                 </Row>
               </Col>
-              <Col>
+              <Col style={{backgroundColor: 'rgba(139,255,160,0.24)', borderRadius: '20px'}}>
                 <h3>
                   Mentees
                 </h3>
@@ -134,14 +142,20 @@ const Statistics = ({ mentors, mentees, user, programFilter }) => {
                     <h5>
                       Target university
                     </h5>
-                    <UniversityDoughnut mentees={mentees}/>
+                    <UniversityBarChart mentees={mentees}/>
                   </Col>
 
                   <Col>
                     <h5>
                       Macro area of interest
                     </h5>
-                    <CourseDoughnut mentees={mentees}/>
+                    <CourseBarChart mentees={mentees}/>
+                  </Col>
+                  <Col>
+                    <h5>
+                      Referral source
+                    </h5>
+                    <ReferralBarChart users={mentees}/>
                   </Col>
                 </Row>
               </Col>
