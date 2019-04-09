@@ -19,10 +19,10 @@ const CourseBarChart = ({ mentors, mentees }) => {
     labels: Object.keys(areas),
     datasets: [{
       data: Object.values(areas),
-      fillColor: "rgba(205,75,33,0.5)",
-      strokeColor: "rgba(205,42,46,0.8)",
-      highlightFill: "rgba(229,48,36,0.75)",
-      highlightStroke: "rgb(255,75,41)",
+      fillColor: "rgba(7,56,25,0.76)",
+      strokeColor: "rgba(5,36,16,0.93)",
+      highlightFill: "rgba(12,102,41,0.75)",
+      highlightStroke: "rgb(6,62,24)",
       borderWidth: 1,
       label: 'Course'
     }] }}
