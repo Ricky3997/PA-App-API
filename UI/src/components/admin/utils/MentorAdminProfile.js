@@ -24,6 +24,8 @@ import { toast } from "react-toastify";
 import NotFound from "../../various/NotFound";
 import CountryFlag from "../../various/CountryFlag";
 import * as qs from "query-string";
+import FeatureNotReadyYetOnHover from "../../various/FeatureNotReadyYetOnHover";
+import { Select } from "antd";
 
 const MentorAdminProfile = (props) => {
 
@@ -66,8 +68,28 @@ const MentorAdminProfile = (props) => {
                   props.history.push("/admin/mentors");
                 })}> Approve </Button>
       </Col>}
-      {props.mentor.status === "approved" && !props.matching ? <Col md={2}>
-        <Button block variant="warning"><Icon name="fas fa-user-secret"/> Make Admin</Button>
+      {props.mentor.status === "approved" && !props.matching ? <Col md={3}>
+        {props.mentor.admin ?
+            <Button block variant="danger" disabled={props.mentor.admin === 'superadmin' && props.user.mentorProfile.admin !== 'superadmin'}
+                    onClick={() => props.toggleMentorAdmin(props.mentor._id, undefined).then(r => {
+                      if(r.success) toast.success('Admin removed')
+                    })}>
+              {props.mentor.admin === 'superadmin' ? '🌎' : <CountryFlag country={props.mentor.admin}/>} Admin - Revoke <Icon name="fas fa-times-circle"/>
+            </Button>
+          : (props.user.mentorProfile.admin === 'superadmin' ? <Select showSearch
+                                                                       mode={"default"}
+                                                                       placeholder={'Make admin'}
+                                                                       size={"large"}
+                                                                       onSelect={v => props.toggleMentorAdmin(props.mentor._id, v).then(r => {
+                                                                         if(r.success) toast.success(`Admin enabled for ${v}`);
+                                                                       })}
+                                                                       style={{ width: "150px" }}
+                                                                       tokenSeparators={[",", ":"]}>
+
+            <Select.Option value={'superadmin'}>🌎 Superadmin</Select.Option>
+            {defaults.countries_operating.map(c => <Select.Option value={c}><span><CountryFlag country={c}/>{' '}{c}</span></Select.Option>)}
+
+          </Select> : <Button block variant="warning"><Icon name="fas fa-user-secret"/> Make Admin</Button>)}
       </Col> : null}
     </Row>
 
@@ -288,6 +310,7 @@ const MentorAdminProfile = (props) => {
 
     <RejectionReasonModal showModal={props.showModal} name={props.mentor.firstName} id={props.mentor._id}
                           onHide={props.toggleAdminModal} changeStatus={props.changeStatus}/>
+
   </Container>;
 };
 

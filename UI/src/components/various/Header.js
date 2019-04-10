@@ -25,6 +25,14 @@ const Header = (props) => {
           <span> <Icon name="fas fa-gear"/> Settings</span>
         </NavDropdown.Item>
       </LinkContainer>
+      {_.get(props, "user.mentorProfile.admin") ?
+        <LinkContainer to="/admin/dashboard">
+          <NavDropdown.Item>
+            <span> <Icon name="fas fa-user-secret"/> Admin</span>
+          </NavDropdown.Item>
+        </LinkContainer>
+        : null
+      }
       <NavDropdown.Item href="">
         <span onClick={() => {
           logout();
@@ -61,13 +69,6 @@ const Header = (props) => {
           <LinkContainer to="/about">
             <Nav.Link>How does it work?</Nav.Link>
           </LinkContainer>
-
-          {_.get(props, "user.admin") ?
-            <LinkContainer to="/admin/dashboard">
-              <Nav.Link>Admin</Nav.Link>
-            </LinkContainer>
-            : null
-          }
         </Nav>
         {/*<Form>*/}
         {/*  <span style={{border: '1px red', borderRadius: 20}}>*/}

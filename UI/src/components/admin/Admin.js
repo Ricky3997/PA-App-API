@@ -3,7 +3,12 @@ import { Container, Tab, Tabs } from "react-bootstrap";
 import Dashboard from "./dashboard/Dashboard";
 import { Route } from "react-router-dom";
 import Matching from "./matching/Matching";
-import { cancelRelationship, changeMenteeBeingMatched, toggleDashboardConfirmation } from "../../actions/actionCreator";
+import {
+  cancelRelationship,
+  changeMenteeBeingMatched,
+  makeMentorAdmin,
+  toggleDashboardConfirmation
+} from "../../actions/actionCreator";
 import connect from "react-redux/es/connect/connect";
 import { toast } from "react-toastify";
 import BadgePendingNumber from "./utils/BadgePendingNumber";
@@ -13,6 +18,7 @@ import { Icon } from "react-fa";
 import { Select } from "antd";
 import CountryFlag from "../various/CountryFlag";
 import defaults from '../../defaults/defaults';
+import * as _ from 'lodash';
 
 class Admin extends Component {
   constructor(props) {
@@ -65,7 +71,7 @@ class Admin extends Component {
       relationships = relationships.filter(m => m.country === programFilter);
     }
 
-    return (this.props.user && this.props.user.admin) ?
+    return _.get(this.props,'user.mentorProfile.admin') ?
       <Container fluid>
         <Tabs style={{ marginBottom: "10px" }}
               activeKey={this.validateTab(section)}
@@ -121,7 +127,7 @@ class Admin extends Component {
             })(Statistics)}/>
           </Tab>
           <Tab eventKey="refresh" disabled={this.props.fetching} title={<Icon name={"fas fa-refresh"}/>}/>
-          {this.props.user.admin === 'superadmin' ?<Tab eventKey="country" title={<Select showSearch
+          {_.get(this.props, 'user.mentorProfile.admin') === 'superadmin' ?<Tab eventKey="country" title={<Select showSearch
                                                  mode={"default"}
                                                  size={"small"}
                                                  style={{ width: "150px" }}

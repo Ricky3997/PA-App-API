@@ -5,6 +5,8 @@ const mailService = require("./mail");
 const userService = require("./users");
 const config = require("./../config");
 const { User } = require("../models/users");
+const { Mentor } = require("../models/mentors");
+const _  = require("lodash");
 
 
 const confirm = async (id, token) => {
@@ -73,8 +75,8 @@ const checkToken = (req, res, next) => {
 
 const checkAdmin = async (req, res, next) => {
   const {id} = req.decoded;
-  const user = await User.findById(id);
-  if (user && user.admin) {
+  const user = await Mentor.findById(id);
+  if (_.get(user, 'admin')) {
     req.admin = user;
     next();
   }

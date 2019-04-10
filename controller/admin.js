@@ -11,9 +11,18 @@ const matchingMentorRecommendations =  async (req,res) => {
     if(result) res.json(result);
     else res.sendStatus(400);
 };
+
 const createMatch =  async (req,res) => {
     const {mentorId, menteeId} = req.body;
     const result = await adminService.createMatch(mentorId, menteeId);
+    if(result) res.json(result);
+    else res.sendStatus(400);
+};
+
+const toggleMentorAdmin =  async (req,res) => {
+    const {mentorId, adminValue} = req.body;
+    if(req.admin.admin !== 'superadmin' && (adminValue === 'superadmin' || adminValue !== req.admin.admin)) res.sendStatus(456);
+    const result = await adminService.toggleMentorAdmin(mentorId, adminValue);
     if(result) res.json(result);
     else res.sendStatus(400);
 };
@@ -32,4 +41,4 @@ const removeMentorFromBlacklist =  async (req,res) => {
     else res.sendStatus(400);
 };
 
-module.exports = {changeUserStatus, matchingMentorRecommendations, createMatch, cancelRelationship, removeMentorFromBlacklist};
+module.exports = {toggleMentorAdmin, changeUserStatus, matchingMentorRecommendations, createMatch, cancelRelationship, removeMentorFromBlacklist};

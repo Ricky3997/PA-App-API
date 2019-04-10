@@ -12,4 +12,6 @@ router.post('/cancelRelationship', adminController.cancelRelationship);
 
 router.post('/removeMentorFromBlacklist', adminController.removeMentorFromBlacklist);
 
+router.post('/toggleMentorAdmin', adminController.toggleMentorAdmin);
+
 module.exports = router;

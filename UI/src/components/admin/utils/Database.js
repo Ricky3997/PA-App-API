@@ -10,7 +10,12 @@ import connect from "react-redux/es/connect/connect";
 import MentorAdminProfile from "./MentorAdminProfile";
 import MenteeAdminProfile from "./MenteeAdminProfile";
 import UniversityPicker from "../../various/forms/UniversityPicker";
-import { adminChangeUserStatus, removeMentorFromBlacklist, toggleAdminModal } from "../../../actions/actionCreator";
+import {
+  adminChangeUserStatus,
+  toggleMentorAdmin,
+  removeMentorFromBlacklist,
+  toggleAdminModal
+} from "../../../actions/actionCreator";
 import NotFound from "../../various/NotFound";
 
 const { Option } = Select;
@@ -47,7 +52,8 @@ class Database extends Component {
     }, dispatch => {
       return {
         changeStatus: (id, status, rejectionReason) => dispatch(adminChangeUserStatus("mentor", id, status, rejectionReason)),
-        toggleAdminModal: () => dispatch(toggleAdminModal())
+        toggleAdminModal: () => dispatch(toggleAdminModal()),
+        toggleMentorAdmin: (mentorId, mentorValue) => dispatch(toggleMentorAdmin(mentorId, mentorValue))
       };
     })(MentorAdminProfile);
 
@@ -138,7 +144,7 @@ class Database extends Component {
                         render={({ field }) => {
                           return <Select allowClear size={"large"}
                                          showSearch
-                                         mode="tags"
+                                         mode="multiple"
                                          value={field.value}
                                          placeholder={"Subject"}
                                          onChange={(o) => setFieldValue(field.name, o)}>
@@ -156,7 +162,7 @@ class Database extends Component {
                         render={({ field }) => {
                           return <Select allowClear size={"large"}
                                          showSearch
-                                         mode="tags"
+                                         mode="multiple"
                                          value={field.value}
                                          placeholder={"Status"}
                                          onChange={(o) => setFieldValue(field.name, o)}>

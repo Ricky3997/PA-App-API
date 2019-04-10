@@ -28,12 +28,12 @@ const initDb = (callback) => {
   mongoose.connect(config.mongodb.URI, { useNewUrlParser: true , useFindAndModify: false, useCreateIndex: true }).then(async () => {
     _db = mongoose.connection;
 
-    await clearDb();
-    await loadAdmin();
-    // if (!config.PROD_MODE){
+    if (!config.PROD_MODE){
+      await clearDb();
+      await loadAdmin();
       await loadDummyMentors();
       await loadDummyMentees();
-    // }
+    }
     let rule = new scheduler.RecurrenceRule();
     rule.minute = new scheduler.Range(0, 59, 20);
     scheduler.scheduleJob(rule, relationshipService.checkForElapsedMatches);
@@ -58,7 +58,7 @@ randomUser = () => {
     gender: _.sample(defaults.gender),
     year: _.sample(["1","2","3","4","5"]),
     area: _.sample(Object.keys(defaults.uni_subjects)),
-    firstName: _.sample(["Filippo", "John", "Emil", "Anna", "Raphael", "Kas", "Carolina", "Katie", "Nicole", "Joe", "Brandon", "Nick"]),
+    firstName: _.sample(["Filippo", "John", "Emil", "Anna", "Julian", "Kas", "Carolina", "Katie", "Nicole", "Joe", "Brandon", "Nick"]),
     lastName: _.sample(["Broggi", "Ugo", "Biscaldi", "Carretto", 'Heyste', "Juilk", "Heiny", "Buvtr", "Whynut"]),
     subject: _.sample(_.flatMap((Object.values(defaults.uni_subjects)))),
     university: _.sample(_.flatMap((Object.values(defaults.universities))).map(u => u.name)),
@@ -99,13 +99,14 @@ const loadAdmin = async () => {
     email: "riccardo@broggi.co.uk",
     emailConfirmed: true,
     onboarded: true,
-    admin: 'superadmin',
     mentorProfile: id,
     menteeProfile: id,
   };
   await new User(userProfile).save();
   const mentorProfile = {
     _id: id,
+
+    admin: 'superadmin',
     level: "Masters",
     country: "Italy",
     firstGenStudent: "Yes",
@@ -165,7 +166,7 @@ const loadAdmin = async () => {
 
   };
   await MentorService.registerNew(id, mentorProfile);
-  await MenteeService.registerNew(id, menteeProfile);
+  //await MenteeService.registerNew(id, menteeProfile);
   await request({
     method: 'post',
     body: {

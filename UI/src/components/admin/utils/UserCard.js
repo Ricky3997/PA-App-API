@@ -68,7 +68,7 @@ const UserCard = (props) => {
           <Badge variant={"info"}>pending match</Badge> : null}
 
         {props.matching && props.mentorMode ? <span>{"  "}
-            <OverlayTrigger placement="bottom" trigger="hover"
+            <OverlayTrigger placement="top" trigger="hover"
                           overlay={<Tooltip placement="bottom" className="in">
                             <RecommendationTransparency criteriaMatched={props.criteriaMatched} />
                           </Tooltip>}>
@@ -85,7 +85,7 @@ const UserCard = (props) => {
           <CountryFlag country={props.country}/>
           <span>{" "}</span>
           <OverlayTrigger placement="bottom" trigger="hover"
-                          overlay={<Tooltip placement="top" className="in">Click to go to profile, wait for
+                          overlay={<Tooltip placement="bottom" className="in">Click to go to profile, wait for
                             preview</Tooltip>}>
             <Link to={`/admin/${props.mentorMode ? "mentors" : "mentees"}/${props._id}${props.matching ? '?from=matching' : ''}`} style={{
               textDecoration: "underline", color: "blue",

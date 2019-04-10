@@ -149,7 +149,6 @@ const createSendBirdChat = async (mentor, mentee) => {
   });
 };
 
-
 const cancelMentoringRelationship = async (relationshipId) => {
   const rel = await Relationship.findById(relationshipId);
   if(!rel) return null;
@@ -161,5 +160,11 @@ const removeMentorFromBlacklist = async (menteeId, mentorId) => {
   return Mentee.findByIdAndUpdate(menteeId, {$pull: {mentorBlackList: mentorId}}, {new: true}).populate({ path: 'relationship', populate: { path: 'mentor' }}).populate({path: 'mentorBlackList', populate: { path: 'mentor' }}).exec().then(p => { return p});
 };
 
+const toggleMentorAdmin = async (mentorId, adminValue) => {
+  return Mentor.findByIdAndUpdate(mentorId, {admin: adminValue}, {new: true}).populate({ path: 'relationship', populate: { path: 'mentee' }}).exec().then(p => { return p});
+};
 
-module.exports = { changeUserStatus, matchingMentorRecommendations, createMatch, cancelMentoringRelationship, removeMentorFromBlacklist};
+
+
+
+module.exports = { toggleMentorAdmin, changeUserStatus, matchingMentorRecommendations, createMatch, cancelMentoringRelationship, removeMentorFromBlacklist};

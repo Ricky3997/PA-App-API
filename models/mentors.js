@@ -3,6 +3,8 @@ const Schema = mongoose.Schema;
 
 const Mentor = mongoose.model('Mentor', new mongoose.Schema({
   _id: Schema.Types.ObjectId,
+  admin: String,
+
   university: String,
   subject: String,
   level: String,

@@ -12,7 +12,6 @@ const User = mongoose.model('User', new mongoose.Schema({
     unique: true,
     required: true
   },
-  admin: String,
   onboarded: Boolean,
   signedUpOn: Date,
   status: String,
