@@ -30,8 +30,12 @@ const initDb = (callback) => {
 
     // if (!config.PROD_MODE){
       await clearDb();
-      await loadAdmin();
-      await loadRapha();
+      await loadRLB();
+      [
+        {name: 'Raphael', surname: 'Eder', email: 'raphael.eder@projectaccess.org'},
+        {name: 'Emil', surname: 'Bender Lassen', email: 'emil.lassen@projectaccess.org'},
+        {name: 'Anna', surname: 'Gross', email: 'anna.gross@projectaccess.org'},
+      ].forEach(await loadAdmin);
       await loadDummyMentors();
       await loadDummyMentees();
     // }
@@ -76,14 +80,14 @@ randomUser = () => {
   }
 };
 
-const loadRapha = async() => {
-  const id = mongoose.Types.ObjectId('4edd40c86762e0fb12000009');
+const loadAdmin = async({name, surname, email}) => {
+  const id = new mongoose.Types.ObjectId();
   const userProfile = {
     _id: id,
-    firstName: "Raphael",
-    lastName: "Eder",
+    firstName: name,
+    lastName: surname,
     type: "mentor",
-    email: "raphael.eder@projectaccess.org",
+    email: email,
     emailConfirmed: true,
     onboarded: true,
     mentorProfile: id,
@@ -100,8 +104,8 @@ const loadRapha = async() => {
     gender: "Male",
     year: "2",
     area: "Natural Sciences",
-    firstName: "Raphael",
-    lastName: "Eder",
+    firstName: name,
+    lastName: surname,
     university: "LSE",
     subject: "Economics",
     city: "Milano",
@@ -123,7 +127,6 @@ const loadRapha = async() => {
     notes: 'Here are some notes'
   };
   await MentorService.registerNew(id, mentorProfile);
-  //await MenteeService.registerNew(id, menteeProfile);
   await request({
     method: 'post',
     body: {
@@ -153,7 +156,7 @@ const loadDummyMentees = async () => {
     await MenteeService.registerNew(res.user._id.toString(), d);
   });
 };
-const loadAdmin = async () => {
+const loadRLB = async () => {
   const id = mongoose.Types.ObjectId('4edd40c86762e0fb12000003');
   const userProfile = {
     _id: id,

@@ -10,55 +10,35 @@
         "logo": "http://bbms.soc.srcf.net/wp-content/uploads/2015/10/university-of-cambridge-logo.png"
       },
       {
-        "name": "Oxford",
-        "logo": "https://static.ivanti.com/sites/marketing/media/images/logos/customers-color/logo-university-oxford.png"
-      },
-      {
-        "name": "KCL",
-        "logo": "http://www.serbiancityclub.org/meta-content/uploads/2017/06/kcllogo.gif"
-      },
-      {
-        "name": "Warwick",
-        "logo": "https://s3-eu-west-1.amazonaws.com/media.newmd.catapult/wp-content/uploads/2018/07/26161052/university-of-warwick-logo.png"
-      },
-      {
-        "name": "LSE",
-        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/London_school_of_economics_logo_with_name.svg/2000px-London_school_of_economics_logo_with_name.svg.png"
+        "name": "Durham",
+        "logo": "http://topas.dur.ac.uk/topaswiki/Durham-University.png"
       },
       {
         "name": "Imperial",
         "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/3/32/Logo_for_Imperial_College_London.svg/1280px-Logo_for_Imperial_College_London.svg.png"
       },
       {
-        "name": "UCL",
-        "logo": "https://upload.wikimedia.org/wikipedia/sco/thumb/d/d1/University_College_London_logo.svg/1280px-University_College_London_logo.svg.png"
+        "name": "KCL",
+        "logo": "http://www.serbiancityclub.org/meta-content/uploads/2017/06/kcllogo.gif"
       },
       {
-        "name": "Durham",
-        "logo": "http://topas.dur.ac.uk/topaswiki/Durham-University.png"
+        "name": "LSE",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/London_school_of_economics_logo_with_name.svg/2000px-London_school_of_economics_logo_with_name.svg.png"
+      },
+      {
+        "name": "Oxford",
+        "logo": "https://static.ivanti.com/sites/marketing/media/images/logos/customers-color/logo-university-oxford.png"
+      },
+      {
+        "name": "Warwick",
+        "logo": "https://s3-eu-west-1.amazonaws.com/media.newmd.catapult/wp-content/uploads/2018/07/26161052/university-of-warwick-logo.png"
+      },
+      {
+        "name": "UCL",
+        "logo": "https://upload.wikimedia.org/wikipedia/sco/thumb/d/d1/University_College_London_logo.svg/1280px-University_College_London_logo.svg.png"
       }
     ],
     "US": [
-      {
-        "name": "Columbia",
-        "logo": "https://ccit.college.columbia.edu/sites/all/libraries/college_style/logos/college/web/college_p295c_rgb.png"
-      },
-      {
-        "name": "MIT",
-        "logo": "http://pluspng.com/img-png/logo-mit-png--1023.png"
-      },
-      {
-        "name": "Dartmouth",
-        "logo": "https://pngimage.net/wp-content/uploads/2018/05/dartmouth-college-logo-png-6.png"
-      },
-      {
-        "name": "UCLA",
-        "logo": "https://upload.wikimedia.org/wikipedia/commons/9/9d/University_of_California%2C_Los_Angeles_logo.png"
-      },
-      {
-        "name": "Stanford",
-        "logo": "https://pngimage.net/wp-content/uploads/2018/06/stanford-university-logo-png-5.png"
-      },
       {
         "name": "Berkley",
         "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/University_of_California%2C_Berkeley_logo.svg/1280px-University_of_California%2C_Berkeley_logo.svg.png"
@@ -68,20 +48,40 @@
         "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Caltech_Logo.svg/1280px-Caltech_Logo.svg.png"
       },
       {
-        "name": "Penn",
-        "logo": "http://www.stickpng.com/assets/images/5842f804a6515b1e0ad75b29.png"
+        "name": "Columbia",
+        "logo": "https://ccit.college.columbia.edu/sites/all/libraries/college_style/logos/college/web/college_p295c_rgb.png"
+      },
+      {
+        "name": "Cornell",
+        "logo": "https://www.logolynx.com/images/logolynx/f9/f96913ac6847ebd910d25938321c87c8.png"
+      },
+      {
+        "name": "Dartmouth",
+        "logo": "https://pngimage.net/wp-content/uploads/2018/05/dartmouth-college-logo-png-6.png"
       },
       {
         "name": "Harvard",
         "logo": "https://www.mooxye.com/blog/wp-content/uploads/2018/07/harvard_university-logo-1-1.png"
       },
       {
+        "name": "MIT",
+        "logo": "http://pluspng.com/img-png/logo-mit-png--1023.png"
+      },
+      {
+        "name": "Penn",
+        "logo": "http://www.stickpng.com/assets/images/5842f804a6515b1e0ad75b29.png"
+      },
+      {
         "name": "Princeton",
         "logo": "http://pluspng.com/img-png/princeton-university-logo-vector-png-file-princeton-logo-svg-800.png"
       },
       {
-        "name": "Cornell",
-        "logo": "https://www.logolynx.com/images/logolynx/f9/f96913ac6847ebd910d25938321c87c8.png"
+        "name": "Stanford",
+        "logo": "https://pngimage.net/wp-content/uploads/2018/06/stanford-university-logo-png-5.png"
+      },
+      {
+        "name": "UCLA",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/9/9d/University_of_California%2C_Los_Angeles_logo.png"
       }
     ]
   },

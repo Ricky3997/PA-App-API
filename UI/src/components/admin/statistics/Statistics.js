@@ -14,14 +14,22 @@ import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 import CourseBarChart from "./CourseBarChart";
 import ReferralBarChart from "./ReferralBarChart";
+import UniversityPicker from "../../various/forms/UniversityPicker";
+import * as _ from 'lodash'
 
 const Statistics = ({ mentors, mentees, user, programFilter }) => {
 
-  let { admin } = user;
+  let { admin } = user.mentorProfile;
+
+  const filterMentorsByCampus = (campus) => {
+    if(campus.length > 0) return mentors.filter(m => _.some(campus, c => c === m.university));
+    else return mentors;
+  };
 
   return (<Formik
       initialValues={{
-        range: { from: new Moment().subtract(5, "d").toDate(), to: new Moment().toDate() }
+        range: { from: new Moment().subtract(5, "d").toDate(), to: new Moment().toDate() },
+        campus: []
       }}
       onSubmit={(values, { setSubmitting }) => {
         setSubmitting(false);
@@ -38,7 +46,7 @@ const Statistics = ({ mentors, mentees, user, programFilter }) => {
                   <span><CountryFlag country={programFilter}/></span>} program
                 </h3>
               </Col>
-              <Col md={{offset:4, span:2}}>
+              <Col md={{ offset: 4, span: 2 }}>
                 <Button onClick={window.print} block>
                   <Icon name="fas fa-file-text"/> Export to PDF
                 </Button>
@@ -46,64 +54,78 @@ const Statistics = ({ mentors, mentees, user, programFilter }) => {
               </Col>
             </Row>
             <Row>
-              <Col style={{backgroundColor: 'rgba(54,216,255,0.26)', borderRadius: '20px'}}>
-                <h3>
-                  Mentors
-                </h3>
-                <span style={{ fontWeight: "bold", fontSize: "30px" }}>
-              {mentors.length}
+              <Col style={{ backgroundColor: "rgba(54,216,255,0.26)", borderRadius: "20px" }}>
+                <Row>
+                  <Col md={4}>
+                  <h3>
+                    Mentors
+                  </h3>
+                  </Col>
+                  <Col>
+                    <Field name="campus" render={({ field, form: { touched, errors } }) =>
+                      <UniversityPicker overrideLabel={'Filter by campus'} multiple
+                        setFieldValue={setFieldValue} field={field} touched={touched} errors={errors}/>}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <span style={{ fontWeight: "bold", fontSize: "30px" }}>
+              {filterMentorsByCampus(values.campus).length}
             </span>
 
-                <span>
+                    <span>
               in total,
             </span>
-                <span style={{ fontWeight: "bold", fontSize: "30px" }}>
+                    <span style={{ fontWeight: "bold", fontSize: "30px" }}>
             <span style={{ color: "#289b00" }}>
-              +{mentors.filter(m => Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays() <= 7).length}
+              +{filterMentorsByCampus(values.campus).filter(m => Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays() <= 7).length}
             </span>
           </span>
-                <span>
+                    <span>
             {" mentors in the last week"}
           </span>
 
+                  </Col>
+                </Row>
                 <Row>
                   <Col>
                     <h5>
                       Gender
                     </h5>
-                    <GenderDoughnut users={mentors}/>
+                    <GenderDoughnut users={filterMentorsByCampus(values.campus)}/>
                   </Col>
                   <Col>
                     <h5>
                       {admin === "superadmin" && programFilter === "Global" ? "Country of origin" : "City of origin"}
                     </h5>
-                    {admin === "superadmin" && programFilter === "Global" ? <CountryDoughnut users={mentors}/> :
-                      <CityDoughnut users={mentors}/>}
+                    {admin === "superadmin" && programFilter === "Global" ? <CountryDoughnut users={filterMentorsByCampus(values.campus)}/> :
+                      <CityDoughnut users={filterMentorsByCampus(values.campus)}/>}
                   </Col>
 
                   <Col>
                     <h5>
                       University of study
                     </h5>
-                    <UniversityBarChart mentors={mentors}/>
+                    <UniversityBarChart mentors={filterMentorsByCampus(values.campus)}/>
                   </Col>
 
                   <Col>
                     <h5>
                       Macro area of study
                     </h5>
-                    <CourseBarChart mentors={mentors}/>
+                    <CourseBarChart mentors={filterMentorsByCampus(values.campus)}/>
                   </Col>
 
                   <Col>
                     <h5>
                       Referral source
                     </h5>
-                    <ReferralBarChart users={mentors}/>
+                    <ReferralBarChart users={filterMentorsByCampus(values.campus)}/>
                   </Col>
                 </Row>
               </Col>
-              <Col style={{backgroundColor: 'rgba(139,255,160,0.24)', borderRadius: '20px'}}>
+              <Col style={{ backgroundColor: "rgba(139,255,160,0.24)", borderRadius: "20px" }}>
                 <h3>
                   Mentees
                 </h3>
@@ -192,8 +214,7 @@ const Statistics = ({ mentors, mentees, user, programFilter }) => {
                 </Row>
               </Col>
             </Row>
-            <h3>Ratio of mentees/mentors</h3>
-            <Row style={{ marginTop: "-100px", marginLeft: "-40px" }}>
+            <Row>
               <Col>
                 <DataVisHeatMap mentors={mentors} mentees={mentees}/>
               </Col>
