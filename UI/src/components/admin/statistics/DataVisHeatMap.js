@@ -14,11 +14,14 @@ const DataVisHeatMap = ({ mentors, mentees }) => {
   //TODO LOGOS ON AXES
   //TODO COLOR SCALE
 
-  return <span><Formik
-    initialValues={{
+  const initialVals = {
       universities: [...defaults.universities.UK, ...defaults.universities.US].map(u => u.name),
       courses:  _.uniq([...mentors.map(m => m.subject), ...mentees.flatMap(m => m.coursesApplyingFor)])
-    }}
+    };
+
+
+  return <span><Formik
+    initialValues={initialVals}
     onSubmit={(values, { setSubmitting }) => {
       setSubmitting(false);
     }}
@@ -70,11 +73,11 @@ const DataVisHeatMap = ({ mentors, mentees }) => {
 
         <div>
           <Row>
-            <Col>
+            <Col md={6}>
               <h3>Ratio of mentees/mentors</h3>
             </Col>
-            <Col md={{offset:5}}>
-              <Button>Reset</Button>
+            <Col md={{offset:5, span: 1}}>
+              <Button variant={'light'} block onClick={() => Object.keys(initialVals).forEach(a => setFieldValue(a, initialVals[a]))}>Reset</Button>
             </Col>
           </Row>
           <Row>

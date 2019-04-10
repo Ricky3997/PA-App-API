@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, Card, OverlayTrigger, ProgressBar, Tooltip } from "react-bootstrap";
+import { Badge, Card, Image, OverlayTrigger, ProgressBar, Tooltip } from "react-bootstrap";
 import ConfirmMatchButton from "./ConfirmMatchButton";
 import ProfileIcon from "../../various/ProfileIcon";
 import connect from "react-redux/es/connect/connect";
@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import HoverForDetails from "../matching/HoverForDetails";
 import CountryFlag from "../../various/CountryFlag";
 import RecommendationTransparency from "../matching/RecommendationTransparency";
+import defaults from "../../../defaults/defaults";
 
 const UserCard = (props) => {
 
@@ -82,22 +83,12 @@ const UserCard = (props) => {
       </Card.Header>
       <Card.Body>
         <Card.Title>
-          <CountryFlag country={props.country}/>
-          <span>{" "}</span>
-          <OverlayTrigger placement="bottom" trigger="hover"
-                          overlay={<Tooltip placement="bottom" className="in">Click to go to profile, wait for
-                            preview</Tooltip>}>
-            <Link to={`/admin/${props.mentorMode ? "mentors" : "mentees"}/${props._id}${props.matching ? '?from=matching' : ''}`} style={{
-              textDecoration: "underline", color: "blue",
-              cursor: "pointer"
-            }}>
-              {`${props.firstName} ${props.lastName}`}
-            </Link>
-          </OverlayTrigger>
-
+          <ConnectedHoverForDetails/>
         </Card.Title>
 
-        <ConnectedHoverForDetails/>
+        {props.mentorMode ? <Image
+          src={[...defaults.universities.US, ...defaults.universities.UK].filter(u => u.name === props.university)[0].logo}
+          style={{ maxHeight: "40px", maxWidth: "100px" }}/> : null}
 
         {props.mentorMode ? MenteeCapacityBar(props.relationship.length, props.maxNumberOfMentees) : null}
 
