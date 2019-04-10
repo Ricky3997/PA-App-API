@@ -12,7 +12,7 @@ import store from "./store/configureStore";
 import * as ReactGA from "react-ga";
 
 
-const ReduxApp = connect(({user, app}) => {
+const ReduxApp = connect(({ user, app }) => {
   return { user, app };
 }, dispatch => {
   return {
@@ -22,7 +22,7 @@ const ReduxApp = connect(({user, app}) => {
   };
 })(App);
 
-ReactGA.initialize('UA-137517000-1');
+ReactGA.initialize("UA-137517000-1");
 ReactDOM.render(
   <Provider store={store}>
     <Router>

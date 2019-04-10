@@ -72,14 +72,14 @@ const RelationshipAdminDetail = (props) => {
           <FeatureNotReadyYetOnHover>
             <h4>Upcoming meetings scheduled</h4>
             <CardDeck>
-              <Card style={{width: '200px'}}>
+              <Card style={{ width: "200px" }}>
                 <Card.Header>
                   <span>
                     <Icon name="fas fa-calendar"/> Friday 9th July
                   </span>
                 </Card.Header>
               </Card>
-              <Card style={{width: '200px'}}>
+              <Card style={{ width: "200px" }}>
                 <Card.Header>
                   <span>
                     <Icon name="fas fa-calendar"/> Friday 23rd July

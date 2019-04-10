@@ -25,7 +25,7 @@ const AcceptMenteeBox = (props) => {
 
 
   return (
-    <Container style={{marginBottom: '5px '}}>
+    <Container style={{ marginBottom: "5px " }}>
       <Row>
         <Col md={props.firstMatch ? 2 : 4}>
           <ProfileIcon pictureUrl={props.mentee.pictureUrl} size={"l"} mentorMode/>
@@ -33,17 +33,17 @@ const AcceptMenteeBox = (props) => {
         <Col md={props.firstMatch ? 10 : 8}>
           <Row>
             <Col>
-            <h6>
-              <Link to={`mentee/${props.mentee._id}`}>{props.mentee.firstName}</Link>
-              , studies at <b>{props.mentee.school}</b> in {props.mentee.city}
-            </h6>
+              <h6>
+                <Link to={`mentee/${props.mentee._id}`}>{props.mentee.firstName}</Link>
+                , studies at <b>{props.mentee.school}</b> in {props.mentee.city}
+              </h6>
             </Col>
           </Row>
           <Row>
-            <Col md={{span: props.firstMatch ? 7 : 12}}>
-            <LinkContainer to={`/mentee/${props.mentee._id}`}>
-              <Button block><Icon name="fas fa-user"/> See their profile</Button>
-            </LinkContainer>
+            <Col md={{ span: props.firstMatch ? 7 : 12 }}>
+              <LinkContainer to={`/mentee/${props.mentee._id}`}>
+                <Button block><Icon name="fas fa-user"/> See their profile</Button>
+              </LinkContainer>
             </Col>
           </Row>
         </Col>

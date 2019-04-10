@@ -2,20 +2,22 @@ import {
   ADD_MESSAGES_TO_CHAT,
   ADD_MESSAGING_CHAT,
   ADD_ONBOARDING_PROPERTIES,
-  CHANGE_STAGE, CLEAR_CHATS,
+  CHANGE_STAGE,
+  CLEAR_CHATS,
   REMOVE_PICTURE_TO_CROP,
   REMOVE_USER,
   RESET_APP,
   SENT_LOGIN_EMAIL,
   SET_ACTIVE_CHAT,
   SET_ACTIVE_JOURNEY_MODULE,
+  SET_GETTING_STARTED_PROGRESS,
   SET_MATCHING_ID,
   SET_MENTEE_APPROVAL_PROPERTIES,
   SET_MENTEES,
   SET_MENTOR_APPROVAL_PROPERTIES,
-  SET_GETTING_STARTED_PROGRESS,
   SET_MENTOR_RECOMMENDATIONS,
   SET_MENTORS,
+  SET_PROGRAM_FILTER,
   SET_PUBLIC_PROFILE,
   SET_RELATIONSHIPS,
   SHOW_MATCHING_CONFIRMATION,
@@ -24,21 +26,23 @@ import {
   SWITCH_MATCHING_MODE,
   TOGGLE_ADMIN_FETCHING,
   TOGGLE_ADMIN_MODAL,
+  TOGGLE_APPROVAL_MODAL,
   TOGGLE_DASHBOARD_CONFIRMATION,
   TOGGLE_MENTEE_HOME_MODAL,
   TOGGLE_MENTOR_CONFIRM_DECISION,
-  TOGGLE_APPROVAL_MODAL,
   TOGGLE_MESSAGING_CONNECTED,
   TOGGLE_PICTURE_PICKER,
   TOGGLE_REGISTERING,
   TOGGLE_SHOW_MATCHING_DETAILS_MODAL,
+  TOGGLE_TRACKING,
   UNSET_LOGIN_EMAIL,
   UNSET_MATCHING_CONFIRMATION,
   UNSET_PUBLIC_PROFILE,
-  UPDATE_USER, TOGGLE_TRACKING, SET_PROGRAM_FILTER, UPDATE_LAST_USER_REFRESH
+  UPDATE_LAST_USER_REFRESH,
+  UPDATE_USER
 } from "../actions/actionTypes";
 import { combineReducers } from "redux";
-import {getInitialGettingStartedProgress} from "../actions/helpers";
+import { getInitialGettingStartedProgress } from "../actions/helpers";
 
 function user(state = JSON.parse(window.localStorage.getItem("user")) || null, action) {
   switch (action.type) {
@@ -54,7 +58,7 @@ function user(state = JSON.parse(window.localStorage.getItem("user")) || null, a
 
 function app(state = {
   trackingOn: false,
-  lastUserRefresh: new Date(parseInt(localStorage.getItem('lastUserUpdate')) || new Date().getTime())
+  lastUserRefresh: new Date(parseInt(localStorage.getItem("lastUserUpdate")) || new Date().getTime())
 }, action) {
   switch (action.type) {
     case (TOGGLE_TRACKING):
@@ -134,7 +138,7 @@ function admin(state = {
   relationships: [],
   mentees: [],
   showModal: false,
-  programFilter: 'Global'
+  programFilter: "Global"
 }, action) {
   switch (action.type) {
     case SET_RELATIONSHIPS:
@@ -159,7 +163,7 @@ function menteeHome(state = {
   confirmCommittment: false,
   ethnicBackground: "",
   fromThreeLargestCity: 1,
-  hobbiesAndInterests: [''],
+  hobbiesAndInterests: [""],
   referral: [],
   typeOfHighSchool: "",
   yearBorn: null,
@@ -178,7 +182,7 @@ function menteeHome(state = {
 
 function gettingStartedSteps(state = {
   progress: getInitialGettingStartedProgress(),
-  showModal: false,
+  showModal: false
 }, action) {
   switch (action.type) {
     case SET_GETTING_STARTED_PROGRESS:

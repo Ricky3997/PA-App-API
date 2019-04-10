@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Button, Card, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import MentorAdminProfile from "../utils/MentorAdminProfile";
-import { Icon } from "react-fa";
 import MenteeAdminProfile from "../utils/MenteeAdminProfile";
 import CountryFlag from "../../various/CountryFlag";
 import { Link } from "react-router-dom";
@@ -23,10 +22,12 @@ class HoverForDetails extends Component {
           <OverlayTrigger placement="top" trigger="hover"
                           overlay={<Tooltip placement="top" className="in">Click to go to profile, wait for
                             preview</Tooltip>}>
-            <Link to={`/admin/${this.props.mentorMode ? "mentors" : "mentees"}/${this.props[this.props.mentorMode ? "mentor" : "mentee"]._id}${this.props.matching ? '?from=matching' : ''}`} style={{
-              textDecoration: "underline", color: "blue",
-              cursor: "pointer"
-            }}>
+            <Link
+              to={`/admin/${this.props.mentorMode ? "mentors" : "mentees"}/${this.props[this.props.mentorMode ? "mentor" : "mentee"]._id}${this.props.matching ? "?from=matching" : ""}`}
+              style={{
+                textDecoration: "underline", color: "blue",
+                cursor: "pointer"
+              }}>
               {`${this.props[this.props.mentorMode ? "mentor" : "mentee"].firstName} ${this.props[this.props.mentorMode ? "mentor" : "mentee"].lastName}`}
             </Link>
           </OverlayTrigger>

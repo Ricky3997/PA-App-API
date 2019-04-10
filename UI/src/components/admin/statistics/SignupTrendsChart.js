@@ -7,9 +7,9 @@ const SignupTrendsChart = ({ mentors, mentees, from, to }) => {
   const range = Math.ceil(Moment.duration(Moment(to).diff(Moment(from))).asDays()) + 1;
   let labels, menteeData, mentorData;
   // if (range <= 7) {
-    labels = [...Array(range).keys()].reverse().map(d => new Moment(to).subtract(d, "d").format("MMM DD"));
-    menteeData = [...Array(range).keys()].reverse().map(d => mentees.filter(m => new Moment(m.latestStatusChange).isBetween(1262304000, new Moment(to).subtract(d, 'd'))).length);
-    mentorData = [...Array(range).keys()].reverse().map(d => mentors.filter(m => new Moment(m.latestStatusChange).isBetween(1262304000, new Moment(to).subtract(d, 'd'))).length);
+  labels = [...Array(range).keys()].reverse().map(d => new Moment(to).subtract(d, "d").format("MMM DD"));
+  menteeData = [...Array(range).keys()].reverse().map(d => mentees.filter(m => new Moment(m.latestStatusChange).isBetween(1262304000, new Moment(to).subtract(d, "d"))).length);
+  mentorData = [...Array(range).keys()].reverse().map(d => mentors.filter(m => new Moment(m.latestStatusChange).isBetween(1262304000, new Moment(to).subtract(d, "d"))).length);
   // } else if (range <= 35) {
   //   labels = [...Array(Math.ceil(range / 7)).keys()].reverse().map(d => new Moment(to).subtract(d, "w").format("MMM DD")).map(d => `Week of ${d}`);
   //   menteeData = [...Array(Math.ceil(range / 7)).keys()].reverse().map(d => mentees.filter(m => new Moment(m.latestStatusChange).isBetween(1262304000, new Moment(to).subtract(d, 'w'))).length);

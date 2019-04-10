@@ -12,7 +12,7 @@ const MentoringHome = (props) => {
     toRender = <Button onClick={() => props.history.push("/onboard")}>
       Looks like you are not onboarded, go finish
     </Button>;
-  } else if  (props.user.mentorProfile.status === "rejected") { //TODO
+  } else if (props.user.mentorProfile.status === "rejected") { //TODO
     toRender = <div>
       Unfortunately you have been rejected, and this was indicated as the reason:
       <blockquote>
@@ -40,7 +40,7 @@ const MentoringHome = (props) => {
           <Row>
             <h4>Your Mentees <span role="img" aria-labelledby={"angel emoji"}>😇</span></h4>
             {_.get(props, "user.mentorProfile.relationship.length") > 0 ?
-              props.user.mentorProfile.relationship.sort((a,b) => a.status === 'awaitingConfirmation' ? -1 : 1).map(r => r.status === "awaitingConfirmation" ?
+              props.user.mentorProfile.relationship.sort((a, b) => a.status === "awaitingConfirmation" ? -1 : 1).map(r => r.status === "awaitingConfirmation" ?
                 <AcceptMenteeBox {...r} /> : <MenteeTile key={r._id} {...r} />) :
               <div>
                 <div>{toRender}</div>

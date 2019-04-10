@@ -8,7 +8,7 @@ import * as ReactGA from "react-ga";
 class Settings extends Component {
 
   componentDidMount() {
-    ReactGA.pageview('/settings')
+    ReactGA.pageview("/settings");
   }
 
   render() {

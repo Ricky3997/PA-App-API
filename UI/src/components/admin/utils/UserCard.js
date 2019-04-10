@@ -9,9 +9,7 @@ import {
   toggleMatchingDetailsModal,
   unsetMatchingConfirmation
 } from "../../../actions/actionCreator";
-import { Link } from "react-router-dom";
 import HoverForDetails from "../matching/HoverForDetails";
-import CountryFlag from "../../various/CountryFlag";
 import RecommendationTransparency from "../matching/RecommendationTransparency";
 import defaults from "../../../defaults/defaults";
 
@@ -69,9 +67,9 @@ const UserCard = (props) => {
           <Badge variant={"info"}>pending match</Badge> : null}
 
         {props.matching && props.mentorMode ? <span>{"  "}
-            <OverlayTrigger placement="top" trigger="hover"
+          <OverlayTrigger placement="top" trigger="hover"
                           overlay={<Tooltip placement="bottom" className="in">
-                            <RecommendationTransparency criteriaMatched={props.criteriaMatched} />
+                            <RecommendationTransparency criteriaMatched={props.criteriaMatched}/>
                           </Tooltip>}>
 
         <Badge style={{ fontSize: "20px" }}

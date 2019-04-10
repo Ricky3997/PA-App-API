@@ -3,12 +3,7 @@ import { Container, Tab, Tabs } from "react-bootstrap";
 import Dashboard from "./dashboard/Dashboard";
 import { Route } from "react-router-dom";
 import Matching from "./matching/Matching";
-import {
-  cancelRelationship,
-  changeMenteeBeingMatched,
-  makeMentorAdmin,
-  toggleDashboardConfirmation
-} from "../../actions/actionCreator";
+import { cancelRelationship, changeMenteeBeingMatched, toggleDashboardConfirmation } from "../../actions/actionCreator";
 import connect from "react-redux/es/connect/connect";
 import { toast } from "react-toastify";
 import BadgePendingNumber from "./utils/BadgePendingNumber";
@@ -17,8 +12,8 @@ import Database from "./utils/Database";
 import { Icon } from "react-fa";
 import { Select } from "antd";
 import CountryFlag from "../various/CountryFlag";
-import defaults from '../../defaults/defaults';
-import * as _ from 'lodash';
+import defaults from "../../defaults/defaults";
+import * as _ from "lodash";
 
 class Admin extends Component {
   constructor(props) {
@@ -43,8 +38,8 @@ class Admin extends Component {
   }
 
   changeTab(key) {
-    if(key === 'country') return;
-    if (key === "refresh") this.refreshData(this.props.match.params.section, true)
+    if (key === "country") return;
+    if (key === "refresh") this.refreshData(this.props.match.params.section, true);
     else {
       this.refreshData(key, false);
       this.props.history.push(`/admin/${key}`);
@@ -62,16 +57,16 @@ class Admin extends Component {
 
   render() {
     const { section } = this.props.match.params;
-    let {mentors, mentees, relationships, programFilter} = this.props.admin;
+    let { mentors, mentees, relationships, programFilter } = this.props.admin;
 
 
-    if(programFilter !== 'Global'){
+    if (programFilter !== "Global") {
       mentors = mentors.filter(m => m.country === programFilter);
       mentees = mentees.filter(m => m.country === programFilter);
       relationships = relationships.filter(m => m.country === programFilter);
     }
 
-    return _.get(this.props,'user.mentorProfile.admin') ?
+    return _.get(this.props, "user.mentorProfile.admin") ?
       <Container fluid>
         <Tabs style={{ marginBottom: "10px" }}
               activeKey={this.validateTab(section)}
@@ -127,18 +122,20 @@ class Admin extends Component {
             })(Statistics)}/>
           </Tab>
           <Tab eventKey="refresh" disabled={this.props.fetching} title={<Icon name={"fas fa-refresh"}/>}/>
-          {_.get(this.props, 'user.mentorProfile.admin') === 'superadmin' ?<Tab eventKey="country" title={<Select showSearch
-                                                 mode={"default"}
-                                                 size={"small"}
-                                                 style={{ width: "150px" }}
-                                                 value={this.props.admin.programFilter}
-                                                 onChange={this.props.setProgramFilter}
-                                                 tokenSeparators={[",", ":"]}>
+          {_.get(this.props, "user.mentorProfile.admin") === "superadmin" ?
+            <Tab eventKey="country" title={<Select showSearch
+                                                   mode={"default"}
+                                                   size={"small"}
+                                                   style={{ width: "150px" }}
+                                                   value={this.props.admin.programFilter}
+                                                   onChange={this.props.setProgramFilter}
+                                                   tokenSeparators={[",", ":"]}>
 
-            <Select.Option value={'Global'}>🌍 Global</Select.Option>
-            {defaults.countries_operating.map(c => <Select.Option value={c}><span><CountryFlag country={c}/>{' '}{c}</span></Select.Option>)}
+              <Select.Option value={"Global"}>🌍 Global</Select.Option>
+              {defaults.countries_operating.map(c => <Select.Option value={c}><span><CountryFlag
+                country={c}/>{" "}{c}</span></Select.Option>)}
 
-          </Select>}/> : null}
+            </Select>}/> : null}
         </Tabs>
       </Container>
       : <div>Not Logged In</div>;

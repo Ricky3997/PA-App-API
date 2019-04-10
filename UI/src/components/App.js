@@ -22,7 +22,8 @@ import {
   addOnboardingProperties,
   changeMenteeStatus,
   changeMentorStatus,
-  changeStage, clearChats,
+  changeStage,
+  clearChats,
   confirmEmailAddress,
   fetchMentees,
   fetchMentors,
@@ -36,7 +37,8 @@ import {
   saveSettings,
   sendEmailConfirmationAgain,
   sendLoginEmail,
-  setActiveChat, setProgramFilter,
+  setActiveChat,
+  setProgramFilter,
   storePictureCropped,
   storePictureToCrop,
   toggleMessagingConnected,
@@ -56,11 +58,11 @@ import moment from "moment";
 class App extends Component {
 
   componentDidMount() {
-    if(!this.props.app.trackingOn && this.props.user) ReactGA.set({ userId: this.props.user._id });
+    if (!this.props.app.trackingOn && this.props.user) ReactGA.set({ userId: this.props.user._id });
     this.props.history.listen((location) => {
       ReactGA.pageview(location.pathname);
     });
-    if(moment().diff(moment(this.props.app.lastUserRefresh), 'm') >= 1) this.props.refreshUser();
+    if (moment().diff(moment(this.props.app.lastUserRefresh), "m") >= 1) this.props.refreshUser();
 
   }
 
@@ -144,7 +146,7 @@ class App extends Component {
                 addMessagingChat: (chat) => dispatch(addMessagingChat(chat)),
                 addMessagesToChat: (chatId, messages) => dispatch(addMessagesToChat(chatId, messages)),
                 setActiveChatId: (id) => dispatch(setActiveChat(id)),
-                clearChats: (id) => dispatch(clearChats(id)),
+                clearChats: (id) => dispatch(clearChats(id))
               };
             })(Messages)}/>
 
@@ -164,12 +166,12 @@ class App extends Component {
                 fetchMentors: () => dispatch(fetchMentors()),
                 fetchRelationships: () => dispatch(fetchRelationships()),
                 fetchMentees: () => dispatch(fetchMentees()),
-                setProgramFilter: (filter) => dispatch(setProgramFilter(filter)),
+                setProgramFilter: (filter) => dispatch(setProgramFilter(filter))
               };
             })(Admin)}/>
 
             <Route component={connect(({ user }) => {
-              return { user};
+              return { user };
             }, dispatch => {
               return {
                 refreshUser: () => dispatch(getUser())

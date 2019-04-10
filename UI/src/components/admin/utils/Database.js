@@ -12,9 +12,9 @@ import MenteeAdminProfile from "./MenteeAdminProfile";
 import UniversityPicker from "../../various/forms/UniversityPicker";
 import {
   adminChangeUserStatus,
-  toggleMentorAdmin,
   removeMentorFromBlacklist,
-  toggleAdminModal
+  toggleAdminModal,
+  toggleMentorAdmin
 } from "../../../actions/actionCreator";
 import NotFound from "../../various/NotFound";
 
@@ -41,7 +41,7 @@ class Database extends Component {
 
   render() {
 
-    const ConnectedMentorProfile = connect(({user, admin }) => {
+    const ConnectedMentorProfile = connect(({ user, admin }) => {
       return {
         user,
         beadcrumbs: true,

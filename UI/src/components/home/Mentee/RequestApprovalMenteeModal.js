@@ -80,7 +80,8 @@ const RequestApprovalMenteeModal = (props) => {
                 </Select>}/>
               </Col>
               <Col>
-                <h6>Are you from one of the 3 largest cities in {props.user.menteeProfile.country}?<CompulsoryAsterisk/></h6>
+                <h6>Are you from one of the 3 largest cities in {props.user.menteeProfile.country}?<CompulsoryAsterisk/>
+                </h6>
 
                 <Field name="fromThreeLargestCity" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                              size={"large"}
@@ -102,8 +103,9 @@ const RequestApprovalMenteeModal = (props) => {
 
             <Row>
               <Col>
-                <h6>What type of school is {props.user.menteeProfile.school}?<CompulsoryAsterisk/> <span aria-labelledby={"school"}
-                                                                                    role={"img"}>🏫</span></h6>
+                <h6>What type of school is {props.user.menteeProfile.school}?<CompulsoryAsterisk/> <span
+                  aria-labelledby={"school"}
+                  role={"img"}>🏫</span></h6>
 
                 <Field name="typeOfHighSchool" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                          size={"large"}
@@ -157,7 +159,8 @@ const RequestApprovalMenteeModal = (props) => {
                 </Select>}/>
               </Col>
               <Col>
-                <h6>What year were you born?<CompulsoryAsterisk/> <span aria-labelledby={"newborn"} role={"img"}>🐣</span></h6>
+                <h6>What year were you born?<CompulsoryAsterisk/> <span aria-labelledby={"newborn"}
+                                                                        role={"img"}>🐣</span></h6>
 
                 <Field name="yearBorn" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                  size={"large"}
@@ -204,8 +207,9 @@ const RequestApprovalMenteeModal = (props) => {
                 </Select>}/>
               </Col>
               <Col>
-                <h6>Who referred you to us? Because we’d like to send them a thank you<CompulsoryAsterisk/> <span aria-labelledby={"gift"}
-                                                                                             role={"img"}>🎁</span></h6>
+                <h6>Who referred you to us? Because we’d like to send them a thank you<CompulsoryAsterisk/> <span
+                  aria-labelledby={"gift"}
+                  role={"img"}>🎁</span></h6>
 
                 <Field name="referral" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                  mode={"multiple"}

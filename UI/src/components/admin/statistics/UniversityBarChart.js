@@ -1,18 +1,18 @@
 import React from "react";
 import { Bar } from "react-chartjs";
-import * as _ from 'lodash'
+import * as _ from "lodash";
 
 const UniversityBarChart = ({ mentors, mentees }) => {
 
   let unis = {};
-  if(mentors){
+  if (mentors) {
     _.uniq(mentors.map(u => u.university)).forEach(u => {
-      unis[u] = mentors.filter( m => m.university === u).length;
-    })
+      unis[u] = mentors.filter(m => m.university === u).length;
+    });
   } else {
     _.uniq(_.flatMap(mentees.map(u => u.unisApplyingFor))).forEach(u => {
-      unis[u] = mentees.filter( m => _.some(m.unisApplyingFor, i => i === u)).length;
-    })
+      unis[u] = mentees.filter(m => _.some(m.unisApplyingFor, i => i === u)).length;
+    });
   }
 
   return <Bar height={300} data={{
@@ -24,9 +24,10 @@ const UniversityBarChart = ({ mentors, mentees }) => {
       highlightFill: "rgba(229,48,36,0.75)",
       highlightStroke: "rgb(255,75,41)",
       borderWidth: 1,
-      label: 'University'
-    }] }}
-  />
+      label: "University"
+    }]
+  }}
+  />;
 };
 
 

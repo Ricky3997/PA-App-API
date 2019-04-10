@@ -130,7 +130,7 @@ const MenteeSettings = (props) => {
                     You requested approval to get a mentor
                   </h6>
                   <Button onClick={() => props.changeMenteeStatus("notYetRequested").then(r => {
-                    if(r.success) toast.success("Request withdrawn")
+                    if (r.success) toast.success("Request withdrawn");
                   })} variant='warning'>
                     Click here to withdraw your request
                   </Button>

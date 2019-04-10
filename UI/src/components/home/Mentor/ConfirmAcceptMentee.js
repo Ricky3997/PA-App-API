@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 const ConfirmAcceptMentee = (props) => {
   if (props.mentorHome.showConfirmDecision === `reject_${props.relationshipId}`) return <Row>
     <Col md={12}>
-    <h4>Are you really sure you can't help this mentee?</h4>
+      <h4>Are you really sure you can't help this mentee?</h4>
     </Col>
     <Col md={4}>
       <Button block variant='warning' onClick={() => props.toggleMentorConfirmDecision("")}>Cancel</Button>
@@ -18,7 +18,7 @@ const ConfirmAcceptMentee = (props) => {
   </Row>;
   else if (props.mentorHome.showConfirmDecision === `accept_${props.relationshipId}`) return <Row>
     <Col md={12}>
-    <h5>Do you confirm you can help this mentee?</h5>
+      <h5>Do you confirm you can help this mentee?</h5>
     </Col>
     <Col md={4}>
       <Button block variant='warning' onClick={() => props.toggleMentorConfirmDecision("")}>Cancel</Button>

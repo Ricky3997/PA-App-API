@@ -17,7 +17,7 @@ const MenteeProfileDetails = ({
   return (<div>
       <Row>
         <Col md={2}>
-      <ProfileIcon pictureUrl={pictureUrl} size='xl'/>
+          <ProfileIcon pictureUrl={pictureUrl} size='xl'/>
         </Col>
         <Col md={4}>
           <h1>
@@ -117,13 +117,13 @@ const MenteeProfileDetails = ({
           {unisApplyingFor.map(uni => <Image
             key={uni}
             src={[...defaults.universities.US, ...defaults.universities.UK].filter(u => u.name === uni)[0].logo}
-            style={{ maxHeight: "60px", maxWidth: "130px", marginLeft: '10px' }}/>)}
+            style={{ maxHeight: "60px", maxWidth: "130px", marginLeft: "10px" }}/>)}
         </Col>
       </Row>
 
-      <br />
+      <br/>
 
-      {user.type === "mentor" && _.some(_.get(user, "mentorProfile.relationship") || [], r => r.mentee._id === menteeId && r.status === 'confirmed') ?
+      {user.type === "mentor" && _.some(_.get(user, "mentorProfile.relationship") || [], r => r.mentee._id === menteeId && r.status === "confirmed") ?
         <Row>
           <Col>
             <LinkContainer to="/message">
@@ -136,12 +136,12 @@ const MenteeProfileDetails = ({
             </LinkContainer>
           </Col>
           <Col>
-              <FeatureNotReadyYetOnHover>
-                <LinkContainer to="/call">
+            <FeatureNotReadyYetOnHover>
+              <LinkContainer to="/call">
                 <Button block disabled>
                   <Icon name="fas fa-calendar"/> Schedule Call</Button>
-                </LinkContainer>
-              </FeatureNotReadyYetOnHover>
+              </LinkContainer>
+            </FeatureNotReadyYetOnHover>
           </Col>
         </Row> : null}
     </div>

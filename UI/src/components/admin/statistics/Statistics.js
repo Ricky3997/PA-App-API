@@ -15,14 +15,14 @@ import "react-day-picker/lib/style.css";
 import CourseBarChart from "./CourseBarChart";
 import ReferralBarChart from "./ReferralBarChart";
 import UniversityPicker from "../../various/forms/UniversityPicker";
-import * as _ from 'lodash'
+import * as _ from "lodash";
 
 const Statistics = ({ mentors, mentees, user, programFilter }) => {
 
   let { admin } = user.mentorProfile;
 
   const filterMentorsByCampus = (campus) => {
-    if(campus.length > 0) return mentors.filter(m => _.some(campus, c => c === m.university));
+    if (campus.length > 0) return mentors.filter(m => _.some(campus, c => c === m.university));
     else return mentors;
   };
 
@@ -57,14 +57,14 @@ const Statistics = ({ mentors, mentees, user, programFilter }) => {
               <Col style={{ backgroundColor: "rgba(54,216,255,0.26)", borderRadius: "20px" }}>
                 <Row>
                   <Col md={4}>
-                  <h3>
-                    Mentors
-                  </h3>
+                    <h3>
+                      Mentors
+                    </h3>
                   </Col>
                   <Col>
                     <Field name="campus" render={({ field, form: { touched, errors } }) =>
-                      <UniversityPicker overrideLabel={'Filter by campus'} multiple
-                        setFieldValue={setFieldValue} field={field} touched={touched} errors={errors}/>}
+                      <UniversityPicker overrideLabel={"Filter by campus"} multiple
+                                        setFieldValue={setFieldValue} field={field} touched={touched} errors={errors}/>}
                     />
                   </Col>
                 </Row>
@@ -99,7 +99,8 @@ const Statistics = ({ mentors, mentees, user, programFilter }) => {
                     <h5>
                       {admin === "superadmin" && programFilter === "Global" ? "Country of origin" : "City of origin"}
                     </h5>
-                    {admin === "superadmin" && programFilter === "Global" ? <CountryDoughnut users={filterMentorsByCampus(values.campus)}/> :
+                    {admin === "superadmin" && programFilter === "Global" ?
+                      <CountryDoughnut users={filterMentorsByCampus(values.campus)}/> :
                       <CityDoughnut users={filterMentorsByCampus(values.campus)}/>}
                   </Col>
 

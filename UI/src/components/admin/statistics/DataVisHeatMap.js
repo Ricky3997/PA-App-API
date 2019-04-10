@@ -5,7 +5,7 @@ import * as _ from "lodash";
 import defaults from "../../../defaults/defaults";
 import UniversityPicker from "../../various/forms/UniversityPicker";
 import { Field, Form as FormikForm, Formik } from "formik";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import CoursePicker from "../../various/forms/CoursePicker";
 
 const DataVisHeatMap = ({ mentors, mentees }) => {
@@ -15,9 +15,9 @@ const DataVisHeatMap = ({ mentors, mentees }) => {
   //TODO COLOR SCALE
 
   const initialVals = {
-      universities: [...defaults.universities.UK, ...defaults.universities.US].map(u => u.name),
-      courses:  _.uniq([...mentors.map(m => m.subject), ...mentees.flatMap(m => m.coursesApplyingFor)])
-    };
+    universities: [...defaults.universities.UK, ...defaults.universities.US].map(u => u.name),
+    courses: _.uniq([...mentors.map(m => m.subject), ...mentees.flatMap(m => m.coursesApplyingFor)])
+  };
 
 
   return <span><Formik
@@ -30,7 +30,7 @@ const DataVisHeatMap = ({ mentors, mentees }) => {
       let xDomain, yDomain, data;
 
       xDomain = values.universities;
-      yDomain = values.courses.sort((a,b) => b.localeCompare(a));
+      yDomain = values.courses.sort((a, b) => b.localeCompare(a));
       data = values.universities.reduce((acc, uni) => {
         return acc.concat(
           values.courses.map((course) => {
@@ -76,8 +76,9 @@ const DataVisHeatMap = ({ mentors, mentees }) => {
             <Col md={6}>
               <h3>Ratio of mentees/mentors</h3>
             </Col>
-            <Col md={{offset:5, span: 1}}>
-              <Button variant={'light'} block onClick={() => Object.keys(initialVals).forEach(a => setFieldValue(a, initialVals[a]))}>Reset</Button>
+            <Col md={{ offset: 5, span: 1 }}>
+              <Button variant={"light"} block
+                      onClick={() => Object.keys(initialVals).forEach(a => setFieldValue(a, initialVals[a]))}>Reset</Button>
             </Col>
           </Row>
           <Row>

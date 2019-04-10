@@ -2,7 +2,8 @@ import {
   ADD_MESSAGES_TO_CHAT,
   ADD_MESSAGING_CHAT,
   ADD_ONBOARDING_PROPERTIES,
-  CHANGE_STAGE, CLEAR_CHATS,
+  CHANGE_STAGE,
+  CLEAR_CHATS,
   REMOVE_PICTURE_TO_CROP,
   REMOVE_USER,
   RESET_APP,
@@ -11,13 +12,14 @@ import {
   SET_ACTIVE_JOURNEY_MODULE,
   SET_ACTIVE_MENTEE_APPROVAL_ID,
   SET_ACTIVE_MENTOR_APPROVAL_ID,
+  SET_GETTING_STARTED_PROGRESS,
   SET_MATCHING_ID,
   SET_MENTEE_APPROVAL_PROPERTIES,
   SET_MENTEES,
   SET_MENTOR_APPROVAL_PROPERTIES,
-  SET_GETTING_STARTED_PROGRESS,
   SET_MENTOR_RECOMMENDATIONS,
   SET_MENTORS,
+  SET_PROGRAM_FILTER,
   SET_PUBLIC_PROFILE,
   SET_RELATIONSHIPS,
   SHOW_MATCHING_CONFIRMATION,
@@ -26,21 +28,23 @@ import {
   SWITCH_MATCHING_MODE,
   TOGGLE_ADMIN_FETCHING,
   TOGGLE_ADMIN_MODAL,
+  TOGGLE_APPROVAL_MODAL,
   TOGGLE_DASHBOARD_CONFIRMATION,
   TOGGLE_MENTEE_HOME_MODAL,
   TOGGLE_MENTOR_CONFIRM_DECISION,
-  TOGGLE_APPROVAL_MODAL,
   TOGGLE_MESSAGING_CONNECTED,
   TOGGLE_PICTURE_PICKER,
   TOGGLE_REGISTERING,
   TOGGLE_SHOW_MATCHING_DETAILS_MODAL,
+  TOGGLE_TRACKING,
   UNSET_LOGIN_EMAIL,
   UNSET_MATCHING_CONFIRMATION,
-  UPDATE_USER, TOGGLE_TRACKING, SET_PROGRAM_FILTER, UPDATE_LAST_USER_REFRESH
+  UPDATE_LAST_USER_REFRESH,
+  UPDATE_USER
 } from "./actionTypes";
 import * as api from "../api";
 import { toast } from "react-toastify";
-import {getInitialGettingStartedProgress} from './helpers';
+import { getInitialGettingStartedProgress } from "./helpers";
 
 export const resetApp = () => {
   return {
@@ -396,7 +400,7 @@ export const addMessagesToChat = (chatId, messages) => {
 };
 export const clearChats = () => {
   return {
-    type: CLEAR_CHATS,
+    type: CLEAR_CHATS
   };
 };
 
@@ -446,7 +450,7 @@ export const logout = () => {
     window.localStorage.removeItem("user");
     dispatch(removeUser());
     dispatch(resetApp());
-    dispatch(toggleTracking(false))
+    dispatch(toggleTracking(false));
   };
 };
 
@@ -516,7 +520,7 @@ export const confirmMatch = (mentorId, menteeId) => {
 };
 
 
-export const removeMentorFromBlacklist = (menteeId, mentorId,) => {
+export const removeMentorFromBlacklist = (menteeId, mentorId) => {
   return (dispatch, getState) => {
     dispatch(toggleAdminFetching());
     return api.post("/api/admin/removeMentorFromBlacklist", { mentorId: mentorId, menteeId: menteeId }).then(r => {
@@ -599,7 +603,7 @@ export const mentorDecisionRelationship = (relationshipId, accept) => {
   return (dispatch, getState) => {
     return api.post(`/api/relationships/mentorDecision/${relationshipId}`, { accept: accept }).then(r => {
       if (r.success) {
-        const newUser = {...getState().user};
+        const newUser = { ...getState().user };
         const rels = newUser.mentorProfile.relationship.filter(rel => rel._id !== relationshipId);
         if (accept) rels.push(r.payload);
         newUser.mentorProfile.relationship = rels;

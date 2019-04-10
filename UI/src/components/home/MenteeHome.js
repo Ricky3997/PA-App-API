@@ -7,20 +7,23 @@ import MenteeInRelationshipHome from "./Mentee/MenteeInRelationshipHome";
 import GettingStartedSteps from "./GettingStartedSteps";
 import { connect } from "react-redux";
 import {
+  changeActiveJourneyModule,
+  changeMenteeStatus,
   setGettingStartedStepsProgress,
-  toggleApprovalModal, setMenteeApprovalProperties, changeMenteeStatus, changeActiveJourneyModule
+  setMenteeApprovalProperties,
+  toggleApprovalModal
 } from "../../actions/actionCreator";
 
 const MenteeHome = (props) => {
 
   const GettingStartedStepsConnected = connect(({ user, gettingStartedSteps, menteeHome }) => {
-    return { user, gettingStartedSteps, menteeHome,  mode: 'mentee' };
+    return { user, gettingStartedSteps, menteeHome, mode: "mentee" };
   }, dispatch => {
     return {
       setGettingStartedStepsProgress: (progress) => dispatch(setGettingStartedStepsProgress(progress)),
       toggleApprovalModal: () => dispatch(toggleApprovalModal()),
       setMenteeApprovalProperties: (properties) => dispatch(setMenteeApprovalProperties(properties)),
-      changeMenteeStatus: (status, properties) => dispatch(changeMenteeStatus(status, properties)),
+      changeMenteeStatus: (status, properties) => dispatch(changeMenteeStatus(status, properties))
     };
   })(GettingStartedSteps);
 
@@ -29,7 +32,7 @@ const MenteeHome = (props) => {
     return { user, journey, menteeHome };
   }, dispatch => {
     return {
-      changeActiveJourneyModule: (id) => dispatch(changeActiveJourneyModule(id)),
+      changeActiveJourneyModule: (id) => dispatch(changeActiveJourneyModule(id))
     };
   })(MenteeInRelationshipHome);
 
@@ -49,8 +52,8 @@ const MenteeHome = (props) => {
     </Row>
 
     {_.get(props.user, "menteeProfile.relationship.status") === "confirmed" ?
-      <MenteeInRelationshipHomeConnected /> :
-      <GettingStartedStepsConnected />}
+      <MenteeInRelationshipHomeConnected/> :
+      <GettingStartedStepsConnected/>}
   </Container>;
 };
 

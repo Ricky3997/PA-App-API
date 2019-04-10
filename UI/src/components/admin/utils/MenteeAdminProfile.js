@@ -20,8 +20,9 @@ const MenteeAdminProfile = (props) => {
   return <Container>
     {props.beadcrumbs ? <Row>
       <Breadcrumb>
-        <LinkContainer to={qs.parse(window.location.search).from ? `/admin/${qs.parse(window.location.search).from}` : "/admin/mentees"}>
-          <Breadcrumb.Item>{qs.parse(window.location.search).from  || 'Database'}</Breadcrumb.Item>
+        <LinkContainer
+          to={qs.parse(window.location.search).from ? `/admin/${qs.parse(window.location.search).from}` : "/admin/mentees"}>
+          <Breadcrumb.Item>{qs.parse(window.location.search).from || "Database"}</Breadcrumb.Item>
         </LinkContainer>
         <Breadcrumb.Item active href="#">{props.mentee.firstName}</Breadcrumb.Item>
       </Breadcrumb>
@@ -68,7 +69,7 @@ const MenteeAdminProfile = (props) => {
       <Col md={2}>
         <Badge variant="info">{"Status"}</Badge>
       </Col>
-     <Col md={4}>
+      <Col md={4}>
         <StatusIcon
           status={props.mentee.status}
           reason={props.mentee.rejectionReason}/> {props.mentee.latestStatusChange ? `since ${moment(props.mentee.latestStatusChange).format("Do MMM YY")}` : ""}
@@ -77,7 +78,7 @@ const MenteeAdminProfile = (props) => {
       <Col md={{ span: 2 }}>
         <Badge variant="info">{"Year of Birth"}</Badge>
       </Col>
-     <Col md={4}>
+      <Col md={4}>
         <Form.Label>{`${props.mentee.yearBorn}`}</Form.Label>
       </Col>
     </Row>
@@ -86,7 +87,7 @@ const MenteeAdminProfile = (props) => {
       <Col md={2}>
         <Badge variant="info">{"From"}</Badge>
       </Col>
-     <Col md={4}>
+      <Col md={4}>
         <Form.Label>{`${props.mentee.city}, ${props.mentee.country}`} <CountryFlag country={props.mentee.country}/>
         </Form.Label>
       </Col>
@@ -95,7 +96,7 @@ const MenteeAdminProfile = (props) => {
           {"Largest 3 Cities"}
         </Badge>
       </Col>
-     <Col md={4}>
+      <Col md={4}>
         {props.mentee.fromThreeLargestCity ? "Yes" : "No"}
       </Col>
     </Row>
@@ -104,13 +105,13 @@ const MenteeAdminProfile = (props) => {
       <Col md={2}>
         <Badge variant="info">{"Gender Identity"}</Badge>
       </Col>
-     <Col md={4}>
+      <Col md={4}>
         <Form.Label>{`${props.mentee.gender}`} </Form.Label>
       </Col>
       <Col md={2}>
         <Badge variant="info">{"First Generation"}</Badge>
       </Col>
-     <Col md={4}>
+      <Col md={4}>
         <Form.Label>{`${props.mentee.firstGenStudent ? "Yes" : "No"}`} </Form.Label>
       </Col>
     </Row>
@@ -119,13 +120,13 @@ const MenteeAdminProfile = (props) => {
       <Col md={2}>
         <Badge variant="info">{"Currently studying"}</Badge>
       </Col>
-     <Col md={4}>
+      <Col md={4}>
         <Form.Label>{`${props.mentee.subjects.join(", ")}`}</Form.Label>
       </Col>
       <Col md={2}>
         <Badge variant="info">{"School graduation year"}</Badge>
       </Col>
-     <Col md={4}>
+      <Col md={4}>
         <Form.Label>{`${props.mentee.year}`}</Form.Label>
       </Col>
     </Row>
@@ -134,7 +135,7 @@ const MenteeAdminProfile = (props) => {
       <Col md={2}>
         <Badge variant="info">{"School"}</Badge>
       </Col>
-     <Col md={4}>
+      <Col md={4}>
         <Form.Label>{`${props.mentee.school}`}</Form.Label>
       </Col>
       <Col md={2}>
@@ -142,7 +143,7 @@ const MenteeAdminProfile = (props) => {
           {"Type of High School"}
         </Badge>
       </Col>
-     <Col md={4}>
+      <Col md={4}>
         {props.mentee.typeOfHighSchool}
       </Col>
     </Row>
@@ -151,13 +152,13 @@ const MenteeAdminProfile = (props) => {
       <Col md={2}>
         <Badge variant="info">{"Level"}</Badge>
       </Col>
-     <Col md={4}>
+      <Col md={4}>
         <Form.Label>{`${props.mentee.level}`}</Form.Label>
       </Col>
       <Col md={2}>
         <Badge variant="info">{"Career Interests"}</Badge>
       </Col>
-     <Col md={4}>
+      <Col md={4}>
         <Form.Label>{`${props.mentee.careerInterests.join(", ")}`}</Form.Label>
       </Col>
     </Row>
@@ -166,13 +167,13 @@ const MenteeAdminProfile = (props) => {
       <Col md={2}>
         <Badge variant="info">{"Application Year"}</Badge>
       </Col>
-     <Col md={4}>
+      <Col md={4}>
         <Form.Label>{`${props.mentee.yearApply}`}</Form.Label>
       </Col>
       <Col md={2}>
         <Badge variant="info">{"Hobbies & Interests"}</Badge>
       </Col>
-     <Col md={4}>
+      <Col md={4}>
         <Form.Label>{`${props.mentee.hobbiesAndInterests.join(", ")}`}</Form.Label>
       </Col>
     </Row>
@@ -181,7 +182,7 @@ const MenteeAdminProfile = (props) => {
       <Col md={2}>
         <Badge variant="info">{"Applying for"}</Badge>
       </Col>
-     <Col md={4}>
+      <Col md={4}>
         <Form.Label>{`${props.mentee.interestedIn.join(", ")}`}</Form.Label>
       </Col>
     </Row>
@@ -194,7 +195,7 @@ const MenteeAdminProfile = (props) => {
         {props.mentee.unisApplyingFor.map(uni => <Image
           key={uni}
           src={[...defaults.universities.US, ...defaults.universities.UK].filter(u => u.name === uni)[0].logo}
-          style={{ maxHeight: "60px", maxWidth: "130px", marginLeft: '10px' }}/>)}
+          style={{ maxHeight: "60px", maxWidth: "130px", marginLeft: "10px" }}/>)}
       </Col>
     </Row>
 
@@ -202,14 +203,14 @@ const MenteeAdminProfile = (props) => {
       <Col md={2}>
         <Badge variant="info">{"Referral"}</Badge>
       </Col>
-     <Col md={4}>
+      <Col md={4}>
         <Form.Label>{`${props.mentee.referral.join(", ")}`}</Form.Label>
       </Col>
 
       <Col md={2}>
         <Badge variant="info">{"School exam type"}</Badge>
       </Col>
-     <Col md={4}>
+      <Col md={4}>
         <Form.Label>{`${props.mentee.examType}`}</Form.Label>
       </Col>
     </Row>
@@ -226,7 +227,7 @@ const MenteeAdminProfile = (props) => {
       <Col md={2}>
         <Badge variant="info">{"Notes"}</Badge>
       </Col>
-     <Col md={4}>
+      <Col md={4}>
         <Form.Label>{`${props.mentee.notes}`}</Form.Label>
       </Col>
     </Row>

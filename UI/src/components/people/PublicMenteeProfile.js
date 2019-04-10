@@ -29,8 +29,10 @@ class PublicMenteeProfile extends Component {
             {this.props.publicProfile.profile === null ?
               <ReactLoading type={"spin"} color={"#111111"} height={64} width={64}/> : (
                 this.props.publicProfile.profile === undefined ? <NotFound>
-                  <h5>Unfortunately we couldn't find that! <span role={"img"} aria-labelledby={"sick"}>🤒</span></h5>
-                </NotFound> : <MenteeProfileDetails {...this.props.publicProfile.profile} menteeId={this.props.match.params.id} user={this.props.user}/>
+                    <h5>Unfortunately we couldn't find that! <span role={"img"} aria-labelledby={"sick"}>🤒</span></h5>
+                  </NotFound> :
+                  <MenteeProfileDetails {...this.props.publicProfile.profile} menteeId={this.props.match.params.id}
+                                        user={this.props.user}/>
               )}
           </Col>
         </Row>

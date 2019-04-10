@@ -3,7 +3,7 @@ import { Card } from "react-bootstrap";
 
 const NoMentorsFitCard = () => {
 
-  return <Card style={{width: '200px'}}>
+  return <Card style={{ width: "200px" }}>
     <Card.Header>
       <Card.Title>
         No mentors fit this mentee?
@@ -14,7 +14,7 @@ const NoMentorsFitCard = () => {
       <br/>
       Try asking a global admin on Slack!
     </Card.Body>
-  </Card>
+  </Card>;
 };
 
 

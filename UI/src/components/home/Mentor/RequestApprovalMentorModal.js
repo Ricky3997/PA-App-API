@@ -97,7 +97,7 @@ const RequestApprovalMentorModal = (props) => {
               </Col>
               <Col>
                 <h6>What year were you born?<CompulsoryAsterisk/> <span aria-labelledby={"newborn"}
-                                                                                          role={"img"}>🐣</span></h6>
+                                                                        role={"img"}>🐣</span></h6>
 
                 <Field name="yearBorn" render={({ field, form: { touched, errors } }) => <Select showSearch
                                                                                                  size={"large"}

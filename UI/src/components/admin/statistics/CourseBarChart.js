@@ -1,18 +1,18 @@
 import React from "react";
 import { Bar } from "react-chartjs";
-import * as _ from 'lodash'
+import * as _ from "lodash";
 
 const CourseBarChart = ({ mentors, mentees }) => {
 
   let areas = {};
-  if(mentors){
+  if (mentors) {
     _.uniq(mentors.map(u => u.area)).forEach(a => {
-      areas[a] = mentors.filter( m => m.area === a).length;
-    })
+      areas[a] = mentors.filter(m => m.area === a).length;
+    });
   } else {
     _.uniq(_.flatMap(mentees.map(u => u.interestedIn))).forEach(u => {
-      areas[u] = mentees.filter( m => _.some(m.interestedIn, i => i === u)).length;
-    })
+      areas[u] = mentees.filter(m => _.some(m.interestedIn, i => i === u)).length;
+    });
   }
 
   return <Bar height={300} data={{
@@ -24,9 +24,10 @@ const CourseBarChart = ({ mentors, mentees }) => {
       highlightFill: "rgba(12,102,41,0.75)",
       highlightStroke: "rgb(6,62,24)",
       borderWidth: 1,
-      label: 'Course'
-    }] }}
-  />
+      label: "Course"
+    }]
+  }}
+  />;
 };
 
 
