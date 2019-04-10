@@ -69,7 +69,7 @@ const RegisterNewUser = (props) => {
                 props.changeStage(2);
               } else if (r.success && r.payload.error === 11000) {
                 toast.error("User with that email exists already");
-                props.history.push("/login");
+                props.history.push(`/login?email=${email}`);
               } else toast.error("There was an error requesting your magic link, sorry");
               setSubmitting(false);
             });

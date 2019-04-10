@@ -49,7 +49,7 @@ class Login extends Component {
                     .email("Invalid Email")
                     .required("Email is required.")
                 })}
-                initialValues={{ email: "" }}
+                initialValues={{ email: queryString.parse(this.props.location.search).email || "" }}
                 onSubmit={({ email }, { setSubmitting }) => {
 
                   this.props.sendLoginEmail(email).then(r => {

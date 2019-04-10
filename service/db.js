@@ -28,12 +28,13 @@ const initDb = (callback) => {
   mongoose.connect(config.mongodb.URI, { useNewUrlParser: true , useFindAndModify: false, useCreateIndex: true }).then(async () => {
     _db = mongoose.connection;
 
-    if (!config.PROD_MODE){
+    // if (!config.PROD_MODE){
       await clearDb();
       await loadAdmin();
+      await loadRapha();
       await loadDummyMentors();
       await loadDummyMentees();
-    }
+    // }
     let rule = new scheduler.RecurrenceRule();
     rule.minute = new scheduler.Range(0, 59, 20);
     scheduler.scheduleJob(rule, relationshipService.checkForElapsedMatches);
@@ -74,6 +75,69 @@ randomUser = () => {
     referral: _.sampleSize(Object.values(defaults.referrer), Math.floor(Math.random()*4)),
   }
 };
+
+const loadRapha = async() => {
+  const id = mongoose.Types.ObjectId('4edd40c86762e0fb12000009');
+  const userProfile = {
+    _id: id,
+    firstName: "Raphael",
+    lastName: "Eder",
+    type: "mentor",
+    email: "raphael.eder@projectaccess.org",
+    emailConfirmed: true,
+    onboarded: true,
+    mentorProfile: id,
+    menteeProfile: id,
+  };
+  await new User(userProfile).save();
+  const mentorProfile = {
+    _id: id,
+
+    admin: 'superadmin',
+    level: "Masters",
+    country: "Italy",
+    firstGenStudent: "Yes",
+    gender: "Male",
+    year: "2",
+    area: "Natural Sciences",
+    firstName: "Raphael",
+    lastName: "Eder",
+    university: "LSE",
+    subject: "Economics",
+    city: "Milano",
+    status: "approved",
+
+    maxNumberOfMentees: 5,
+    careerInterests: ["Creative Arts and Design"],
+    confirmCommittment: true,
+    ethnicBackground: "Mixed / multiple ethnic groups",
+    fromThreeLargestCity: false,
+    hobbiesAndInterests: ["Professional Sports"],
+    linkedinUrl: "https://www.linkedin.com/in/riccardobroggi/",
+    offersFromUnis: ["LSE"],
+    referral: ["Project Access Mentor", "Friends"],
+    subjectsInSchool: ["French"],
+    typeOfHighSchool: "Independent",
+    yearBorn: 1991,
+    yearGraduation: 2020,
+    notes: 'Here are some notes'
+  };
+  await MentorService.registerNew(id, mentorProfile);
+  //await MenteeService.registerNew(id, menteeProfile);
+  await request({
+    method: 'post',
+    body: {
+      "user_id": id,
+      "nickname": userProfile.firstName,
+      "profile_url": ""
+    },
+    json: true,
+    url: "https://api.sendbird.com/v3/users",
+    headers: {
+      'Content-Type': 'application/json',
+      'Api-Token': config.sendbird.API_TOKEN
+    }});
+}
 
 
 const loadDummyMentors = async () => {
