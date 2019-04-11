@@ -7,7 +7,7 @@ const Footer = () => {
   return <Navbar sticky="bottom" variant="light" bg="light">
     <Navbar.Brand>
       <Badge variant="info">
-        Alpha
+        Dev
       </Badge>
     </Navbar.Brand>
     <Navbar.Text>

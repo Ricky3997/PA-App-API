@@ -13,6 +13,7 @@ import {
   setMenteeApprovalProperties,
   toggleApprovalModal
 } from "../../actions/actionCreator";
+import WelcomeHeader from "../various/WelcomeHeader";
 
 const MenteeHome = (props) => {
 
@@ -37,19 +38,8 @@ const MenteeHome = (props) => {
   })(MenteeInRelationshipHome);
 
   return <Container fluid>
-    <Row style={{ marginTop: "10px" }}>
-      <Col md={{ span: 11 }}>
-        <h3>Welcome {props.user.emailConfirmed ? "back, " : ""} {props.user.firstName}! 🤗</h3>
-      </Col>
-      <Col md={{ span: 1 }}>
-        <Button onClick={() => props.refreshUser().then(r => {
-          if (r.success) toast.success("Refreshed");
-          else toast.error("Error refreshing");
-        })}>
-          <Icon name={"fas fa-refresh"}/>
-        </Button>
-      </Col>
-    </Row>
+
+    <WelcomeHeader user={props.user} refreshUser={props.refreshUser} />
 
     {_.get(props.user, "menteeProfile.relationship.status") === "confirmed" ?
       <MenteeInRelationshipHomeConnected/> :

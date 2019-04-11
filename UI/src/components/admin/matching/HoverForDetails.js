@@ -22,7 +22,9 @@ class HoverForDetails extends Component {
           <OverlayTrigger placement="top" trigger="hover"
                           overlay={<Tooltip placement="top" className="in">Click to go to profile, wait for
                             preview</Tooltip>}>
-            <Link
+            <Link onClick={() => {
+              if (this.timer) window.clearTimeout(this.timer);
+            }}
               to={`/admin/${this.props.mentorMode ? "mentors" : "mentees"}/${this.props[this.props.mentorMode ? "mentor" : "mentee"]._id}${this.props.matching ? "?from=matching" : ""}`}
               style={{
                 textDecoration: "underline", color: "blue",
