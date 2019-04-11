@@ -59,8 +59,9 @@ class App extends Component {
 
   componentDidMount() {
     if (!this.props.app.trackingOn && this.props.user) ReactGA.set({ userId: this.props.user._id });
-    this.props.history.listen((location) => {
-      ReactGA.pageview(location.pathname);
+
+    if(window.location.host !== 'localhost:3000') this.props.history.listen((location) => {
+      ReactGA.pageview(location.pathname)
     });
     if (moment().diff(moment(this.props.app.lastUserRefresh), "m") >= 1) this.props.refreshUser();
 

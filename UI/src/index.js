@@ -22,7 +22,11 @@ const ReduxApp = connect(({ user, app }) => {
   };
 })(App);
 
-ReactGA.initialize("UA-137517000-1");
+if(window.location.host !== 'localhost:3000') {
+  ReactGA.initialize("UA-137517000-1");
+  ReactGA.pageview('/');
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <Router>
