@@ -86,7 +86,7 @@ const UserCard = (props) => {
 
         {props.mentorMode ? <Image
           src={[...defaults.universities.US, ...defaults.universities.UK].filter(u => u.name === props.university)[0].logo}
-          style={{ maxHeight: "40px", maxWidth: "100px" }}/> : null}
+          style={{ maxHeight: "40px", maxWidth: "100px", marginBottom: '2px' }}/> : null}
 
         {props.mentorMode ? MenteeCapacityBar(props.relationship.length, props.maxNumberOfMentees) : null}
 
