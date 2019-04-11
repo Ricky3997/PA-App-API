@@ -627,9 +627,9 @@ export const cancelRelationship = (relationshipId) => {
   };
 };
 
-export const toggleMentorAdmin = (mentorId, adminValue) => {
+export const toggleMentorAdmin = (mentorId, adminValue, campusTeamAdmin = false) => {
   return (dispatch, getState) => {
-    return api.post(`/api/admin/toggleMentorAdmin`, { mentorId, adminValue }).then(r => {
+    return api.post(`/api/admin/toggleMentorAdmin`, { mentorId, adminValue, campusTeamAdmin }).then(r => {
       if (r.success) {
         const { admin } = getState();
         const mentors = admin.mentors.filter(m => m._id !== mentorId);

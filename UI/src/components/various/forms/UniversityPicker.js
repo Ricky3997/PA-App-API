@@ -1,19 +1,10 @@
 import React from "react";
 import defaults from "./../../../defaults/defaults.json";
-import { Form, Image } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { Select } from "antd";
+import UniWithLogoSpan from "../UniWithLogoSpan";
 
 const { OptGroup, Option } = Select;
-
-const uniToOption = (u) => {
-  return <Option value={u.name} key={u.name}>
-          <span>
-            <Image src={u.logo}
-                   style={{ maxHeight: "30px", maxWidth: "140px" }}
-            />
-          </span>
-  </Option>;
-};
 
 const UniversityPicker = ({ field, touched, errors, setFieldValue, multiple, mentee, admin, approval, overrideLabel }) => {
   const label = mentee ? "Applying for" : "Your current university";
@@ -30,11 +21,10 @@ const UniversityPicker = ({ field, touched, errors, setFieldValue, multiple, men
             tokenSeparators={[",", ":"]}>
 
       <OptGroup label="UK">
-        {defaults.universities.UK.map(uniToOption)}
+        {defaults.universities.UK.map(u => <Select.Option key={u.name} value={u.name}><UniWithLogoSpan {...u} /></Select.Option>)}
       </OptGroup>
-
       <OptGroup label="US">
-        {defaults.universities.US.map(uniToOption)}
+        {defaults.universities.US.map(u => <Select.Option key={u.name} value={u.name}><UniWithLogoSpan {...u} /></Select.Option>)}
       </OptGroup>
     </Select>
     {touched[field.name] && errors[field.name] ?

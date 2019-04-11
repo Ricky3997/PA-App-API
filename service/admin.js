@@ -160,8 +160,11 @@ const removeMentorFromBlacklist = async (menteeId, mentorId) => {
   return Mentee.findByIdAndUpdate(menteeId, {$pull: {mentorBlackList: mentorId}}, {new: true}).populate({ path: 'relationship', populate: { path: 'mentor' }}).populate({path: 'mentorBlackList', populate: { path: 'mentor' }}).exec().then(p => { return p});
 };
 
-const toggleMentorAdmin = async (mentorId, adminValue) => {
-  return Mentor.findByIdAndUpdate(mentorId, {admin: adminValue}, {new: true}).populate({ path: 'relationship', populate: { path: 'mentee' }}).exec().then(p => { return p});
+const toggleMentorAdmin = async (mentorId, adminValue, campusTeamAdmin) => {
+  let update = {}
+  if(campusTeamAdmin) update.campusTeamAdmin = adminValue;
+  else update.admin = adminValue;
+  return Mentor.findByIdAndUpdate(mentorId, update, {new: true}).populate({ path: 'relationship', populate: { path: 'mentee' }}).exec().then(p => { return p});
 };
 
 

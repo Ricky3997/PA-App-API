@@ -132,7 +132,7 @@ class Admin extends Component {
                                                    tokenSeparators={[",", ":"]}>
 
               <Select.Option value={"Global"}>🌍 Global</Select.Option>
-              {defaults.countries_operating.map(c => <Select.Option value={c}><span><CountryFlag
+              {defaults.countries_operating.map(c => <Select.Option key={c} value={c}><span><CountryFlag
                 country={c}/>{" "}{c}</span></Select.Option>)}
 
             </Select>}/> : null}

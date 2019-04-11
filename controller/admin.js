@@ -20,9 +20,9 @@ const createMatch =  async (req,res) => {
 };
 
 const toggleMentorAdmin =  async (req,res) => {
-    const {mentorId, adminValue} = req.body;
+    const {mentorId, adminValue, campusTeamAdmin} = req.body;
     if(req.admin.admin !== 'superadmin' && (adminValue === 'superadmin' || adminValue !== req.admin.admin)) res.sendStatus(456);
-    const result = await adminService.toggleMentorAdmin(mentorId, adminValue);
+    const result = await adminService.toggleMentorAdmin(mentorId, adminValue, campusTeamAdmin);
     if(result) res.json(result);
     else res.sendStatus(400);
 };

@@ -53,7 +53,7 @@ class Database extends Component {
       return {
         changeStatus: (id, status, rejectionReason) => dispatch(adminChangeUserStatus("mentor", id, status, rejectionReason)),
         toggleAdminModal: () => dispatch(toggleAdminModal()),
-        toggleMentorAdmin: (mentorId, mentorValue) => dispatch(toggleMentorAdmin(mentorId, mentorValue))
+        toggleMentorAdmin: (mentorId, mentorValue, campusTeamAdmin) => dispatch(toggleMentorAdmin(mentorId, mentorValue, campusTeamAdmin))
       };
     })(MentorAdminProfile);
 

@@ -4,6 +4,8 @@ import MentorAdminProfile from "../utils/MentorAdminProfile";
 import MenteeAdminProfile from "../utils/MenteeAdminProfile";
 import CountryFlag from "../../various/CountryFlag";
 import { Link } from "react-router-dom";
+import connect from "react-redux/es/connect/connect";
+import { toggleMatchingDetailsModal } from "../../../actions/actionCreator";
 
 class HoverForDetails extends Component {
   render() {
@@ -25,7 +27,7 @@ class HoverForDetails extends Component {
             <Link onClick={() => {
               if (this.timer) window.clearTimeout(this.timer);
             }}
-              to={`/admin/${this.props.mentorMode ? "mentors" : "mentees"}/${this.props[this.props.mentorMode ? "mentor" : "mentee"]._id}${this.props.matching ? "?from=matching" : ""}`}
+              to={`/admin/${this.props.mentorMode ? "mentors" : "mentees"}/${this.props[this.props.mentorMode ? "mentor" : "mentee"]._id}${this.props.matchingMode ? "?from=matching" : ""}`}
               style={{
                 textDecoration: "underline", color: "blue",
                 cursor: "pointer"
@@ -50,4 +52,12 @@ class HoverForDetails extends Component {
 
 }
 
-export default HoverForDetails;
+export default connect(({matching}) => {
+  return {
+    matching
+  }
+}, dispatch => {
+  return {
+    toggleMatchingDetailsModal: (id) => dispatch(toggleMatchingDetailsModal(id))
+  };
+})(HoverForDetails);

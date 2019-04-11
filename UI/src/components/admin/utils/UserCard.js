@@ -32,20 +32,6 @@ const UserCard = (props) => {
     };
   })(ConfirmMatchButton);
 
-  const ConnectedHoverForDetails = connect(({ matching }) => {
-    return {
-      mentor: { ...props },
-      mentee: { ...props },
-      mentorMode: props.mentorMode,
-      matching
-    };
-  }, dispatch => {
-    return {
-      toggleMatchingDetailsModal: (id) => dispatch(toggleMatchingDetailsModal(id))
-    };
-  })(HoverForDetails);
-
-
   const MenteeCapacityBar = (current, capacity) => <ProgressBar style={current === 0 ? { color: "black" } : {}}
                                                                 variant={(current === 0) ? "success" : (capacity - current) === 0 ? "danger" : ((capacity - current) === 1 ? "warning" : null)}
                                                                 now={current - capacity === 0 ? 100 : (100 - (current / capacity * 100))}
@@ -81,7 +67,7 @@ const UserCard = (props) => {
       </Card.Header>
       <Card.Body>
         <Card.Title>
-          <ConnectedHoverForDetails/>
+          <HoverForDetails mentor={{...props}} mentee={{...props}} mentorMode={props.mentorMode} matchingMode={props.matching} />
         </Card.Title>
 
         {props.mentorMode ? <Image

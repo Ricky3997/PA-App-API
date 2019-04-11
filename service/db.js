@@ -35,6 +35,7 @@ const initDb = (callback) => {
         {name: 'Raphael', surname: 'Eder', email: 'raphael.eder@projectaccess.org'},
         {name: 'Emil', surname: 'Bender Lassen', email: 'emil.lassen@projectaccess.org'},
         {name: 'Anna', surname: 'Gross', email: 'anna.gross@projectaccess.org'},
+        {name: 'Luca', surname: 'Broggi', email: 'riccardo.broggi@projectaccess.org'},
       ].forEach(await loadAdmin);
       await loadDummyMentors();
       await loadDummyMentees();
