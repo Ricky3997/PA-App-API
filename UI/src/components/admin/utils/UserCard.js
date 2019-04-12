@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, Card, Image, OverlayTrigger, ProgressBar, Tooltip } from "react-bootstrap";
+import { Badge, Card, Image, OverlayTrigger, Tooltip } from "react-bootstrap";
 import ConfirmMatchButton from "./ConfirmMatchButton";
 import ProfileIcon from "../../various/ProfileIcon";
 import connect from "react-redux/es/connect/connect";
@@ -15,25 +15,6 @@ import { toast } from "react-toastify";
 import MenteeCapacityBar from "./MenteeCapacityBar";
 
 const UserCard = (props) => {
-
-  const ConfirmButton = connect(({ admin, matching }) => {
-    return {
-      fetching: admin.fetching,
-      showConfirm: matching.showConfirm === props._id,
-      menteeToMatch: props.menteeToMatch,
-      mentorId: props._id
-    };
-  }, dispatch => {
-    return {
-      confirmMatch: (mentorId, menteeeId) => dispatch(confirmMatch(mentorId, menteeeId)).then(p => {
-        if (p.success) toast.success("Matched");
-      }),
-      showConfirmation: (id) => dispatch(showMatchingConfirmation(id)),
-      unsetMatchingConfirmation: () => dispatch(unsetMatchingConfirmation())
-    };
-  })(ConfirmMatchButton);
-
-
   return (
     <Card className="text-center" key={props._id}
           style={{ minWidth: "200px", maxWidth: "200px", marginBottom: "20px" }}>
@@ -72,12 +53,12 @@ const UserCard = (props) => {
           src={[...defaults.universities.US, ...defaults.universities.UK].filter(u => u.name === props.university)[0].logo}
           style={{ maxHeight: "40px", maxWidth: "100px", marginBottom: '2px' }}/> : null}
 
-        {props.mentorMode ? MenteeCapacityBar(props.relationship.length, props.maxNumberOfMentees) : null}
+        {props.mentorMode ? <MenteeCapacityBar current={props.relationship.length} capacity={props.maxNumberOfMentees} /> : null}
 
       </Card.Body>
       {props.matching ?
         <Card.Footer>
-          <ConfirmButton/>
+          <ConfirmMatchButton mentorId={props._id} menteeToMatch={props.menteeToMatch}/>
         </Card.Footer> : null}
     </Card>
   );

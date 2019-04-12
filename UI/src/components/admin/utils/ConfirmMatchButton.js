@@ -1,12 +1,15 @@
 import React from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import ReactLoading from "react-loading";
+import connect from "react-redux/es/connect/connect";
+import { confirmMatch, showMatchingConfirmation, unsetMatchingConfirmation } from "../../../actions/actionCreator";
+import { toast } from "react-toastify";
 
 const ConfirmMatchButton = (props) => {
 
   return (
     <div>
-      {props.showConfirm ?
+      {props.showConfirm === props.mentorId ?
         <Row>
           <Col>
             <Button block variant="danger" onClick={props.unsetMatchingConfirmation}>Cancel</Button>
@@ -23,4 +26,17 @@ const ConfirmMatchButton = (props) => {
 
 };
 
-export default ConfirmMatchButton;
+export default connect(({ admin, matching }) => {
+  return {
+    fetching: admin.fetching,
+    showConfirm: matching.showConfirm,
+  };
+}, dispatch => {
+  return {
+    confirmMatch: (mentorId, menteeeId) => dispatch(confirmMatch(mentorId, menteeeId)).then(p => {
+      if (p.success) toast.success("Matched");
+    }),
+    showConfirmation: (id) => dispatch(showMatchingConfirmation(id)),
+    unsetMatchingConfirmation: () => dispatch(unsetMatchingConfirmation())
+  };
+})(ConfirmMatchButton);;

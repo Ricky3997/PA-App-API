@@ -51,7 +51,7 @@ const MentorAdminProfile = (props) => {
       <Col md={2}>
         <h4>{props.mentor.firstName}</h4>
       </Col>
-      {props.matching ? null : <Col md={{ span: 2, offset: 1 }}>
+      {props.matching ? null : <Col md={{ span: 2, offset: 2}}>
         <OverlayTrigger placement="bottom" trigger="hover"
                         overlay={<Tooltip placement="bottom" className="in">Feature not ready yet</Tooltip>}>
             <span className="d-inline-block">
@@ -76,10 +76,11 @@ const MentorAdminProfile = (props) => {
         {props.mentor.admin || props.mentor.campusTeamAdmin ?
           <Button block variant="danger"
                   disabled={props.mentor.admin === "superadmin" && props.user.mentorProfile.admin !== "superadmin"}
-                  onClick={() => props.toggleMentorAdmin(props.mentor._id, undefined).then(r => {
+                  onClick={() => props.toggleMentorAdmin(props.mentor._id, undefined, _.some([...defaults.universities.UK, ...defaults.universities.US], u => u.name === props.mentor.campusTeamAdmin)).then(r => {
                     if (r.success) toast.success("Admin removed");
                   })}>
-            {props.mentor.admin === "superadmin" ? "🌎" : (props.mentor.campusTeamAdmin ? "Campus" :
+            {props.mentor.admin === "superadmin" ? "🌎" : (props.mentor.campusTeamAdmin ?
+              <UniWithLogoSpan height={'20px'} logo={[...defaults.universities.UK, ...defaults.universities.US].filter(u => u.name === props.mentor.campusTeamAdmin)[0].logo}/> :
               <CountryFlag country={props.mentor.admin}/>)} Admin -
             Revoke <Icon name="fas fa-times-circle"/>
           </Button>
@@ -88,7 +89,7 @@ const MentorAdminProfile = (props) => {
                                                                        placeholder={"Make admin"}
                                                                        size={"large"}
                                                                        onSelect={v => {
-                                                                         const campus = _.some([...defaults.universities.UK, ...defaults.universities.US], v);
+                                                                         const campus = _.some([...defaults.universities.UK, ...defaults.universities.US], u => u.name ===v);
                                                                          props.toggleMentorAdmin(props.mentor._id, v, campus).then(r => {
                                                                            if (r.success) toast.success(`Admin enabled for ${v}`);
                                                                          });
