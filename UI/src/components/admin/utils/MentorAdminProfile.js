@@ -27,12 +27,14 @@ import * as qs from "query-string";
 import * as _ from "lodash";
 import { Select } from "antd";
 import UniWithLogoSpan from "../../various/UniWithLogoSpan";
+import connect from "react-redux/es/connect/connect";
+import { adminChangeUserStatus, toggleAdminModal, toggleMentorAdmin } from "../../../actions/actionCreator";
 
 const MentorAdminProfile = (props) => {
 
   if (!props.mentor) return <NotFound/>;
   return <Container>
-    {props.beadcrumbs ? <Row>
+    {props.breadcrumbs ? <Row>
       <Breadcrumb>
         <LinkContainer
           to={qs.parse(window.location.search).from ? `/admin/${qs.parse(window.location.search).from}` : "/admin/mentors"}>
@@ -329,4 +331,15 @@ const MentorAdminProfile = (props) => {
   </Container>;
 };
 
-export default MentorAdminProfile;
+export default connect(({ user, admin }) => {
+  return {
+    user,
+    showModal: admin.showModal
+  };
+}, dispatch => {
+  return {
+    changeStatus: (id, status, rejectionReason) => dispatch(adminChangeUserStatus("mentor", id, status, rejectionReason)),
+    toggleAdminModal: () => dispatch(toggleAdminModal()),
+    toggleMentorAdmin: (mentorId, mentorValue, campusTeamAdmin) => dispatch(toggleMentorAdmin(mentorId, mentorValue, campusTeamAdmin))
+  };
+})(MentorAdminProfile);;

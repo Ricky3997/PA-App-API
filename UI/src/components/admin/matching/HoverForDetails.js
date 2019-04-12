@@ -16,7 +16,6 @@ class HoverForDetails extends Component {
 
     }} onMouseLeave={() => {
       if (this.timer) window.clearTimeout(this.timer);
-      // if(!this.props.matching.showDetailsModal) this.props.toggleMatchingDetailsModal(false)
     }}
     >
       <CountryFlag country={this.props[this.props.mentorMode ? "mentor" : "mentee"].country}/>

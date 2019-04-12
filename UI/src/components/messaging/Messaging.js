@@ -93,30 +93,14 @@ class Messaging extends Component {
   };
 
   render() {
-    const ListOfChatsComponent = connect(({ messaging }) => {
-      return { messaging };
-    }, dispatch => {
-      return {
-        setActiveChatId: (id) => dispatch(setActiveChat(id))
-      };
-    })(ListOfChats);
-
-    const OpenChatComponent = connect(({ messaging, user }) => {
-      return { messaging, user };
-    }, dispatch => {
-      return {
-        sendMessageInChat: (chatUrl, message) => this.sendMessageInChat(chatUrl, message)
-      };
-    })(OpenChat);
-
     return (
       <ThemeProvider theme={this.theme}>
         <Row>
           <Col md={3}>
-            <ListOfChatsComponent/>
+            <ListOfChats/>
           </Col>
           <Col md={9}>
-            <OpenChatComponent/>
+            <OpenChat/>
           </Col>
         </Row>
       </ThemeProvider>

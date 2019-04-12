@@ -4,8 +4,6 @@ import { Form } from "react-bootstrap";
 import { Select } from "antd";
 import UniWithLogoSpan from "../UniWithLogoSpan";
 
-const { OptGroup, Option } = Select;
-
 const UniversityPicker = ({ field, touched, errors, setFieldValue, multiple, mentee, admin, approval, overrideLabel }) => {
   const label = mentee ? "Applying for" : "Your current university";
   return <div>
@@ -20,12 +18,12 @@ const UniversityPicker = ({ field, touched, errors, setFieldValue, multiple, men
             onChange={(o) => setFieldValue(field.name, o)}
             tokenSeparators={[",", ":"]}>
 
-      <OptGroup label="UK">
+      <Select.OptGroup label="UK">
         {defaults.universities.UK.map(u => <Select.Option key={u.name} value={u.name}><UniWithLogoSpan {...u} /></Select.Option>)}
-      </OptGroup>
-      <OptGroup label="US">
+      </Select.OptGroup>
+      <Select.OptGroup label="US">
         {defaults.universities.US.map(u => <Select.Option key={u.name} value={u.name}><UniWithLogoSpan {...u} /></Select.Option>)}
-      </OptGroup>
+      </Select.OptGroup>
     </Select>
     {touched[field.name] && errors[field.name] ?
       <p style={{ color: "red" }}>{errors[field.name]}</p> : null}

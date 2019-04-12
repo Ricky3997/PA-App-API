@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
-import NotReadyYet from "./NotReadyYet";
 import { Icon } from "react-fa";
 
 const FacingIssueButton = () => {

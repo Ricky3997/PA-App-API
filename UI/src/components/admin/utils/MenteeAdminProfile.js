@@ -13,12 +13,14 @@ import FeatureNotReadyYetOnHover from "../../various/FeatureNotReadyYetOnHover";
 import NotFound from "../../various/NotFound";
 import CountryFlag from "../../various/CountryFlag";
 import * as qs from "query-string";
+import connect from "react-redux/es/connect/connect";
+import { adminChangeUserStatus, removeMentorFromBlacklist, toggleAdminModal } from "../../../actions/actionCreator";
 
 const MenteeAdminProfile = (props) => {
 
   if (!props.mentee) return <NotFound/>;
   return <Container>
-    {props.beadcrumbs ? <Row>
+    {props.breadcrumbs ? <Row>
       <Breadcrumb>
         <LinkContainer
           to={qs.parse(window.location.search).from ? `/admin/${qs.parse(window.location.search).from}` : "/admin/mentees"}>
@@ -251,4 +253,14 @@ const MenteeAdminProfile = (props) => {
   </Container>;
 };
 
-export default MenteeAdminProfile;
+export default connect(({ admin }) => {
+  return {
+    showModal: admin.showModal
+  };
+}, dispatch => {
+  return {
+    changeStatus: (id, status, rejectionReason) => dispatch(adminChangeUserStatus("mentee", id, status, rejectionReason)),
+    toggleAdminModal: () => dispatch(toggleAdminModal()),
+    removeMentorFromBlacklist: (menteeId, mentorId) => dispatch(removeMentorFromBlacklist(menteeId, mentorId))
+  };
+})(MenteeAdminProfile);;

@@ -12,7 +12,6 @@ import MenteeAdminProfile from "./MenteeAdminProfile";
 import UniversityPicker from "../../various/forms/UniversityPicker";
 import {
   adminChangeUserStatus,
-  removeMentorFromBlacklist,
   toggleAdminModal,
   toggleMentorAdmin
 } from "../../../actions/actionCreator";
@@ -41,41 +40,10 @@ class Database extends Component {
 
   render() {
 
-    const ConnectedMentorProfile = connect(({ user, admin }) => {
-      return {
-        user,
-        beadcrumbs: true,
-        showModal: admin.showModal,
-        history: this.props.history,
-        mentor: admin.mentors.filter(m => m._id === this.props.match.params.id)[0]
-      };
-    }, dispatch => {
-      return {
-        changeStatus: (id, status, rejectionReason) => dispatch(adminChangeUserStatus("mentor", id, status, rejectionReason)),
-        toggleAdminModal: () => dispatch(toggleAdminModal()),
-        toggleMentorAdmin: (mentorId, mentorValue, campusTeamAdmin) => dispatch(toggleMentorAdmin(mentorId, mentorValue, campusTeamAdmin))
-      };
-    })(MentorAdminProfile);
-
-    const ConnectedMenteeProfile = connect(({ admin }) => {
-      return {
-        beadcrumbs: true,
-        showModal: admin.showModal,
-        history: this.props.history,
-        mentee: admin.mentees.filter(m => m._id === this.props.match.params.id)[0],
-        details: true
-      };
-    }, dispatch => {
-      return {
-        changeStatus: (id, status, rejectionReason) => dispatch(adminChangeUserStatus("mentee", id, status, rejectionReason)),
-        toggleAdminModal: () => dispatch(toggleAdminModal()),
-        removeMentorFromBlacklist: (menteeId, mentorId) => dispatch(removeMentorFromBlacklist(menteeId, mentorId))
-      };
-    })(MenteeAdminProfile);
-
-
-    if (this.props.match.params.id && this.props.mode === "mentors") return <ConnectedMentorProfile/>;
-    else if (this.props.match.params.id && this.props.mode === "mentees") return <ConnectedMenteeProfile/>;
+    if (this.props.match.params.id && this.props.mode === "mentors") return <MentorAdminProfile breadcrumbs history={this.props.history}
+                                                                                                mentor={this.props.mentors.filter(m => m._id === this.props.match.params.id)[0]} />;
+    else if (this.props.match.params.id && this.props.mode === "mentees") return <MenteeAdminProfile breadcrumbs history={this.props.history} details
+                                                                                                     mentee={this.props.mentees.filter(m => m._id === this.props.match.params.id)[0]} />;
     else return (
         <Formik
           render={({ values, touched, errors, isSubmitting, setFieldValue }) => {

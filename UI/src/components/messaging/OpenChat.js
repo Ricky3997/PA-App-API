@@ -11,6 +11,7 @@ import {
   TextComposer,
   TextInput
 } from "@livechat/ui-kit";
+import { connect } from "react-redux";
 
 const OpenChat = (props) => {
 
@@ -59,4 +60,10 @@ const OpenChat = (props) => {
   }
 };
 
-export default OpenChat;
+export default connect(({ messaging, user }) => {
+  return { messaging, user };
+}, dispatch => {
+  return {
+    sendMessageInChat: (chatUrl, message) => this.sendMessageInChat(chatUrl, message)
+  };
+})(OpenChat);

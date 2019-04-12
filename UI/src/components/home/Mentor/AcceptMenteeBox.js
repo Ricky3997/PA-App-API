@@ -14,16 +14,6 @@ const AcceptMenteeBox = (props) => {
   const days = Math.floor(timeLeft.asDays());
   const hours = Math.floor(timeLeft.subtract(days, "d").asHours());
 
-  const ConfirmAcceptMenteeButton = connect(({ mentorHome }) => {
-    return { mentorHome, relationshipId: props._id };
-  }, dispatch => {
-    return {
-      toggleMentorConfirmDecision: (showConfirmDecision) => dispatch(toggleMentorConfirmDecision(showConfirmDecision)),
-      mentorDecisionRelationship: (accept) => dispatch(mentorDecisionRelationship(props._id, accept))
-    };
-  })(ConfirmAcceptMentee);
-
-
   return (
     <Container style={{ marginBottom: "5px " }}>
       <Row>
@@ -57,7 +47,7 @@ const AcceptMenteeBox = (props) => {
           </Col>
         </Row>
         {(Moment.duration(new Moment(props.matchedOn).add(5, "d").diff(new Moment())) <= 0) ? "Time ran out to confirm, sorry" :
-          <ConfirmAcceptMenteeButton/>}
+          <ConfirmAcceptMentee relationshipid={props._id} />}
       </div>
     </Container>
   );

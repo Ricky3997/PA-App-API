@@ -6,6 +6,8 @@ import MentorTile from "./MentorTile";
 import ProgressionTimeline from "./ProgressionTimeline";
 import CountryPartner from "../../advertising/CountryPartner";
 import Module from "./Module";
+import { connect } from "react-redux";
+import { changeActiveJourneyModule } from "../../../actions/actionCreator";
 
 const MenteeInRelationshipHome = (props) => {
   return (
@@ -50,4 +52,10 @@ const MenteeInRelationshipHome = (props) => {
   );
 };
 
-export default MenteeInRelationshipHome;
+export default connect(({ user, journey, menteeHome }) => {
+  return { user, journey, menteeHome };
+}, dispatch => {
+  return {
+    changeActiveJourneyModule: (id) => dispatch(changeActiveJourneyModule(id))
+  };
+})(MenteeInRelationshipHome);

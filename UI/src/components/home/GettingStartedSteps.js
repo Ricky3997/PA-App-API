@@ -10,6 +10,13 @@ import FeatureNotReadyYetOnHover from "../various/FeatureNotReadyYetOnHover";
 import CountryPartner from "../advertising/CountryPartner";
 import RequestApprovalMenteeModal from "./Mentee/RequestApprovalMenteeModal";
 import { LinkContainer } from "react-router-bootstrap";
+import { connect } from "react-redux";
+import {
+  changeMenteeStatus,
+  setGettingStartedStepsProgress,
+  setMenteeApprovalProperties,
+  toggleApprovalModal
+} from "../../actions/actionCreator";
 
 const GettingStartedSteps = (props) => {
 
@@ -232,4 +239,13 @@ const GettingStartedSteps = (props) => {
   );
 };
 
-export default GettingStartedSteps;
+export default connect(({ user, gettingStartedSteps, menteeHome }) => {
+  return { user, gettingStartedSteps, menteeHome};
+}, dispatch => {
+  return {
+    setGettingStartedStepsProgress: (progress) => dispatch(setGettingStartedStepsProgress(progress)),
+    toggleApprovalModal: () => dispatch(toggleApprovalModal()),
+    setMenteeApprovalProperties: (properties) => dispatch(setMenteeApprovalProperties(properties)),
+    changeMenteeStatus: (status, properties) => dispatch(changeMenteeStatus(status, properties))
+  };
+})(GettingStartedSteps);

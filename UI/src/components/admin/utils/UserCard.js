@@ -6,12 +6,13 @@ import connect from "react-redux/es/connect/connect";
 import {
   confirmMatch,
   showMatchingConfirmation,
-  toggleMatchingDetailsModal,
   unsetMatchingConfirmation
 } from "../../../actions/actionCreator";
 import HoverForDetails from "../matching/HoverForDetails";
 import RecommendationTransparency from "../matching/RecommendationTransparency";
 import defaults from "../../../defaults/defaults";
+import { toast } from "react-toastify";
+import MenteeCapacityBar from "./MenteeCapacityBar";
 
 const UserCard = (props) => {
 
@@ -25,17 +26,14 @@ const UserCard = (props) => {
   }, dispatch => {
     return {
       confirmMatch: (mentorId, menteeeId) => dispatch(confirmMatch(mentorId, menteeeId)).then(p => {
-        if (p.success) props.successToast("Matched");
+        if (p.success) toast.success("Matched");
       }),
       showConfirmation: (id) => dispatch(showMatchingConfirmation(id)),
       unsetMatchingConfirmation: () => dispatch(unsetMatchingConfirmation())
     };
   })(ConfirmMatchButton);
 
-  const MenteeCapacityBar = (current, capacity) => <ProgressBar style={current === 0 ? { color: "black" } : {}}
-                                                                variant={(current === 0) ? "success" : (capacity - current) === 0 ? "danger" : ((capacity - current) === 1 ? "warning" : null)}
-                                                                now={current - capacity === 0 ? 100 : (100 - (current / capacity * 100))}
-                                                                label={`Mentees: ${current}/${capacity}`}/>;
+
   return (
     <Card className="text-center" key={props._id}
           style={{ minWidth: "200px", maxWidth: "200px", marginBottom: "20px" }}>
