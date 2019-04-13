@@ -14,11 +14,11 @@ const Footer = () => {
       This is a work in progress, bear with us! V0.1.2019-04-02
     </Navbar.Text>
     <Navbar.Text style={{ marginLeft: "250px" }}>
-      <LinkContainer to="/about?type=mentor" style={{
+      <LinkContainer to="/datapolicy" style={{
         cursor: "pointer",
         textDecoration: "underline"
       }}><span
-      >Find out here</span></LinkContainer>
+      >Data policy</span></LinkContainer>
     </Navbar.Text>
 
     <Navbar.Collapse className="justify-content-end">

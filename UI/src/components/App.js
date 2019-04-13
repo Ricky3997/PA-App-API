@@ -52,6 +52,7 @@ import PublicMenteeProfile from "./people/PublicMenteeProfile";
 import Messages from "./messaging/Messages";
 import * as ReactGA from "react-ga";
 import moment from "moment";
+import GDPR from './various/GDPR';
 
 class App extends Component {
 
@@ -75,6 +76,7 @@ class App extends Component {
           <Switch>
 
             <Route path={"/login"} component={withRouter(Login)}/>
+            <Route path={"/datapolicy"} component={GDPR}/>
 
             <Route path={"/settings"} component={connect(({ settings, user }) => {
               return { settings, user };
