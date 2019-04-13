@@ -6,6 +6,7 @@
 .pnp.js
 
 /UI/node_modules/*
+/UI/**.lock
 /UI/package-lock.json
 package-lock.json
 
