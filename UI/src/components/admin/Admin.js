@@ -66,7 +66,7 @@ class Admin extends Component {
       relationships = relationships.filter(m => m.country === programFilter);
     }
 
-    return _.get(this.props, "user.mentorProfile.admin") ?
+    return _.get(this.props, "user.mentorProfile.admin") || _.get(this.props, "user.mentorProfile.campusTeamAdmin")  ?
       <Container fluid>
         <Tabs style={{ marginBottom: "10px" }}
               activeKey={this.validateTab(section)}
@@ -135,7 +135,7 @@ class Admin extends Component {
               {defaults.countries_operating.map(c => <Select.Option key={c} value={c}><span><CountryFlag
                 country={c}/>{" "}{c}</span></Select.Option>)}
 
-            </Select>}/> : null}
+            </Select>}/> : null }
         </Tabs>
       </Container>
       : <div>Not Logged In</div>;

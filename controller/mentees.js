@@ -1,7 +1,7 @@
 const menteesService = require("../service/mentees");
 
 const getAll = async (req, res) => {
-  const result = await menteesService.getAll();
+  const result = await menteesService.getAll(req.admin.admin);
   if (result) res.json(result);
   else res.sendStatus(400);
 };

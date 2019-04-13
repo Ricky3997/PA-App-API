@@ -7,6 +7,8 @@ import { Redirect } from "react-router-dom";
 import * as Yup from "yup";
 import { Field, Form as FormikForm, Formik } from "formik";
 import LoginEmailSent from "./../../assets/emailSent.png";
+import { connect } from "react-redux";
+import { getUser, sendLoginEmail, unsetLoginEmailSent } from "../../actions/actionCreator";
 
 
 class Login extends Component {
@@ -34,7 +36,10 @@ class Login extends Component {
               </p>
               <h3>Go check your email!</h3>
               <p>Didn't get it? <Button style={{ color: "white" }} variant="link"
-                                        onClick={() => this.props.unsetLoginEmailSent()}>
+                                        onClick={() => {
+                                          this.props.history.push(`/login?email=${this.props.login.emailSentTo}`);
+                                          this.props.unsetLoginEmailSent()
+                                        }}>
                 Click here to send a new one
               </Button>
               </p>
@@ -92,4 +97,12 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default connect(({ user, login }) => {
+  return { user, login };
+}, dispatch => {
+  return {
+    sendLoginEmail: (email) => dispatch(sendLoginEmail(email)),
+    getUser: () => dispatch(getUser()),
+    unsetLoginEmailSent: () => dispatch(unsetLoginEmailSent())
+  };
+})(Login);

@@ -76,7 +76,7 @@ const checkToken = (req, res, next) => {
 const checkAdmin = async (req, res, next) => {
   const {id} = req.decoded;
   const user = await Mentor.findById(id);
-  if (_.get(user, 'admin')) {
+  if (_.get(user, 'admin') || _.get(user, 'campusTeamAdmin')) {
     req.admin = user;
     next();
   }

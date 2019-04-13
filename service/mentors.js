@@ -12,8 +12,9 @@ const s3 = new AWS.S3({ endpoint: ep });
 getAll = async (admin) => {
   let criteria;
   if(!admin) return [];
-  else if(admin === "superadmin") criteria = {};
-  else criteria = {country: admin};
+  else if(admin.admin === "superadmin") criteria = {};
+  else if(admin.admin) criteria = {country: admin.admin};
+  else criteria = {university: admin.campusTeamAdmin};
   return await Mentor.find(criteria).populate({ path: 'relationship', populate: { path: 'mentee' }}).exec().then(p => {return p});
 };
 

@@ -239,8 +239,8 @@ const GettingStartedSteps = (props) => {
   );
 };
 
-export default connect(({ user, gettingStartedSteps, menteeHome }) => {
-  return { user, gettingStartedSteps, menteeHome};
+export default connect(({ user, gettingStartedSteps, menteeHome, mentorHome }) => {
+  return { user, gettingStartedSteps, menteeHome, mentorHome};
 }, dispatch => {
   return {
     setGettingStartedStepsProgress: (progress) => dispatch(setGettingStartedStepsProgress(progress)),

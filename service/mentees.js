@@ -11,8 +11,12 @@ const s3 = new AWS.S3({ endpoint: ep });
 const {Mentee} = require("./../models/mentees");
 const {User} = require("./../models/users");
 
-const getAll = async () => {
-  return await Mentee.find().populate({ path: 'relationship', populate: { path: 'mentor' }}).populate({path: 'mentorBlackList', populate: { path: 'mentor' }}).exec().then(p => {return p});
+const getAll = async (admin) => {
+  let criteria;
+  if(!admin) return [];
+  else if(admin === "superadmin") criteria = {};
+  else criteria = {country: admin};
+  return await Mentee.find(criteria).populate({ path: 'relationship', populate: { path: 'mentor' }}).populate({path: 'mentorBlackList', populate: { path: 'mentor' }}).exec().then(p => {return p});
 };
 
 const getById = async (id) => {

@@ -162,7 +162,10 @@ const removeMentorFromBlacklist = async (menteeId, mentorId) => {
 
 const toggleMentorAdmin = async (mentorId, adminValue, campusTeamAdmin) => {
   let update = {}
-  if(campusTeamAdmin) update.campusTeamAdmin = adminValue;
+  if(campusTeamAdmin) {
+    update.campusTeamAdmin = adminValue;
+    update.admin = null;
+  }
   else update.admin = adminValue;
   return Mentor.findByIdAndUpdate(mentorId, update, {new: true}).populate({ path: 'relationship', populate: { path: 'mentee' }}).exec().then(p => { return p});
 };

@@ -5,7 +5,7 @@ import "../assets/App.css";
 import Header from "./various/Header";
 import Onboarding from "./onboarding/Onboarding";
 import Login from "./various/Login";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import Confirm from "./various/Confirm";
 import MentorProfile from "./home/Mentee/MentorTile";
 import Call from "./call/Call";
@@ -76,15 +76,7 @@ class App extends Component {
         <Container fluid id="root_container">
           <Switch>
 
-            <Route path={"/login"} component={connect(({ user, login }) => {
-              return { user, login };
-            }, dispatch => {
-              return {
-                sendLoginEmail: (email) => dispatch(sendLoginEmail(email)),
-                getUser: () => dispatch(getUser()),
-                unsetLoginEmailSent: () => dispatch(unsetLoginEmailSent())
-              };
-            })(Login)}/>
+            <Route path={"/login"} component={withRouter(Login)}/>
 
             <Route path={"/settings"} component={connect(({ settings, user }) => {
               return { settings, user };

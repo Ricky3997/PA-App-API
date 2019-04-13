@@ -25,7 +25,7 @@ const Header = (props) => {
           <span> <Icon name="fas fa-gear"/> Settings</span>
         </NavDropdown.Item>
       </LinkContainer>
-      {_.get(props, "user.mentorProfile.admin") ?
+      {_.get(props, "user.mentorProfile.admin") || _.get(props, "user.mentorProfile.campusTeamAdmin") ?
         <LinkContainer to="/admin/dashboard">
           <NavDropdown.Item>
             <span> <Icon name="fas fa-user-secret"/> Admin</span>
