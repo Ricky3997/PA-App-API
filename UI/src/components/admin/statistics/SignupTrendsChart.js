@@ -26,22 +26,22 @@ const SignupTrendsChart = ({ mentors, mentees, from, to }) => {
       datasets: [
         {
           label: "Mentors",
-          fillColor: "rgba(220,220,220,0.2)",
-          strokeColor: "rgba(220,220,220,1)",
-          pointColor: "rgba(220,220,220,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(220,220,220,1)",
+          fillColor: "rgba(0,142,203,0.27)",
+          strokeColor: "rgb(79,86,220)",
+          pointColor: "rgba(6,121,220,0.45)",
+          pointStrokeColor: "#1ddcff",
+          pointHighlightFill: "#007cff",
+          pointHighlightStroke: "rgb(20,39,220)",
           data: mentorData
         },
         {
           label: "Mentees",
-          fillColor: "rgba(151,187,205,0.2)",
-          strokeColor: "rgba(151,187,205,1)",
-          pointColor: "rgba(151,187,205,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(151,187,205,1)",
+          fillColor: "rgba(0,172,102,0.31)",
+          strokeColor: "rgb(110,205,142)",
+          pointColor: "rgba(0,205,48,0.25)",
+          pointStrokeColor: "#00ffb4",
+          pointHighlightFill: "#87ffb7",
+          pointHighlightStroke: "rgb(130,205,130)",
           data: menteeData
         }
       ]

@@ -175,6 +175,8 @@ const loadRLB = async () => {
     _id: id,
 
     admin: 'superadmin',
+    // campusTeamAdmin: 'LSE',
+
     level: "Masters",
     country: "Italy",
     firstGenStudent: "Yes",

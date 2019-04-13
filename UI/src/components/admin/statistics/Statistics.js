@@ -17,6 +17,9 @@ import ReferralBarChart from "./ReferralBarChart";
 import UniversityPicker from "../../various/forms/UniversityPicker";
 import * as _ from "lodash";
 import SignupsByCountryTeam from "./SignupsByCountryTeam";
+import UniWithLogoSpan from '../../various/UniWithLogoSpan';
+import defaults from '../../../defaults/defaults';
+import SubjectBarChart from './SubjectBarChart';
 
 const Statistics = ({ mentors, mentees, user, programFilter }) => {
 
@@ -43,8 +46,8 @@ const Statistics = ({ mentors, mentees, user, programFilter }) => {
             <Row>
               <Col md={6}>
                 <h3>
-                  You are seeing data for the {programFilter === "Global" ? " 🌍 " :
-                  <span><CountryFlag country={programFilter}/></span>} program
+                  You are seeing data for the {campusTeamAdmin ? <UniWithLogoSpan logo={[...defaults.universities.UK, ...defaults.universities.US].filter(u => u.name === campusTeamAdmin)[0].logo} /> :
+                  (programFilter === "Global" ? " 🌍 " : <span><CountryFlag country={programFilter}/></span>)} program
                 </h3>
               </Col>
               <Col md={{ offset: 4, span: 2 }}>
@@ -63,14 +66,14 @@ const Statistics = ({ mentors, mentees, user, programFilter }) => {
                     </h3>
                   </Col>
                   <Col>
-                    <Field name="campus" render={({ field, form: { touched, errors } }) =>
+                    {campusTeamAdmin && !admin ? null : <Field name="campus" render={({ field, form: { touched, errors } }) =>
                       <UniversityPicker overrideLabel={"Filter by campus"} multiple
                                         setFieldValue={setFieldValue} field={field} touched={touched} errors={errors}/>}
-                    />
+                    /> }
                   </Col>
                 </Row>
                 <Row>
-                  <Col>
+                  <Col md={6}>
                     <span style={{ fontWeight: "bold", fontSize: "30px" }}>
               {filterMentorsByCampus(values.campus).length}
             </span>
@@ -98,19 +101,19 @@ const Statistics = ({ mentors, mentees, user, programFilter }) => {
                   </Col>
                   <Col>
                     <h5>
-                      {admin === "superadmin" && programFilter === "Global" ? "Country of origin" : "City of origin"}
+                      {campusTeamAdmin || (admin === "superadmin" && programFilter === "Global") ? "Country of origin" : "City of origin"}
                     </h5>
-                    {admin === "superadmin" && programFilter === "Global" ?
+                    {campusTeamAdmin || (admin === "superadmin" && programFilter === "Global") ?
                       <CountryDoughnut users={filterMentorsByCampus(values.campus)}/> :
                       <CityDoughnut users={filterMentorsByCampus(values.campus)}/>}
                   </Col>
 
-                  <Col>
+                  {campusTeamAdmin ? null : <Col>
                     <h5>
                       University of study
                     </h5>
                     <UniversityBarChart mentors={filterMentorsByCampus(values.campus)}/>
-                  </Col>
+                  </Col>}
 
                   <Col>
                     <h5>
@@ -127,7 +130,7 @@ const Statistics = ({ mentors, mentees, user, programFilter }) => {
                   </Col>
                 </Row>
               </Col>
-              <Col style={{ backgroundColor: "rgba(139,255,160,0.24)", borderRadius: "20px" }}>
+              {admin && !campusTeamAdmin ? <Col style={{ backgroundColor: "rgba(139,255,160,0.24)", borderRadius: "20px" }}>
                 <h3>
                   Mentees
                 </h3>
@@ -182,7 +185,7 @@ const Statistics = ({ mentors, mentees, user, programFilter }) => {
                     <ReferralBarChart users={mentees}/>
                   </Col>
                 </Row>
-              </Col>
+              </Col> : null}
             </Row>
             <Row className="justify-content-md-center">
               <Col>
@@ -223,7 +226,7 @@ const Statistics = ({ mentors, mentees, user, programFilter }) => {
             </Row> : null}
             <Row>
               <Col>
-                <DataVisHeatMap mentors={mentors} mentees={mentees}/>
+                {campusTeamAdmin ? <SubjectBarChart mentors={mentors} /> : <DataVisHeatMap mentors={mentors} mentees={mentees} filterByCampusAdmin={campusTeamAdmin}/>}
               </Col>
             </Row>
           </Container>
