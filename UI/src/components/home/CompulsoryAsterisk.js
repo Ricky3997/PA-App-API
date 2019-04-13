@@ -1,7 +1,7 @@
 import React from "react";
 
 const CompulsoryAsterisk = () => {
-  return <CompulsoryAsterisk/>;
+  return <span style={{ color: "red" }}>*</span>;
 };
 
 export default CompulsoryAsterisk;

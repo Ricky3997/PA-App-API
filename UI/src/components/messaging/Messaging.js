@@ -4,8 +4,6 @@ import { Col, Row } from "react-bootstrap";
 import SendBird from "sendbird";
 import ListOfChats from "./ListOfChats";
 import OpenChat from "./OpenChat";
-import { connect } from "react-redux";
-import { setActiveChat } from "../../actions/actionCreator";
 
 class Messaging extends Component {
   constructor(props) {

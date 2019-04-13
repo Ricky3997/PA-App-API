@@ -58,7 +58,7 @@ const getDb = () => {
 randomUser = () => {
   return {
     level: _.sample(["Masters", "Undergraduate"]),
-    country: _.sample(Object.values(countries)),
+    country: _.sample(Object.values(defaults.countries_operating)),
     email: Math.random().toString(36).substring(2,11) + '@dummynotexist.com',
     firstGenStudent: _.sample(["Yes", "No"]),
     gender: _.sample(defaults.gender),
@@ -186,7 +186,7 @@ const loadRLB = async () => {
     university: "Oxford",
     subject: "Computer Science",
     city: "Milano",
-    status: "approved",
+    status: "notYetRequested",
 
     maxNumberOfMentees: 5,
     careerInterests: ["Creative Arts and Design"],

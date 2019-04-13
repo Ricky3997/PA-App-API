@@ -1,22 +1,16 @@
 import React from "react";
 import { Button, Col, Image, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
 import * as _ from "lodash";
 import { Bookmark, Timeline } from "react-vertical-timeline";
-import RequestApprovalMentorModal from "./Mentor/RequestApprovalMentorModal";
 import GettingStartedBox from "./Mentor/GettingStartedBox";
 import AcceptMenteeBox from "./Mentor/AcceptMenteeBox";
 import FeatureNotReadyYetOnHover from "../various/FeatureNotReadyYetOnHover";
 import CountryPartner from "../advertising/CountryPartner";
-import RequestApprovalMenteeModal from "./Mentee/RequestApprovalMenteeModal";
 import { LinkContainer } from "react-router-bootstrap";
 import { connect } from "react-redux";
-import {
-  changeMenteeStatus,
-  setGettingStartedStepsProgress,
-  setMenteeApprovalProperties,
-  toggleApprovalModal
-} from "../../actions/actionCreator";
+import { setGettingStartedStepsProgress, toggleApprovalModal } from "../../actions/actionCreator";
+import RequestMentorApproval from "./Mentor/RequestMentorApproval";
+import RequestMenteeApproval from "./Mentee/RequestMenteeApproval";
 
 const GettingStartedSteps = (props) => {
 
@@ -115,9 +109,15 @@ const GettingStartedSteps = (props) => {
                                                                               action={"Open email"}
                                                                               onClick={() => window.open("https://" + props.user.email.substring(props.user.email.indexOf("@") + 1), "_blank")}
               /> : null}
-              {props.gettingStartedSteps.progress === 40 ?
-                <GettingStartedBox module={requestApprovallModule} action={"Sure, let's do this!"}
+
+              {props.gettingStartedSteps.progress === 40 && !props.gettingStartedSteps.showModal ? <GettingStartedBox module={requestApprovallModule} action={"Sure, let's do this!"}
                                    onClick={props.toggleApprovalModal}/> : null}
+
+              {props.gettingStartedSteps.progress === 40 && props.mode === "mentor" && _.get(props.user, "mentorProfile") && props.gettingStartedSteps.showModal ? <RequestMentorApproval toggleApprovalModal={props.toggleApprovalModal} /> : null}
+
+              {props.gettingStartedSteps.progress === 40 && props.mode === "mentee" && _.get(props.user, "menteeProfile") && props.gettingStartedSteps.showModal ? <RequestMenteeApproval toggleApprovalModal={props.toggleApprovalModal} /> : null}
+
+
               {props.gettingStartedSteps.progress === 60 ? <GettingStartedBox module={waitUntilApproved}/> : null}
               {props.gettingStartedSteps.progress === 80 ? <GettingStartedBox module={waitUntilMatched}/> : null}
               {props.gettingStartedSteps.progress === 100 ? <GettingStartedBox module={acceptMentee}/> : null}
@@ -131,7 +131,7 @@ const GettingStartedSteps = (props) => {
                     <ol style={{ lineHeight: "50px" }}>
                       <li>
                         <LinkContainer to={"/settings"}>
-                          <Button>Upload a profile picture
+                          <Button>{props.user[`${props.user.type}Profile`].pictureUrl ? "✅" : "📸"} Upload a profile
                           </Button>
                         </LinkContainer>
                       </li>
@@ -200,52 +200,15 @@ const GettingStartedSteps = (props) => {
           </Row>
         </Col>
       </Row>
-
-      {props.mode === "mentor" && _.get(props.user, "mentorProfile") ?
-        <RequestApprovalMentorModal user={props.user} show={props.gettingStartedSteps.showModal}
-                                    mentorHome={props.mentorHome}
-                                    onSubmit={(properties) => props.changeMentorStatus("requested", properties).then(r => {
-                                      if (r.success) {
-                                        props.toggleApprovalModal();
-                                        toast.success("Request sent");
-                                      } else toast.error("Error ");
-
-                                    })
-                                    }
-                                    onHide={(properties) => {
-                                      props.setMentorApprovalProperties(properties);
-                                      props.toggleApprovalModal();
-                                    }}/> : null}
-
-      {props.mode === "mentee" && _.get(props.user, "menteeProfile") ?
-        <RequestApprovalMenteeModal show={props.gettingStartedSteps.showModal} user={props.user}
-                                    menteeHome={props.menteeHome}
-                                    onHide={(properties) => {
-                                      props.setMenteeApprovalProperties(properties);
-                                      props.toggleApprovalModal();
-                                    }} onSubmit={(properties) => {
-          props.changeMenteeStatus("requested", properties).then(r => {
-            if (r.success) {
-              props.toggleApprovalModal();
-              toast.success("Request sent");
-            } else toast.error("Error ");
-          });
-        }
-        }
-        /> : null}
-
-
     </div>
   );
 };
 
-export default connect(({ user, gettingStartedSteps, menteeHome, mentorHome }) => {
-  return { user, gettingStartedSteps, menteeHome, mentorHome};
+export default connect(({ user, gettingStartedSteps }) => {
+  return { user, gettingStartedSteps};
 }, dispatch => {
   return {
     setGettingStartedStepsProgress: (progress) => dispatch(setGettingStartedStepsProgress(progress)),
     toggleApprovalModal: () => dispatch(toggleApprovalModal()),
-    setMenteeApprovalProperties: (properties) => dispatch(setMenteeApprovalProperties(properties)),
-    changeMenteeStatus: (status, properties) => dispatch(changeMenteeStatus(status, properties))
   };
 })(GettingStartedSteps);

@@ -26,7 +26,7 @@ const ConfirmAcceptMentee = ({toggleMentorConfirmDecision, mentorDecisionRelatio
       <Button block variant='warning' onClick={() => toggleMentorConfirmDecision("")}>Cancel</Button>
     </Col>
     <Col md={8}>
-      <Button block variant='success' onClick={() => mentorDecisionRelationship(true).then(r => {
+      <Button block variant='success' onClick={() => mentorDecisionRelationship(relationshipId, true).then(r => {
         if (r.success) toast.success("Confirmed");
       })}>I confirm I can help!</Button>
     </Col>

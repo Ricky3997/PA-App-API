@@ -5,8 +5,6 @@ import { Icon } from "react-fa";
 import ProfileIcon from "../../various/ProfileIcon";
 import Moment from "moment";
 import ConfirmAcceptMentee from "./ConfirmAcceptMentee";
-import connect from "react-redux/es/connect/connect";
-import { mentorDecisionRelationship, toggleMentorConfirmDecision } from "../../../actions/actionCreator";
 import { Link } from "react-router-dom";
 
 const MenteeTile = (props) => {

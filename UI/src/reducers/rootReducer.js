@@ -163,7 +163,7 @@ function menteeHome(state = {
   confirmCommittment: false,
   ethnicBackground: "",
   fromThreeLargestCity: 1,
-  hobbiesAndInterests: [""],
+  hobbiesAndInterests: [],
   referral: [],
   typeOfHighSchool: "",
   yearBorn: null,

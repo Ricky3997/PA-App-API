@@ -36,14 +36,12 @@ import {
   removePictureToCrop,
   saveSettings,
   sendEmailConfirmationAgain,
-  sendLoginEmail,
   setActiveChat,
   setProgramFilter,
   storePictureCropped,
   storePictureToCrop,
   toggleMessagingConnected,
   togglePicturePicker,
-  unsetLoginEmailSent,
   updateUser
 } from "../actions/actionCreator";
 import Footer from "./various/Footer";

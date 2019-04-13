@@ -1,21 +1,16 @@
 import React, { Component } from "react";
-import { CardDeck, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
+import { Button, CardDeck, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import { Icon } from "react-fa";
 import * as JsSearch from "js-search";
 import * as _ from "lodash";
 import UserCard from "./UserCard";
 import { Field, Form as FormikForm, Formik } from "formik";
 import { Select } from "antd";
-import connect from "react-redux/es/connect/connect";
 import MentorAdminProfile from "./MentorAdminProfile";
 import MenteeAdminProfile from "./MenteeAdminProfile";
 import UniversityPicker from "../../various/forms/UniversityPicker";
-import {
-  adminChangeUserStatus,
-  toggleAdminModal,
-  toggleMentorAdmin
-} from "../../../actions/actionCreator";
 import NotFound from "../../various/NotFound";
+import FeatureNotReadyYetOnHover from "../../various/FeatureNotReadyYetOnHover";
 
 const { Option } = Select;
 
@@ -75,7 +70,7 @@ class Database extends Component {
 
                 <Container fluid>
                   <Row>
-                    <Col md={5}>
+                    <Col md={6}>
                       <Field
                         type="select"
                         name="search"
@@ -92,18 +87,48 @@ class Database extends Component {
                         }}
                       />
                     </Col>
+
+                    <Col md={3}>
+                      <FeatureNotReadyYetOnHover>
+                        <Button disabled><Icon name="fas fa-commenting"/> Message these {toRender.length} {this.props.mode}</Button>
+                      </FeatureNotReadyYetOnHover>
+                    </Col>
+
+
+                  </Row>
+                  <Row>
                     <Col md={1}>
-                      <h5><Icon name="fas fa-filter"/> {" Filter"}</h5>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>
+                          <Icon name="fas fa-filter"/> {"  Filter"}
+                        </InputGroup.Text>
+                      </InputGroup.Prepend>
                     </Col>
                     <Col md={2}>
-                      <Field
-                        type="select"
-                        name="university"
-                        render={({ field }) => {
-                          return <UniversityPicker admin setFieldValue={setFieldValue} field={field} touched={touched}
-                                                   errors={errors} multiple/>;
-                        }}
-                      />
+                        <Field
+                          type="select"
+                          name="status"
+                          render={({ field }) => {
+                            return <Select allowClear size={"large"}
+                                           showSearch
+                                           mode="multiple"
+                                           value={field.value}
+                                           placeholder={"Status"}
+                                           onChange={(o) => setFieldValue(field.name, o)}>
+                              {this.createListOfStatuses(mentorMode).map((v) => <Option key={v} value={v}>{v}</Option>)}
+                            </Select>;
+
+                          }}
+                        />
+                    </Col>
+                    <Col md={2}>
+                        <Field
+                          type="select"
+                          name="university"
+                          render={({ field }) => {
+                            return <UniversityPicker admin setFieldValue={setFieldValue} field={field} touched={touched}
+                                                     errors={errors} multiple/>;
+                          }} />
                     </Col>
                     <Col md={2}>
                       <Field
@@ -123,24 +148,8 @@ class Database extends Component {
                         }}
                       />
                     </Col>
-                    <Col md={2}>
-                      <Field
-                        type="select"
-                        name="status"
-                        render={({ field }) => {
-                          return <Select allowClear size={"large"}
-                                         showSearch
-                                         mode="multiple"
-                                         value={field.value}
-                                         placeholder={"Status"}
-                                         onChange={(o) => setFieldValue(field.name, o)}>
-                            {this.createListOfStatuses(mentorMode).map((v) => <Option key={v} value={v}>{v}</Option>)}
-                          </Select>;
-
-                        }}
-                      />
-                    </Col>
                   </Row>
+                  <br/>
                   <Row>
                     <Col md={12}>
                       <CardDeck>

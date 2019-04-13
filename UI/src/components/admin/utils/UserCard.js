@@ -2,16 +2,9 @@ import React from "react";
 import { Badge, Card, Image, OverlayTrigger, Tooltip } from "react-bootstrap";
 import ConfirmMatchButton from "./ConfirmMatchButton";
 import ProfileIcon from "../../various/ProfileIcon";
-import connect from "react-redux/es/connect/connect";
-import {
-  confirmMatch,
-  showMatchingConfirmation,
-  unsetMatchingConfirmation
-} from "../../../actions/actionCreator";
 import HoverForDetails from "../matching/HoverForDetails";
 import RecommendationTransparency from "../matching/RecommendationTransparency";
 import defaults from "../../../defaults/defaults";
-import { toast } from "react-toastify";
 import MenteeCapacityBar from "./MenteeCapacityBar";
 
 const UserCard = (props) => {

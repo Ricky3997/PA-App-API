@@ -3,8 +3,6 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import ProfileIcon from "../../various/ProfileIcon";
 import Moment from "moment";
 import ConfirmAcceptMentee from "./ConfirmAcceptMentee";
-import connect from "react-redux/es/connect/connect";
-import { mentorDecisionRelationship, toggleMentorConfirmDecision } from "../../../actions/actionCreator";
 import { Link } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { Icon } from "react-fa";
@@ -47,7 +45,7 @@ const AcceptMenteeBox = (props) => {
           </Col>
         </Row>
         {(Moment.duration(new Moment(props.matchedOn).add(5, "d").diff(new Moment())) <= 0) ? "Time ran out to confirm, sorry" :
-          <ConfirmAcceptMentee relationshipid={props._id} />}
+          <ConfirmAcceptMentee relationshipId={props._id} />}
       </div>
     </Container>
   );
