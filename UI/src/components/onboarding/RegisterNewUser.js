@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, Button, Col, Form, Image, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
+import { Alert, Badge, Button, Col, Form, Image, OverlayTrigger, Row, Tooltip } from 'react-bootstrap';
 import PALogo from "../../assets/pa_key.png";
 import * as Yup from "yup";
 import { Field, Form as FormikForm, Formik } from "formik";
@@ -24,7 +24,17 @@ const RegisterNewUser = (props) => {
   return (
     <div>
       <Row>
-        <Col md={7} style={{ paddingTop: "30px" }}>
+        <Col md={{span: 8, offset: 2}} style={{ paddingTop: "10px" }}>
+          <Alert variant={'info'}>
+            Hello! This is a development version of the new app we are working on, thanks for helping us test it out! 🙏
+            <br/>
+            Any bugs, please let us know at <Alert.Link href="mailto:technology@projectaccess.org">technology@projectaccess.org</Alert.Link> 🤓
+          </Alert>
+
+        </Col>
+      </Row>
+      <Row>
+        <Col md={7} style={{ paddingTop: "0px" }}>
           <Image width="100px" src={PALogo}/>
           <h1>
             Where passion and potential define your future.
@@ -32,7 +42,7 @@ const RegisterNewUser = (props) => {
           <p>At Project Access we help disadvantaged students reach a top university</p>
 
         </Col>
-        <Col md={{ size: 2, offset: 1 }} style={{ paddingTop: "40px" }}>
+        <Col md={{ size: 2, offset: 1 }} style={{ paddingTop: "0px" }}>
 
           <Formik
             validationSchema={Yup.object().shape({
@@ -180,25 +190,20 @@ const RegisterNewUser = (props) => {
       <Row>
         <Col>
           <p>For now we are working with:</p>
-          <h4>
-            <CountryFlag width={"50px"} country={"United Kingdom"}/>
-          </h4>
+
           <div style={{ backgroundColor: "#fff4f0" }}>
-            {defaults.universities.UK.map(u => <Image key={u.name} src={u.logo} style={{
-              maxHeight: "50px",
-              maxWidth: "100px",
-              marginLeft: "3px"
-            }}/>)}
+            {[ <CountryFlag width={"50px"} country={"United Kingdom"}/>, ...defaults.universities.UK.map(u => <Image key={u.name} src={u.logo} style={{
+            maxHeight: "50px",
+            maxWidth: "100px",
+            marginLeft: "3px"
+          }}/>)]}
           </div>
-          <h4>
-            <CountryFlag width={"50px"} country={"United States"}/>
-          </h4>
           <div style={{ backgroundColor: "#fff4f0" }}>
-            {defaults.universities.US.map(u => <Image key={u.name} src={u.logo} style={{
+            {[<CountryFlag width={"50px"} country={"United States"}/>, ...defaults.universities.US.map(u => <Image key={u.name} src={u.logo} style={{
               maxHeight: "50px",
               maxWidth: "100px",
               marginLeft: "3px"
-            }}/>)}
+            }}/>)]}
           </div>
         </Col>
       </Row>

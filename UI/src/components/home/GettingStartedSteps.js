@@ -196,7 +196,8 @@ const GettingStartedSteps = (props) => {
 
           <Row>
             <CountryPartner country={_.get(props.user, `${props.mode}Profile.country`)}
-                            index={Math.floor(Math.random() * 4)}/>
+                            index={props.user._id.toLowerCase().split('').reduce( (result, ch) =>
+                              result * 16 + '0123456789abcdefgh'.indexOf(ch), 0) % 4}/>
           </Row>
         </Col>
       </Row>

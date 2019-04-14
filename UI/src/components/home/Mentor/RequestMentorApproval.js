@@ -46,7 +46,6 @@ const RequestMentorApproval = (props) => {
     })}
     initialValues={{ confirmCommittment: false, ...initialValues }}
     render={({ values, touched, errors, isSubmitting, setFieldValue }) => (<FormikForm>
-        Ò
         <Row>
           <Col>
             <h4>

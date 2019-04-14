@@ -4,6 +4,10 @@ import Moment from "moment";
 
 const SignupTrendsChart = ({ mentors, mentees, from, to }) => {
 
+  //TODO Fix weeks starting on Monday
+  //TODO Fix date picker not working properly with date ranges
+  //Todo Fix push to remote git
+
   const range = Math.ceil(Moment.duration(Moment(to).diff(Moment(from))).asDays()) + 1;
   let labels, menteeData, mentorData;
   if (range <= 7) {
@@ -18,9 +22,9 @@ const SignupTrendsChart = ({ mentors, mentees, from, to }) => {
     labels = [...Array(Math.ceil(range / 30)).keys()].reverse().map(d => new Moment(to).subtract(d, "M").format("MMM"));
     menteeData = [...Array(Math.ceil(range / 30)).keys()].reverse().map(d => mentees.filter(m => new Moment(m.latestStatusChange).isBetween(1262304000, new Moment(to).subtract(d, 'M'))).length);
     mentorData = [...Array(Math.ceil(range / 30)).keys()].reverse().map(d => mentors.filter(m => new Moment(m.latestStatusChange).isBetween(1262304000, new Moment(to).subtract(d, 'M'))).length);
-  } //TODO Need to fix issue that react vis uses chartjs under the covers, and additive behaviour for new data means changign format of axes fucks up th datasets
+  }
 
-  return <Line redraw
+  return <Line redraw // Need to fix issue that react vis uses chartjs under the covers, and additive behaviour for new data means changign format of axes fucks up th datasets
     data={{
       labels: labels,
       datasets: [

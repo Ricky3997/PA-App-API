@@ -26,11 +26,11 @@ class Onboarding extends Component {
       <MenteeOnboarding user={user} addOnboardingProperties={addOnboardingProperties} onboarding={onboarding}
                         changeStage={changeStage} registerMentee={registerMentee}/>;
     return (
-      <Container fluid>
-        <Container className="onboarding">
+      <div>
+        <Container fluid className="onboarding">
           {step}
         </Container>
-      </Container>
+      </div>
     );
   }
 }

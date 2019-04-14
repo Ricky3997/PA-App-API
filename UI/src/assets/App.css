@@ -77,10 +77,10 @@
 }
 
 .onboarding {
-    min-height: 500px;
-    border-radius: 10px;
+    min-height: 450px;
+    border-radius: 5px;
     background-color: coral;
-    margin-top: 50px;
+    margin-top: 10px;
     color: beige;
 }
 
