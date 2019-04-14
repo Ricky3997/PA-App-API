@@ -4,6 +4,7 @@ import { Col, Row } from "react-bootstrap";
 import SendBird from "sendbird";
 import ListOfChats from "./ListOfChats";
 import OpenChat from "./OpenChat";
+import { connect } from 'react-redux';
 
 class Messaging extends Component {
   constructor(props) {
@@ -27,8 +28,9 @@ class Messaging extends Component {
         }
       }
     };
+    //TODO Race conditions and re-renders
     this.sendBird = new SendBird({ appId: "FCFCF24D-0ADD-4194-AC16-704752BF7D0B" });
-    if (props.user.onboarded) {
+    if (props.user.onboarded && !props.messaging.connected) {
       this.sendBird.connect(props.user._id, (user, error) => {
         if (user) props.toggleMessagingConnected();
         this.sendBird.updateCurrentUserInfo(props.user.firstName,
@@ -56,7 +58,7 @@ class Messaging extends Component {
   }
 
   componentWillUnmount() {
-    if (this.props.user.onboarded) this.sendBird.disconnect(() => {
+    if (this.props.user.onboarded && this.props.messaging.connected) this.sendBird.disconnect(() => {
       this.props.toggleMessagingConnected();
       this.props.clearChats();
     });
@@ -98,7 +100,7 @@ class Messaging extends Component {
             <ListOfChats/>
           </Col>
           <Col md={9}>
-            <OpenChat/>
+            <OpenChat sendMessageInChat={this.sendMessageInChat}/>
           </Col>
         </Row>
       </ThemeProvider>
@@ -106,4 +108,9 @@ class Messaging extends Component {
   }
 }
 
-export default Messaging;
+export default connect(({ messaging }) => {
+  return { messaging };
+}, dispatch => {
+  return {
+  };
+})(Messaging);;

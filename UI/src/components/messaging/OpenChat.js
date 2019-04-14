@@ -64,6 +64,5 @@ export default connect(({ messaging, user }) => {
   return { messaging, user };
 }, dispatch => {
   return {
-    sendMessageInChat: (chatUrl, message) => this.sendMessageInChat(chatUrl, message)
   };
 })(OpenChat);
