@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import { setGettingStartedStepsProgress, toggleApprovalModal } from "../../actions/actionCreator";
 import RequestMentorApproval from "./Mentor/RequestMentorApproval";
 import RequestMenteeApproval from "./Mentee/RequestMenteeApproval";
+import ReferAFriend from '../various/ReferAFriend';
 
 const GettingStartedSteps = (props) => {
 
@@ -191,6 +192,10 @@ const GettingStartedSteps = (props) => {
             <Image
               src='https://www.universitiesuk.ac.uk/news/PublishingImages/access-paper-blurred-students.png?RenditionID=8'
               height='130'/>
+          </Row>
+          <br/>
+          <Row>
+            <ReferAFriend mentorMode={props.mode === "mentor"}/>
           </Row>
           <br/>
 

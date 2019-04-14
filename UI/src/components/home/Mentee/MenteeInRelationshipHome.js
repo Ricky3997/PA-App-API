@@ -8,6 +8,7 @@ import CountryPartner from "../../advertising/CountryPartner";
 import Module from "./Module";
 import { connect } from "react-redux";
 import { changeActiveJourneyModule } from "../../../actions/actionCreator";
+import ReferAFriend from '../../various/ReferAFriend';
 
 const MenteeInRelationshipHome = (props) => {
   return (
@@ -40,6 +41,10 @@ const MenteeInRelationshipHome = (props) => {
               <MentorTile mentor={props.user.menteeProfile.relationship.mentor}/>
               : <NoMentorYet toggleMenteeHomeModal={props.toggleMenteeHomeModal}
                              changeMenteeStatus={props.changeMenteeStatus} user={props.user}/>}
+          </Row>
+          <br/>
+          <Row>
+            <ReferAFriend mentorMode/>
           </Row>
           <br/>
           <Row>

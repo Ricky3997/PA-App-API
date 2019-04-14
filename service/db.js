@@ -163,7 +163,7 @@ const loadRLB = async () => {
     _id: id,
     firstName: "Riccardo",
     lastName: "Broggi",
-    type: "mentor",
+    type: "mentee",
     email: "riccardo@broggi.co.uk",
     emailConfirmed: true,
     onboarded: true,
@@ -188,7 +188,7 @@ const loadRLB = async () => {
     university: "Oxford",
     subject: "Computer Science",
     city: "Milano",
-    status: "notYetRequested",
+    status: "approved",
 
     maxNumberOfMentees: 5,
     careerInterests: ["Creative Arts and Design"],
@@ -209,6 +209,7 @@ const loadRLB = async () => {
   const menteeProfile = {
     _id: id,
     city: "London",
+    journey: [],
     coursesApplyingFor: ["Psychological & Behavioural Sciences"],
     country: "Spain",
     firstGenStudent: "No",

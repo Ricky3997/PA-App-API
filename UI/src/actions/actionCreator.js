@@ -43,6 +43,7 @@ import {
   UPDATE_USER
 } from "./actionTypes";
 import * as api from "../api";
+import * as _ from "lodash";
 import { toast } from "react-toastify";
 import { getInitialGettingStartedProgress } from "./helpers";
 
@@ -279,7 +280,7 @@ const updateAndStoreUser = (dispatch, user) => {
   dispatch(updateLastUserRefresh(now));
   if (user.onboarded) {
     dispatch(setGettingStartedStepsProgress(getInitialGettingStartedProgress(user)));
-    if (user.type === "mentee") {
+    if (user.type === "mentee" && _.get(user, 'journey.length') > 0) {
       dispatch(changeActiveJourneyModule(user.menteeProfile.journey.filter(m => !m.completed && m.ready)[0].typeformID));
     }
   }

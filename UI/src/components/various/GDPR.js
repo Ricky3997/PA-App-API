@@ -1,5 +1,4 @@
 import React from 'react';
-import NotReadyYet from './NotReadyYet';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Icon } from 'react-fa';
 import FeatureNotReadyYetOnHover from './FeatureNotReadyYetOnHover';
