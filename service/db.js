@@ -163,7 +163,7 @@ const loadRLB = async () => {
     _id: id,
     firstName: "Riccardo",
     lastName: "Broggi",
-    type: "mentee",
+    type: "mentor",
     email: "riccardo@broggi.co.uk",
     emailConfirmed: true,
     onboarded: true,

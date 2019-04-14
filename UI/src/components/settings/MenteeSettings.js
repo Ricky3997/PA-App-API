@@ -34,7 +34,7 @@ const MenteeSettings = (props) => {
     </LinkContainer>
   </div>;
   const { user, settings, togglePicturePicker, storePictureToCrop, removePictureToCrop, storePictureCropped, history } = props;
-  const { relationship, ...initialVals } = user.menteeProfile;
+  const { ...initialVals } = user.menteeProfile;
   return <div>
     <Formik
       validationSchema={Yup.object().shape({
@@ -81,7 +81,8 @@ const MenteeSettings = (props) => {
       })}
       initialValues={{
         email: user.email,
-        firstName: user.firstName, ...initialVals,
+        firstName: user.firstName,
+        ...initialVals,
         fromThreeLargestCity: initialVals.fromThreeLargestCity ? 1 : 0
       }}
       onSubmit={(values, { setSubmitting }) => {
@@ -124,7 +125,7 @@ const MenteeSettings = (props) => {
 
             </Col>
             <Col md={3}>
-              {props.user.menteeProfile.status === "requested" ?
+              {initialVals.status === "requested" ?
                 <div>
                   <h6>
                     You requested approval to get a mentor

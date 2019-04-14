@@ -132,7 +132,7 @@ const GettingStartedSteps = (props) => {
                     <ol style={{ lineHeight: "50px" }}>
                       <li>
                         <LinkContainer to={"/settings"}>
-                          <Button>{props.user[`${props.user.type}Profile`].pictureUrl ? "✅" : "📸"} Upload a profile
+                          <Button>{_.get(props.user, `menteeProfile.pictureUrl`) ? "✅" : "📸"} Upload a profile
                           </Button>
                         </LinkContainer>
                       </li>
@@ -155,7 +155,7 @@ const GettingStartedSteps = (props) => {
                     <ol style={{ lineHeight: "50px" }}>
                       <li>
                         <LinkContainer to={"/settings"}>
-                          <Button>{props.user[`${props.user.type}Profile`].pictureUrl ? "✅" : "📸"} Upload a profile
+                          <Button>{_.get(props.user, `mentorProfile.pictureUrl`)? "✅" : "📸"} Upload a profile
                             picture
                           </Button>
                         </LinkContainer>

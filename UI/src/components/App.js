@@ -53,6 +53,8 @@ import Messages from "./messaging/Messages";
 import * as ReactGA from "react-ga";
 import moment from "moment";
 import GDPR from './various/GDPR';
+import Search from './various/Search';
+import Guides from './various/Guides';
 
 class App extends Component {
 
@@ -77,6 +79,10 @@ class App extends Component {
 
             <Route path={"/login"} component={withRouter(Login)}/>
             <Route path={"/datapolicy"} component={GDPR}/>
+
+            <Route path={"/Guides"} component={Guides}/>
+
+            <Route path={"/search/:query"} component={withRouter(Search)}/>
 
             <Route path={"/settings"} component={connect(({ settings, user }) => {
               return { settings, user };

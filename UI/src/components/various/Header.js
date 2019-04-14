@@ -1,7 +1,7 @@
 import React from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import Logo from "../../assets/pa_key_white.png";
-import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Button, Form,  FormControl, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Icon } from "react-fa";
 import UserCircle from "./UserCircle";
 import * as _ from "lodash";
@@ -17,9 +17,10 @@ const Header = (props) => {
 
   if (props.user) {
     const pictureUrl = _.get(props.user, `${props.user.type === "mentee" ? "menteeProfile" : "mentorProfile"}.pictureUrl`);
-    userDropdown = <NavDropdown title={<span>
+    userDropdown = <NavDropdown style={{marginRight: '50px'}} title={<span>
+      {props.user.firstName} {" "}
             {pictureUrl ? <UserCircle pictureUrl={pictureUrl}/> : <Icon name={"fas fa-user"}/>}
-      {props.user.firstName}</span>} id="user-dropdown">
+      </span>} id="user-dropdown">
       <LinkContainer to="/settings">
         <NavDropdown.Item>
           <span> <Icon name="fas fa-gear"/> Settings</span>
@@ -66,8 +67,12 @@ const Header = (props) => {
             <Nav.Link>Call</Nav.Link>
           </LinkContainer> : null}
 
+          <LinkContainer to="/Guides">
+            <Nav.Link>Guides</Nav.Link>
+          </LinkContainer>
+
           <LinkContainer to="/about">
-            <Nav.Link>How does it work?</Nav.Link>
+            <Nav.Link>About</Nav.Link>
           </LinkContainer>
         </Nav>
         {/*<Form>*/}
@@ -75,6 +80,12 @@ const Header = (props) => {
         {/*    <Icon name={'fas fa-bell'}/> {' '}*/}
         {/*  </span>*/}
         {/*</Form>*/}
+        <Form inline>
+          <FormControl type="text" style={{width: '250px'}}
+                       placeholder="Questions? We have answers!" className="mr-sm-4"
+                       onChange={(v) => props.history.push(`/search/${v.target.value}`)}
+          />
+        </Form>
         <Nav>
           {userDropdown}
         </Nav>

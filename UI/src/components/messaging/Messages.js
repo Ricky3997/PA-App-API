@@ -9,7 +9,7 @@ const Messages = (props) => {
   }
   if (props.user.type === "mentee") {
     const rel = _.get(props.user, "menteeProfile.relationship.status");
-    if (rel.status === "confirmed") return <Messaging {...props} />;
+    if (rel && rel.status === "confirmed") return <Messaging {...props} />;
   }
   return <div>Messaging is only available once your mentoring relationship has started</div>;
 };
