@@ -13,6 +13,10 @@
     "type": "git",
     "url": "https://git-codecommit.eu-west-2.amazonaws.com/v1/repos/Mentor"
   },
+  "jest": {
+    "verbose": true,
+    "testPathIgnorePatterns": ["<rootDir>/UI/", "<rootDir>/node_modules/"]
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
