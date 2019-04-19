@@ -1,5 +1,5 @@
-import React from "react";
-import ReactLoading from "react-loading";
+import React from 'react';
+import ReactLoading from 'react-loading';
 import {
   AddIcon,
   IconButton,
@@ -10,8 +10,9 @@ import {
   SendButton,
   TextComposer,
   TextInput
-} from "@livechat/ui-kit";
-import { connect } from "react-redux";
+} from '@livechat/ui-kit';
+import { connect } from 'react-redux';
+import { Alert } from 'react-bootstrap';
 
 const OpenChat = (props) => {
 
@@ -27,31 +28,32 @@ const OpenChat = (props) => {
 
 
   if (!props.messaging.connected) return <div>
-    <ReactLoading type={"spin"} color={"#111111"} height={64} width={64}/>
+    <ReactLoading type={'spin'} color={'#111111'} height={64} width={64}/>
   </div>;
   else {
     const activeChat = props.messaging.chats.filter(c => c.id === props.messaging.activeChatId)[0];
     return <div>
       {activeChat ? <div>
-        <MessageList active style={{ height: "580px" }}>
-          {activeChat.messages.map(m => {
+        <MessageList active style={{ height: '580px' }}>
+          {activeChat.messages.length > 0 ? activeChat.messages.map(m => {
               return <Message key={m.messageId}
                               date={makeDateEllipsis(new Date(m.createdAt))}
-                              authorName={m._sender.userId === props.user._id ? "You" : m._sender.nickname}
+                              authorName={m._sender.userId === props.user._id ? 'You' : m._sender.nickname}
                               isOwn={m._sender.userId === props.user._id}>
                 <MessageText>
                   {m.message}
                 </MessageText>
               </Message>;
             }
-          )}
+          ) : <Alert variant={'info'}>Hello there! This is the beginning of the conversation, why don't you start? We've written a
+            suggestion for you in the box below, feel free to send it or change it! 🤗</Alert>}
         </MessageList>
-        <TextComposer onSend={(message) => props.sendMessageInChat(activeChat.id, message)}>
+        <TextComposer  defaultValue={activeChat.messages.length > 0 ? '' : 'Prefilled'}  onSend={(message) => props.sendMessageInChat(activeChat.id, message)}>
           <ChatRow align="center">
             <IconButton fit>
               <AddIcon/>
             </IconButton>
-            <TextInput fill={"true"} placeholder={"Type a message"}/>
+            <TextInput fill={'true'} placeholder={'Type a message'}/>
             <SendButton fit/>
           </ChatRow>
         </TextComposer>
@@ -63,6 +65,5 @@ const OpenChat = (props) => {
 export default connect(({ messaging, user }) => {
   return { messaging, user };
 }, dispatch => {
-  return {
-  };
+  return {};
 })(OpenChat);

@@ -22,8 +22,7 @@ const AcceptMenteeBox = (props) => {
           <Row>
             <Col>
               <h6>
-                <Link to={`mentee/${props.mentee._id}`}>{props.mentee.firstName}</Link>
-                , studies at <b>{props.mentee.school}</b> in {props.mentee.city}
+                {props.mentee.firstName}, studies at <b>{props.mentee.school}</b> in {props.mentee.city}
               </h6>
             </Col>
           </Row>

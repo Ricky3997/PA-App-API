@@ -1,12 +1,18 @@
 import React from 'react';
-import { Button, Col, FormControl, InputGroup, Row } from 'react-bootstrap';
+import { Button, CardColumns, CardDeck, Col, Row } from 'react-bootstrap';
 import * as _ from 'lodash';
 import MenteeTile from './MenteeTile';
 import AcceptMenteeBox from './AcceptMenteeBox';
 import CountryPartner from '../../advertising/CountryPartner';
-import { Icon } from 'react-fa';
 import ReferAFriend from '../../various/ReferAFriend';
-
+import AppointmentCard from './AppointmentCard';
+import EventHappening from './EventHappening';
+import { Icon } from 'react-fa';
+import { LinkContainer } from 'react-router-bootstrap';
+import moment from 'moment';
+import Events from './Events';
+import LookingForInternships from './LookingForInternships';
+import Appointments from './Appointments';
 
 const MentoringHome = (props) => {
 
@@ -28,26 +34,27 @@ const MentoringHome = (props) => {
     <div>
       <Row>
         <Col md={9}>
-          <p>
-            It's always great to see you back with us, and thank you so much for being an amazing human being changing
-            the world!
-          </p>
-        </Col>
-      </Row>
-
-      <Row>
-        <Col md={9}>
-          HOME
+          <Row>
+            <Col>
+              <Appointments/>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Events uni={_.get(props, 'user.mentorProfile.university')}/>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <LookingForInternships />
+            </Col>
+          </Row>
         </Col>
         <Col md={3}>
           <Row>
-            <h4>Your Mentees <span role="img" aria-labelledby={'angel emoji'}>😇</span></h4>
-            {_.get(props, 'user.mentorProfile.relationship.length') > 0 ?
-              props.user.mentorProfile.relationship.sort((a, b) => a.status === 'awaitingConfirmation' ? -1 : 1).map(r => r.status === 'awaitingConfirmation' ?
-                <AcceptMenteeBox {...r} /> : <MenteeTile key={r._id} {...r} />) :
-              <div>
-                <div>{toRender}</div>
-              </div>}
+            <h4>Your Mentees 😇</h4>
+            {props.user.mentorProfile.relationship.sort((a, b) => a.status === 'awaitingConfirmation' ? -1 : 1)
+                .map(r => r.status === 'awaitingConfirmation' ? <AcceptMenteeBox {...r} /> : <MenteeTile key={r._id} {...r} />)}
           </Row>
           <br/>
           <Row>
@@ -55,9 +62,7 @@ const MentoringHome = (props) => {
           </Row>
           <br/>
           <Row>
-            <CountryPartner country={props.user.mentorProfile.country}
-                            index={props.user._id.toLowerCase().split('').reduce((result, ch) =>
-                              result * 16 + '0123456789abcdefgh'.indexOf(ch), 0) % 4}/>
+            <CountryPartner country={props.user.mentorProfile.country} index={props.user._id.toLowerCase().split('').reduce((result, ch) => result * 16 + '0123456789abcdefgh'.indexOf(ch), 0) % 4}/>
           </Row>
 
         </Col>

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
+import { Icon } from 'react-fa';
 import FeatureNotReadyYetOnHover from './FeatureNotReadyYetOnHover';
 import NotReadyYet from './NotReadyYet';
 import { LinkContainer } from 'react-router-bootstrap';
 
-const Search = ({match}) => {
+const EventDetails = ({match}) => {
   return <Container>
     <Row>
       <Col>
@@ -12,13 +13,11 @@ const Search = ({match}) => {
           <LinkContainer to={''}>
             <Breadcrumb.Item>{"Home"}</Breadcrumb.Item>
           </LinkContainer>
-          <Breadcrumb.Item active href="#">Search: {match.params.query}</Breadcrumb.Item>
+          <Breadcrumb.Item active href="#">Event: {match.params.id}</Breadcrumb.Item>
         </Breadcrumb>
-
         <FeatureNotReadyYetOnHover>
-          <h3>Search</h3>
-          <p>Searching results for.. {match.params.query}</p>
-          <p>Knowledge Base content coming here soon!</p>
+        <h2>Event details!</h2>
+          <p>Here soon for id {match.params.id}</p>
           <NotReadyYet/>
         </FeatureNotReadyYetOnHover>
       </Col>
@@ -26,4 +25,4 @@ const Search = ({match}) => {
   </Container>;
 };
 
-export default Search;
+export default EventDetails;

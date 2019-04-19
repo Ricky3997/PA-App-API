@@ -103,7 +103,7 @@ function settings(state = {
 }
 
 function onboarding(state = {
-  step: 3,
+  step: 1,
   country: "",
   city: "",
   university: "",

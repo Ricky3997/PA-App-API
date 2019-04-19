@@ -76,7 +76,8 @@ const RegisterNewUser = (props) => {
                   window.localStorage.setItem("token", r.payload.token);
                   window.localStorage.setItem("user", JSON.stringify(r.payload.user));
                   props.updateUser(r.payload.user);
-                  props.changeStage(2);
+                  toast.success("Fantastic, welcome!");
+                  props.history.push(`/`);
                 } else if (r.success && r.payload.error === 11000) {
                   toast.error("User with that email exists already");
                   props.history.push(`/login?email=${email}`);

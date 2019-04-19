@@ -108,9 +108,9 @@ class Matching extends Component {
                                   menteeToMatch={toMatch._id} {...m}
                                 />)}
                                 <NoMentorsFitCard/>
-                              </CardDeck> : <CardColumns>
+                              </CardDeck> : <CardDeck>
                                 <NoMentorsFitCard/>
-                              </CardColumns>}
+                              </CardDeck>}
                           </div>
                         </FormikForm>
                       );

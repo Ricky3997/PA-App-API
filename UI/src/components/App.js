@@ -55,6 +55,8 @@ import moment from "moment";
 import GDPR from './various/GDPR';
 import Search from './various/Search';
 import Guides from './various/Guides';
+import EventDetails from './various/EventDetails';
+import Jobs from './jobs/Jobs';
 
 class App extends Component {
 
@@ -127,6 +129,24 @@ class App extends Component {
                 };
               })(PublicMentorProfile)}/>
 
+            <Route path={"/events/:id"} component={connect(
+              ({ }) => {
+                return { };
+              }, dispatch => {
+                return {
+                  // getMentorById: (id) => dispatch(getMentorById(id))
+                };
+              })(EventDetails)}/>
+
+            <Route path={"/jobs"} component={connect(
+              ({ user }) => {
+                return { user };
+              }, dispatch => {
+                return {
+                  // getMentorById: (id) => dispatch(getMentorById(id))
+                };
+              })(Jobs)}/>
+
             <Route path={"/mentee/:id"} component={connect(
               ({ publicProfile, user }) => {
                 return { publicProfile, user };
@@ -175,7 +195,7 @@ class App extends Component {
               return {
                 refreshUser: () => dispatch(getUser())
               };
-            })(Home)}/>
+            })(withRouter(Home))}/>
 
           </Switch>
           <ToastContainer/>

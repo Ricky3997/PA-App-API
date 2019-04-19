@@ -1,7 +1,7 @@
 import React from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import Logo from "../../assets/pa_key_white.png";
-import { Button, Form,  FormControl, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Form, FormControl, InputGroup, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Icon } from "react-fa";
 import UserCircle from "./UserCircle";
 import * as _ from "lodash";
@@ -67,6 +67,10 @@ const Header = (props) => {
             <Nav.Link>Call</Nav.Link>
           </LinkContainer> : null}
 
+          {props.user && props.user.type === 'mentor' ? <LinkContainer to={"/jobs"}>
+            <Nav.Link>Jobs</Nav.Link>
+          </LinkContainer> : null}
+
           <LinkContainer to="/Guides">
             <Nav.Link>Guides</Nav.Link>
           </LinkContainer>
@@ -81,10 +85,14 @@ const Header = (props) => {
         {/*  </span>*/}
         {/*</Form>*/}
         <Form inline>
-          <FormControl type="text" style={{width: '250px'}}
-                       placeholder="Questions? We have answers!" className="mr-sm-4"
-                       onChange={(v) => props.history.push(`/search/${v.target.value}`)}
-          />
+          <InputGroup >
+            <InputGroup.Prepend>
+              <InputGroup.Text><Icon name="fas fa-search"/></InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl type="text" style={{width: '250px'}}
+                          placeholder="Questions? We have answers!"
+                          onChange={(v) => props.history.push(`/search/${v.target.value}`)}/>
+          </InputGroup>
         </Form>
         <Nav>
           {userDropdown}
