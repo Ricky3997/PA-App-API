@@ -268,13 +268,10 @@ function messaging(state = {
       chats.push(action.chat);
       return { ...state, chats: chats };
     case ADD_MESSAGES_TO_CHAT:
-
       const chat = state.chats.filter(c => c.id === action.chatId)[0];
       chat.messages = [...chat.messages, ...action.messages];
-
       const chatsUpdated = state.chats.filter(c => c.id !== action.chatId);
       chatsUpdated.push(chat);
-
       return { ...state, chats: chatsUpdated };
     default:
       return state;

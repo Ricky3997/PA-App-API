@@ -1,12 +1,10 @@
 import React from 'react';
-import { Button, Card, CardColumns, CardDeck, Col } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
-import EventHappening from './EventHappening';
+import { CardDeck } from 'react-bootstrap';
 import moment from 'moment';
-import { Icon } from 'react-fa';
+import * as _  from 'lodash';
 import AppointmentCard from './AppointmentCard';
 
-const Appointments = ({}) => {
+const Appointments = ({mentees}) => {
   return (
     <div>
       <h5>
@@ -14,11 +12,11 @@ const Appointments = ({}) => {
       </h5>
       <CardDeck>
         <AppointmentCard
-          mentee={'Nicole'}
+          mentee={_.sample(mentees)}
           purpose={'Personal Statement draft revision'}
           date={moment("08-10-2019-17-00", "DD-MM-YYYY-hh-mm").format('dddd DD MMM hh:mm A')}/>
         <AppointmentCard
-          mentee={'John'}
+          mentee={_.sample(mentees)}
           purpose={'Student loan application'}
           date={moment("08-10-2019-19-00", "DD-MM-YYYY-hh-mm").format('dddd DD MMM hh:mm A')}/>
       </CardDeck>

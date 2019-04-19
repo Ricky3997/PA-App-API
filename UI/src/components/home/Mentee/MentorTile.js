@@ -21,28 +21,18 @@ const MentorTile = (props) => {
         </Col>
         <Col md={6}>
           <Row>
-            <Link to={`mentor/${props.mentor._id}`}>{props.mentor.firstName}</Link>
-          </Row>
-          <Row>
-            {props.mentor.subject}
-          </Row>
-          <Row>
-            {props.mentor.university}
+            {props.mentor.firstName} studies {props.mentor.subject} at {props.mentor.university} (Year {props.mentor.year})
           </Row>
         </Col>
       </Row>
       <br/>
       <Row>
         <Col>
-          <LinkContainer to="/message">
-            <Button block><Icon name="fas fa-commenting"/> Message</Button>
+          <LinkContainer to={`/mentor/${props.mentor._id}`}>
+            <Button block><Icon name="fas fa-user"/> Go to your mentor's profile</Button>
           </LinkContainer>
         </Col>
-        <Col>
-          <LinkContainer to="/call">
-            <Button block><Icon name="fas fa-phone"/> Call</Button>
-          </LinkContainer>
-        </Col>
+
       </Row>
 
     </Container>

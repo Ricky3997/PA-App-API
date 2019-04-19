@@ -36,7 +36,7 @@ const MentoringHome = (props) => {
         <Col md={9}>
           <Row>
             <Col>
-              <Appointments/>
+              <Appointments mentees={props.user.mentorProfile.relationship.map(r => r.mentee)}/>
             </Col>
           </Row>
           <Row>

@@ -32,7 +32,7 @@ const MenteeAdminProfile = (props) => {
 
     <Row>
       <Col md={2}>
-        <ProfileIcon menteeMode pictureUrl={props.mentee.pictureUrl} size={"xl"}/>
+        <ProfileIcon menteeMode pictureUrl={props.mentee.pictureUrl} size={"l"}/>
       </Col>
       <Col md={2}>
         {props.matching ? <LinkContainer to={`/admin/mentees/${props.mentee._id}?from=matching`}

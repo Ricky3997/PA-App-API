@@ -15,8 +15,6 @@ import { connect } from 'react-redux';
 import { Alert } from 'react-bootstrap';
 
 const OpenChat = (props) => {
-
-
   const makeDateEllipsis = (date) => {
     const today = new Date();
     const hoursAndMinutes = `${date.getHours()}:${date.getMinutes() < 9 ? `0${date.getMinutes()}` : date.getMinutes()}`;
@@ -25,7 +23,6 @@ const OpenChat = (props) => {
       today.getDate() === date.getDate()) return `Today, ${hoursAndMinutes}`;
     else return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}, ${hoursAndMinutes}`;
   };
-
 
   if (!props.messaging.connected) return <div>
     <ReactLoading type={'spin'} color={'#111111'} height={64} width={64}/>
@@ -48,7 +45,8 @@ const OpenChat = (props) => {
           ) : <Alert variant={'info'}>Hello there! This is the beginning of the conversation, why don't you start? We've written a
             suggestion for you in the box below, feel free to send it or change it! 🤗</Alert>}
         </MessageList>
-        <TextComposer  defaultValue={activeChat.messages.length > 0 ? '' : 'Prefilled'}  onSend={(message) => props.sendMessageInChat(activeChat.id, message)}>
+        <TextComposer defaultValue={activeChat.messages.length === 0 ?
+          `Hello there, my name is ${props.user.firstName} and I'm so glad to get to know you! How're you doing?` : null}  onSend={(message) => props.sendMessageInChat(activeChat.id, message)}>
           <ChatRow align="center">
             <IconButton fit>
               <AddIcon/>

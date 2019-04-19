@@ -46,7 +46,7 @@ const MentorAdminProfile = (props) => {
 
     <Row>
       <Col md={2}>
-        <ProfileIcon mentorMode pictureUrl={props.mentor.pictureUrl} size={"xl"}/>
+        <ProfileIcon mentorMode pictureUrl={props.mentor.pictureUrl} size={"l"}/>
       </Col>
       <Col md={2}>
         <h4>{props.mentor.firstName}</h4>

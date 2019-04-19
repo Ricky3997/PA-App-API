@@ -11,8 +11,8 @@ const AppointmentCard = ({ purpose, date, mentee }) => {
       <Card.Body>
         <Card.Subtitle>{date}</Card.Subtitle>
         With {' '}
-        <LinkContainer to={`/events/${mentee}`}>
-          <Card.Link>{mentee}</Card.Link>
+        <LinkContainer to={`/mentee/${mentee._id}`}>
+          <Card.Link>{mentee.firstName}</Card.Link>
         </LinkContainer>
       </Card.Body>
     </Card>
