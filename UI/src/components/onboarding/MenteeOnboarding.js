@@ -1,7 +1,7 @@
-import React from "react";
-import AnagraphicInfoStep from "./AnagraphicInfoStep";
-import MenteeAcademicBackground from "./MenteeAcademicBackground";
-import MenteeConfirm from "./MenteeConfirm";
+import React from 'react';
+import AnagraphicInfoStep from './AnagraphicInfoStep';
+import MenteeAcademicBackground from './MenteeAcademicBackground';
+import MenteeConfirm from './MenteeConfirm';
 
 const MenteeOnboarding = (props) => {
   return <div>

@@ -1,6 +1,6 @@
-import React from "react";
-import countries from "svg-country-flags/countries";
-import * as _ from "lodash";
+import React from 'react';
+import countries from 'svg-country-flags/countries';
+import * as _ from 'lodash';
 
 const CountryFlag = ({ country, width }) => {
 

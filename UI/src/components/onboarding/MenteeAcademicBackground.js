@@ -1,16 +1,16 @@
-import React from "react";
-import { Field, Form as FormikForm, Formik } from "formik";
-import * as Yup from "yup";
-import { Button, Col, ProgressBar, Row } from "react-bootstrap";
-import TextFieldWithLabel from "../various/forms/TextFieldWithLabel";
-import DegreeLevelPicker from "../various/forms/DegreeLevelPicker";
-import YearPicker from "../various/forms/YearPicker";
-import AreaOfDegreePicker from "../various/forms/AreaOfDegreePicker";
-import * as _ from "lodash";
-import SubjectsInSchoolPicker from "../various/forms/SubjectsInSchoolPicker";
-import { Icon } from "react-fa";
-import UniversityPicker from "./../various/forms/UniversityPicker";
-import CoursePicker from "../various/forms/CoursePicker";
+import React from 'react';
+import { Field, Form as FormikForm, Formik } from 'formik';
+import * as Yup from 'yup';
+import { Button, Col, ProgressBar, Row } from 'react-bootstrap';
+import TextFieldWithLabel from '../various/forms/TextFieldWithLabel';
+import DegreeLevelPicker from '../various/forms/DegreeLevelPicker';
+import YearPicker from '../various/forms/YearPicker';
+import AreaOfDegreePicker from '../various/forms/AreaOfDegreePicker';
+import * as _ from 'lodash';
+import SubjectsInSchoolPicker from '../various/forms/SubjectsInSchoolPicker';
+import { Icon } from 'react-fa';
+import UniversityPicker from './../various/forms/UniversityPicker';
+import CoursePicker from '../various/forms/CoursePicker';
 
 
 const MenteeAcademicBackground = (props) => {

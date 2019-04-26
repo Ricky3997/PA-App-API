@@ -1,19 +1,19 @@
-import React, { Component } from "react";
-import { Container, Tab, Tabs } from "react-bootstrap";
-import Dashboard from "./dashboard/Dashboard";
-import { Route } from "react-router-dom";
-import Matching from "./matching/Matching";
-import { cancelRelationship, changeMenteeBeingMatched, toggleDashboardConfirmation } from "../../actions/actionCreator";
-import connect from "react-redux/es/connect/connect";
-import { toast } from "react-toastify";
-import BadgePendingNumber from "./utils/BadgePendingNumber";
-import Statistics from "./statistics/Statistics";
-import Database from "./utils/Database";
-import { Icon } from "react-fa";
-import { Select } from "antd";
-import CountryFlag from "../various/CountryFlag";
-import defaults from "../../defaults/defaults";
-import * as _ from "lodash";
+import React, { Component } from 'react';
+import { Container, Tab, Tabs } from 'react-bootstrap';
+import Dashboard from './dashboard/Dashboard';
+import { Route } from 'react-router-dom';
+import Matching from './matching/Matching';
+import { cancelRelationship, changeMenteeBeingMatched, toggleDashboardConfirmation } from '../../actions/actionCreator';
+import connect from 'react-redux/es/connect/connect';
+import { toast } from 'react-toastify';
+import BadgePendingNumber from './utils/BadgePendingNumber';
+import Statistics from './statistics/Statistics';
+import Database from './utils/Database';
+import { Icon } from 'react-fa';
+import { Select } from 'antd';
+import CountryFlag from '../various/CountryFlag';
+import defaults from '../../defaults/defaults';
+import * as _ from 'lodash';
 
 class Admin extends Component {
   constructor(props) {

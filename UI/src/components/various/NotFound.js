@@ -1,5 +1,5 @@
-import React from "react";
-import { Image } from "react-bootstrap";
+import React from 'react';
+import { Image } from 'react-bootstrap';
 
 const NotFound = ({ children }) => {
   return (<div>

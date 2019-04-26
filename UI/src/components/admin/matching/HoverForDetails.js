@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
-import MentorAdminProfile from "../utils/MentorAdminProfile";
-import MenteeAdminProfile from "../utils/MenteeAdminProfile";
-import CountryFlag from "../../various/CountryFlag";
-import { Link } from "react-router-dom";
-import connect from "react-redux/es/connect/connect";
-import { toggleMatchingDetailsModal } from "../../../actions/actionCreator";
+import React, { Component } from 'react';
+import { Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import MentorAdminProfile from '../utils/MentorAdminProfile';
+import MenteeAdminProfile from '../utils/MenteeAdminProfile';
+import CountryFlag from '../../various/CountryFlag';
+import { Link } from 'react-router-dom';
+import connect from 'react-redux/es/connect/connect';
+import { toggleMatchingDetailsModal } from '../../../actions/actionCreator';
 
 class HoverForDetails extends Component {
   render() {

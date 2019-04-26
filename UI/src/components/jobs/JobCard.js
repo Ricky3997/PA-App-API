@@ -14,7 +14,7 @@ const JobCard = ({ title, dates, field, skills, link, coverUrl }) => {
       <ListGroupItem>{skills}</ListGroupItem>
     </ListGroup>
     <Card.Body>
-      <a target='_blank' href={link}>Find out more and apply</a>
+      <a target='_blank'  rel="noopener noreferrer" href={link}>Find out more and apply</a>
     </Card.Body>
   </Card>;
 };

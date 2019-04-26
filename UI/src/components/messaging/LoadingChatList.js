@@ -1,5 +1,5 @@
-import React from "react";
-import { Avatar, ChatListItem, Column, Row as ChatRow, Subtitle, Title } from "@livechat/ui-kit";
+import React from 'react';
+import { Avatar, ChatListItem, Column, Row as ChatRow, Subtitle, Title } from '@livechat/ui-kit';
 
 const LoadingChatList = () => {
   return <ChatListItem active>

@@ -1,6 +1,6 @@
-import React from "react";
-import * as _ from "lodash";
-import Messaging from "./Messaging";
+import React from 'react';
+import * as _ from 'lodash';
+import Messaging from './Messaging';
 
 const Messages = (props) => {
   if (props.user.type === "mentor") {

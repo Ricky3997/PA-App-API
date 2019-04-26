@@ -1,34 +1,17 @@
 import React from 'react';
-import { Button, CardColumns, CardDeck, Col, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import * as _ from 'lodash';
 import MenteeTile from './MenteeTile';
 import AcceptMenteeBox from './AcceptMenteeBox';
 import CountryPartner from '../../advertising/CountryPartner';
 import ReferAFriend from '../../various/ReferAFriend';
-import AppointmentCard from './AppointmentCard';
-import EventHappening from './EventHappening';
-import { Icon } from 'react-fa';
-import { LinkContainer } from 'react-router-bootstrap';
-import moment from 'moment';
 import Events from './Events';
 import LookingForInternships from './LookingForInternships';
 import Appointments from './Appointments';
 
 const MentoringHome = (props) => {
 
-  let toRender;
-  if (!props.user.onboarded) {
-    toRender = <Button onClick={() => props.history.push('/onboard')}>
-      Looks like you are not onboarded, go finish
-    </Button>;
-  } else if (props.user.mentorProfile.status === 'rejected') { //TODO
-    toRender = <div>
-      Unfortunately you have been rejected, and this was indicated as the reason:
-      <blockquote>
-        {props.user.mentorProfile.rejectionReason}
-      </blockquote>
-    </div>;
-  }
+   // if (props.user.mentorProfile.status === 'rejected') { //TODO Handle Rejection
 
   return (
     <div>

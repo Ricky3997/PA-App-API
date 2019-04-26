@@ -1,6 +1,6 @@
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import React from "react";
-import { Icon } from "react-fa";
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import React from 'react';
+import { Icon } from 'react-fa';
 
 const StatusIcon = (props) => {
   if (props.status === "notYetRequested") return <OverlayTrigger placement="bottom"

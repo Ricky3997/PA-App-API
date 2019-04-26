@@ -1,6 +1,6 @@
-import { Select } from "antd";
-import React from "react";
-import { Form } from "react-bootstrap";
+import { Select } from 'antd';
+import React from 'react';
+import { Form } from 'react-bootstrap';
 
 const { Option } = Select;
 

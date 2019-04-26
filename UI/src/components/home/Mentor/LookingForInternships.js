@@ -1,11 +1,9 @@
 import React from 'react';
-import { Button, Card, CardColumns, Col } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import EventHappening from './EventHappening';
-import moment from 'moment';
 import { Icon } from 'react-fa';
 
-const LookingForInternships = ({}) => {
+const LookingForInternships = () => {
   return (
     <div>
       <h5>

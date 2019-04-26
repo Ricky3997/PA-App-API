@@ -1,7 +1,7 @@
-import { Select } from "antd";
-import React from "react";
-import { Form } from "react-bootstrap";
-import countries from "svg-country-flags/countries";
+import { Select } from 'antd';
+import React from 'react';
+import { Form } from 'react-bootstrap';
+import countries from 'svg-country-flags/countries';
 
 const { Option } = Select;
 const countryFlags = {};

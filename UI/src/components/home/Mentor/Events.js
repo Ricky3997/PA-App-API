@@ -1,6 +1,5 @@
 import React from 'react';
-import { Card, CardColumns, Col } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import { CardColumns } from 'react-bootstrap';
 import EventHappening from './EventHappening';
 import moment from 'moment';
 

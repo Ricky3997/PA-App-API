@@ -1,6 +1,6 @@
-import React from "react";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import NotReadyYet from "./NotReadyYet";
+import React from 'react';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import NotReadyYet from './NotReadyYet';
 
 const FeatureNotReadyYetOnHover = ({ children }) => {
   return (

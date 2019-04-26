@@ -1,6 +1,6 @@
-import React from "react";
-import { Bookmark, Timeline } from "react-vertical-timeline";
-import "react-vertical-timeline/style.css";
+import React from 'react';
+import { Bookmark, Timeline } from 'react-vertical-timeline';
+import 'react-vertical-timeline/style.css';
 
 const ProgressionTimeline = (props) => {
   const activeModule = props.modules.filter(m => m.typeformID === props.activeId)[0];

@@ -1,7 +1,7 @@
-import React from "react";
-import { Button, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
-import NotReadyYet from "../MenteeHome";
-import { LinkContainer } from "react-router-bootstrap";
+import React from 'react';
+import { Button, Col, OverlayTrigger, Row, Tooltip } from 'react-bootstrap';
+import NotReadyYet from '../MenteeHome';
+import { LinkContainer } from 'react-router-bootstrap';
 
 const NoMentorYet = (props) => {
 

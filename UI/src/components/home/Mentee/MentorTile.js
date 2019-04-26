@@ -1,9 +1,8 @@
-import React from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
-import { Icon } from "react-fa";
-import ProfileIcon from "../../various/ProfileIcon";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Button, Col, Container, Row } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+import { Icon } from 'react-fa';
+import ProfileIcon from '../../various/ProfileIcon';
 
 const MentorTile = (props) => {
   return (

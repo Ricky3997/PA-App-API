@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { Container } from "react-bootstrap";
-import RegisterNewUser from "./RegisterNewUser";
-import MentorOnboarding from "./MentorOnboarding";
-import MenteeOnboarding from "./MenteeOnboarding";
-import { Redirect } from "react-router-dom";
+import React, { Component } from 'react';
+import { Container } from 'react-bootstrap';
+import RegisterNewUser from './RegisterNewUser';
+import MentorOnboarding from './MentorOnboarding';
+import MenteeOnboarding from './MenteeOnboarding';
+import { Redirect } from 'react-router-dom';
 
 
 class Onboarding extends Component {

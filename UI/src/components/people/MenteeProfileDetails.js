@@ -1,12 +1,12 @@
-import React from "react";
-import { Badge, Button, Col, Form, Image, Row } from "react-bootstrap";
-import defaults from "../../defaults/defaults";
-import CountryFlag from "../various/CountryFlag";
-import ProfileIcon from "../various/ProfileIcon";
-import { LinkContainer } from "react-router-bootstrap";
-import { Icon } from "react-fa";
-import * as _ from "lodash";
-import FeatureNotReadyYetOnHover from "../various/FeatureNotReadyYetOnHover";
+import React from 'react';
+import { Badge, Button, Col, Form, Image, Row } from 'react-bootstrap';
+import defaults from '../../defaults/defaults';
+import CountryFlag from '../various/CountryFlag';
+import ProfileIcon from '../various/ProfileIcon';
+import { LinkContainer } from 'react-router-bootstrap';
+import { Icon } from 'react-fa';
+import * as _ from 'lodash';
+import FeatureNotReadyYetOnHover from '../various/FeatureNotReadyYetOnHover';
 
 const MenteeProfileDetails = ({
                                 menteeId, user,

@@ -1,7 +1,7 @@
-import React from "react";
-import { Doughnut } from "react-chartjs";
-import countries from "svg-country-flags/countries";
-import color from "color";
+import React from 'react';
+import { Doughnut } from 'react-chartjs';
+import countries from 'svg-country-flags/countries';
+import color from 'color';
 
 const CountryDoughnut = ({ users }) => {
 

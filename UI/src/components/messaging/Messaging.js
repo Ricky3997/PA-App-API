@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { ThemeProvider } from "@livechat/ui-kit";
-import { Col, Row } from "react-bootstrap";
-import SendBird from "sendbird";
-import ListOfChats from "./ListOfChats";
-import OpenChat from "./OpenChat";
+import React, { Component } from 'react';
+import { ThemeProvider } from '@livechat/ui-kit';
+import { Col, Row } from 'react-bootstrap';
+import SendBird from 'sendbird';
+import ListOfChats from './ListOfChats';
+import OpenChat from './OpenChat';
 import { connect } from 'react-redux';
 
 class Messaging extends Component {

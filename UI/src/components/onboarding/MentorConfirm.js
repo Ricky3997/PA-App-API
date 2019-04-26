@@ -1,10 +1,10 @@
-import React from "react";
-import { Badge, Button, Col, Form, Image, ProgressBar, Row } from "react-bootstrap";
-import Loader from "react-loader-spinner";
-import { Icon } from "react-fa";
-import defaults from "./../../defaults/defaults.json";
-import { toast } from "react-toastify";
-import CountryFlag from "../various/CountryFlag";
+import React from 'react';
+import { Badge, Button, Col, Form, Image, ProgressBar, Row } from 'react-bootstrap';
+import Loader from 'react-loader-spinner';
+import { Icon } from 'react-fa';
+import defaults from './../../defaults/defaults.json';
+import { toast } from 'react-toastify';
+import CountryFlag from '../various/CountryFlag';
 
 const MentorConfirm = (props) => {
   return <div style={{ fontSize: "16px" }}>

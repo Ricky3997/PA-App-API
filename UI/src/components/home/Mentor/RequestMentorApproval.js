@@ -1,17 +1,17 @@
-import React from "react";
-import { Button, Col, Form, Image, InputGroup, Row } from "react-bootstrap";
-import { Field, Form as FormikForm, Formik } from "formik";
-import { Icon } from "react-fa";
-import * as Yup from "yup";
-import * as _ from "lodash";
-import { Checkbox, Select } from "antd";
-import defaults from "../../../defaults/defaults";
-import SubjectsInSchoolPicker from "../../various/forms/SubjectsInSchoolPicker";
-import UniversityPicker from "../../various/forms/UniversityPicker";
-import CompulsoryAsterisk from "../CompulsoryAsterisk";
-import { connect } from "react-redux";
-import { changeMentorStatus } from "../../../actions/actionCreator";
-import { toast } from "react-toastify";
+import React from 'react';
+import { Button, Col, Form, Image, InputGroup, Row } from 'react-bootstrap';
+import { Field, Form as FormikForm, Formik } from 'formik';
+import { Icon } from 'react-fa';
+import * as Yup from 'yup';
+import * as _ from 'lodash';
+import { Checkbox, Select } from 'antd';
+import defaults from '../../../defaults/defaults';
+import SubjectsInSchoolPicker from '../../various/forms/SubjectsInSchoolPicker';
+import UniversityPicker from '../../various/forms/UniversityPicker';
+import CompulsoryAsterisk from '../CompulsoryAsterisk';
+import { connect } from 'react-redux';
+import { changeMentorStatus } from '../../../actions/actionCreator';
+import { toast } from 'react-toastify';
 
 const { Option } = Select;
 

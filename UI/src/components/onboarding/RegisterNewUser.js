@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react';
 import { Alert, Badge, Button, Col, Form, Image, OverlayTrigger, Row, Tooltip } from 'react-bootstrap';
-import PALogo from "../../assets/pa_key.png";
-import * as Yup from "yup";
-import { Field, Form as FormikForm, Formik } from "formik";
-import * as _ from "lodash";
-import Loader from "react-loader-spinner";
-import * as api from "../../api";
-import { toast } from "react-toastify";
-import * as queryString from "query-string";
-import { Icon } from "react-fa";
-import defaults from "./../../defaults/defaults.json";
-import CountryFlag from "../various/CountryFlag";
+import PALogo from '../../assets/pa_key.png';
+import * as Yup from 'yup';
+import { Field, Form as FormikForm, Formik } from 'formik';
+import * as _ from 'lodash';
+import Loader from 'react-loader-spinner';
+import * as api from '../../api';
+import { toast } from 'react-toastify';
+import * as queryString from 'query-string';
+import { Icon } from 'react-fa';
+import defaults from './../../defaults/defaults.json';
+import CountryFlag from '../various/CountryFlag';
 
 const RegisterNewUser = (props) => {
 

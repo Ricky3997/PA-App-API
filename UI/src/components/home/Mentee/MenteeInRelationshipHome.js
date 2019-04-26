@@ -1,13 +1,11 @@
-import React from "react";
-import { Col, Row } from "react-bootstrap";
-import * as _ from "lodash";
-import NoMentorYet from "./NoMentorYet";
-import MentorTile from "./MentorTile";
-import ProgressionTimeline from "./ProgressionTimeline";
-import CountryPartner from "../../advertising/CountryPartner";
-import Module from "./Module";
-import { connect } from "react-redux";
-import { changeActiveJourneyModule } from "../../../actions/actionCreator";
+import React from 'react';
+import { Col, Row } from 'react-bootstrap';
+import MentorTile from './MentorTile';
+import ProgressionTimeline from './ProgressionTimeline';
+import CountryPartner from '../../advertising/CountryPartner';
+import Module from './Module';
+import { connect } from 'react-redux';
+import { changeActiveJourneyModule } from '../../../actions/actionCreator';
 import ReferAFriend from '../../various/ReferAFriend';
 
 const MenteeInRelationshipHome = (props) => {

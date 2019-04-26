@@ -1,15 +1,15 @@
-import React from "react";
-import { Button, Col, Form, ProgressBar, Row } from "react-bootstrap";
-import * as _ from "lodash";
-import { Field, Form as FormikForm, Formik } from "formik";
-import * as Yup from "yup";
-import DegreeLevelPicker from "../various/forms/DegreeLevelPicker";
-import YearPicker from "../various/forms/YearPicker";
-import { Icon } from "react-fa";
-import UniversityPicker from "../various/forms/UniversityPicker";
-import CoursePicker from "../various/forms/CoursePicker";
-import { Select } from "antd";
-import defaults from "../../defaults/defaults";
+import React from 'react';
+import { Button, Col, Form, ProgressBar, Row } from 'react-bootstrap';
+import * as _ from 'lodash';
+import { Field, Form as FormikForm, Formik } from 'formik';
+import * as Yup from 'yup';
+import DegreeLevelPicker from '../various/forms/DegreeLevelPicker';
+import YearPicker from '../various/forms/YearPicker';
+import { Icon } from 'react-fa';
+import UniversityPicker from '../various/forms/UniversityPicker';
+import CoursePicker from '../various/forms/CoursePicker';
+import { Select } from 'antd';
+import defaults from '../../defaults/defaults';
 
 const { Option } = Select;
 

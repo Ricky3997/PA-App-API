@@ -1,8 +1,8 @@
-import React from "react";
-import { Avatar, ChatList, ChatListItem, Column, Row as ChatRow, Subtitle, Title } from "@livechat/ui-kit";
-import LoadingChatList from "./LoadingChatList";
-import { connect } from "react-redux";
-import { setActiveChat } from "../../actions/actionCreator";
+import React from 'react';
+import { Avatar, ChatList, ChatListItem, Column, Row as ChatRow, Subtitle, Title } from '@livechat/ui-kit';
+import LoadingChatList from './LoadingChatList';
+import { connect } from 'react-redux';
+import { setActiveChat } from '../../actions/actionCreator';
 
 const ListOfChats = (props) => {
 

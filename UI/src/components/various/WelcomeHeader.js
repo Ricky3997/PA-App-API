@@ -1,8 +1,8 @@
-import React from "react";
-import { Button, Col, Row } from "react-bootstrap";
-import { Icon } from "react-fa";
-import { toast } from "react-toastify";
-import FacingIssueButton from "./FacingIssueButton";
+import React from 'react';
+import { Button, Col, Row } from 'react-bootstrap';
+import { Icon } from 'react-fa';
+import { toast } from 'react-toastify';
+import FacingIssueButton from './FacingIssueButton';
 
 const WelcomeHeader = ({user, refreshUser}) => {
   return (

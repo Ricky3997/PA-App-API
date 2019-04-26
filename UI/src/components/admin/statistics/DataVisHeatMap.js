@@ -1,12 +1,12 @@
-import React from "react";
-import { scaleLinear } from "d3-scale";
-import { HeatmapSeries, LabelSeries, XAxis, XYPlot, YAxis } from "react-vis";
-import * as _ from "lodash";
-import defaults from "../../../defaults/defaults";
-import UniversityPicker from "../../various/forms/UniversityPicker";
-import { Field, Form as FormikForm, Formik } from "formik";
-import { Button, Col, Row } from "react-bootstrap";
-import CoursePicker from "../../various/forms/CoursePicker";
+import React from 'react';
+import { scaleLinear } from 'd3-scale';
+import { HeatmapSeries, LabelSeries, XAxis, XYPlot, YAxis } from 'react-vis';
+import * as _ from 'lodash';
+import defaults from '../../../defaults/defaults';
+import UniversityPicker from '../../various/forms/UniversityPicker';
+import { Field, Form as FormikForm, Formik } from 'formik';
+import { Button, Col, Row } from 'react-bootstrap';
+import CoursePicker from '../../various/forms/CoursePicker';
 
 const DataVisHeatMap = ({ mentors, mentees }) => {
 

@@ -1,8 +1,8 @@
-import React from "react";
-import { Button, Col, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
-import connect from "react-redux/es/connect/connect";
-import { mentorDecisionRelationship, toggleMentorConfirmDecision } from "../../../actions/actionCreator";
+import React from 'react';
+import { Button, Col, Row } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+import connect from 'react-redux/es/connect/connect';
+import { mentorDecisionRelationship, toggleMentorConfirmDecision } from '../../../actions/actionCreator';
 
 const ConfirmAcceptMentee = ({toggleMentorConfirmDecision, mentorDecisionRelationship, showConfirmDecision, relationshipId}) => {
   if (showConfirmDecision === `reject_${relationshipId}`) return <Row>

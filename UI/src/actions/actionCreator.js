@@ -41,11 +41,11 @@ import {
   UNSET_MATCHING_CONFIRMATION,
   UPDATE_LAST_USER_REFRESH,
   UPDATE_USER
-} from "./actionTypes";
-import * as api from "../api";
-import * as _ from "lodash";
-import { toast } from "react-toastify";
-import { getInitialGettingStartedProgress } from "./helpers";
+} from './actionTypes';
+import * as api from '../api';
+import * as _ from 'lodash';
+import { toast } from 'react-toastify';
+import { getInitialGettingStartedProgress } from './helpers';
 
 export const resetApp = () => {
   return {

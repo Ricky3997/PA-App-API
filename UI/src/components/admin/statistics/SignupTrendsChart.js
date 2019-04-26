@@ -1,6 +1,6 @@
-import React from "react";
-import { Line } from "react-chartjs";
-import Moment from "moment";
+import React from 'react';
+import { Line } from 'react-chartjs';
+import Moment from 'moment';
 
 const SignupTrendsChart = ({ mentors, mentees, from, to }) => {
 

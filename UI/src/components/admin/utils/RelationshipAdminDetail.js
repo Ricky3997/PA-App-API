@@ -1,12 +1,12 @@
-import React from "react";
-import { Badge, Breadcrumb, Button, Card, Col, Container, Row } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
-import ProfileIcon from "../../various/ProfileIcon";
-import { toast } from "react-toastify";
-import NotFound from "../../various/NotFound";
-import FeatureNotReadyYetOnHover from "../../various/FeatureNotReadyYetOnHover";
-import CardDeck from "react-bootstrap/CardDeck";
-import { Icon } from "react-fa";
+import React from 'react';
+import { Badge, Breadcrumb, Button, Card, Col, Container, Row } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+import ProfileIcon from '../../various/ProfileIcon';
+import { toast } from 'react-toastify';
+import NotFound from '../../various/NotFound';
+import FeatureNotReadyYetOnHover from '../../various/FeatureNotReadyYetOnHover';
+import CardDeck from 'react-bootstrap/CardDeck';
+import { Icon } from 'react-fa';
 
 
 const RelationshipAdminDetail = (props) => {

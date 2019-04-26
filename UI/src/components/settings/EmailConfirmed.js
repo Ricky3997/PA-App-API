@@ -1,7 +1,7 @@
-import React from "react";
-import { Icon } from "react-fa";
-import { Button } from "react-bootstrap";
-import { toast } from "react-toastify";
+import React from 'react';
+import { Icon } from 'react-fa';
+import { Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 const EmailConfirmed = (props) => {
   return <span style={{ color: props.user.emailConfirmed ? "green" : "red", fontSize: "18px" }}>

@@ -1,6 +1,6 @@
-import React from "react";
-import { Bar } from "react-chartjs";
-import * as _ from "lodash";
+import React from 'react';
+import { Bar } from 'react-chartjs';
+import * as _ from 'lodash';
 
 const CourseBarChart = ({ mentors, mentees }) => {
 

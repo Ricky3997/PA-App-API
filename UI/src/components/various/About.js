@@ -1,5 +1,5 @@
-import React from "react";
-import NotReadyYet from "./NotReadyYet";
+import React from 'react';
+import NotReadyYet from './NotReadyYet';
 
 const About = () => {
   return <div>

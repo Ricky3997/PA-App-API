@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { Button, Image, Modal } from "react-bootstrap";
-import { Icon } from "react-fa";
-import Dropzone from "react-dropzone";
-import AvatarEditor from "react-avatar-editor";
-import * as _ from "lodash";
+import React, { Component } from 'react';
+import { Button, Image, Modal } from 'react-bootstrap';
+import { Icon } from 'react-fa';
+import Dropzone from 'react-dropzone';
+import AvatarEditor from 'react-avatar-editor';
+import * as _ from 'lodash';
 
 class ProfilePicture extends Component {
 

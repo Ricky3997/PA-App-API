@@ -1,7 +1,7 @@
-import React from "react";
-import AnagraphicInfoStep from "./AnagraphicInfoStep";
-import MentorAcademicBackground from "./MentorAcademicBackground";
-import MentorConfirm from "./MentorConfirm";
+import React from 'react';
+import AnagraphicInfoStep from './AnagraphicInfoStep';
+import MentorAcademicBackground from './MentorAcademicBackground';
+import MentorConfirm from './MentorConfirm';
 
 const MentorOnboarding = (props) => {
   return <div>

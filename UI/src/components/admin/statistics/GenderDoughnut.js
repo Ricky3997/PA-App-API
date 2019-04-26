@@ -1,6 +1,6 @@
-import React from "react";
-import { Doughnut } from "react-chartjs";
-import { gender } from "./../../../defaults/defaults";
+import React from 'react';
+import { Doughnut } from 'react-chartjs';
+import { gender } from './../../../defaults/defaults';
 
 const GenderDoughnut = ({ users }) => {
 

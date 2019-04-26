@@ -1,7 +1,7 @@
-import React from "react";
-import { Bar } from "react-chartjs";
+import React from 'react';
+import { Bar } from 'react-chartjs';
 import defaults from '../../../defaults/defaults';
-import Moment from "moment";
+import Moment from 'moment';
 
 const SignupsByCountryTeam = ({ mentors, mentees, from, to }) => {
 

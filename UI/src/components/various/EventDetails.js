@@ -1,6 +1,5 @@
 import React from 'react';
 import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
-import { Icon } from 'react-fa';
 import FeatureNotReadyYetOnHover from './FeatureNotReadyYetOnHover';
 import NotReadyYet from './NotReadyYet';
 import { LinkContainer } from 'react-router-bootstrap';

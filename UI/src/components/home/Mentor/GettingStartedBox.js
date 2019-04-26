@@ -1,6 +1,6 @@
-import React from "react";
-import { Button, Col, Container, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
-import { Icon } from "react-fa";
+import React from 'react';
+import { Button, Col, Container, OverlayTrigger, Row, Tooltip } from 'react-bootstrap';
+import { Icon } from 'react-fa';
 
 
 const GettingStartedBox = (props) => {

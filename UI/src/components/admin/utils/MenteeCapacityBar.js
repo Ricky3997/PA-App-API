@@ -1,5 +1,5 @@
-import { ProgressBar } from "react-bootstrap";
-import React from "react";
+import { ProgressBar } from 'react-bootstrap';
+import React from 'react';
 
 const MenteeCapacityBar = ({ current, capacity }) => {
   return <ProgressBar style={current === 0 ? { color: "black" } : {}}

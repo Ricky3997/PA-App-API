@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Badge,
   Breadcrumb,
@@ -12,23 +12,23 @@ import {
   OverlayTrigger,
   Row,
   Tooltip
-} from "react-bootstrap";
-import ProfileIcon from "../../various/ProfileIcon";
-import { LinkContainer } from "react-router-bootstrap";
-import StatusIcon from "./StatusIcon";
-import defaults from "../../../defaults/defaults";
-import { Icon } from "react-fa";
-import moment from "moment";
-import RejectionReasonModal from "./RejectionReasonModal";
-import { toast } from "react-toastify";
-import NotFound from "../../various/NotFound";
-import CountryFlag from "../../various/CountryFlag";
-import * as qs from "query-string";
-import * as _ from "lodash";
-import { Select } from "antd";
-import UniWithLogoSpan from "../../various/UniWithLogoSpan";
-import connect from "react-redux/es/connect/connect";
-import { adminChangeUserStatus, toggleAdminModal, toggleMentorAdmin } from "../../../actions/actionCreator";
+} from 'react-bootstrap';
+import ProfileIcon from '../../various/ProfileIcon';
+import { LinkContainer } from 'react-router-bootstrap';
+import StatusIcon from './StatusIcon';
+import defaults from '../../../defaults/defaults';
+import { Icon } from 'react-fa';
+import moment from 'moment';
+import RejectionReasonModal from './RejectionReasonModal';
+import { toast } from 'react-toastify';
+import NotFound from '../../various/NotFound';
+import CountryFlag from '../../various/CountryFlag';
+import * as qs from 'query-string';
+import * as _ from 'lodash';
+import { Select } from 'antd';
+import UniWithLogoSpan from '../../various/UniWithLogoSpan';
+import connect from 'react-redux/es/connect/connect';
+import { adminChangeUserStatus, toggleAdminModal, toggleMentorAdmin } from '../../../actions/actionCreator';
 
 const MentorAdminProfile = (props) => {
 

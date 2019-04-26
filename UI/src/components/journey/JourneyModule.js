@@ -1,6 +1,6 @@
-import React from "react";
-import { Col, Row } from "react-bootstrap";
-import { ReactTypeformEmbed } from "react-typeform-embed";
+import React from 'react';
+import { Col, Row } from 'react-bootstrap';
+import { ReactTypeformEmbed } from 'react-typeform-embed';
 
 
 const JourneyModule = (props) => {

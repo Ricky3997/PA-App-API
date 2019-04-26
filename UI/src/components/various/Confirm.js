@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
+import React, { Component } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 const queryString = require("query-string");
 

@@ -40,9 +40,9 @@ import {
   UNSET_PUBLIC_PROFILE,
   UPDATE_LAST_USER_REFRESH,
   UPDATE_USER
-} from "../actions/actionTypes";
-import { combineReducers } from "redux";
-import { getInitialGettingStartedProgress } from "../actions/helpers";
+} from '../actions/actionTypes';
+import { combineReducers } from 'redux';
+import { getInitialGettingStartedProgress } from '../actions/helpers';
 
 function user(state = JSON.parse(window.localStorage.getItem("user")) || null, action) {
   switch (action.type) {

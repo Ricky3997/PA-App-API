@@ -1,10 +1,10 @@
-import React from "react";
-import { Badge, Card, Container, ProgressBar, Row } from "react-bootstrap";
-import ProfileIcon from "../../various/ProfileIcon";
-import RelationshipAdminDetail from "../utils/RelationshipAdminDetail";
-import { Link } from "react-router-dom";
-import moment from "moment";
-import NotFound from "../../various/NotFound";
+import React from 'react';
+import { Badge, Card, Container, ProgressBar, Row } from 'react-bootstrap';
+import ProfileIcon from '../../various/ProfileIcon';
+import RelationshipAdminDetail from '../utils/RelationshipAdminDetail';
+import { Link } from 'react-router-dom';
+import moment from 'moment';
+import NotFound from '../../various/NotFound';
 
 const Dashboard = (props) => {
   return (

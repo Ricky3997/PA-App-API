@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, InputGroup, Form } from 'react-bootstrap';
+import { Button, Form, InputGroup } from 'react-bootstrap';
 import * as Yup from 'yup';
 import { Form as FormikForm, Formik } from 'formik';
 import { Icon } from 'react-fa';

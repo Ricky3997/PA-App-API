@@ -1,5 +1,5 @@
-import React from "react";
-import SelectWithLabel from "./SelectWithLabel";
+import React from 'react';
+import SelectWithLabel from './SelectWithLabel';
 
 const DegreeLevelPicker = (props) => {
   const options = ["Undergraduate", "Masters", "Postgraduate"];

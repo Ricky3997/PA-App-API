@@ -1,6 +1,6 @@
-import React from "react";
-import SelectWithLabel from "./SelectWithLabel";
-import { yearGraduate } from "../../../defaults/defaults";
+import React from 'react';
+import SelectWithLabel from './SelectWithLabel';
+import { yearGraduate } from '../../../defaults/defaults';
 
 const YearPicker = (props) => {
   const options = props.mentee ? yearGraduate : ["1", "2", "3", "4", "5+"];

@@ -1,6 +1,6 @@
-import React from "react";
-import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { Icon } from "react-fa";
+import React from 'react';
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Icon } from 'react-fa';
 
 const FacingIssueButton = () => {
   return (

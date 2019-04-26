@@ -1,16 +1,16 @@
-import React from "react";
-import { Button, Col, Image, Row } from "react-bootstrap";
-import * as _ from "lodash";
-import { Bookmark, Timeline } from "react-vertical-timeline";
-import GettingStartedBox from "./Mentor/GettingStartedBox";
-import AcceptMenteeBox from "./Mentor/AcceptMenteeBox";
-import FeatureNotReadyYetOnHover from "../various/FeatureNotReadyYetOnHover";
-import CountryPartner from "../advertising/CountryPartner";
-import { LinkContainer } from "react-router-bootstrap";
-import { connect } from "react-redux";
-import { setGettingStartedStepsProgress, toggleApprovalModal } from "../../actions/actionCreator";
-import RequestMentorApproval from "./Mentor/RequestMentorApproval";
-import RequestMenteeApproval from "./Mentee/RequestMenteeApproval";
+import React from 'react';
+import { Button, Col, Image, Row } from 'react-bootstrap';
+import * as _ from 'lodash';
+import { Bookmark, Timeline } from 'react-vertical-timeline';
+import GettingStartedBox from './Mentor/GettingStartedBox';
+import AcceptMenteeBox from './Mentor/AcceptMenteeBox';
+import FeatureNotReadyYetOnHover from '../various/FeatureNotReadyYetOnHover';
+import CountryPartner from '../advertising/CountryPartner';
+import { LinkContainer } from 'react-router-bootstrap';
+import { connect } from 'react-redux';
+import { setGettingStartedStepsProgress, toggleApprovalModal } from '../../actions/actionCreator';
+import RequestMentorApproval from './Mentor/RequestMentorApproval';
+import RequestMenteeApproval from './Mentee/RequestMenteeApproval';
 import ReferAFriend from '../various/ReferAFriend';
 
 const GettingStartedSteps = (props) => {

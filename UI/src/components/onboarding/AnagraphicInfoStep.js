@@ -1,13 +1,13 @@
-import React from "react";
-import { Button, Col, ProgressBar, Row } from "react-bootstrap";
-import * as Yup from "yup";
-import { Field, Form as FormikForm, Formik } from "formik";
-import * as _ from "lodash";
-import CountryPicker from "../various/forms/CountryPicker";
-import TextFieldWithLabel from "../various/forms/TextFieldWithLabel";
-import FirstGenerationStudentPicker from "../various/forms/FirstGenerationStudentPicker";
-import GenderPicker from "../various/forms/GenderPicker";
-import { Icon } from "react-fa";
+import React from 'react';
+import { Button, Col, ProgressBar, Row } from 'react-bootstrap';
+import * as Yup from 'yup';
+import { Field, Form as FormikForm, Formik } from 'formik';
+import * as _ from 'lodash';
+import CountryPicker from '../various/forms/CountryPicker';
+import TextFieldWithLabel from '../various/forms/TextFieldWithLabel';
+import FirstGenerationStudentPicker from '../various/forms/FirstGenerationStudentPicker';
+import GenderPicker from '../various/forms/GenderPicker';
+import { Icon } from 'react-fa';
 
 
 const AnagraphicInfoStep = (props) => {

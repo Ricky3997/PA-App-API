@@ -1,7 +1,7 @@
-import React from "react";
-import { Doughnut } from "react-chartjs";
-import color from "color";
-import * as _ from "lodash";
+import React from 'react';
+import { Doughnut } from 'react-chartjs';
+import color from 'color';
+import * as _ from 'lodash';
 
 const CityDoughnut = ({ users }) => {
 

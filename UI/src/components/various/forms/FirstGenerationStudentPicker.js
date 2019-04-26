@@ -1,7 +1,7 @@
-import React from "react";
-import SelectWithLabel from "./SelectWithLabel";
-import { Badge, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { Icon } from "react-fa";
+import React from 'react';
+import SelectWithLabel from './SelectWithLabel';
+import { Badge, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Icon } from 'react-fa';
 
 const FirstGenerationStudentPicker = (props) => {
   const options = ["Yes", "No"];

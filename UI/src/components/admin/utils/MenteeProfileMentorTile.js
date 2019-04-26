@@ -1,10 +1,10 @@
-import { Badge, Button, Card } from "react-bootstrap";
-import React from "react";
-import moment from "moment";
-import ProfileIcon from "../../various/ProfileIcon";
-import { LinkContainer } from "react-router-bootstrap";
-import { Icon } from "react-fa";
-import { toast } from "react-toastify";
+import { Badge, Button, Card } from 'react-bootstrap';
+import React from 'react';
+import moment from 'moment';
+import ProfileIcon from '../../various/ProfileIcon';
+import { LinkContainer } from 'react-router-bootstrap';
+import { Icon } from 'react-fa';
+import { toast } from 'react-toastify';
 
 const MenteeProfileMentorTile = ({ mentee, banned, mentor, removeMentorFromBlacklist }) => {
   return banned ? <Card className="text-center" style={{ backgroundColor: "#a96b71", maxWidth: "18rem" }}>

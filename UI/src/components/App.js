@@ -1,20 +1,20 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import "antd/dist/antd.css";
-import "../assets/App.css";
-import Header from "./various/Header";
-import Onboarding from "./onboarding/Onboarding";
-import Login from "./various/Login";
-import { Route, Switch, withRouter } from "react-router-dom";
-import Confirm from "./various/Confirm";
-import MentorProfile from "./home/Mentee/MentorTile";
-import Call from "./call/Call";
-import Admin from "./admin/Admin";
-import Settings from "./settings/Settings";
-import JourneyModule from "./journey/JourneyModule";
-import Home from "./home/Home";
-import About from "./various/About";
-import "react-toastify/dist/ReactToastify.css";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import 'antd/dist/antd.css';
+import '../assets/App.css';
+import Header from './various/Header';
+import Onboarding from './onboarding/Onboarding';
+import Login from './various/Login';
+import { Route, Switch, withRouter } from 'react-router-dom';
+import Confirm from './various/Confirm';
+import MentorProfile from './home/Mentee/MentorTile';
+import Call from './call/Call';
+import Admin from './admin/Admin';
+import Settings from './settings/Settings';
+import JourneyModule from './journey/JourneyModule';
+import Home from './home/Home';
+import About from './various/About';
+import 'react-toastify/dist/ReactToastify.css';
 
 import {
   addMessagesToChat,
@@ -43,15 +43,15 @@ import {
   toggleMessagingConnected,
   togglePicturePicker,
   updateUser
-} from "../actions/actionCreator";
-import Footer from "./various/Footer";
-import { Container } from "react-bootstrap";
-import { ToastContainer } from "react-toastify";
-import PublicMentorProfile from "./people/PublicMentorProfile";
-import PublicMenteeProfile from "./people/PublicMenteeProfile";
-import Messages from "./messaging/Messages";
-import * as ReactGA from "react-ga";
-import moment from "moment";
+} from '../actions/actionCreator';
+import Footer from './various/Footer';
+import { Container } from 'react-bootstrap';
+import { ToastContainer } from 'react-toastify';
+import PublicMentorProfile from './people/PublicMentorProfile';
+import PublicMenteeProfile from './people/PublicMenteeProfile';
+import Messages from './messaging/Messages';
+import * as ReactGA from 'react-ga';
+import moment from 'moment';
 import GDPR from './various/GDPR';
 import Search from './various/Search';
 import Guides from './various/Guides';
@@ -130,7 +130,7 @@ class App extends Component {
               })(PublicMentorProfile)}/>
 
             <Route path={"/events/:id"} component={connect(
-              ({ }) => {
+              () => {
                 return { };
               }, dispatch => {
                 return {

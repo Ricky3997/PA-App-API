@@ -1,7 +1,7 @@
-import React from "react";
-import { Col, Row } from "react-bootstrap";
-import ProgressChart from "./ProgressChart";
-import ModuleBox from "./ModuleBox";
+import React from 'react';
+import { Col, Row } from 'react-bootstrap';
+import ProgressChart from './ProgressChart';
+import ModuleBox from './ModuleBox';
 
 const JourneyHome = (props) => {
   return (

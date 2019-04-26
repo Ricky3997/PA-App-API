@@ -1,7 +1,7 @@
-import React from "react";
-import { Form } from "react-bootstrap";
-import { Select } from "antd";
-import defaults from "../../../defaults/defaults.json";
+import React from 'react';
+import { Form } from 'react-bootstrap';
+import { Select } from 'antd';
+import defaults from '../../../defaults/defaults.json';
 
 const { OptGroup, Option } = Select;
 

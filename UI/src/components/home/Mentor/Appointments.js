@@ -1,7 +1,7 @@
 import React from 'react';
 import { CardDeck } from 'react-bootstrap';
 import moment from 'moment';
-import * as _  from 'lodash';
+import * as _ from 'lodash';
 import AppointmentCard from './AppointmentCard';
 
 const Appointments = ({mentees}) => {

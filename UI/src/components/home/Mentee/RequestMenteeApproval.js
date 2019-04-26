@@ -1,15 +1,15 @@
-import React from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
-import { Field, Form as FormikForm, Formik } from "formik";
-import { Icon } from "react-fa";
-import * as Yup from "yup";
-import * as _ from "lodash";
-import { Checkbox, Select } from "antd";
-import defaults from "../../../defaults/defaults";
-import CompulsoryAsterisk from "../CompulsoryAsterisk";
-import { connect } from "react-redux";
-import { changeMenteeStatus } from "../../../actions/actionCreator";
-import { toast } from "react-toastify";
+import React from 'react';
+import { Button, Col, Form, Row } from 'react-bootstrap';
+import { Field, Form as FormikForm, Formik } from 'formik';
+import { Icon } from 'react-fa';
+import * as Yup from 'yup';
+import * as _ from 'lodash';
+import { Checkbox, Select } from 'antd';
+import defaults from '../../../defaults/defaults';
+import CompulsoryAsterisk from '../CompulsoryAsterisk';
+import { connect } from 'react-redux';
+import { changeMenteeStatus } from '../../../actions/actionCreator';
+import { toast } from 'react-toastify';
 
 const { Option } = Select;
 

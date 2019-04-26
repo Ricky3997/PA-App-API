@@ -1,4 +1,4 @@
-import fetch from "cross-fetch";
+import fetch from 'cross-fetch';
 
 export const get = (resource) => {
   return fetch(resource, { headers: { "Authorization": `Bearer ${window.localStorage.getItem("token")}` } })

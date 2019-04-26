@@ -1,5 +1,5 @@
-import React from "react";
-import { Icon } from "react-fa";
+import React from 'react';
+import { Icon } from 'react-fa';
 
 const RecommendationTransparency = ({ criteriaMatched }) => {
   return Object.keys(criteriaMatched).map(c => {

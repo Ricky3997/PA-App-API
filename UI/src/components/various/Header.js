@@ -1,10 +1,10 @@
-import React from "react";
-import { LinkContainer } from "react-router-bootstrap";
-import Logo from "../../assets/pa_key_white.png";
+import React from 'react';
+import { LinkContainer } from 'react-router-bootstrap';
+import Logo from '../../assets/pa_key_white.png';
 import { Form, FormControl, InputGroup, Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import { Icon } from "react-fa";
-import UserCircle from "./UserCircle";
-import * as _ from "lodash";
+import { Icon } from 'react-fa';
+import UserCircle from './UserCircle';
+import * as _ from 'lodash';
 
 const Header = (props) => {
   let userDropdown;
@@ -68,7 +68,8 @@ const Header = (props) => {
           </LinkContainer> : null}
 
           {props.user && props.user.type === 'mentor' ? <LinkContainer to={"/jobs"}>
-            <Nav.Link>Jobs</Nav.Link>
+            <Nav.Link>Jobs
+            </Nav.Link>
           </LinkContainer> : null}
 
           <LinkContainer to="/Guides">

@@ -1,8 +1,8 @@
-import React from "react";
-import defaults from "./../../../defaults/defaults.json";
-import { Form } from "react-bootstrap";
-import { Select } from "antd";
-import UniWithLogoSpan from "../UniWithLogoSpan";
+import React from 'react';
+import defaults from './../../../defaults/defaults.json';
+import { Form } from 'react-bootstrap';
+import { Select } from 'antd';
+import UniWithLogoSpan from '../UniWithLogoSpan';
 
 const UniversityPicker = ({ field, touched, errors, setFieldValue, multiple, mentee, admin, approval, overrideLabel }) => {
   const label = mentee ? "Applying for" : "Your current university";

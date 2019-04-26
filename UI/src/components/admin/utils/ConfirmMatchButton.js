@@ -1,9 +1,9 @@
-import React from "react";
-import { Button, Col, Row } from "react-bootstrap";
-import ReactLoading from "react-loading";
-import connect from "react-redux/es/connect/connect";
-import { confirmMatch, showMatchingConfirmation, unsetMatchingConfirmation } from "../../../actions/actionCreator";
-import { toast } from "react-toastify";
+import React from 'react';
+import { Button, Col, Row } from 'react-bootstrap';
+import ReactLoading from 'react-loading';
+import connect from 'react-redux/es/connect/connect';
+import { confirmMatch, showMatchingConfirmation, unsetMatchingConfirmation } from '../../../actions/actionCreator';
+import { toast } from 'react-toastify';
 
 const ConfirmMatchButton = (props) => {
 

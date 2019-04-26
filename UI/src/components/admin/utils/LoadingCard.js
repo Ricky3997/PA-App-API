@@ -1,6 +1,6 @@
-import { Card } from "react-bootstrap";
-import ReactLoading from "react-loading";
-import React from "react";
+import { Card } from 'react-bootstrap';
+import ReactLoading from 'react-loading';
+import React from 'react';
 
 const LoadingCard = (props) => {
   return <Card className="text-center">

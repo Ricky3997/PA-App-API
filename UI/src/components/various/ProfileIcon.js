@@ -1,6 +1,6 @@
-import React from "react";
-import { Image } from "react-bootstrap";
-import { Icon } from "react-fa";
+import React from 'react';
+import { Image } from 'react-bootstrap';
+import { Icon } from 'react-fa';
 
 const Footer = (props) => {
   let size;

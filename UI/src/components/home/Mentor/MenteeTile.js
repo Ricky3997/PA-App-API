@@ -1,11 +1,10 @@
-import React from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
-import { Icon } from "react-fa";
-import ProfileIcon from "../../various/ProfileIcon";
-import Moment from "moment";
-import ConfirmAcceptMentee from "./ConfirmAcceptMentee";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Button, Col, Container, Row } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+import { Icon } from 'react-fa';
+import ProfileIcon from '../../various/ProfileIcon';
+import Moment from 'moment';
+import ConfirmAcceptMentee from './ConfirmAcceptMentee';
 
 const MenteeTile = (props) => {
   const timeLeft = Moment.duration(new Moment(props.matchedOn).add(5, "d").diff(new Moment()));

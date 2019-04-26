@@ -1,10 +1,10 @@
-import React from "react";
-import { Button, Col, Form, Modal, Row } from "react-bootstrap";
-import { Field, Form as FormikForm, Formik } from "formik";
-import { Icon } from "react-fa";
-import * as Yup from "yup";
-import * as _ from "lodash";
-import { toast } from "react-toastify";
+import React from 'react';
+import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
+import { Field, Form as FormikForm, Formik } from 'formik';
+import { Icon } from 'react-fa';
+import * as Yup from 'yup';
+import * as _ from 'lodash';
+import { toast } from 'react-toastify';
 
 const RejectionReasonModal = (props) => {
   return <Formik

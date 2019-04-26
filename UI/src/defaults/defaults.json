@@ -6,6 +6,10 @@
   "universities": {
     "UK": [
       {
+        "name": "Bath",
+        "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/c/ca/University_of_Bath_logo.svg/1200px-University_of_Bath_logo.svg.png"
+      },
+      {
         "name": "Cambridge",
         "logo": "http://bbms.soc.srcf.net/wp-content/uploads/2015/10/university-of-cambridge-logo.png"
       },

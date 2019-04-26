@@ -1,11 +1,11 @@
-import React from "react";
-import { Badge, Card, Image, OverlayTrigger, Tooltip } from "react-bootstrap";
-import ConfirmMatchButton from "./ConfirmMatchButton";
-import ProfileIcon from "../../various/ProfileIcon";
-import HoverForDetails from "../matching/HoverForDetails";
-import RecommendationTransparency from "../matching/RecommendationTransparency";
-import defaults from "../../../defaults/defaults";
-import MenteeCapacityBar from "./MenteeCapacityBar";
+import React from 'react';
+import { Badge, Card, Image, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import ConfirmMatchButton from './ConfirmMatchButton';
+import ProfileIcon from '../../various/ProfileIcon';
+import HoverForDetails from '../matching/HoverForDetails';
+import RecommendationTransparency from '../matching/RecommendationTransparency';
+import defaults from '../../../defaults/defaults';
+import MenteeCapacityBar from './MenteeCapacityBar';
 
 const UserCard = (props) => {
   return (
