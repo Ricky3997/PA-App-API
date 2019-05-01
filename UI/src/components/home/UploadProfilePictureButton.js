@@ -10,8 +10,8 @@ const UploadProfilePictureButton = ({mode, user}) => {
   return <div>
     87% of our {mode}s upload a profile picture, it helps put a face to a name!
     <LinkContainer to={'/settings'}>
-      <Button variant={_.get(user, `mentorProfile.pictureUrl`) ? 'success' : 'primary'}>
-        {_.get(user, `mentorProfile.pictureUrl`) ? '✅' : '📸'} Upload a Profile Picture
+      <Button variant={_.get(user, `${mode}Profile.pictureUrl`) ? 'success' : 'primary'}>
+        {_.get(user, `${mode}Profile.pictureUrl`) ? '✅' : '📸'} Upload a Profile Picture
       </Button>
     </LinkContainer>
   </div>
