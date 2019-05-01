@@ -44,7 +44,9 @@ const Mentor = mongoose.model('Mentor', new mongoose.Schema({
   referral: [{
     type: String
   }],
-  notes: String
+  notes: String,
+
+  personalityType: String
 }));
 
 module.exports = {Mentor};

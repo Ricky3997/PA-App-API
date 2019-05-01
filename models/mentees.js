@@ -55,6 +55,7 @@ const Mentee = mongoose.model('Mentee', new mongoose.Schema({
     type: String
   }],
   notes: String,
+  personalityType: String,
   mentorBlackList: [{ type: Schema.Types.ObjectId, ref: 'Mentor' }]
 }));
 

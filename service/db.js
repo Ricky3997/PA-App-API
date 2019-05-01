@@ -163,7 +163,7 @@ const loadRLB = async () => {
     _id: id,
     firstName: "Riccardo",
     lastName: "Broggi",
-    type: "mentor",
+    type: "mentee",
     email: "riccardo@broggi.co.uk",
     emailConfirmed: true,
     onboarded: true,
@@ -237,7 +237,7 @@ const loadRLB = async () => {
 
   };
   await MentorService.registerNew(id, mentorProfile);
-  //await MenteeService.registerNew(id, menteeProfile);
+  await MenteeService.registerNew(id, menteeProfile);
   await request({
     method: 'post',
     body: {

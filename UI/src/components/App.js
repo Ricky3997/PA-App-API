@@ -62,30 +62,23 @@ class App extends Component {
 
   componentDidMount() {
     if (!this.props.app.trackingOn && this.props.user) ReactGA.set({ userId: this.props.user._id });
-
     if(window.location.host !== 'localhost:3000') this.props.history.listen((location) => {
       ReactGA.pageview(location.pathname)
     });
     if (moment().diff(moment(this.props.app.lastUserRefresh), "m") >= 1) this.props.refreshUser();
-
   }
 
   render() {
-    const { user, logout, history, location } = this.props;
-
+    const { user, logout, history, location } = this.props
     return (
       <div id="root_div">
         <Header user={user} logout={logout} history={history} location={location}/>
         <Container fluid id="root_container">
           <Switch>
-
             <Route path={"/login"} component={withRouter(Login)}/>
             <Route path={"/datapolicy"} component={GDPR}/>
-
             <Route path={"/Guides"} component={Guides}/>
-
             <Route path={"/search/:query"} component={withRouter(Search)}/>
-
             <Route path={"/settings"} component={connect(({ settings, user }) => {
               return { settings, user };
             }, dispatch => {
@@ -101,7 +94,6 @@ class App extends Component {
                 changeMenteeStatus: (status, properties) => dispatch(changeMenteeStatus(status, properties))
               };
             })(Settings)}/>
-
             <Route path={"/onboard"} component={connect(({ user, onboarding }) => {
               return { user, onboarding };
             }, dispatch => {

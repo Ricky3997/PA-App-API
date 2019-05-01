@@ -46,15 +46,15 @@ editProfile = async (req, res) => {
       const fieldsToUpdate = {};
       const changedUserData = JSON.parse(fields.data);
 
-      if (changedUserData.firstName !== user.firstName) fieldsToUpdate.firstName = changedUserData.firstName;
-      if (changedUserData.email !== user.email) {
+      if (changedUserData.firstName && changedUserData.firstName !== user.firstName) fieldsToUpdate.firstName = changedUserData.firstName;
+      if (changedUserData.email && changedUserData.email !== user.email) {
         fieldsToUpdate.email = changedUserData.email;
         fieldsToUpdate.emailConfirmed = false;
         const newToken = authService.createToken(changedUserData.email, id);
         mailService.sendConfirmationToken(changedUserData.firstName, changedUserData.email, id, newToken);  //TODO Return updated token and check unique
       }
 
-      let profile
+      let profile;
 
       if (user.type === "mentor" && user.onboarded) profile = await mentorService.edit(id, changedUserData, files.file);
       if (user.type === "mentee" && user.onboarded) profile = await menteeService.edit(id, changedUserData, files.file);
