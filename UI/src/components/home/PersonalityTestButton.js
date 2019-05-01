@@ -25,7 +25,7 @@ class PersonalityTestButton extends Component {
     });
   }
 
-  typeToName(personalityType){
+  static typeToName(personalityType){
     switch (personalityType) {
       case 'INTJ-T':
       case 'INTJ-A':
@@ -91,7 +91,7 @@ class PersonalityTestButton extends Component {
           quick and fun, just take the quiz and when you come back write your type here:
         </div>
         {personalityType ? <div>
-          <Button variant={'success'}>✅ You're a {this.typeToName(personalityType)} ({personalityType})</Button>
+          <Button variant={'success'}>✅ You're a {PersonalityTestButton.typeToName(personalityType)} ({personalityType})</Button>
           <Button variant={'danger'} onClick={() => this.props.saveSettings({personalityType:''})}><Icon name='fas fa-times'/></Button>
         </div> : <div>
           {openedLink ? <div>

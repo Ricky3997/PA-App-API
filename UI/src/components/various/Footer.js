@@ -15,7 +15,7 @@ const Footer = () => {
 
       <Nav className="mr-auto">
         <Navbar.Text>
-          This is a work in progress, bear with us! V0.1.2019-04-02
+          This is a work in progress, bear with us! V0.1.2019-05-01
         </Navbar.Text>
       </Nav>
 
