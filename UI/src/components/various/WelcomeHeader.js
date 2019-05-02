@@ -7,10 +7,10 @@ import FacingIssueButton from './FacingIssueButton';
 const WelcomeHeader = ({user, refreshUser}) => {
   return (
     <Row style={{ marginTop: "10px" }}>
-      <Col md={{ span: 9 }}>
+      <Col md={{ span: 9 }} xs={12}>
         <h3>Welcome {user.emailConfirmed ? "back, " : ""} {user.firstName}! 🤗</h3>
       </Col>
-      <Col md={1}>
+      <Col md={1} xs={4}>
         <Button onClick={() => refreshUser().then(r => {
           if (r.success) toast.success("Refreshed");
           else toast.error("Error refreshing");
@@ -18,7 +18,7 @@ const WelcomeHeader = ({user, refreshUser}) => {
           <Icon name={"fas fa-refresh"}/>
         </Button>
       </Col>
-      <Col md={2}>
+      <Col md={2} xs={8}>
         <FacingIssueButton/>
       </Col>
     </Row>

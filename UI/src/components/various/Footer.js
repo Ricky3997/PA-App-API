@@ -4,7 +4,7 @@ import { Badge, Nav, Navbar } from 'react-bootstrap';
 import { Icon } from 'react-fa';
 
 const Footer = () => {
-  return <Navbar sticky="bottom" variant="light" bg="light" expand={'lg'}>
+  return <Navbar sticky="bottom" variant="light" bg="light" expand={'lg'} collapseOnSelect>
     <Navbar.Brand>
       <Badge variant="info">
         Dev

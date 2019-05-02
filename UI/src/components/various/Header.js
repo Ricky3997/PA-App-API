@@ -48,7 +48,7 @@ const Header = (props) => {
     <Nav.Link onClick={() => props.history.push("/login")}><span><Icon name={"fas fa-user"}/> Login</span></Nav.Link>;
 
   return (
-    <Navbar fixed="top" style={{ "backgroundColor": "#eb9d26" }} variant="dark" expand="lg">
+    <Navbar fixed="top" style={{ "backgroundColor": "#eb9d26" }} variant="dark" expand="lg" collapseOnSelect>
       <LinkContainer to="/">
         <Navbar.Brand><span><img src={Logo} width={30}
                                  alt="logo"/>  Project Access</span></Navbar.Brand>

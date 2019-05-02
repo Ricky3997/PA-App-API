@@ -6,7 +6,6 @@ import GettingStartedBox from './Mentor/GettingStartedBox';
 import AcceptMenteeBox from './Mentor/AcceptMenteeBox';
 import FeatureNotReadyYetOnHover from '../various/FeatureNotReadyYetOnHover';
 import CountryPartner from '../advertising/CountryPartner';
-import { LinkContainer } from 'react-router-bootstrap';
 import { connect } from 'react-redux';
 import { setGettingStartedStepsProgress, toggleApprovalModal } from '../../actions/actionCreator';
 import RequestMentorApproval from './Mentor/RequestMentorApproval';
@@ -130,23 +129,24 @@ const GettingStartedSteps = (props) => {
 
               {(props.gettingStartedSteps.progress === 60 && waitUntilApproved.ready) ||
               (props.gettingStartedSteps.progress === 80 && waitUntilMatched.ready) ? <div>
-                    <h5>
-                      While you wait, you can {props.mode === 'mentee' ? 'get a head start by:' : 'help us with the following'}
-                    </h5>
-                    <ol>
-                      <li style={{ marginBottom: '20px' }}>
-                        <UploadProfilePictureButton mode={props.mode} user={props.user} />
-                      </li>
-                      <li style={{ marginBottom: '20px' }}>
-                        <PersonalityTestButton personalityType={_.get(props.user, `${props.mode}Profile.personalityType`)} />
-                      </li>
-                      <li>
-                        <FeatureNotReadyYetOnHover>
-                          <Button disabled>Start the training</Button>
-                        </FeatureNotReadyYetOnHover>
-                      </li>
-                    </ol>
-                  </div> : null}
+                <h5>
+                  While you wait, you
+                  can {props.mode === 'mentee' ? 'get a head start by:' : 'help us with the following'}
+                </h5>
+                <ol>
+                  <li style={{ marginBottom: '20px' }}>
+                    <UploadProfilePictureButton mode={props.mode} user={props.user}/>
+                  </li>
+                  <li style={{ marginBottom: '20px' }}>
+                    <PersonalityTestButton personalityType={_.get(props.user, `${props.mode}Profile.personalityType`)}/>
+                  </li>
+                  <li>
+                    <FeatureNotReadyYetOnHover>
+                      <Button disabled>Start the training</Button>
+                    </FeatureNotReadyYetOnHover>
+                  </li>
+                </ol>
+              </div> : null}
 
               {props.mode === 'mentor' && props.gettingStartedSteps.progress === 100 &&
               acceptMentee.ready ? props.user.mentorProfile.relationship.map(r =>

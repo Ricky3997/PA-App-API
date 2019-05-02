@@ -38,7 +38,7 @@ const GDPR = () => {
         </p>
         <h4>
           Our Privacy Motto</h4>
-        <p>
+
           <ol>
             <li>
               We are transparent about the information we hold about you.
@@ -54,7 +54,7 @@ const GDPR = () => {
               so and we have no legal obligation to retain such information.
             </li>
           </ol>
-        </p>
+
         <h4>
           Full Version
         </h4>
