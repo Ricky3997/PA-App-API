@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './assets/index.css';
+import './styles/index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import App from './components/App.js';
 import * as serviceWorker from './serviceWorker';

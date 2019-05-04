@@ -35,8 +35,7 @@ const MenteeAdminProfile = (props) => {
         <ProfileIcon menteeMode pictureUrl={props.mentee.pictureUrl} size={"l"}/>
       </Col>
       <Col md={2}>
-        {props.matching ? <LinkContainer to={`/admin/mentees/${props.mentee._id}?from=matching`}
-                                         style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>
+        {props.matching ? <LinkContainer to={`/admin/mentees/${props.mentee._id}?from=matching`} className='blue_link'>
           <h4>{props.mentee.firstName}</h4>
         </LinkContainer> : <h4>{props.mentee.firstName}</h4>}
       </Col>

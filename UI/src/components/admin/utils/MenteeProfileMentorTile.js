@@ -12,8 +12,7 @@ const MenteeProfileMentorTile = ({ mentee, banned, mentor, removeMentorFromBlack
       <ProfileIcon pictureUrl={mentor.pictureUrl} size={"l"}/>
     </Card.Header>
     <Card.Body>
-      <LinkContainer to={`/admin/mentors/${mentor._id}`}
-                     style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>
+      <LinkContainer to={`/admin/mentors/${mentor._id}`} className='blue_link'>
         <Card.Title>
           <Icon name='fas fa-ban' style={{ color: "#9b0014" }}/>
           {mentor.firstName}</Card.Title>
@@ -31,15 +30,13 @@ const MenteeProfileMentorTile = ({ mentee, banned, mentor, removeMentorFromBlack
         <Badge variant={"warning"}>pending</Badge> : null}
     </Card.Header>
     <Card.Body>
-      <LinkContainer to={`/admin/mentors/${mentee.relationship.mentor._id}`}
-                     style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>
+      <LinkContainer to={`/admin/mentors/${mentee.relationship.mentor._id}`} className='blue_link'>
         <Card.Title>{mentee.relationship.mentor.firstName}</Card.Title>
       </LinkContainer>
       <Card.Text>
         Last message exchanged: TODO
       </Card.Text>
-      <LinkContainer to={`/admin/dashboard/${mentee.relationship._id}`}
-                     style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>
+      <LinkContainer to={`/admin/dashboard/${mentee.relationship._id}`} className='blue_link'>
         <Button variant={"light"}>Go to relationship</Button>
       </LinkContainer>
     </Card.Body>

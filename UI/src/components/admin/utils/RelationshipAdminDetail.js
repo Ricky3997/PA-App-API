@@ -26,10 +26,7 @@ const RelationshipAdminDetail = (props) => {
           <h4>Mentor</h4>
           <ProfileIcon mentorMode pictureUrl={props.relationship.mentor.pictureUrl} size={"xl"}/>
 
-          <LinkContainer to={`/admin/mentors/${props.relationship.mentor._id}`} style={{
-            textDecoration: "underline", color: "blue",
-            cursor: "pointer"
-          }}>
+          <LinkContainer to={`/admin/mentors/${props.relationship.mentor._id}`} className='blue_link'>
             <h5>{props.relationship.mentor.firstName}</h5>
           </LinkContainer>
         </Col>
@@ -37,10 +34,7 @@ const RelationshipAdminDetail = (props) => {
           <h4>Mentee</h4>
           <ProfileIcon pictureUrl={props.relationship.mentee.pictureUrl} size={"xl"}/>
 
-          <LinkContainer to={`/admin/mentees/${props.relationship.mentee._id}`} style={{
-            textDecoration: "underline", color: "blue",
-            cursor: "pointer"
-          }}>
+          <LinkContainer to={`/admin/mentees/${props.relationship.mentee._id}`} className='blue_link'>
             <h5>{props.relationship.mentee.firstName}</h5>
           </LinkContainer>
         </Col>

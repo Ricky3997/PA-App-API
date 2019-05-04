@@ -2,13 +2,13 @@ import { Card } from 'react-bootstrap';
 import ReactLoading from 'react-loading';
 import React from 'react';
 
-const LoadingCard = (props) => {
+const LoadingCard = () => {
   return <Card className="text-center">
     <Card.Header>
-      < ReactLoading type={"spin"} color={"#ff9430"}/>
+      < ReactLoading type={"spin"} className='pa_orange_text'/>
     </Card.Header>
     <Card.Body>
-      < ReactLoading type={"bars"} color={"#ff9430"}/>
+      < ReactLoading type={"bars"} className='pa_orange_text'/>
     </Card.Body>
   </Card>;
 };

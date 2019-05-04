@@ -82,7 +82,7 @@ const Statistics = ({ mentors, mentees, user, programFilter }) => {
               in total,
             </span>
                     <span style={{ fontWeight: "bold", fontSize: "30px" }}>
-            <span style={{ color: "#289b00" }}>
+            <span className='pa_green_text'>
               +{filterMentorsByCampus(values.campus).filter(m => Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays() <= 7).length}
             </span>
           </span>
@@ -142,7 +142,7 @@ const Statistics = ({ mentors, mentees, user, programFilter }) => {
               in total,
             </span>
                 <span style={{ fontWeight: "bold", fontSize: "30px" }}>
-            <span style={{ color: "#289b00" }}>
+            <span className='pa_green_text'>
               +{mentees.filter(m => Moment.duration(new Moment().diff(new Moment(m.latestStatusChange))).asDays() <= 7).length}
             </span>
           </span>

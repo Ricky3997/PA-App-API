@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
-import '../assets/App.css';
+import '../styles/App.scss';
 import Header from './various/Header';
 import Onboarding from './onboarding/Onboarding';
 import Login from './various/Login';

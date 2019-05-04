@@ -8,7 +8,7 @@ const ProgressionTimeline = (props) => {
     <Timeline height={550} progress={activeModule ? activeModule.progress : 0}>
       {props.modules.map(m =>
         <Bookmark key={m.typeformID} progress={m.progress} onSelect={() => props.changeSection(m)}>
-          <div style={{ cursor: "pointer" }}>
+          <div className='pointer'>
             <i>
               {m.date}
             </i>

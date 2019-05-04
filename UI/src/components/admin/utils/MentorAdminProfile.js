@@ -304,15 +304,13 @@ const MentorAdminProfile = (props) => {
                   {r.status === "awaitingConfirmation" ? <Badge variant={"warning"}>pending</Badge> : null}
                 </Card.Header>
                 <Card.Body>
-                  <LinkContainer to={`/admin/mentees/${r.mentee._id}`}
-                                 style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>
+                  <LinkContainer to={`/admin/mentees/${r.mentee._id}`} className='blue_link'>
                     <Card.Title>{r.mentee.firstName}</Card.Title>
                   </LinkContainer>
                   <Card.Text>
                     Last message exchanged: TODO
                   </Card.Text>
-                  <LinkContainer to={`/admin/dashboard/${r._id}`}
-                                 style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>
+                  <LinkContainer to={`/admin/dashboard/${r._id}`} className='blue_link'>
                     <Button variant={"light"}>Go to relationship</Button>
                   </LinkContainer>
                 </Card.Body>

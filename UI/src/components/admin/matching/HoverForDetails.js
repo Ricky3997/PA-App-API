@@ -27,10 +27,7 @@ class HoverForDetails extends Component {
               if (this.timer) window.clearTimeout(this.timer);
             }}
               to={`/admin/${this.props.mentorMode ? "mentors" : "mentees"}/${this.props[this.props.mentorMode ? "mentor" : "mentee"]._id}${this.props.matchingMode ? "?from=matching" : ""}`}
-              style={{
-                textDecoration: "underline", color: "blue",
-                cursor: "pointer"
-              }}>
+                  className='blue_link'>
               {`${this.props[this.props.mentorMode ? "mentor" : "mentee"].firstName} ${this.props[this.props.mentorMode ? "mentor" : "mentee"].lastName}`}
             </Link>
           </OverlayTrigger>

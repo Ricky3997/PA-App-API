@@ -6,8 +6,6 @@ import Button from 'react-bootstrap/es/Button';
 import * as _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getUser, updateUser } from '../../actions/actionCreator';
-import App from '../App';
 
 
 class Call extends Component {
@@ -16,9 +14,9 @@ class Call extends Component {
     this.client = {};
     this.localStream = {};
     this.remoteStream = {};
-    this.appId = "e4fd139061fa4bf3886c4a3e8d04874b";
-    this.channel = "test"; //TODO
-    this.uid = "087gnv6ubfdg3nebf"; //TODO
+    this.appId = 'e4fd139061fa4bf3886c4a3e8d04874b';
+    this.channel = 'test'; //TODO
+    this.uid = '087gnv6ubfdg3nebf'; //TODO
     this.state = {
       joinCall: false
     };
@@ -33,7 +31,7 @@ class Call extends Component {
 
 
   componentWillMount() {
-    this.client = AgoraRTC.createClient({ mode: "live", codec: "h264" });
+    this.client = AgoraRTC.createClient({ mode: 'live', codec: 'h264' });
   }
 
   // componentWillUnmount () {
@@ -43,29 +41,29 @@ class Call extends Component {
   // }
 
   subscribeStreamEvents() {
-    this.client.on("stream-added", (evt) => {
+    this.client.on('stream-added', (evt) => {
       this.client.subscribe(evt.stream, Call.logError);
     });
 
-    this.client.on("stream-subscribed", (evt) => {
+    this.client.on('stream-subscribed', (evt) => {
       this.remoteStream = evt.stream;
-      this.remoteStream.play("remote-canvas");
+      this.remoteStream.play('remote-canvas');
     });
 
-    this.client.on("stream-removed", (evt) => {
+    this.client.on('stream-removed', (evt) => {
       this.removeStream(evt.stream);
     });
 
-    this.client.on("peer-leave", (evt) => {
+    this.client.on('peer-leave', (evt) => {
       this.removeStream(evt.stream);
     });
 
-    this.client.on("stream-published", (evt) => console.log("Publish local stream successful"));
+    this.client.on('stream-published', (evt) => console.log('Publish local stream successful'));
   }
 
   removeStream() {
     this.remoteStream = null;
-    const canvas = document.getElementById("remote-canvas");
+    const canvas = document.getElementById('remote-canvas');
     while (canvas.firstChild) {
       canvas.removeChild(canvas.firstChild);
     }
@@ -86,7 +84,7 @@ class Call extends Component {
       this.setState({ joinCall: false });
       this.client && this.client.unpublish(this.localStream);
       this.localStream && this.localStream.close();
-      this.client && this.client.leave(() => console.log("Client succeed to leave."), () => console.log("Client failed to leave."));
+      this.client && this.client.leave(() => console.log('Client succeed to leave.'), () => console.log('Client failed to leave.'));
     } finally {
       this.client = {};
       this.localStream = {};
@@ -98,12 +96,12 @@ class Call extends Component {
     this.client.init(this.appId, () => {
       this.subscribeStreamEvents();
       this.client.join(this.appId, this.channel, this.uid, (uid) => {
-        console.log("User " + uid + " join channel successfully");
+        console.log('User ' + uid + ' join channel successfully');
 
         this.localStream = AgoraRTC.createStream({ streamID: uid, audio: true, video: true, screen: false });
         this.localStream.init(() => {
             this.client.publish(this.localStream, Call.logError);
-            this.localStream.play("local-canvas");
+            this.localStream.play('local-canvas');
           }, Call.logError
         );
       });
@@ -112,9 +110,9 @@ class Call extends Component {
 
 
   render() {
-    const typeformID = "MDHUre";
+    const typeformID = 'MDHUre';
 
-    if (!this.props.user.onboarded || (_.get(this.props.user, "mentorProfile.relationship.length") > 0) || (_.get(this.props.user, "mentorProfile.relationship"))) return <div>
+    if (!this.props.user.onboarded || (_.get(this.props.user, 'mentorProfile.relationship.length') > 0) || (_.get(this.props.user, 'mentorProfile.relationship'))) return <div>
       Calling is only available once your mentoring relationship has started
     </div>;
     else return (
@@ -123,14 +121,14 @@ class Call extends Component {
 
           {this.state.joinCall ?
             <div>
-              <div id="remote-canvas" style={{ height: "600px" }}>
+              <div id="remote-canvas" style={{ height: '600px' }}>
                 <div id="local-canvas" style={{
-                  position: "absolute",
-                  right: "0",
-                  bottom: "0",
-                  height: "130px",
-                  width: "130px",
-                  "z-index": "2"
+                  position: 'absolute',
+                  right: '0',
+                  bottom: '0',
+                  height: '130px',
+                  width: '130px',
+                  'z-index': '2'
                 }}/>
               </div>
               <Button onClick={this.toggleMic}>Mic</Button>
@@ -142,7 +140,7 @@ class Call extends Component {
 
 
         </Col>
-        <Col md={4} style={{ backdropColor: "red" }}>
+        <Col md={4}>
           <Row>
             {this.props.user ?
               <ReactTypeformEmbed
@@ -150,8 +148,8 @@ class Call extends Component {
                 `mentorfirstname=${this.props.user.firstName}` +
                 `&uniqueid=${1532907125}&` +
                 `mentoremail=${this.props.user.email}&` +
-                `menteefirstname=${"Emil"}`}
-                style={{ "minHeight": "600px" }}/> : null}
+                `menteefirstname=${'Emil'}`}
+                style={{ 'minHeight': '600px' }}/> : null}
           </Row>
         </Col>
 
@@ -164,6 +162,5 @@ class Call extends Component {
 export default withRouter(connect(({ user }) => {
   return { user };
 }, dispatch => {
-  return {
-  };
+  return {};
 })(Call));

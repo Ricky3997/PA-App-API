@@ -77,30 +77,25 @@ const GettingStartedSteps = (props) => {
             a couple of things for you to do! 🙏
           </p>
           <Row>
-            <Col md={3} xs={12} style={{marginBottom: '30px'}}>
+            <Col md={3} xs={12} style={{ marginBottom: '30px' }}>
               <Timeline height={400} progress={props.gettingStartedSteps.progress}>
                 <Bookmark key={'onboard'} progress={10} onSelect={() => props.setGettingStartedStepsProgress(10)}>
-                  <h6
-                    style={{ cursor: 'pointer' }}>{onboardModule.completed ? `✅ ` : '⏳'}{onboardModule.title}</h6>
+                  <h6 className='pointer'>{onboardModule.completed ? `✅ ` : '⏳'}{onboardModule.title}</h6>
                 </Bookmark>
                 <Bookmark key={'confirm'} progress={20} onSelect={() => props.setGettingStartedStepsProgress(20)}>
-                  <h6
-                    style={{ cursor: 'pointer' }}>{confirmEmailModule.completed ? `✅ ` : '⏳'}{confirmEmailModule.title}</h6>
+                  <h6 className='pointer'>{confirmEmailModule.completed ? `✅ ` : '⏳'}{confirmEmailModule.title}</h6>
                 </Bookmark>
                 <Bookmark key={'approval'} progress={40} onSelect={() => props.setGettingStartedStepsProgress(40)}>
-                  <h6
-                    style={{ cursor: 'pointer' }}>{requestApprovallModule.completed ? `✅ ` : '⏳'}{requestApprovallModule.title}</h6>
+                  <h6 className='pointer'> {requestApprovallModule.completed ? `✅ ` : '⏳'}{requestApprovallModule.title}</h6>
                 </Bookmark>
                 <Bookmark key={'waitApproval'} progress={60} onSelect={() => props.setGettingStartedStepsProgress(60)}>
-                  <h6
-                    style={{ cursor: 'pointer' }}>{waitUntilApproved.completed ? `✅ ` : '⏳'}{waitUntilApproved.title}</h6>
+                  <h6 className='pointer'>{waitUntilApproved.completed ? `✅ ` : '⏳'}{waitUntilApproved.title}</h6>
                 </Bookmark>
                 <Bookmark key={'waitMatch'} progress={80} onSelect={() => props.setGettingStartedStepsProgress(80)}>
-                  <h6
-                    style={{ cursor: 'pointer' }}>{waitUntilMatched.completed ? `✅ ` : '⏳'}{waitUntilMatched.title}</h6>
+                  <h6 className='pointer'>{waitUntilMatched.completed ? `✅ ` : '⏳'}{waitUntilMatched.title}</h6>
                 </Bookmark>
                 <Bookmark key={'mentee'} progress={100} onSelect={() => props.setGettingStartedStepsProgress(100)}>
-                  <h6 style={{ cursor: 'pointer' }}>{acceptMentee.completed ? `✅ ` : '⏳'}{acceptMentee.title}</h6>
+                  <h6 className='pointer'>{acceptMentee.completed ? `✅ ` : '⏳'}{acceptMentee.title}</h6>
                 </Bookmark>
               </Timeline>
             </Col>
