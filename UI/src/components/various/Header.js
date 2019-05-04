@@ -1,7 +1,7 @@
 import React from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import Logo from '../../assets/pa_key_white.png';
-import { Form, FormControl, InputGroup, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Badge, Form, FormControl, InputGroup, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Icon } from 'react-fa';
 import UserCircle from './UserCircle';
 import * as _ from 'lodash';
@@ -70,7 +70,7 @@ const Header = ({ user, logout, history, location, refreshUser }) => {
     <Nav.Link onClick={() => history.push('/login')}><span><Icon name={'fas fa-user'}/> Login</span></Nav.Link>;
 
   return (
-    <Navbar fixed="top" className='pa_blue_background' variant="dark" expand="lg" collapseOnSelect>
+    <Navbar fixed="top" className='pa_orange_background' variant="dark" expand="lg" collapseOnSelect>
       <LinkContainer to="/">
         <Navbar.Brand collapseOnSelect><span><img src={Logo} width={30}
                                                   alt="logo"/>  Project Access</span></Navbar.Brand>
@@ -80,8 +80,7 @@ const Header = ({ user, logout, history, location, refreshUser }) => {
         <Nav className="mr-auto">
 
           {user ? <LinkContainer to={'/message'}>
-            <Nav.Link>Messages
-              {/*<Badge variant="light">3</Badge>*/}
+            <Nav.Link>Messages <Badge variant="light"> 3</Badge>
             </Nav.Link>
           </LinkContainer> : null}
 

@@ -13,7 +13,7 @@ const Appointments = ({mentees}) => {
       <CardDeck>
         <AppointmentCard
           mentee={_.sample(mentees)}
-          purpose={'Personal Statement draft revision'}
+          purpose={'Personal Statement draft '}
           date={moment("08-10-2019-17-00", "DD-MM-YYYY-hh-mm").format('dddd DD MMM hh:mm A')}/>
         <AppointmentCard
           mentee={_.sample(mentees)}

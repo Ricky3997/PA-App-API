@@ -64,7 +64,6 @@ class Admin extends Component {
     const { section } = this.props.match.params;
     let { mentors, mentees, relationships, programFilter } = this.props.admin;
 
-
     if (programFilter !== "Global") {
       mentors = mentors.filter(m => m.country === programFilter);
       mentees = mentees.filter(m => m.country === programFilter);
