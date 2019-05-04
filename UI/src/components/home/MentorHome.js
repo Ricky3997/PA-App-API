@@ -5,12 +5,12 @@ import GettingStartedSteps from './GettingStartedSteps';
 import MentoringHome from './Mentor/MentoringHome';
 import WelcomeHeader from '../various/WelcomeHeader';
 
-const MentorHome = ({ user, refreshUser, history }) => {
+const MentorHome = ({ user }) => {
   return <Container fluid>
-    <WelcomeHeader user={user} refreshUser={refreshUser}/>
+    <WelcomeHeader user={user}/>
     {_.get(user, "mentorProfile.relationship.length") === 0 || !_.get(user, "onboarded")
     || (_.get(user, "mentorProfile.relationship.length") === 1 && _.get(user, "mentorProfile.relationship")[0].status === "awaitingConfirmation") ?
-      <GettingStartedSteps mode={"mentor"} history={history}/> : <MentoringHome user={user} refreshUser={refreshUser}/> }
+      <GettingStartedSteps mode={"mentor"} /> : <MentoringHome/> }
   </Container>;
 };
 

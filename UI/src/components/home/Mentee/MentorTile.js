@@ -3,6 +3,7 @@ import { Button, Col, Container, Row } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Icon } from 'react-fa';
 import ProfileIcon from '../../various/ProfileIcon';
+import { withRouter } from 'react-router-dom';
 
 const MentorTile = (props) => {
   return (
@@ -38,4 +39,4 @@ const MentorTile = (props) => {
   );
 };
 
-export default MentorTile;
+export default withRouter(MentorTile);

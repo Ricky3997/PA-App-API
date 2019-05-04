@@ -5,15 +5,12 @@ import MenteeInRelationshipHome from './Mentee/MenteeInRelationshipHome';
 import GettingStartedSteps from './GettingStartedSteps';
 import WelcomeHeader from '../various/WelcomeHeader';
 
-const MenteeHome = (props) => {
-
+const MenteeHome = (user) => {
   return <Container fluid>
-
-    <WelcomeHeader user={props.user} refreshUser={props.refreshUser} />
-
-    {_.get(props.user, "menteeProfile.relationship.status") === "confirmed" ?
-      <MenteeInRelationshipHome /> :
-      <GettingStartedSteps  mode={"mentee"} />}
+    <WelcomeHeader user={user}/>
+    {_.get(user, 'menteeProfile.relationship.status') === 'confirmed' ?
+      <MenteeInRelationshipHome/> :
+      <GettingStartedSteps mode={'mentee'}/>}
   </Container>;
 };
 

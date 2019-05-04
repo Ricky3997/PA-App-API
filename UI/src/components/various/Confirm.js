@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import { connect } from 'react-redux';
+import { confirmEmailAddress } from '../../actions/actionCreator';
+import { withRouter } from 'react-router-dom';
 
 const queryString = require("query-string");
 
@@ -35,4 +38,8 @@ class Confirm extends Component {
   }
 }
 
-export default Confirm;
+export default withRouter(connect(null, dispatch => {
+  return {
+    confirmEmailAddress: (token, id) => dispatch(confirmEmailAddress(token, id))
+  };
+})(Confirm));

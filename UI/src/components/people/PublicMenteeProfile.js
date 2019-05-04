@@ -4,6 +4,8 @@ import { LinkContainer } from 'react-router-bootstrap';
 import ReactLoading from 'react-loading';
 import NotFound from '../various/NotFound';
 import MenteeProfileDetails from './MenteeProfileDetails';
+import { connect } from 'react-redux';
+import { getMenteeById } from '../../actions/actionCreator';
 
 class PublicMenteeProfile extends Component {
 
@@ -41,4 +43,11 @@ class PublicMenteeProfile extends Component {
   }
 }
 
-export default PublicMenteeProfile;
+export default connect(
+  ({ publicProfile, user }) => {
+    return { publicProfile, user };
+  }, dispatch => {
+    return {
+      getMenteeById: (id) => dispatch(getMenteeById(id))
+    };
+  })(PublicMenteeProfile);

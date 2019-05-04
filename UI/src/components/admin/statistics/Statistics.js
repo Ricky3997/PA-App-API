@@ -58,7 +58,7 @@ const Statistics = ({ mentors, mentees, user, programFilter }) => {
               </Col>
             </Row>
             <Row>
-              <Col style={{ backgroundColor: "rgba(54,216,255,0.26)", borderRadius: "20px" }}>
+              <Col className='statistics_mentor_col'>
                 <Row>
                   <Col md={4}>
                     <h3>
@@ -130,7 +130,7 @@ const Statistics = ({ mentors, mentees, user, programFilter }) => {
                   </Col>
                 </Row>
               </Col>
-              {admin && !campusTeamAdmin ? <Col style={{ backgroundColor: "rgba(139,255,160,0.24)", borderRadius: "20px" }}>
+              {admin && !campusTeamAdmin ? <Col className='statistics_mentee_col'>
                 <h3>
                   Mentees
                 </h3>

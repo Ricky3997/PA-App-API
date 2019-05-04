@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { ReactTypeformEmbed } from 'react-typeform-embed';
+import { connect } from 'react-redux';
 
 
 const JourneyModule = (props) => {
@@ -26,4 +27,8 @@ const JourneyModule = (props) => {
 };
 
 
-export default JourneyModule;
+export default connect(({ user }) => {
+  return { user };
+}, dispatch => {
+  return {};
+})(JourneyModule);

@@ -4,6 +4,10 @@ import { ReactTypeformEmbed } from 'react-typeform-embed';
 import AgoraRTC from 'agora-rtc-sdk';
 import Button from 'react-bootstrap/es/Button';
 import * as _ from 'lodash';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getUser, updateUser } from '../../actions/actionCreator';
+import App from '../App';
 
 
 class Call extends Component {
@@ -157,4 +161,9 @@ class Call extends Component {
   }
 }
 
-export default Call;
+export default withRouter(connect(({ user }) => {
+  return { user };
+}, dispatch => {
+  return {
+  };
+})(Call));

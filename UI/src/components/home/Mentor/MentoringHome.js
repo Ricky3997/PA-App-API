@@ -8,10 +8,11 @@ import ReferAFriend from '../../various/ReferAFriend';
 import Events from './Events';
 import LookingForInternships from './LookingForInternships';
 import Appointments from './Appointments';
+import {connect} from 'react-redux'
 
 const MentoringHome = (props) => {
 
-   // if (props.user.mentorProfile.status === 'rejected') { //TODO Handle Rejection
+  // if (props.user.mentorProfile.status === 'rejected') { //TODO Handle Rejection
 
   return (
     <div>
@@ -29,7 +30,7 @@ const MentoringHome = (props) => {
           </Row>
           <Row>
             <Col>
-              <LookingForInternships />
+              <LookingForInternships/>
             </Col>
           </Row>
         </Col>
@@ -37,7 +38,8 @@ const MentoringHome = (props) => {
           <Row>
             <h4>Your Mentees 😇</h4>
             {props.user.mentorProfile.relationship.sort((a, b) => a.status === 'awaitingConfirmation' ? -1 : 1)
-                .map(r => r.status === 'awaitingConfirmation' ? <AcceptMenteeBox {...r} /> : <MenteeTile key={r._id} {...r} />)}
+              .map(r => r.status === 'awaitingConfirmation' ? <AcceptMenteeBox {...r} /> :
+                <MenteeTile key={r._id} {...r} />)}
           </Row>
           <br/>
           <Row>
@@ -45,7 +47,8 @@ const MentoringHome = (props) => {
           </Row>
           <br/>
           <Row>
-            <CountryPartner country={props.user.mentorProfile.country} index={props.user._id.toLowerCase().split('').reduce((result, ch) => result * 16 + '0123456789abcdefgh'.indexOf(ch), 0) % 4}/>
+            <CountryPartner country={props.user.mentorProfile.country}
+                            index={props.user._id.toLowerCase().split('').reduce((result, ch) => result * 16 + '0123456789abcdefgh'.indexOf(ch), 0) % 4}/>
           </Row>
 
         </Col>
@@ -54,4 +57,8 @@ const MentoringHome = (props) => {
   );
 };
 
-export default MentoringHome;
+export default connect(({ user }) => {
+  return { user };
+}, dispatch => {
+  return {};
+})(MentoringHome);

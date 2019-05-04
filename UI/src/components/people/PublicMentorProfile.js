@@ -4,6 +4,8 @@ import { LinkContainer } from 'react-router-bootstrap';
 import ReactLoading from 'react-loading';
 import NotFound from '../various/NotFound';
 import MentorProfileDetails from './MentorProfileDetails';
+import { connect } from 'react-redux';
+import { getMentorById } from '../../actions/actionCreator';
 
 class PublicMentorProfile extends Component {
 
@@ -40,4 +42,11 @@ class PublicMentorProfile extends Component {
   }
 };
 
-export default PublicMentorProfile;
+export default connect(
+  ({ publicProfile, user }) => {
+    return { publicProfile, user };
+  }, dispatch => {
+    return {
+      getMentorById: (id) => dispatch(getMentorById(id))
+    };
+  })(PublicMentorProfile);

@@ -1,6 +1,17 @@
+.pa_blue_background {
+    background-color: #1176d8
+}
 
-.pa_orange_text {
-    color: #eb9d26;
+.pa_torquoise_background {
+    background-color: #00AD83
+}
+
+.pa_orange_background {
+    background-color: #eb9d26;
+}
+
+.pa_red_background {
+    background-color: #d64f29;
 }
 
 .pa_orange_link:hover {
@@ -11,6 +22,21 @@
 .pa_orange_link {
     background-color: #eb9d26;
     border-color: #eb9d26;
+}
+
+.large_orange_icon {
+    font-size: 50px;
+    color: #eb9d26
+}
+
+.statistics_mentee_col{
+    background-color: rgba(139,255,160,0.24);
+    border-radius: 20px
+}
+
+.statistics_mentor_col{
+    background-color: rgba(54,216,255,0.26);
+    border-radius: 20px
 }
 
 .journey-module-box {

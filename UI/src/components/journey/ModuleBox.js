@@ -7,8 +7,7 @@ import moment from 'moment';
 
 const ModuleBox = (props) => {
   return (
-    <Container className="journey-module-box"
-               style={{ backgroundColor: props.module.completed ? "#4f84bc" : "#d64f29" }}>
+    <Container className={`journey-module-box ${props.module.completed ? "pa_blue_background" : "pa_orange_background"}`}>
       <Row>
         <Col md={7}>
           <h5> {props.module.title}
@@ -26,7 +25,7 @@ const ModuleBox = (props) => {
               {props.module.typeformID ?
                 <LinkContainer to={`/journey/${props.module.typeformID}`} disabled={!props.module.ready}
                                className="pa_orange_link">
-                  <Button block style={{ "backgroundColor": "#eb9d26" }}>
+                  <Button block className='pa_orange_background'>
                     {props.module.completed ? "Take again!" : "Start now!"}
                   </Button>
                 </LinkContainer> : null}
@@ -37,7 +36,7 @@ const ModuleBox = (props) => {
                 Not too fast, you have to complete the previous one first!
                 <span role="img" aria-label="rocket">😉</span>
               </Tooltip>}>
-              <Icon name="fas fa-lock" style={{ fontSize: "50px", color: "#eb9d26" }}/>
+              <Icon name="fas fa-lock" className='large_orange_icon'/>
             </OverlayTrigger>
           }
 

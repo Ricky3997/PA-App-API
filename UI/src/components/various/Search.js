@@ -3,6 +3,7 @@ import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
 import FeatureNotReadyYetOnHover from './FeatureNotReadyYetOnHover';
 import NotReadyYet from './NotReadyYet';
 import { LinkContainer } from 'react-router-bootstrap';
+import { withRouter } from 'react-router-dom';
 
 const Search = ({match}) => {
   return <Container>
@@ -26,4 +27,4 @@ const Search = ({match}) => {
   </Container>;
 };
 
-export default Search;
+export default withRouter(Search);

@@ -4,6 +4,14 @@ import RegisterNewUser from './RegisterNewUser';
 import MentorOnboarding from './MentorOnboarding';
 import MenteeOnboarding from './MenteeOnboarding';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {
+  addOnboardingProperties,
+  changeStage,
+  registerMentee,
+  registerMentor,
+  updateUser
+} from '../../actions/actionCreator';
 
 
 class Onboarding extends Component {
@@ -35,4 +43,14 @@ class Onboarding extends Component {
   }
 }
 
-export default Onboarding;
+export default connect(({ user, onboarding }) => {
+  return { user, onboarding };
+}, dispatch => {
+  return {
+    updateUser: (user) => dispatch(updateUser(user)),
+    changeStage: (change) => dispatch(changeStage(change)),
+    addOnboardingProperties: (properties) => dispatch(addOnboardingProperties(properties)),
+    registerMentor: () => dispatch(registerMentor()),
+    registerMentee: () => dispatch(registerMentee())
+  };
+})(Onboarding);

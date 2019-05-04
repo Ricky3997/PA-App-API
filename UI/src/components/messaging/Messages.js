@@ -1,6 +1,13 @@
 import React from 'react';
 import * as _ from 'lodash';
 import Messaging from './Messaging';
+import { connect } from 'react-redux';
+import {
+  addMessagesToChat,
+  addMessagingChat, clearChats,
+  setActiveChat,
+  toggleMessagingConnected
+} from '../../actions/actionCreator';
 
 const Messages = (props) => {
   if (props.user.type === "mentor") {
@@ -14,4 +21,14 @@ const Messages = (props) => {
   return <div>Messaging is only available once your mentoring relationship has started</div>;
 };
 
-export default Messages;
+export default connect(({ user }) => {
+  return { user };
+}, dispatch => {
+  return {
+    toggleMessagingConnected: () => dispatch(toggleMessagingConnected()),
+    addMessagingChat: (chat) => dispatch(addMessagingChat(chat)),
+    addMessagesToChat: (chatId, messages) => dispatch(addMessagesToChat(chatId, messages)),
+    setActiveChatId: (id) => dispatch(setActiveChat(id)),
+    clearChats: (id) => dispatch(clearChats(id))
+  };
+})(Messages);

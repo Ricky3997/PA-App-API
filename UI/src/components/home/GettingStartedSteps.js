@@ -13,6 +13,7 @@ import RequestMenteeApproval from './Mentee/RequestMenteeApproval';
 import ReferAFriend from '../various/ReferAFriend';
 import PersonalityTestButton from './PersonalityTestButton';
 import UploadProfilePictureButton from './UploadProfilePictureButton';
+import { withRouter } from 'react-router-dom';
 
 const GettingStartedSteps = (props) => {
 
@@ -68,7 +69,7 @@ const GettingStartedSteps = (props) => {
   return (
     <div>
       <Row>
-        <Col md={9}>
+        <Col md={9} xs={12}>
           <p>
             We are extremely excited to have you onboard with us! <br/> Before you can jump into the core of the action
             and
@@ -76,7 +77,7 @@ const GettingStartedSteps = (props) => {
             a couple of things for you to do! 🙏
           </p>
           <Row>
-            <Col md={3}>
+            <Col md={3} xs={12} style={{marginBottom: '30px'}}>
               <Timeline height={400} progress={props.gettingStartedSteps.progress}>
                 <Bookmark key={'onboard'} progress={10} onSelect={() => props.setGettingStartedStepsProgress(10)}>
                   <h6
@@ -103,7 +104,7 @@ const GettingStartedSteps = (props) => {
                 </Bookmark>
               </Timeline>
             </Col>
-            <Col md={9}>
+            <Col md={9} xs={12}>
               {props.gettingStartedSteps.progress === 10 ?
                 <GettingStartedBox module={onboardModule} action={'Yes, let\'s register!'}
                                    onClick={() => props.history.push('/onboard')}/> : null}
@@ -154,7 +155,7 @@ const GettingStartedSteps = (props) => {
             </Col>
           </Row>
         </Col>
-        <Col md={3}>
+        <Col md={3} xs={12}>
           <Row>
             <h4>
               Your {props.mode === 'mentee' ? 'Mentor' : 'Mentees'} <span role="img"
@@ -185,11 +186,11 @@ const GettingStartedSteps = (props) => {
   );
 };
 
-export default connect(({ user, gettingStartedSteps }) => {
+export default withRouter(connect(({ user, gettingStartedSteps }) => {
   return { user, gettingStartedSteps };
 }, dispatch => {
   return {
     setGettingStartedStepsProgress: (progress) => dispatch(setGettingStartedStepsProgress(progress)),
     toggleApprovalModal: () => dispatch(toggleApprovalModal())
   };
-})(GettingStartedSteps);
+})(GettingStartedSteps));

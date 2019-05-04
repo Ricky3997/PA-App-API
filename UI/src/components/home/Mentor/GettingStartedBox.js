@@ -5,8 +5,7 @@ import { Icon } from 'react-fa';
 
 const GettingStartedBox = (props) => {
   return (
-    <Container className="journey-module-box"
-               style={{ backgroundColor: props.module.completed ? "#4f84bc" : "#d64f29" }}>
+    <Container className={`journey-module-box ${props.module.completed ? "pa_blue_background" : "pa_orange_background"}`}>
       <Row>
         <Col md={9}>
           <h5> {props.module.title}

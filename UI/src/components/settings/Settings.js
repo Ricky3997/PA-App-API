@@ -4,6 +4,16 @@ import { Redirect } from 'react-router-dom';
 import MentorSettings from './MentorSettings';
 import MenteeSettings from './MenteeSettings';
 import * as ReactGA from 'react-ga';
+import { connect } from 'react-redux';
+import {
+  changeMenteeStatus,
+  changeMentorStatus,
+  removePictureToCrop, saveSettings, sendEmailConfirmationAgain,
+  storePictureCropped,
+  storePictureToCrop,
+  togglePicturePicker,
+  updateUser
+} from '../../actions/actionCreator';
 
 class Settings extends Component {
 
@@ -29,4 +39,18 @@ class Settings extends Component {
 
 }
 
-export default Settings;
+export default connect(({ settings, user }) => {
+  return { settings, user };
+}, dispatch => {
+  return {
+    updateUser: (user) => dispatch(updateUser(user)),
+    togglePicturePicker: () => dispatch(togglePicturePicker()),
+    storePictureToCrop: (pictureToCrop) => dispatch(storePictureToCrop(pictureToCrop)),
+    removePictureToCrop: () => dispatch(removePictureToCrop()),
+    storePictureCropped: (pictureCropped) => dispatch(storePictureCropped(pictureCropped)),
+    saveSettings: (settings) => dispatch(saveSettings(settings)),
+    sendEmailConfirmationAgain: (settings) => dispatch(sendEmailConfirmationAgain(settings)),
+    changeMentorStatus: (status, properties) => dispatch(changeMentorStatus(status, properties)),
+    changeMenteeStatus: (status, properties) => dispatch(changeMenteeStatus(status, properties))
+  };
+})(Settings);

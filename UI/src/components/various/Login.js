@@ -3,7 +3,7 @@ import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap';
 import Loader from 'react-loader-spinner';
 import * as queryString from 'query-string';
 import * as _ from 'lodash';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Field, Form as FormikForm, Formik } from 'formik';
 import LoginEmailSent from './../../assets/emailSent.png';
@@ -97,7 +97,7 @@ class Login extends Component {
   }
 }
 
-export default connect(({ user, login }) => {
+export default withRouter(connect(({ user, login }) => {
   return { user, login };
 }, dispatch => {
   return {
@@ -105,4 +105,4 @@ export default connect(({ user, login }) => {
     getUser: () => dispatch(getUser()),
     unsetLoginEmailSent: () => dispatch(unsetLoginEmailSent())
   };
-})(Login);
+})(Login));

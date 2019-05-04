@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { Container, Tab, Tabs } from 'react-bootstrap';
 import Dashboard from './dashboard/Dashboard';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import Matching from './matching/Matching';
-import { cancelRelationship, changeMenteeBeingMatched, toggleDashboardConfirmation } from '../../actions/actionCreator';
+import {
+  cancelRelationship,
+  changeMenteeBeingMatched, fetchMentees,
+  fetchMentors, fetchRelationships, setProgramFilter,
+  toggleDashboardConfirmation
+} from '../../actions/actionCreator';
 import connect from 'react-redux/es/connect/connect';
 import { toast } from 'react-toastify';
 import BadgePendingNumber from './utils/BadgePendingNumber';
@@ -142,4 +147,13 @@ class Admin extends Component {
   }
 }
 
-export default Admin;
+export default withRouter(connect(({ user, admin }) => {
+  return { user, admin };
+}, dispatch => {
+  return {
+    fetchMentors: () => dispatch(fetchMentors()),
+    fetchRelationships: () => dispatch(fetchRelationships()),
+    fetchMentees: () => dispatch(fetchMentees()),
+    setProgramFilter: (filter) => dispatch(setProgramFilter(filter))
+  };
+})(Admin));

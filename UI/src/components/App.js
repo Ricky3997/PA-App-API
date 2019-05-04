@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import 'antd/dist/antd.css';
 import '../assets/App.css';
 import Header from './various/Header';
 import Onboarding from './onboarding/Onboarding';
 import Login from './various/Login';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Confirm from './various/Confirm';
 import MentorProfile from './home/Mentee/MentorTile';
 import Call from './call/Call';
@@ -15,35 +14,6 @@ import JourneyModule from './journey/JourneyModule';
 import Home from './home/Home';
 import About from './various/About';
 import 'react-toastify/dist/ReactToastify.css';
-
-import {
-  addMessagesToChat,
-  addMessagingChat,
-  addOnboardingProperties,
-  changeMenteeStatus,
-  changeMentorStatus,
-  changeStage,
-  clearChats,
-  confirmEmailAddress,
-  fetchMentees,
-  fetchMentors,
-  fetchRelationships,
-  getMenteeById,
-  getMentorById,
-  getUser,
-  registerMentee,
-  registerMentor,
-  removePictureToCrop,
-  saveSettings,
-  sendEmailConfirmationAgain,
-  setActiveChat,
-  setProgramFilter,
-  storePictureCropped,
-  storePictureToCrop,
-  toggleMessagingConnected,
-  togglePicturePicker,
-  updateUser
-} from '../actions/actionCreator';
 import Footer from './various/Footer';
 import { Container } from 'react-bootstrap';
 import { ToastContainer } from 'react-toastify';
@@ -62,137 +32,40 @@ class App extends Component {
 
   componentDidMount() {
     if (!this.props.app.trackingOn && this.props.user) ReactGA.set({ userId: this.props.user._id });
-    if(window.location.host !== 'localhost:3000') this.props.history.listen((location) => {
-      ReactGA.pageview(location.pathname)
+    if (window.location.host !== 'localhost:3000') this.props.history.listen((location) => {
+      ReactGA.pageview(location.pathname);
     });
-    if (moment().diff(moment(this.props.app.lastUserRefresh), "m") >= 1) this.props.refreshUser();
+    if (moment().diff(moment(this.props.app.lastUserRefresh), 'm') >= 1) this.props.refreshUser();
   }
 
   render() {
-    const { user, logout, history, location } = this.props
     return (
       <div id="root_div">
-        <Header user={user} logout={logout} history={history} location={location}/>
+        <Header/>
         <Container fluid id="root_container">
           <Switch>
-            <Route path={"/login"} component={withRouter(Login)}/>
-            <Route path={"/datapolicy"} component={GDPR}/>
-            <Route path={"/Guides"} component={Guides}/>
-            <Route path={"/search/:query"} component={withRouter(Search)}/>
-            <Route path={"/settings"} component={connect(({ settings, user }) => {
-              return { settings, user };
-            }, dispatch => {
-              return {
-                updateUser: (user) => dispatch(updateUser(user)),
-                togglePicturePicker: () => dispatch(togglePicturePicker()),
-                storePictureToCrop: (pictureToCrop) => dispatch(storePictureToCrop(pictureToCrop)),
-                removePictureToCrop: () => dispatch(removePictureToCrop()),
-                storePictureCropped: (pictureCropped) => dispatch(storePictureCropped(pictureCropped)),
-                saveSettings: (settings) => dispatch(saveSettings(settings)),
-                sendEmailConfirmationAgain: (settings) => dispatch(sendEmailConfirmationAgain(settings)),
-                changeMentorStatus: (status, properties) => dispatch(changeMentorStatus(status, properties)),
-                changeMenteeStatus: (status, properties) => dispatch(changeMenteeStatus(status, properties))
-              };
-            })(Settings)}/>
-            <Route path={"/onboard"} component={connect(({ user, onboarding }) => {
-              return { user, onboarding };
-            }, dispatch => {
-              return {
-                updateUser: (user) => dispatch(updateUser(user)),
-                changeStage: (change) => dispatch(changeStage(change)),
-                addOnboardingProperties: (properties) => dispatch(addOnboardingProperties(properties)),
-                registerMentor: () => dispatch(registerMentor()),
-                registerMentee: () => dispatch(registerMentee())
-              };
-            })(Onboarding)}/>
-
-            <Route path={"/journey/:id"} component={connect(({ user }) => {
-              return { user };
-            }, dispatch => {
-              return {};
-            })(JourneyModule)}/>
-
-            <Route path={"/mentor/:id"} component={connect(
-              ({ publicProfile, user }) => {
-                return { publicProfile, user };
-              }, dispatch => {
-                return {
-                  getMentorById: (id) => dispatch(getMentorById(id))
-                };
-              })(PublicMentorProfile)}/>
-
-            <Route path={"/events/:id"} component={connect(
-              () => {
-                return { };
-              }, dispatch => {
-                return {
-                  // getMentorById: (id) => dispatch(getMentorById(id))
-                };
-              })(EventDetails)}/>
-
-            <Route path={"/jobs"} component={connect(
-              ({ user }) => {
-                return { user };
-              }, dispatch => {
-                return {
-                  // getMentorById: (id) => dispatch(getMentorById(id))
-                };
-              })(Jobs)}/>
-
-            <Route path={"/mentee/:id"} component={connect(
-              ({ publicProfile, user }) => {
-                return { publicProfile, user };
-              }, dispatch => {
-                return {
-                  getMenteeById: (id) => dispatch(getMenteeById(id))
-                };
-              })(PublicMenteeProfile)}/>
-
-
-            <Route path={"/message"} component={connect(({ user }) => {
-              return { user };
-            }, dispatch => {
-              return {
-                toggleMessagingConnected: () => dispatch(toggleMessagingConnected()),
-                addMessagingChat: (chat) => dispatch(addMessagingChat(chat)),
-                addMessagesToChat: (chatId, messages) => dispatch(addMessagesToChat(chatId, messages)),
-                setActiveChatId: (id) => dispatch(setActiveChat(id)),
-                clearChats: (id) => dispatch(clearChats(id))
-              };
-            })(Messages)}/>
-
-            <Route path={"/call"} render={(props) => <Call user={user} {...props} />}/>
-            <Route path={"/mentor/:id"} exact render={(props) => <MentorProfile {...props} />}/>
-            <Route path={"/about"} component={About}/>
-            <Route path={"/confirm"} component={connect(null, dispatch => {
-              return {
-                confirmEmailAddress: (token, id) => dispatch(confirmEmailAddress(token, id))
-              };
-            })(Confirm)}/>
-
-            <Route path={"/admin/:section?"} component={connect(({ user, admin }) => {
-              return { user, admin };
-            }, dispatch => {
-              return {
-                fetchMentors: () => dispatch(fetchMentors()),
-                fetchRelationships: () => dispatch(fetchRelationships()),
-                fetchMentees: () => dispatch(fetchMentees()),
-                setProgramFilter: (filter) => dispatch(setProgramFilter(filter))
-              };
-            })(Admin)}/>
-
-            <Route component={connect(({ user }) => {
-              return { user };
-            }, dispatch => {
-              return {
-                refreshUser: () => dispatch(getUser())
-              };
-            })(withRouter(Home))}/>
-
+            <Route path={'/login'} component={Login}/>
+            <Route path={'/datapolicy'} component={GDPR}/>
+            <Route path={'/Guides'} component={Guides}/>
+            <Route path={'/search/:query'} component={Search}/>
+            <Route path={'/settings'} component={Settings}/>
+            <Route path={'/onboard'} component={Onboarding}/>
+            <Route path={'/journey/:id'} component={JourneyModule}/>
+            <Route path={'/mentor/:id'} component={PublicMentorProfile}/>
+            <Route path={'/events/:id'} component={EventDetails}/>
+            <Route path={'/jobs'} component={Jobs}/>
+            <Route path={'/mentee/:id'} component={PublicMenteeProfile}/>
+            <Route path={'/message'} component={Messages}/>
+            <Route path={'/call'} component={Call}/>
+            <Route path={'/mentor/:id'} exact component={MentorProfile}/>
+            <Route path={'/about'} component={About}/>
+            <Route path={'/confirm'} component={Confirm}/>
+            <Route path={'/admin/:section?'} component={Admin}/>
+            <Route component={Home}/>
           </Switch>
           <ToastContainer/>
         </Container>
-        <Footer history={history}/>
+        <Footer/>
       </div>
     );
   }

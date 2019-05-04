@@ -3,6 +3,7 @@ import { CardDeck, Col, Row } from 'react-bootstrap';
 import { Icon } from 'react-fa';
 import FeatureNotReadyYetOnHover from '../various/FeatureNotReadyYetOnHover';
 import JobCard from './JobCard';
+import { connect } from 'react-redux';
 
 const Jobs = ({ user }) => {
   return <div>
@@ -60,4 +61,11 @@ const Jobs = ({ user }) => {
   </div>;
 };
 
-export default Jobs;
+export default connect(
+  ({ user }) => {
+    return { user };
+  }, dispatch => {
+    return {
+      // getMentorById: (id) => dispatch(getMentorById(id))
+    };
+  })(Jobs);
