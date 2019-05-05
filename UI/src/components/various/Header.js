@@ -80,7 +80,8 @@ const Header = ({ user, logout, history, location, refreshUser }) => {
         <Nav className="mr-auto">
 
           {user ? <LinkContainer to={'/message'}>
-            <Nav.Link>Messages <Badge variant="light"> 3</Badge>
+            <Nav.Link>Messages
+              <Badge variant="light"> 3</Badge>
             </Nav.Link>
           </LinkContainer> : null}
 
@@ -93,7 +94,7 @@ const Header = ({ user, logout, history, location, refreshUser }) => {
             </Nav.Link>
           </LinkContainer> : null}
 
-          <LinkContainer to="/Guides">
+          <LinkContainer to="/guides">
             <Nav.Link>Guides</Nav.Link>
           </LinkContainer>
 
