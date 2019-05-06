@@ -12,7 +12,7 @@ const mongoose = require("mongoose");
 const scheduler = require("node-schedule");
 const config = require("./../config");
 
-const countries = require("./../UI/node_modules/svg-country-flags/countries");
+const countries = require("svg-country-flags/countries");
 const defaults = require("./../UI/src/defaults/defaults");
 const _ = require('lodash');
 const moment = require('moment');

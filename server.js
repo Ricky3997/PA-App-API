@@ -22,7 +22,7 @@ app.use("/auth", authRoutes);
 //  Connect all our routes to our application
 app.use("/api", authService.checkToken, routes);
 
-app.use('/health', healthcheck());
+app.use('/healthRb', healthcheck());
 
 // Handles any requests that don't match the ones above
 app.get("*", (req, res) => {
