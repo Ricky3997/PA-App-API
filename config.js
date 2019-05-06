@@ -1,11 +1,5 @@
 require('dotenv').load();
 module.exports = {
-  email: {
-    user: process.env.EMAIL_USER,
-    password: process.env.EMAIL_PW,
-    host: "smtp.office365.com",
-    tls: { ciphers: "SSLv3" }
-  },
   SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
   mongodb: process.env.NODE_ENV === "production" ? {
     URI: process.env.MONGODB_URI

@@ -15,7 +15,10 @@
   },
   "jest": {
     "verbose": true,
-    "testPathIgnorePatterns": ["<rootDir>/UI/", "<rootDir>/node_modules/"]
+    "testPathIgnorePatterns": [
+      "<rootDir>/UI/",
+      "<rootDir>/node_modules/"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -31,6 +34,7 @@
     "emailjs": "^2.2.0",
     "express": "^4.16.4",
     "express-async-handler": "^1.1.4",
+    "express-healthcheck": "^0.1.0",
     "express-jwt": "^5.3.1",
     "file-type": "^10.6.0",
     "fs": "0.0.1-security",

@@ -48,7 +48,7 @@ const RequestMenteeApproval = (props) => {
         <Row>
           <Col>
             <h4>
-              Awesome, you're just a few questioons away from getting your mentor!
+              Awesome, you're just a few questions away from getting your mentor!
             </h4>
             <p>
               Before we can give you a mentor, we need to check some details and then find one that matches your profile

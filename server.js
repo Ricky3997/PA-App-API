@@ -5,6 +5,8 @@ const authService = require("./service/auth");
 const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
+const healthcheck = require('express-healthcheck');
+
 const port = process.env.PORT || 5000;
 const initDb = require('./service/db').initDb;
 require("dotenv").load();
@@ -19,6 +21,8 @@ app.use("/auth", authRoutes);
 
 //  Connect all our routes to our application
 app.use("/api", authService.checkToken, routes);
+
+app.use('/health', healthcheck());
 
 // Handles any requests that don't match the ones above
 app.get("*", (req, res) => {
