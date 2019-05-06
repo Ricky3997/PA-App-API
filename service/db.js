@@ -29,15 +29,15 @@ const initDb = (callback) => {
 
     // if (!config.PROD_MODE){
       await clearDb();
-      await loadRLB();
-      [
-        {name: 'Raphael', surname: 'Eder', email: 'raphael.eder@projectaccess.org'},
-        {name: 'Emil', surname: 'Bender Lassen', email: 'emil.lassen@projectaccess.org'},
-        {name: 'Anna', surname: 'Gross', email: 'anna.gross@projectaccess.org'},
-        {name: 'Luca', surname: 'Broggi', email: 'riccardo.broggi@projectaccess.org'},
-      ].forEach(await loadAdmin);
-      await loadDummyMentors();
-      await loadDummyMentees();
+      // await loadRLB();
+      // [
+      //   {name: 'Raphael', surname: 'Eder', email: 'raphael.eder@projectaccess.org'},
+      //   {name: 'Emil', surname: 'Bender Lassen', email: 'emil.lassen@projectaccess.org'},
+      //   {name: 'Anna', surname: 'Gross', email: 'anna.gross@projectaccess.org'},
+      //   {name: 'Luca', surname: 'Broggi', email: 'riccardo.broggi@projectaccess.org'},
+      // ].forEach(await loadAdmin);
+      // await loadDummyMentors();
+      // await loadDummyMentees();
     // }
     let rule = new scheduler.RecurrenceRule();
     rule.minute = new scheduler.Range(0, 59, 20);
