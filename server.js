@@ -25,8 +25,12 @@ app.use("/api", authService.checkToken, routes);
 app.use('/healthRb', healthcheck());
 
 // Handles any requests that don't match the ones above
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/UI/build/index.html"));
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname + "/UI/build/index.html"));
+// });
+
+app.get('/', (req,res) => {
+  res.json({hello: 'world'})
 });
 
 app.use((err, req, res, next) => {
