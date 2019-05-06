@@ -1,7 +1,7 @@
 
 # Mentor Platform
 
-#### Welcome`
+#### Welcome
 
 Welcome to Project Access Mentor!
 This app has two main components:
