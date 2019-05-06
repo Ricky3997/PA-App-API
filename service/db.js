@@ -11,7 +11,6 @@ const assert = require("assert");
 const mongoose = require("mongoose");
 const scheduler = require("node-schedule");
 const config = require("./../config");
-
 const countries = require("svg-country-flags/countries");
 const defaults = require("./../UI/src/defaults/defaults");
 const _ = require('lodash');
@@ -157,13 +156,14 @@ const loadDummyMentees = async () => {
     await MenteeService.registerNew(res.user._id.toString(), d);
   });
 };
+
 const loadRLB = async () => {
   const id = mongoose.Types.ObjectId('4edd40c86762e0fb12000003');
   const userProfile = {
     _id: id,
     firstName: "Riccardo",
     lastName: "Broggi",
-    type: "mentee",
+    type: "mentor",
     email: "riccardo@broggi.co.uk",
     emailConfirmed: true,
     onboarded: true,
@@ -237,7 +237,7 @@ const loadRLB = async () => {
 
   };
   await MentorService.registerNew(id, mentorProfile);
-  await MenteeService.registerNew(id, menteeProfile);
+  // await MenteeService.registerNew(id, menteeProfile);
   await request({
     method: 'post',
     body: {
