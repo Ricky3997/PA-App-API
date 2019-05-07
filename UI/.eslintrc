@@ -1,9 +1,0 @@
-{
-  "parser": "babel-eslint",
-  "plugins": [
-    "react"
-  ],
-  "rules": {
-    "jsx-a11y/accessible-emoji": "off"
-  }
-}
