@@ -5,7 +5,7 @@
 
 ### Welcome
 
-This repository is for the backend-end code of the Project Access App; you can find its github at https://github.com/Ricky3997/PA-App-API
+This repository is for the backend-end code of the Project Access App
 
 ### First time after cloning repository
 
