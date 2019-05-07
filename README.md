@@ -1,36 +1,34 @@
 
-# Mentor Platform
+![Repo Cover](/assets/repo-cover.png)
 
-#### Welcome
+# Project Access App API
 
-Welcome to Project Access Mentor!
-This app has two main components:
-- a front end built in React (found in _**/UI**_ )
-- a back end built in Express with a MongoDb (found in **_/_** )
+### Welcome
 
-#### To run the app
+This repository is for the backend-end code of the Project Access App; you can find its github at https://github.com/Ricky3997/PA-App-API
 
-First install dependencies for the back end
+### First time after cloning repository
 
-### `npm install`
+First create a file called **.env** in the root of the folder and add:
 
-Second install dependencies for the front end
+`UI_URL=http://localhost:5000`
 
-### `cd UI && npm install`
+`NODE_ENV=development`
 
-Start local mongodb 
-(requires having installed it previously: https://treehouse.github.io/installation-guides/mac/mongo-mac.html)
+`MONGODB_URI=***`
 
-### `mongod`
+`AWS_SECRET_ACCESS_KEY=***`
 
-Then start backend server
+`AWS_ACCESS_KEY_ID=***`
 
-### `node server.js`
+`SENDGRID_API_KEY=***`
 
-Then start front end development server
+Ask a member of the team for the values of _***_
 
-### `cd UI && npm start`
+Second install dependencies by running `npm install`
 
-Then develop (at [http://localhost:3000](http://localhost:3000))
+### Developing
 
+To start developing run `node server.js` and you can then develop and ping the API at http://localhost:5000
 
+To use the API in conjunction with the front-end, see https://github.com/Ricky3997/PA-App-API for that 

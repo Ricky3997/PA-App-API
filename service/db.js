@@ -27,6 +27,8 @@ const initDb = (callback) => {
   mongoose.connect(config.mongodb.URI, { useNewUrlParser: true , useFindAndModify: false, useCreateIndex: true }).then(async () => {
     _db = mongoose.connection;
 
+    //TODO Throw error if fail to connect
+
     // if (!config.PROD_MODE){
       await clearDb();
       await loadRLB();
