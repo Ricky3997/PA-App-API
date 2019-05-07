@@ -5,36 +5,42 @@ import * as Yup from 'yup';
 import { Field, Form as FormikForm, Formik } from 'formik';
 import * as _ from 'lodash';
 import Loader from 'react-loader-spinner';
-import * as api from '../../api';
 import { toast } from 'react-toastify';
 import * as queryString from 'query-string';
 import { Icon } from 'react-fa';
 import defaults from './../../defaults/defaults.json';
 import CountryFlag from '../various/CountryFlag';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {
+  changeStage, registerNewUser,
+  updateUser
+} from '../../actions/actionCreator';
 
 const RegisterNewUser = (props) => {
 
   const qs = queryString.parse(props.location.search);
   let typeFromUrl;
   if (qs.type) {
-    if (qs.type === "mentee") typeFromUrl = defaults.onboarding.mentee;
-    if (qs.type === "mentor") typeFromUrl = defaults.onboarding.mentor;
+    if (qs.type === 'mentee') typeFromUrl = defaults.onboarding.mentee;
+    if (qs.type === 'mentor') typeFromUrl = defaults.onboarding.mentor;
   }
 
   return (
     <div>
       <Row>
-        <Col md={{span: 8, offset: 2}} style={{ paddingTop: "10px" }}>
+        <Col md={{ span: 8, offset: 2 }} style={{ paddingTop: '10px' }}>
           <Alert variant={'info'}>
             Hello! This is a development version of the new app we are working on, thanks for helping us test it out! 🙏
             <br/>
-            Any bugs, please let us know at <Alert.Link href="mailto:technology@projectaccess.org">technology@projectaccess.org</Alert.Link> 🤓
+            Any bugs, please let us know at <Alert.Link
+            href="mailto:technology@projectaccess.org">technology@projectaccess.org</Alert.Link> 🤓
           </Alert>
 
         </Col>
       </Row>
       <Row>
-        <Col md={7} style={{ paddingTop: "0px" }}>
+        <Col md={7} style={{ paddingTop: '0px' }}>
           <Image width="100px" src={PALogo}/>
           <h1>
             Where passion and potential define your future.
@@ -42,46 +48,41 @@ const RegisterNewUser = (props) => {
           <p>At Project Access we help disadvantaged students reach a top university</p>
 
         </Col>
-        <Col md={{ size: 2, offset: 1 }} style={{ paddingTop: "0px" }}>
+        <Col md={{ size: 2, offset: 1 }} style={{ paddingTop: '0px' }}>
 
           <Formik
             validationSchema={Yup.object().shape({
               email: Yup.string()
-                .email("Invalid Email")
-                .required("Email is required."),
+                .email('Invalid Email')
+                .required('Email is required.'),
               firstName: Yup.string()
                 .min(3)
-                .required("First name is required."),
+                .required('First name is required.'),
               lastName: Yup.string()
                 .min(3)
-                .required("Last name is required."),
+                .required('Last name is required.'),
               userType: Yup.string()
             })}
             initialValues={{
-              email: "",
-              firstName: "",
-              lastName: "",
+              email: '',
+              firstName: '',
+              lastName: '',
               userType: typeFromUrl || defaults.onboarding.mentee
             }}
             onSubmit={({ email, userType, firstName, lastName }, { setSubmitting }) => {
-
-              api.post("/auth/register", {
+              props.registerNewUser({
                 email: email,
                 firstName: firstName,
                 lastName: lastName,
-                type: userType === defaults.onboarding.mentee ? "mentee" : "mentor"
+                type: userType === defaults.onboarding.mentee ? 'mentee' : 'mentor'
               }).then(r => {
-
                 if (r.success && !r.payload.error) {
-                  window.localStorage.setItem("token", r.payload.token);
-                  window.localStorage.setItem("user", JSON.stringify(r.payload.user));
-                  props.updateUser(r.payload.user);
-                  toast.success("Fantastic, welcome!");
+                  toast.success('Fantastic, welcome!');
                   props.history.push(`/`);
                 } else if (r.success && r.payload.error === 11000) {
-                  toast.error("User with that email exists already");
+                  toast.error('User with that email exists already');
                   props.history.push(`/login?email=${email}`);
-                } else toast.error("There was an error requesting your magic link, sorry");
+                } else toast.error('There was an error requesting your magic link, sorry');
                 setSubmitting(false);
               });
             }}
@@ -105,7 +106,7 @@ const RegisterNewUser = (props) => {
                           <option>{defaults.onboarding.mentor}</option>
                         </Form.Control>
                         {touched[field.name] && errors[field.name] ?
-                          <p style={{ color: "red" }}>{errors[field.name]}</p> : null}
+                          <p style={{ color: 'red' }}>{errors[field.name]}</p> : null}
                       </Col>
                     </Row>;
                   }}
@@ -124,7 +125,7 @@ const RegisterNewUser = (props) => {
 
                                         isInvalid={touched[field.name] && errors[field.name]}/>
                           {touched[field.name] && errors[field.name] ?
-                            <p style={{ color: "red" }}>{errors[field.name]}</p> : null}
+                            <p style={{ color: 'red' }}>{errors[field.name]}</p> : null}
                         </div>;
                       }}
                     />
@@ -141,7 +142,7 @@ const RegisterNewUser = (props) => {
 
                                         isInvalid={touched[field.name] && errors[field.name]}/>
                           {touched[field.name] && errors[field.name] ?
-                            <p style={{ color: "red" }}>{errors[field.name]}</p> : null}
+                            <p style={{ color: 'red' }}>{errors[field.name]}</p> : null}
                         </div>;
                       }}
                     />
@@ -156,13 +157,13 @@ const RegisterNewUser = (props) => {
                     return <Row>
                       <Col>
                         <Form.Label>
-                          <span>Your <b>{values.userType === defaults.onboarding.mentee ? "" : "University"}</b> {"Email Address "}</span>
+                          <span>Your <b>{values.userType === defaults.onboarding.mentee ? '' : 'University'}</b> {'Email Address '}</span>
                           {values.userType === defaults.onboarding.mentee ? null :
                             <OverlayTrigger placement="bottom"
                                             overlay={<Tooltip placement="bottoom" className="in">We need
                                               this to verify the university you attend!</Tooltip>}>
                               <Badge pill variant="info">
-                                <span><Icon style={{ color: "white" }} name="fas fa-info-circle"/>{" Why?"}</span>
+                                <span><Icon style={{ color: 'white' }} name="fas fa-info-circle"/>{' Why?'}</span>
                               </Badge>
                             </OverlayTrigger>
                           }
@@ -171,7 +172,7 @@ const RegisterNewUser = (props) => {
 
                                       isInvalid={touched[field.name] && errors[field.name]}/>
                         {touched[field.name] && errors[field.name] ?
-                          <p style={{ color: "red" }}>{errors[field.name]}</p> : null}
+                          <p style={{ color: 'red' }}>{errors[field.name]}</p> : null}
                       </Col>
                     </Row>;
                   }}
@@ -179,12 +180,12 @@ const RegisterNewUser = (props) => {
                 <br/>
                 <Button block type="submit" variant="success" disabled={isSubmitting || !_.isEmpty(errors)}>
                   {isSubmitting ? <Loader type="Oval" color="#ffffff" width="20" height="20"/> :
-                    (values.userType === defaults.onboarding.mentee ? "Find your mentor!" : "Help a mentee!")}
+                    (values.userType === defaults.onboarding.mentee ? 'Find your mentor!' : 'Help a mentee!')}
                 </Button>
               </FormikForm>
             )}
           />
-          <Button block style={{ color: "white" }} variant="link" onClick={() => props.history.push("/login")}>Already
+          <Button block style={{ color: 'white' }} variant="link" onClick={() => props.history.push('/login')}>Already
             registered? Sign in instead</Button>
         </Col>
       </Row>
@@ -192,18 +193,20 @@ const RegisterNewUser = (props) => {
         <Col>
           <p>For now we are working with:</p>
 
-          <div style={{ backgroundColor: "#fff4f0" }}>
-            {[ <CountryFlag width={"50px"} country={"United Kingdom"}/>, ...defaults.universities.UK.map(u => <Image key={u.name} src={u.logo} style={{
-            maxHeight: "50px",
-            maxWidth: "100px",
-            marginLeft: "3px"
-          }}/>)]}
+          <div style={{ backgroundColor: '#fff4f0' }}>
+            {[<CountryFlag key={'UK'} width={'50px'} country={'United Kingdom'}/>, ...defaults.universities.UK.map(u => <Image
+              key={u.name} src={u.logo} style={{
+              maxHeight: '50px',
+              maxWidth: '100px',
+              marginLeft: '3px'
+            }}/>)]}
           </div>
-          <div style={{ backgroundColor: "#fff4f0" }}>
-            {[<CountryFlag width={"50px"} country={"United States"}/>, ...defaults.universities.US.map(u => <Image key={u.name} src={u.logo} style={{
-              maxHeight: "50px",
-              maxWidth: "100px",
-              marginLeft: "3px"
+          <div style={{ backgroundColor: '#fff4f0' }}>
+            {[<CountryFlag key={'US'} width={'50px'} country={'United States'}/>, ...defaults.universities.US.map(u => <Image
+              key={u.name} src={u.logo} style={{
+              maxHeight: '50px',
+              maxWidth: '100px',
+              marginLeft: '3px'
             }}/>)]}
           </div>
         </Col>
@@ -213,4 +216,12 @@ const RegisterNewUser = (props) => {
   );
 };
 
-export default RegisterNewUser;
+export default withRouter(connect(({ user, onboarding }) => {
+  return { user, onboarding };
+}, dispatch => {
+  return {
+    updateUser: (user) => dispatch(updateUser(user)),
+    changeStage: (change) => dispatch(changeStage(change)),
+    registerNewUser: (newUser) => dispatch(registerNewUser(newUser))
+  };
+})(RegisterNewUser));

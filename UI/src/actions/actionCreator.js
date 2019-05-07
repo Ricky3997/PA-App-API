@@ -14,9 +14,7 @@ import {
   SET_ACTIVE_MENTOR_APPROVAL_ID,
   SET_GETTING_STARTED_PROGRESS,
   SET_MATCHING_ID,
-  SET_MENTEE_APPROVAL_PROPERTIES,
   SET_MENTEES,
-  SET_MENTOR_APPROVAL_PROPERTIES,
   SET_MENTOR_RECOMMENDATIONS,
   SET_MENTORS,
   SET_PROGRAM_FILTER,
@@ -30,7 +28,6 @@ import {
   TOGGLE_ADMIN_MODAL,
   TOGGLE_APPROVAL_MODAL,
   TOGGLE_DASHBOARD_CONFIRMATION,
-  TOGGLE_MENTEE_HOME_MODAL,
   TOGGLE_MENTOR_CONFIRM_DECISION,
   TOGGLE_MESSAGING_CONNECTED,
   TOGGLE_PICTURE_PICKER,
@@ -132,12 +129,6 @@ export const toggleMatchingDetailsModal = (id) => {
   };
 };
 
-export const toggleMenteeHomeModal = () => {
-  return {
-    type: TOGGLE_MENTEE_HOME_MODAL
-  };
-};
-
 export const confirmEmailAddress = (token, id) => {
   return (dispatch) => {
     return api.get(`/auth/confirm?token=${token}&id=${id}`).then(r => {
@@ -186,18 +177,6 @@ export const toggleAdminModal = () => {
   };
 };
 
-export const setMentorApprovalProperties = (properties) => {
-  return {
-    type: SET_MENTOR_APPROVAL_PROPERTIES,
-    properties: properties
-  };
-};
-export const setMenteeApprovalProperties = (properties) => {
-  return {
-    type: SET_MENTEE_APPROVAL_PROPERTIES,
-    properties: properties
-  };
-};
 
 export const storePictureToCrop = (pictureToCrop) => {
   return {
@@ -254,6 +233,17 @@ export const toggleRegistering = () => {
   };
 };
 
+export const registerNewUser = (newUser) => {
+  return (dispatch, getState) => {
+    return api.post("/auth/register", newUser).then(r => {
+      if (r.success && !r.payload.error) {
+        window.localStorage.setItem("token", r.payload.token);
+        updateAndStoreUser(dispatch, r.payload.user);
+      }
+      return r;
+    });
+  };
+};
 export const changeMentorStatus = (status, properties) => {
   return (dispatch, getState) => {
     return api.post("/api/mentors/changeStatus", { status: status, ...properties }).then(r => {

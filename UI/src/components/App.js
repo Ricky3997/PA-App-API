@@ -35,7 +35,7 @@ class App extends Component {
     if (window.location.host !== 'localhost:3000') this.props.history.listen((location) => {
       ReactGA.pageview(location.pathname);
     });
-    if (moment().diff(moment(this.props.app.lastUserRefresh), 'm') >= 1) this.props.refreshUser();
+    if (moment().diff(moment(this.props.app.lastUserRefresh), 'm') >= 1 && window.localStorage.getItem('token')) this.props.refreshUser();
   }
 
   render() {

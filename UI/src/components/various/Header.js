@@ -72,7 +72,7 @@ const Header = ({ user, logout, history, location, refreshUser }) => {
   return (
     <Navbar fixed="top" className='pa_orange_background' variant="dark" expand="lg" collapseOnSelect>
       <LinkContainer to="/">
-        <Navbar.Brand collapseOnSelect><span><img src={Logo} width={30}
+        <Navbar.Brand><span><img src={Logo} width={30}
                                                   alt="logo"/>  Project Access</span></Navbar.Brand>
       </LinkContainer>
       <Navbar.Toggle aria-controls="basic-navbar-nav"/>

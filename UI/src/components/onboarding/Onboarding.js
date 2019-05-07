@@ -9,8 +9,7 @@ import {
   addOnboardingProperties,
   changeStage,
   registerMentee,
-  registerMentor,
-  updateUser
+  registerMentor
 } from '../../actions/actionCreator';
 
 
@@ -21,11 +20,9 @@ class Onboarding extends Component {
   }
 
   render() {
-    const { changeStage, updateUser, onboarding, user, addOnboardingProperties, registerMentor, history, registerMentee, location } = this.props;
+    const { changeStage, onboarding, user, addOnboardingProperties, registerMentor, registerMentee } = this.props;
     let step;
-    if (!user) step =
-      <RegisterNewUser user={user} updateUser={updateUser} changeStage={changeStage} history={history}
-                       location={location}/>;
+    if (!user) step = <RegisterNewUser />;
     else if (user.onboarded) step = <Redirect to="/"/>;
     else if (user.type === "mentor") step =
       <MentorOnboarding user={user} addOnboardingProperties={addOnboardingProperties} onboarding={onboarding}
@@ -47,7 +44,6 @@ export default connect(({ user, onboarding }) => {
   return { user, onboarding };
 }, dispatch => {
   return {
-    updateUser: (user) => dispatch(updateUser(user)),
     changeStage: (change) => dispatch(changeStage(change)),
     addOnboardingProperties: (properties) => dispatch(addOnboardingProperties(properties)),
     registerMentor: () => dispatch(registerMentor()),
