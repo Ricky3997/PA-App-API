@@ -29,6 +29,7 @@
     "aws-sdk": "^2.373.0",
     "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "data-forge": "^1.5.0",
     "dotenv": "^6.1.0",
     "emailjs": "^2.2.0",

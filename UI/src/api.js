@@ -1,7 +1,8 @@
 import fetch from 'cross-fetch';
+const hostname = process.env.REACT_APP_API_HOST;
 
 export const get = (resource) => {
-  return fetch(resource, { headers: { "Authorization": `Bearer ${window.localStorage.getItem("token")}` } })
+  return fetch(hostname + resource, { headers: { "Authorization": `Bearer ${window.localStorage.getItem("token")}` } })
     .then(res => {
       if (res.status === 200) {
         return res.json().then(payload => {
@@ -15,7 +16,7 @@ export const get = (resource) => {
 };
 
 export const post = (resource, body) => {
-  return fetch(resource, {
+  return fetch(hostname + resource, {
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
@@ -36,7 +37,7 @@ export const post = (resource, body) => {
 };
 
 export const postForm = (resource, body) => {
-  return fetch(resource, {
+  return fetch(hostname + resource, {
     headers: {
       "Authorization": `Bearer ${window.localStorage.getItem("token")}`
     },
