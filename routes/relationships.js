@@ -1,9 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const relationshipsController = require('../controller/relationships')
+const relationshipsService = require('../service/relationships');
 
-router.get('/', relationshipsController.getAll);
+router.get('/', async (req, res) => {
+  const result = await relationshipsService.getAll();
+  if (result) res.json(result);
+  else res.sendStatus(400);
+});
 
-router.post('/mentorDecision/:relationshipId', relationshipsController.mentorDecision);
+router.post('/mentorDecision/:relationshipId', async (req, res) => {
+  const { id } = req.decoded;
+  const { relationshipId } = req.params;
+  const { accept } = req.body;
+  const result = await relationshipsService.mentorDecision(relationshipId, id, accept);
+  if (result) res.json(result);
+  else res.sendStatus(400);
+});
 
 module.exports = router;

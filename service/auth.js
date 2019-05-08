@@ -1,19 +1,19 @@
-require("dotenv").load();
-const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
-const mailService = require("./mail");
-const userService = require("./users");
-const config = require("./../config");
-const { User } = require("../models/users");
-const { Mentor } = require("../models/mentors");
-const _  = require("lodash");
+require('dotenv').load();
+const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+const mailService = require('./mail');
+const userService = require('./users');
+const config = require('./../config');
+const { User } = require('../models/users');
+const { Mentor } = require('../models/mentors');
+const _ = require('lodash');
 
 
 const confirm = async (id, token) => {
-    if (id === extractIdFromToken(token)) {
+  if (id === extractIdFromToken(token)) {
     await User.update({ _id: id }, { emailConfirmed: true });
     return await userService.getProfile(id);
-  } else return { error: "ID provided does not match authentication token" };
+  } else return { error: 'ID provided does not match authentication token' };
 };
 
 const register = async (email, firstName, lastName, type) => {
@@ -33,7 +33,7 @@ const register = async (email, firstName, lastName, type) => {
     mailService.sendConfirmationToken(firstName, email, id, token);
     return { user, id, token };
   } catch (e) {
-    if(e.code === 11000) return {error: 11000}
+    if (e.code === 11000) return { error: 11000 };
     else return null;
   }
 
@@ -59,8 +59,8 @@ const extractIdFromToken = (token) => {
 };
 
 const checkToken = (req, res, next) => {
-  let token = req.headers["x-access-token"] || req.headers["authorization"];
-  if (token && token.startsWith("Bearer ")) token = token.slice(7, token.length);
+  let token = req.headers['x-access-token'] || req.headers['authorization'];
+  if (token && token.startsWith('Bearer ')) token = token.slice(7, token.length);
   if (token) {
     jwt.verify(token, config.JWT_SECRET, (err, decoded) => {
       if (err) res.sendStatus(403);
@@ -74,13 +74,12 @@ const checkToken = (req, res, next) => {
 };
 
 const checkAdmin = async (req, res, next) => {
-  const {id} = req.decoded;
+  const { id } = req.decoded;
   const user = await Mentor.findById(id);
   if (_.get(user, 'admin') || _.get(user, 'campusTeamAdmin')) {
     req.admin = user;
     next();
-  }
-  else return res.sendStatus(401);
+  } else return res.sendStatus(401);
 };
 
 const generateLoginToken = async (email) => {
@@ -89,11 +88,20 @@ const generateLoginToken = async (email) => {
     const token = createToken(email, user._id);
     mailService.sendAuthToken(user.firstName, email, token);
     return { success: true };
-  } else return { success: false, error: "Email address does not exist" };
+  } else return { success: false, error: 'Email address does not exist' };
 };
 
 const createToken = (email, id) => {
-  return jwt.sign({ email: email, id: id }, config.JWT_SECRET, { expiresIn: "168h" });
+  return jwt.sign({ email: email, id: id }, config.JWT_SECRET, { expiresIn: '168h' });
 };
 
-module.exports = { register, confirm, checkToken, checkAdmin, createToken, generateLoginToken, validateToken, sendConfirmation };
+module.exports = {
+  register,
+  confirm,
+  checkToken,
+  checkAdmin,
+  createToken,
+  generateLoginToken,
+  validateToken,
+  sendConfirmation
+};

@@ -1,14 +1,34 @@
-const authService = require("../service/auth");
+const authService = require('../service/auth');
 const express = require('express');
 const router = express.Router();
-const mentorsController = require("../controller/mentors");
+const mentorsService = require('../service/mentors');
 
-router.get('/', authService.checkAdmin, mentorsController.getAll);
+router.get('/', authService.checkAdmin, async (req, res) => {
+  const result = await mentorsService.getAll(req.admin);
+  if (result) res.json(result);
+  else res.sendStatus(400);
+});
 
-router.get('/:id', mentorsController.getById);
+router.get('/:id', async (req, res) => {
+  const result = await mentorsService.getById(req.params.id);
+  if (result) res.json(result);
+  else res.sendStatus(400);
+});
 
-router.post('/registerNew', mentorsController.registerNew);
+router.post('/registerNew', async (req, res) => {
+  const { id } = req.decoded;
+  const data = req.body;
+  const result = await mentorsService.registerNew(id, data);
+  if (result) res.json(result);
+  else res.sendStatus(400);
+});
 
-router.post('/changeStatus', mentorsController.changeStatus);
+router.post('/changeStatus', async (req, res) => {
+  const { id } = req.decoded;
+  const data = req.body;
+  const result = await mentorsService.changeStatus(id, data);
+  if (result) res.json(result);
+  else res.sendStatus(400);
+});
 
 module.exports = router;

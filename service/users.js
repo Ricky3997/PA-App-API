@@ -1,37 +1,41 @@
-require("dotenv").load();
-const _ = require("lodash");
-const multiparty = require("multiparty");
-const mentorService = require("./mentors");
-const menteeService = require("./mentees");
-const mailService = require("./mail");
-const authService = require("./auth");
-const { User } = require("./../models/users");
+require('dotenv').load();
+const _ = require('lodash');
+const multiparty = require('multiparty');
+const mentorService = require('./mentors');
+const menteeService = require('./mentees');
+const mailService = require('./mail');
+const authService = require('./auth');
+const { User } = require('./../models/users');
 
 getProfile = async (id) => {
   let user = await User.findById(id);
   if (user.onboarded) {
-    if(user.type === "mentor") user = await User.findById(id)
+    if (user.type === 'mentor') user = await User.findById(id)
       .populate({
-        path:  "mentorProfile",
+        path: 'mentorProfile',
         populate: {
           path: 'relationship',
           populate: {
-            path: 'mentee' } }
+            path: 'mentee'
+          }
+        }
       })
       .exec().then(p => {
-        return p
+        return p;
       });
-    else user =  await User.findById(id)
+    else user = await User.findById(id)
       .populate({
-        path: "menteeProfile",
+        path: 'menteeProfile',
         populate: {
           path: 'relationship',
           populate: {
-            path: 'mentor' } }
+            path: 'mentor'
+          }
+        }
       })
-      .populate({path: 'mentorBlackList', populate: { path: 'mentor' }})
+      .populate({ path: 'mentorBlackList', populate: { path: 'mentor' } })
       .exec().then(p => {
-          return p
+        return p;
       });
   }
   return user;
@@ -56,13 +60,13 @@ editProfile = async (req, res) => {
 
       let profile;
 
-      if (user.type === "mentor" && user.onboarded) profile = await mentorService.edit(id, changedUserData, files.file);
-      if (user.type === "mentee" && user.onboarded) profile = await menteeService.edit(id, changedUserData, files.file);
+      if (user.type === 'mentor' && user.onboarded) profile = await mentorService.edit(id, changedUserData, files.file);
+      if (user.type === 'mentee' && user.onboarded) profile = await menteeService.edit(id, changedUserData, files.file);
 
       user = await User.findByIdAndUpdate(id, fieldsToUpdate, { new: true })
         .exec().then(p => {
           p[`${user.type}Profile`] = profile;
-          return p
+          return p;
         });
       res.json(user);
     } catch (error) {
