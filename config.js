@@ -20,5 +20,13 @@ module.exports = {
   JWT_SECRET: "AWorldWherePassionAndPotential2019",
   UI_URL: process.env.UI_URL,
   PROD_MODE: process.env.NODE_ENV === "production",
-  EMAIL_ON: true
+  EMAIL_ON: true,
+  corsOptions: {
+    origin: [
+      'http://localhost:3000',
+      'https://localhost:3000',
+      'http://dev.app.projectaccess.org',
+      'https://dev.app.projectaccess.org'
+    ]
+  }
 };
