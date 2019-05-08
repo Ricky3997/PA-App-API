@@ -1,15 +1,18 @@
+require('dotenv').load();
+
 const express = require('express');
 const routes = require('./routes');
 const authRoutes = require('./routes/auth');
 const authService = require('./service/auth');
 const app = express();
-const path = require('path');
 const bodyParser = require('body-parser');
 const healthcheck = require('express-healthcheck');
 const cors = require('cors');
-const port = process.env.PORT || 5000;
+const mongoose = require("mongoose");
 const initDb = require('./service/db').initDb;
-require('dotenv').load();
+const config = require("./config");
+
+const port = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -26,20 +29,26 @@ const corsOptions = {
 app.options('*', cors(corsOptions));
 app.use(cors(corsOptions));
 
-// Serve the static files from the React app
-app.use(express.static(path.join(__dirname, '/UI/build')));
 
 app.use('/auth', authRoutes);
 
-//  Connect all our routes to our application
 app.use('/api', authService.checkToken, routes);
 
-app.use('/health', healthcheck());
-
-// Handles any requests that don't match the ones above
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname + "/UI/build/index.html"));
-// });
+app.use('/health', healthcheck({
+  healthy : () => {
+    return { smooth: 'sailing', uptime: process.uptime() }
+  },
+  test: () => {
+    switch (mongoose.connection.readyState) {
+      case 1:
+        return; //Connected, all smooth
+      case 0:
+        return {error: 'Database disconnected'};
+      default:
+        return {error: 'Something is not quite right'};
+    }
+  }
+}));
 
 app.get('/', (req, res) => {
   res.json({ hello: 'world' });
@@ -50,7 +59,18 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something went wrong, sorry!');
 });
 
-initDb(() => {
-  app.listen(port, () => console.log('App is listening on port ' + port + '; started at ' + new Date().toString()));
+
+const server = app.listen(port, () => {
+  console.log('API started on port ' + port + ' at ' + new Date().toString());
+  mongoose.connect(config.mongodb.URI, { useNewUrlParser: true , useFindAndModify: false, useCreateIndex: true }).then(async () => {
+    await initDb();
+  }, (err) => {
+    console.error("Cannot connect to MongoDB, shutting down");
+    server.close();
+  });
 });
+
+
+
+
 

@@ -55,6 +55,7 @@
     "request-promise-native": "^1.0.7",
     "short-uuid": "^3.0.1",
     "svg-country-flags": "^1.2.6",
+    "swagger-jsdoc": "^3.2.9",
     "uuid": "^3.3.2"
   }
 }

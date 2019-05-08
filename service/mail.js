@@ -3,8 +3,8 @@ const sgMail = require("@sendgrid/mail");
 if (config.EMAIL_ON) sgMail.setApiKey(config.SENDGRID_API_KEY);
 
 const pug = require("pug");
-const loginTemplate = pug.compileFile("util/login_email.pug", {});
-const confirmationTemplate = pug.compileFile("util/confirmation_email.pug", {});
+const loginTemplate = pug.compileFile("assets/login_email.pug", {});
+const confirmationTemplate = pug.compileFile("assets/confirmation_email.pug", {});
 
 const send = (message) => {
   if (config.EMAIL_ON) sgMail.send(message);
