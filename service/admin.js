@@ -23,13 +23,8 @@ const changeUserStatus = async (type, id, status, rejectionReason) => {
 };
 
 const matchingMentorRecommendations = async (id) => {
-  const menteeProfile = await Mentee.findById(id).exec().then(p => {
-    return p;
-  });
-
-  let mentors = await Mentor.find().populate({ path: 'relationship', populate: { path: 'mentee' } }).exec().then(p => {
-    return p;
-  });
+  const mentee = await Mentee.findById(id).exec();
+  let mentors = await Mentor.find().populate({ path: 'relationship', populate: { path: 'mentee' } }).exec();
 
   //TODO Only pick mentors of that country
   //TODO stress testing of algorithm and performance with, say, 500, 1000, 2000 and 5000 mentors.
@@ -44,50 +39,51 @@ const matchingMentorRecommendations = async (id) => {
   }).filter(mentor => {
     return _.get(mentor, 'relationship').length < _.get(mentor, 'maxNumberOfMentees'); //Only propose mentors that have capacity
   }).filter(mentor => {
-    if (menteeProfile.mentorBlackList.length === 0) return true;
-    else return menteeProfile.mentorBlackList.map(blackListedMentor => blackListedMentor._id.toString()).indexOf(mentor._id.toString()) === -1;  // Only allow matching if mentor not blacklisted
+    if (mentee.mentorBlackList.length === 0) return true;
+    else return mentee.mentorBlackList.map(blackListedMentor => blackListedMentor._id.toString()).indexOf(mentor._id.toString()) === -1;  // Only allow matching if mentor not blacklisted
   }).map((mentor) => {
     let score = 0;
     let criteriaMatched = {};
     const degreeLevelMentor = _.get(mentor, 'level');
-    const degreeLevelMentee = _.get(menteeProfile, 'level');
+    let degreeLevelMentee = _.get(mentee, 'level');
+    if(degreeLevelMentee === 'Postgraduate') degreeLevelMentee = 'Masters';
 
     if (degreeLevelMentee === degreeLevelMentor) {
       score += algoConfig[degreeLevelMentee][degreeLevelMentor]['degreePoints'];
     }
-    if (_.get(menteeProfile, 'unisApplyingFor').includes(_.get(mentor, 'university'))) {
+    if (_.get(mentee, 'unisApplyingFor').includes(_.get(mentor, 'university'))) {
       score += algoConfig[degreeLevelMentee][degreeLevelMentor]['uniPoints'];
       criteriaMatched['University'] = true;
     } else criteriaMatched['University'] = false;
-    if (_.get(menteeProfile, 'subjects').includes(_.get(mentor, 'subject'))) {
+    if (_.get(mentee, 'subjects').includes(_.get(mentor, 'subject'))) {
       score += algoConfig[degreeLevelMentee][degreeLevelMentor]['subjectPoints'];
       criteriaMatched['Subject'] = true;
     } else criteriaMatched['Subject'] = false;
-    if (_.get(menteeProfile, 'country') === _.get(mentor, 'country')) {
+    if (_.get(mentee, 'country') === _.get(mentor, 'country')) {
       score += algoConfig[degreeLevelMentee][degreeLevelMentor]['countryPoints'];
       criteriaMatched['Country'] = true;
     } else criteriaMatched['Country'] = false;
-    if (_.get(menteeProfile, 'firstGenStudent') === _.get(mentor, 'firstGenStudent')) {
+    if (_.get(mentee, 'firstGenStudent') === _.get(mentor, 'firstGenStudent')) {
       score += algoConfig[degreeLevelMentee][degreeLevelMentor]['firstGenPoints'];
       criteriaMatched['First Gen'] = true;
     } else criteriaMatched['First Gen'] = false;
-    if (_.get(menteeProfile, 'gender') === _.get(mentor, 'gender')) {
+    if (_.get(mentee, 'gender') === _.get(mentor, 'gender')) {
       score += algoConfig[degreeLevelMentee][degreeLevelMentor]['genderIdentityPoints'];
       criteriaMatched['Gender'] = true;
     } else criteriaMatched['Gender'] = false;
-    if (_.get(menteeProfile, 'ethnicBackground') === _.get(mentor, 'ethnicBackground')) {
+    if (_.get(mentee, 'ethnicBackground') === _.get(mentor, 'ethnicBackground')) {
       score += algoConfig[degreeLevelMentee][degreeLevelMentor]['ethnicBackgroundPoints'];
       criteriaMatched['Ethnic Background'] = true;
     } else criteriaMatched['Ethnic Background'] = false;
-    if ((_.get(mentor, 'yearGraduation') - _.get(menteeProfile, 'yearApply')) > 2) {
+    if ((_.get(mentor, 'yearGraduation') - _.get(mentee, 'yearApply')) > 2) {
       score += algoConfig[degreeLevelMentee][degreeLevelMentor]['degreePoints'];
       criteriaMatched['Age Distance'] = true;
     } else criteriaMatched['Age Distance'] = false;
-    if (_.get(menteeProfile, 'fromThreeLargestCity') === _.get(mentor, 'fromThreeLargestCity')) {
+    if (_.get(mentee, 'fromThreeLargestCity') === _.get(mentor, 'fromThreeLargestCity')) {
       score += algoConfig[degreeLevelMentee][degreeLevelMentor]['fromThreeLargestCity'];
       criteriaMatched['From 3 Largest City'] = true;
     } else criteriaMatched['From 3 Largest City'] = false;
-    const menteeHobbiesAndInterests = _.get(menteeProfile, 'hobbiesAndInterests');
+    const menteeHobbiesAndInterests = _.get(mentee, 'hobbiesAndInterests');
     const mentorHobbiesAndInterests = _.get(mentor, 'hobbiesAndInterests');
     const hobbyIntersection = _.intersection(menteeHobbiesAndInterests, mentorHobbiesAndInterests);
     if ((hobbyIntersection.length / menteeHobbiesAndInterests.length) >= 0.5) {

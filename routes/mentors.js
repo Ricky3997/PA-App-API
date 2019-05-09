@@ -1,11 +1,9 @@
 const authService = require('../service/auth');
 const express = require('express');
 const router = express.Router();
-const mentorsService = require('../service/mentors');
 const { Mentor } = require('./../models/mentors');
 
 //TODO Make proper documentation
-
 
 router.post('/onboard', async (req, res) => {
   const { id } = req.decoded;
@@ -15,15 +13,20 @@ router.post('/onboard', async (req, res) => {
 });
 
 router.get('/', authService.checkAdmin, async (req, res) => {
-  const result = await mentorsService.getAll(req.admin);
-  if (result) res.json(result);
-  else res.sendStatus(400);
+  const { admin } = req.admin;
+  let criteria;
+  if (!admin) return [];
+  else if (admin.admin === 'superadmin') criteria = {};
+  else if (admin.admin) criteria = { country: admin.admin };
+  else criteria = { university: admin.campusTeamAdmin };
+  const mentors = await Mentor.find(criteria).populate({ path: 'relationship', populate: { path: 'mentee' } }).exec();
+  res.json(mentors);
 });
 
 router.get('/:id', async (req, res) => {
-  const result = await mentorsService.getById(req.params.id);
-  if (result) res.json(result);
-  else res.sendStatus(400);
+  const {id} = req.params;
+  const mentor = await Mentor.findById(id).populate({ path: 'relationship', populate: { path: 'mentee' } }).exec();
+  res.json(mentor);
 });
 
 router.post('/changeStatus', async (req, res) => {
