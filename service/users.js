@@ -7,40 +7,6 @@ const mailService = require('./mail');
 const authService = require('./auth');
 const { User } = require('./../models/users');
 
-getProfile = async (id) => {
-  let user = await User.findById(id);
-  if (user.onboarded) {
-    if (user.type === 'mentor') user = await User.findById(id)
-      .populate({
-        path: 'mentorProfile',
-        populate: {
-          path: 'relationship',
-          populate: {
-            path: 'mentee'
-          }
-        }
-      })
-      .exec().then(p => {
-        return p;
-      });
-    else user = await User.findById(id)
-      .populate({
-        path: 'menteeProfile',
-        populate: {
-          path: 'relationship',
-          populate: {
-            path: 'mentor'
-          }
-        }
-      })
-      .populate({ path: 'mentorBlackList', populate: { path: 'mentor' } })
-      .exec().then(p => {
-        return p;
-      });
-  }
-  return user;
-};
-
 editProfile = async (req, res) => {
   const { id } = req.decoded;
   let user = await User.findById(id);
@@ -76,4 +42,4 @@ editProfile = async (req, res) => {
   });
 };
 
-module.exports = { editProfile, getProfile };
+module.exports = { editProfile };

@@ -1,17 +1,8 @@
 require('dotenv').load();
-const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-const mailService = require('./mail');
-const userService = require('./users');
 const config = require('./../config');
-const { User } = require('../models/users');
 const { Mentor } = require('../models/mentors');
 const _ = require('lodash');
-
-
-const validateToken = (id, token) => {
-  return extractIdFromToken(token) === id;
-};
 
 const extractIdFromToken = (token) => {
   try {
@@ -54,6 +45,4 @@ module.exports = {
   checkToken,
   checkAdmin,
   createToken,
-  validateToken,
-  sendConfirmation
 };

@@ -154,10 +154,6 @@ router.get('/sendConfirmation', async (req, res) => {
   } else res.status(404).json({error: 'User with that id not found'});
 });
 
-router.post('/validate', (req, res) => {
-  res.json({ valid: authService.validateToken(req.body.id, req.body.token) });
-});
-
 
 
 /**
@@ -218,7 +214,7 @@ router.post('/validate', (req, res) => {
  *                 firstName: 'Riccardo',
  *                 lastName: 'Broggi'
  *             }",
- *             "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzdmZThmYTYxZjJmODBhOGFmOTY0MGMiLCJpYXQiOjE1NTI0MTA0MDksImV4cCI6MTU1NTAwMjQwOX0.25aW5YRayayAjSHGtXNl8YbWqG1lOgzw2jNe-L0fhyc"
+ *             "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpFFCJ9.eyJfaWQiOiI1YzdmZThmYTYxZjJmODBhOGFmOTY0MGMiLCJpYXQiOjE1NTI0MTA0MDksImV4cCI6MTU1NTAwMjQwOX0.25aW5YRayayAjSHGtXNl8YbWqG1lOgzw2jNe-L0fhyc"
  *           }
  *       431:
  *         description: A user with that email exists already
