@@ -240,8 +240,8 @@ router.post('/register', async (req, res) => {
   let profile;
   if (type === 'mentor') profile = await new Mentor({
     _id: id,
-    firstName: firstName,
-    lastName: lastName,
+    firstName: firstName.charAt(0).toUpperCase() + firstName.slice(1),
+    lastName: lastName.charAt(0).toUpperCase() + lastName.slice(1),
     signedUpOn: new Date(),
     latestStatusChange: new Date()
   }).save();

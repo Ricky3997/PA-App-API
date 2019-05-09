@@ -3,6 +3,8 @@ const Schema = mongoose.Schema;
 
 const Mentor = mongoose.model('Mentor', new mongoose.Schema({
   _id: Schema.Types.ObjectId,
+  type: {type: 'String', default: 'mentor'},
+
   emailConfirmed: {type: 'Boolean', default: false},
   onboarded: {type: 'Boolean', default: false},
   status: {type: 'String', default: 'notYetRequested'},

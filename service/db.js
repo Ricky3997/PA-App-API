@@ -17,7 +17,7 @@ const moment = require('moment');
 
 const initDb = async () => {
   // // if (!config.PROD_MODE){
-  await clearDb();
+  // await clearDb();
   // await loadRLB();
   // [
   //   {name: 'Raphael', surname: 'Eder', email: 'raphael.eder@projectaccess.org'},
