@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const authService = require('../service/auth');
 const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
 const mailService = require('../service/mail');
 const { User } = require('../models/users');
 const { Mentor } = require('../models/mentors');
@@ -72,7 +71,7 @@ router.get('/login', async (req, res) => {
  *        description: ID of the user whose email to confirm.
  *        schema:
  *          type: String
- *          example: ''
+ *          example: '"5cd438e9a9efa21cd9d7ae38"'
  *
  *     responses:
  *       200:
@@ -112,11 +111,47 @@ router.get('/confirm', async (req, res) => {
 
 });
 
+
+/**
+ * @swagger
+ * /auth/confirm:
+ *   get:
+ *     summary: Sends an email confirmation link
+ *     description:
+ *       "Takes a user id and sends that user an email confirmation link"
+ *
+ *     parameters:
+ *      - in: query
+ *        name: id
+ *        description: ID of the user whose email to confirm.
+ *        schema:
+ *          type: String
+ *          example: '"5cd438e9a9efa21cd9d7ae38"'
+ *
+ *     responses:
+ *       200:
+ *         schema:
+ *           type: object
+ *           properties:
+ *             "success":
+ *                type: String,
+ *           examples:
+ *             application/json: {
+ *               success: 'Email confirmation sent'
+ *             }
+ *       404:
+ *         description: No user with that ID found
+ *
+ */
+
 router.get('/sendConfirmation', async (req, res) => {
   const { id } = req.query;
-  const result = await authService.sendConfirmation(id);
-  if (result) res.json(result);
-  else res.sendStatus(400);
+  const user = await User.findById(id);
+  if(user){
+    const token = authService.createToken(user.email, id);
+    mailService.sendConfirmationToken(user.firstName, user.email, id, token);
+    res.json({success: 'Email confirmation sent'});
+  } else res.status(404).json({error: 'User with that id not found'});
 });
 
 router.post('/validate', (req, res) => {
@@ -124,7 +159,6 @@ router.post('/validate', (req, res) => {
 });
 
 
-//TODO Make proper documentation
 
 /**
  * @swagger

@@ -3,6 +3,9 @@ const express = require('express');
 const router = express.Router();
 const mentorsService = require('../service/mentors');
 
+
+//TODO Make proper documentation
+
 router.get('/', authService.checkAdmin, async (req, res) => {
   const result = await mentorsService.getAll(req.admin);
   if (result) res.json(result);

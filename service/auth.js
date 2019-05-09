@@ -9,13 +9,6 @@ const { Mentor } = require('../models/mentors');
 const _ = require('lodash');
 
 
-const sendConfirmation = async (id) => {
-  const user = await User.findById(id);
-  const token = createToken(user.email, id);
-  mailService.sendConfirmationToken(user.firstName, user.email, id, token);
-  return true;
-};
-
 const validateToken = (id, token) => {
   return extractIdFromToken(token) === id;
 };
