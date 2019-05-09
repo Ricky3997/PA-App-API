@@ -16,8 +16,8 @@ deleteRelationship = async (relationshipId, mentorId, menteeId) => {
   await Mentor.findByIdAndUpdate(mentorId, { $pull: { relationship: relationshipId } }).exec().then(p => {
     return p;
   });
-  await Mentee.findById(menteeId).update({ relationship: null }).exec();
-  await Relationship.remove({ _id: relationshipId });
+  await Mentee.findByIdAndUpdate(menteeId,{ relationship: null }).exec();
+  await Relationship.deleteOne({ _id: relationshipId });
   console.log(`Deleted {${relationshipId}}`);
 };
 

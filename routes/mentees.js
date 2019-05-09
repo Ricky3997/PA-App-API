@@ -52,7 +52,6 @@ router.post('/changeStatus', async (req, res) => {
 
 
 const generateJourney = ({ unisApplyingFor }) => {
-
   let coreJourney = [
     {
       title: 'Subject choice',
