@@ -33,7 +33,9 @@ app.use((err, req, res, next) => {
 });
 app.use('/health', healthcheck({
   healthy : () => {
-    return { smooth: 'sailing', uptime: process.uptime() }
+    return { smooth: 'sailing',
+      gitCommit: process.env.LAST_GIT_SHA,
+      uptime: process.uptime() }
   },
   test: () => {
     switch (mongoose.connection.readyState) {
