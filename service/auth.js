@@ -9,36 +9,6 @@ const { Mentor } = require('../models/mentors');
 const _ = require('lodash');
 
 
-const confirm = async (id, token) => {
-  if (id === extractIdFromToken(token)) {
-    await User.update({ _id: id }, { emailConfirmed: true });
-    return await userService.getProfile(id);
-  } else return { error: 'ID provided does not match authentication token' };
-};
-
-const register = async (email, firstName, lastName, type) => {
-  try {
-    const id = new mongoose.Types.ObjectId();
-    const token = createToken(email, id);
-    const user = await new User({
-      _id: id,
-      firstName: firstName,
-      lastName: lastName,
-      type: type,
-      email: email,
-      signedUpOn: new Date(),
-      emailConfirmed: false,
-      onboarded: false
-    }).save();
-    mailService.sendConfirmationToken(firstName, email, id, token);
-    return { user, id, token };
-  } catch (e) {
-    if (e.code === 11000) return { error: 11000 };
-    else return null;
-  }
-
-};
-
 const sendConfirmation = async (id) => {
   const user = await User.findById(id);
   const token = createToken(user.email, id);
@@ -82,26 +52,15 @@ const checkAdmin = async (req, res, next) => {
   } else return res.sendStatus(401);
 };
 
-const generateLoginToken = async (email) => {
-  const user = await User.findOne({ email: email }).exec();
-  if (user) {
-    const token = createToken(email, user._id);
-    mailService.sendAuthToken(user.firstName, email, token);
-    return { success: true };
-  } else return { success: false, error: 'Email address does not exist' };
-};
-
 const createToken = (email, id) => {
   return jwt.sign({ email: email, id: id }, config.JWT_SECRET, { expiresIn: '168h' });
 };
 
 module.exports = {
-  register,
-  confirm,
+  extractIdFromToken,
   checkToken,
   checkAdmin,
   createToken,
-  generateLoginToken,
   validateToken,
   sendConfirmation
 };

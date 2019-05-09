@@ -16,9 +16,9 @@ const moment = require('moment');
 
 
 const initDb = async () => {
-  // if (!config.PROD_MODE){
+  // // if (!config.PROD_MODE){
   await clearDb();
-  await loadRLB();
+  // await loadRLB();
   // [
   //   {name: 'Raphael', surname: 'Eder', email: 'raphael.eder@projectaccess.org'},
   //   {name: 'Emil', surname: 'Bender Lassen', email: 'emil.lassen@projectaccess.org'},
@@ -240,6 +240,7 @@ const clearDb = async () => {
   await Mentee.deleteMany({});
   await User.deleteMany({});
   await Relationship.deleteMany({});
+  console.log("Cleared Database")
 };
 
 

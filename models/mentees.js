@@ -3,6 +3,11 @@ const Schema = mongoose.Schema;
 
 const Mentee = mongoose.model('Mentee', new mongoose.Schema({
   _id: Schema.Types.ObjectId,
+  emailConfirmed: {type: 'Boolean', default: false},
+  onboarded: {type: 'Boolean', default: false},
+  status: {type: 'String', default: 'notYetRequested'},
+  signedUpOn: Date,
+
 
   unisApplyingFor: [{
     type: String
@@ -24,7 +29,6 @@ const Mentee = mongoose.model('Mentee', new mongoose.Schema({
   gender: String,
   year: String, // year  of study in school
   pictureUrl: String,
-  status: String,
   firstName: String,
   lastName: String,
   journey: [{

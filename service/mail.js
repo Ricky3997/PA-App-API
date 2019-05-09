@@ -27,7 +27,7 @@ const sendConfirmationToken = (firstName, email, id, token) => {
     subject: 'Your confirmation link',
     html: confirmationTemplate({
       userFirstName: firstName,
-      confirmationLink: `http://${config.UI_URL}/confirm?email=${email}&id=${id}&token=${token}`
+      confirmationLink: `http://${config.UI_URL}/confirm?id=${id}&token=${token}`
     })
   });
 };

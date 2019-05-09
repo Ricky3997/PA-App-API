@@ -3,6 +3,11 @@ const Schema = mongoose.Schema;
 
 const Mentor = mongoose.model('Mentor', new mongoose.Schema({
   _id: Schema.Types.ObjectId,
+  emailConfirmed: {type: 'Boolean', default: false},
+  onboarded: {type: 'Boolean', default: false},
+  status: {type: 'String', default: 'notYetRequested'},
+  signedUpOn: Date,
+
   admin: String,
   campusTeamAdmin: String,
 
@@ -16,10 +21,10 @@ const Mentor = mongoose.model('Mentor', new mongoose.Schema({
   year: String,
   area: String,
   pictureUrl: String,
-  status: String,
   firstName: String,
   lastName: String,
-  maxNumberOfMentees: Number,
+
+  maxNumberOfMentees: {type: 'Number', default: 3},
   relationship: [{ type: Schema.Types.ObjectId, ref: 'Relationship' }],
   latestStatusChange: Date,
   linkedinUrl: String,
