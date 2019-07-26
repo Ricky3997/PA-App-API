@@ -125,7 +125,7 @@ router.post('/createMatch', async (req, res) => {
     .populate({ path: 'mentor', populate: { path: 'relationship', populate: { path: 'mentee' } } }).exec();
 
   res.json(relationshio);
-  
+
 });
 
 router.post('/cancelRelationship', async (req, res) => {
@@ -149,14 +149,10 @@ router.post('/removeMentorFromBlacklist', async (req, res) => {
 });
 
 router.post('/toggleMentorAdmin', async (req, res) => {
-  const { mentorId, adminValue, campusTeamAdmin } = req.body;
+  const { mentorId, adminValue } = req.body;
   if (req.admin.admin !== 'superadmin' && (adminValue === 'superadmin' || adminValue !== req.admin.admin)) res.status(456).json({ error: 'Invalid' });
 
-  let update = {};
-  if (campusTeamAdmin) {
-    update.campusTeamAdmin = adminValue;
-    update.admin = null;
-  } else update.admin = adminValue;
+  let update = { admin: adminValue};
 
   const updated = await Mentor.findByIdAndUpdate(mentorId, update, { new: true }).populate({
     path: 'relationship',

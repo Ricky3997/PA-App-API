@@ -9,10 +9,7 @@ const Mentor = mongoose.model('Mentor', new mongoose.Schema({
   onboarded: {type: 'Boolean', default: false},
   status: {type: 'String', default: 'notYetRequested'},
   signedUpOn: Date,
-
   admin: String,
-  campusTeamAdmin: String,
-
   university: String,
   subject: String,
   level: String,

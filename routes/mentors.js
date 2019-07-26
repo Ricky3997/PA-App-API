@@ -16,9 +16,8 @@ router.get('/', authService.checkAdmin, async (req, res) => {
   const { admin } = req.admin;
   let criteria;
   if (!admin) return [];
-  else if (admin.admin === 'superadmin') criteria = {};
-  else if (admin.admin) criteria = { country: admin.admin };
-  else criteria = { university: admin.campusTeamAdmin };
+  else if (admin === 'superadmin') criteria = {};
+  else criteria = { country: admin.admin };
   const mentors = await Mentor.find(criteria).populate({ path: 'relationship', populate: { path: 'mentee' } }).exec();
   res.json(mentors);
 });
