@@ -125,11 +125,7 @@ router.post('/createMatch', async (req, res) => {
     .populate({ path: 'mentor', populate: { path: 'relationship', populate: { path: 'mentee' } } }).exec();
 
   res.json(relationshio);
-
-
-
-
-
+  
 });
 
 router.post('/cancelRelationship', async (req, res) => {
