@@ -52,9 +52,10 @@ app.use('/health', healthcheck({
 
 const server = app.listen(port, () => {
   console.log('API started on port ' + port + ' at ' + new Date().toString());
-  mongoose.connect(config.mongodb.URI, { useNewUrlParser: true , useFindAndModify: false, useCreateIndex: true }).then(async () => {
+  mongoose.connect(config.mongodb.URI, { useUnifiedTopology: true, useNewUrlParser: true , useFindAndModify: false, useCreateIndex: true }).then(async () => {
     await initDb();
   }, (err) => {
+    console.error(err);
     console.error("Cannot connect to MongoDB, shutting down");
     server.close();
   });
